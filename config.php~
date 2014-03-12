@@ -36,12 +36,12 @@ $admin_screen_name=array('BaptistV');
 /* Your Twapper Keeper Twitter Account Information used to query for tweets (this is common for the site) */
 $tk_twitter_username = 'BaptistV';               
 $tk_twitter_password = 'chu4zudu';
-$tk_oauth_token = '306311209-1U8kP6tFXKM5PHCKyK4YLsMAbrSwH0BrWiqN4rys';
-$tk_oauth_token_secret = '4OBiM6uv71Vc7SmnOZPbASGoOcGqwzHQEEHPUhJunwsF8'; 
+$tk_oauth_token = '306311209-ahPjkb2nMneFu1YFP3CxlOKV1JgcgSHnP2evdCZF';
+$tk_oauth_token_secret = 'Vt0tLuKNIb8W6rZWWY2AXRwerDfHfOCaHoyaYJl6DE'; 
 
 /* Your Twapper Keeper Application Information - setup at http://dev.twitter.com/apps and copy in consumer key and secret */
 $tk_oauth_consumer_key = 'zUMbtrvogYuRek1GKhhA';
-$tk_oauth_consumer_secret = 'JvKlmAWsBOpHXXx25f1bZDQq3M6Vq7tZsh10cHSk4';
+$tk_oauth_consumer_secret = ' JvKlmAWsBOpHXXx25f1bZDQq3M6Vq7tZsh10cHSk4';
 
 /* MySQL Database Connection Information */                                             
 define("DB_SERVER", "localhost");										// change to your hostname

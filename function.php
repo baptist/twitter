@@ -136,8 +136,8 @@ function getTweets($id,$start=false,$end=false,$limit=false,$orderby=false,$nort
 	global $db;
 	
 	$response = array();
-    $type = $this->sanitize($type);
-    $name = $this->sanitize($name);
+    //$type = $this->sanitize($type);
+    //$name = $this->sanitize($name);
     $start = $this->sanitize($start);
     $end = $this->sanitize($end);
     $limit= $this->sanitize($limit);  
