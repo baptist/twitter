@@ -1,0 +1,213 @@
+/* HEADER */
+
+header {
+    width:100%;
+    height:62px;
+    background-color:#313131;
+    border-radius:6px 6px 0 0;
+    border-bottom: 1px solid black;
+    margin-top:50px;
+}
+
+
+/* TOP INFO HEADER */
+
+.header-panel-top {
+
+background: #1C1C1C;
+border-bottom: 1px solid #2F2F2F;
+
+}
+
+.header-inner {
+    overflow: hidden;
+    float: right;
+    font-size: 11px;
+    padding: 4px 0 6px;
+    margin-right: 10px;
+}
+
+.menu1 {
+    float: left;
+    padding-top: 6px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.menu1 li {
+    float: left;
+    font-size: 11px;
+    line-height: 14px;
+    height: 18px;
+    padding-top: 3px;
+    overflow: hidden;
+}
+
+.menu1 a {
+    color:#969696;
+    text-decoration:none;
+}
+.menu1 a:hover {
+    text-decoration:underline;
+}
+
+.info {
+
+    color:#555;
+    font-size: 11px;
+    line-height: 25px;
+    
+    padding-left:30px;
+    background:url(../../resources/twitter-icon3.png) 0px 0px no-repeat;
+}
+
+.info .special {
+    color:#08A7E8/*FF5D00;*/
+
+}
+
+.info a {
+    color:#999;
+    text-decoration:none;
+}
+.info a:hover {
+    text-decoration:underline;
+}
+
+
+li.item-1 
+{
+    background: url(../../resources/key-icon.png) 0 0 no-repeat;
+    padding-left: 29px;
+    margin-right: 18px;
+
+}
+li.item-2 
+{
+    background: url(../../resources/people-icon.png) 0 0 no-repeat;
+    padding-left: 29px;
+    margin-right: 18px;
+
+}
+
+/* MAIN HEADER */
+
+
+.header-panel {
+    background:url(../../resources/header-bg.gif) repeat top center;
+    overflow:hidden;
+    height:65px;
+}
+
+.header-main {
+   
+    height:100%;
+    width: 980px;
+    padding: 0;
+    margin: 0 auto;
+    
+}
+
+.header-title {
+    display:block;
+    float:left;
+    margin:22px 5px;
+    background:url(../../resources/yourTwapperKeeperLogo.png) no-repeat 0 0;
+    width:250px;
+    height:25px;
+}
+
+.header-title .title {
+    color:#F0F0F0;
+    font-weight:normal;
+    font-family:"Andika-basic";
+    font-size:16px;
+    line-height: 22px;
+    padding-left:30px;
+    
+}
+
+.buttons-pos{
+    display:block;
+    float:right;
+    margin-right:20px;
+    height:100%;
+}
+
+.sf-menu {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.sf-menu > li {
+    display:block;
+    float: left;
+    font-size: 15px;
+    line-height: 18px;
+    
+    position: relative; 
+    height:100%;
+}
+
+.sf-menu > li > a {
+    display: block;
+    color:  #FFF;
+    position: relative;
+    padding: 22px 18px 10px 19px;
+    overflow: hidden;    
+    text-decoration: none;
+    height:100%;
+}
+
+.sf-menu > li > a:hover, .sf-menu > li.sfHover > a, .sf-menu > li > a.current {
+    color:     #FFF;
+    background:#ED6642;
+}
+
+/* HEADER SEARCH OPTION */
+
+#form-search {
+    float: right;
+    width: 228px;
+    height: 29px;
+    margin: 16px 17px 0 0;
+    border: 1px solid  #3D3D3D;
+    overflow: hidden;
+}
+
+#form-search label {
+    float: left;
+    height: 29px;
+    margin: 0;
+    padding: 0;
+}
+
+#form-search input {
+    width: 189px;
+    font-size: 12px;
+    line-height: 29px;
+    height: 29px;
+    color: white;
+    padding: 0 10px;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+#form-search .buttons {
+    float: right;
+    width: 11px;
+    height: 11px;
+    margin: 10px 8px 0 0;
+}
+
+#form-search .buttons a {
+    display: block;
+    width: 11px;
+    height: 11px;
+    text-indent: -5000px;
+    text-decoration: none;
+    background: url(../../resources/search-icon.png) right 0 no-repeat;
+}

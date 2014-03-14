@@ -48,7 +48,6 @@ class DynamicTrackConsumer extends OauthPhirehose
             $q = "insert into rawstream values($values)";    
             $result = mysql_query($q, $db->connection);
             echo ".";
-
         }
   }
  

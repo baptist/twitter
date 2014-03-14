@@ -38,38 +38,33 @@ $logged_in = TRUE;
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php include("templates/header.php"); ?>
 
-<head>
-<title>Your Twapper Keeper - Archive your own tweets</title>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<link href="resources/css/custom-theme/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css">
-<link href="resources/css/yourtwapperkeeper.css?v=2" rel="stylesheet" type="text/css">
-<script src="resources/js/jquery-1.4.2.min.js"></script>
-<script src="resources/js/jquery-ui-1.8.4.custom.min.js"></script>
-</head>
 
-<body>
-
-<div id='login'>
-<?php echo $login_status; ?> 
-<p><a href='index.php'><img src='resources/yourTwapperKeeperLogo.png'/></a></p>
-</div> <!-- end login div -->
 
 <div id='header'>
 <?php if ($logged_in) { ?>
-<p><center>
+<p>
 <form action='create.php' method='post'>
-<table class='none'>
-<td>Keyword or Hashtag: <input name='keyword'/></td>
-<td>Description: <input name='description'/></td>
-<td>Tags: <input name='tags'/></td>
-<td><input type='submit' value ='Create Archive'/></td>
+<table class='none' >
+<td >Keyword or Hashtag: <br/><input name='keyword'/></td>
+<td >Description: <br/><input name='description'/></td>
+<td >Tags: <br/><input name='tags'/></td>
+<td ><br/><input type='submit' value ='Create Archive'/></td>
 </table>
 </form>
-</center>
-<br>
+
+<br/>
+
+<form action='createBulk.php' method='post' enctype='multipart/form-data'>
+<table class='none' >
+<td >List of keywords: <br/><input type="file" name='file'/></td>
+<td >Description: <br/><input name='description'/></td>
+<td ><br/><input type='submit' value ='Create Archives'/></td>
+</table>
+</form>
+
+<br/>
 <?php
 // allow start stop (only if in admin group)
 if (in_array($_SESSION['access_token']['screen_name'],$admin_screen_name)) {
@@ -161,9 +156,4 @@ echo "</table>";
 </div>
 
 
-<div id='footer'>
-<p>Your TwapperKeeper - <?php echo $yourtwapperkeeper_version; ?></p>
-</div>
-
-</body>
-</html>
+<?php include("templates/footer.php"); ?>

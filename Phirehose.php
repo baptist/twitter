@@ -609,6 +609,7 @@ abstract class Phirehose
       }
       if ( ($this->method == self::METHOD_FILTER || $this->method == self::METHOD_SITE)
             && count($this->followIds) > 0) {
+          $this->log("Following users: " . implode(",", $this->followIds));
         $requestParams['follow'] = implode(',', $this->followIds);
       }
       if ($this->method == self::METHOD_FILTER && count($this->locationBoxes) > 0) {
