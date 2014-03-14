@@ -256,14 +256,16 @@ function statusArchiving($process_array) {
 	if ($running == FALSE) {
 	$result[0] = FALSE;
 	if ( $shouldBeRunning == 1 ) {
-		$result[1] = "<div style='color:red'>Archiving processes have died.  (PIDS = $pids) </div>";
+		$result[1] = "Archiving processes have died.  (PIDS = $pids)";
+                $result[2] = 1;
 	} else {
-		$result[1] = "<div style='color:red'>Archiving processes are NOT running</div>";
+		$result[1] = "Archiving processes are NOT running.";
+                $result[2] = 0;
 	}
 	
 	} else {
 	$result[0] = TRUE;
-	$result[1] = "<div style='color:green'>Archiving processes are running (PIDS = $pids)</div>";
+	$result[1] = "Archiving processes are running. (PIDS = $pids)";        
 	}	
 	
 	return($result);
