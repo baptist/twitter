@@ -15,8 +15,7 @@ class DynamicTrackConsumer extends OauthPhirehose
   	global $db;
    	$status = json_decode($status);                 
         $status = get_object_vars($status);
-    
-        
+            
         if ($status['id'] <> null) {
 
             $values_array = array();
@@ -27,9 +26,10 @@ class DynamicTrackConsumer extends OauthPhirehose
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
             $values_array[] = $status['text'];                          // text
             $values_array[] = $status['in_reply_to_user_id'];           // to_user_id
-            $values_array[] = $user['screen_name'];                     // from_user 
-            $values_array[] = $status['id'];                            // id -> unique id of tweet 
+            $values_array[] = $status['in_reply_to_screen_name'];       // to_user
             $values_array[] = $user['id'];                              // from_user_id
+            $values_array[] = $user['screen_name'];                     // from_user 
+            $values_array[] = $status['id'];                            // id -> unique id of tweet             
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url
@@ -53,17 +53,34 @@ class DynamicTrackConsumer extends OauthPhirehose
  
   public function checkFilterPredicates()
   {
-    global $db;
+        global $db;
    
-    $q = "select id,keyword from archives";
-    $r = mysql_query($q, $db->connection);
-    
-    $track = array();
+        $q = "select id,keyword,type,track_id from archives";
+        $r = mysql_query($q, $db->connection);
+
+        $track = array();
+        $follow = array();
   	while ($row = mysql_fetch_assoc($r)) {
-  	 	$track[] = $row['keyword'];
-  	 	$track_matrix['id'] = $row['keyword'];
+            
+            if ($row["type"] == 1)
+                $track[] = $row['keyword'];
+            else if ($row["type"] == 2)
+                $track[] = "#" . $row['keyword'];
+            else if ($row["type"] == 3)
+            {               
+                // find user                
+                $user_r = mysql_query("select * from users where id = '".$row['track_id']."'", $db->connection);
+                $user = mysql_fetch_assoc($user_r);                
+               
+                if ($user["flag"] == 1)
+                {
+                    //$track[] = "@" . $row['keyword'];
+                    $follow[] = $user['twitter_id'];
+                }
+            }             
   	}
   	$this->setTrack($track); 
+        $this->setFollow($follow);
   	
   	// update pid and last_ping in process table
   	$pid = getmypid();

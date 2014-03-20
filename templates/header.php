@@ -4,10 +4,10 @@
     <head>
         <title>Your Twapper Keeper 2.0</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        <link href="css/custom-theme/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/yourtwapperkeeper.css?v=2" rel="stylesheet" type="text/css" />
-        <script src="js/jquery-1.4.2.min.js"></script>
-        <script src="js/jquery-ui-1.8.4.custom.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
     </head>
     <body>

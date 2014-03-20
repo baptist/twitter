@@ -39,6 +39,14 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
 <?php include("templates/header.php"); ?>
 
+
+
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
+
 <section id="overview-content">
 
 
@@ -83,32 +91,73 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
             <div class="main-block">
 
-                <div style="padding:7px">
+                <div style="padding:7px;">
 
-                    <span class="header-text">Create Archive(s) </span>
-
-
-                    <form action='create.php' method='post'>
-                        <table class='none' >
-                            <td >Keyword or Hashtag: <br/><input name='keyword'/></td>
-                            <td >Description: <br/><input name='description'/></td>
-                            <td >Tags: <br/><input name='tags'/></td>
-                            <td ><br/><input type='submit' value ='Create Archive'/></td>
-                        </table>
-                    </form>
+                    <span class="main-header" >Create Archive(s) </span>
 
                     <br/>
 
-                    <form action='createBulk.php' method='post' enctype='multipart/form-data'>
-                        <table class='none' >
-                            <td >List of keywords: <br/><input type="file" name='file'/></td>
-                            <td >Description: <br/><input name='description'/></td>
-                            <td ><br/><input type='submit' value ='Create Archives'/></td>
-                        </table>
-                    </form>
+                    <div class="borderdot">
 
-                    <br/>           
+                        <form action='create.php' method='post' >
 
+                            <table>
+                                <tr>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From Keyword</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:270px"><input type="text" name="value" /></td>
+                                    <td style="width:150px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
+                                    <td style="width:300px"><input name='description'/></td> 
+                                    <td style="width:300px"><input name='tags'/></td> 
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                        </form>
+
+                    </div>
+
+                    <div class="borderdot">
+
+                        <form action='createBulk.php' method='post' enctype='multipart/form-data'>
+
+                            <table>
+                                <tr>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From File</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:270px"><input type="file" name='file' /></td>
+                                    <td style="width:150px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
+                                    <td style="width:300px"><input name='tags'/></td> 
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                        </form>
+
+                    </div>
 
                 </div>
             </div>
@@ -116,7 +165,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
         <?php } ?>
 
         <br/><br/>
-        <div>
+        <div class="main-block">
             <?php
 // list table of archives
             $archives = $tk->listArchive();

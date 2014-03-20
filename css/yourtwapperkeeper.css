@@ -33,21 +33,59 @@ body {
 
 .main-block {
     margin:0;
-    padding:0;
+    padding:10px;
     width:100%;
     display:block;
     background:#FFF;
     border: 1px solid #EEE;
-    font-family:"Andika-basic, Tahoma, Verdana, sans";
+    font-family:"Trebuchet MS";
     
 }
 
-.main-block .header-text {
+.main-block .main-header {
     font-size:16px;
-    padding: 4px;
+    padding: 0px 4px 10px 4px;
     line-height:20px;
     font-weight:300;
-    display:inline-block     
+    display:inline-block; 
+}
+
+.main-block .main-text {
+    text-transform: uppercase;
+    vertical-align: middle;
+
+}
+
+.main-block div.borderdot {
+    border: 1px gray dotted;
+    margin-bottom:10px
+}
+
+.main-block span {
+    display:block;
+    padding-left:7px;
+}
+
+.main-block .main-text img {
+    padding-right:5px;
+    top:3px;
+    position:relative;
+}
+.main-block table {
+    border:none;
+
+}
+
+.main-block td {
+    vertical-align: bottom
+}
+
+.main-block tr {
+    border:none;
+}
+
+.submit-button {
+    padding: .1em 1em; text-decoration: none; 
 }
 
 img 
@@ -67,7 +105,7 @@ img
 .container-bg {
 
     width:100%;
-    height:150px;
+    min-height:150px;
     /*border-bottom: 1px solid #CBCBCB;
     border-top: 1px solid #CBCBCB;*/
 
@@ -100,6 +138,11 @@ img
     font-size: .9em;
     line-height: 1.4615em;
     font-family: Arial;
+}
+
+.container-header img {
+    position:relative;
+    top:3px;
 }
 
 

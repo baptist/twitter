@@ -34,7 +34,7 @@ if (!(isset($_SESSION['access_token']['screen_name']))) {
 
 // parse keyword file
 if (isset($_FILES["file"])) {
-
+    
     //if there was an error uploading the file
     if ($_FILES["file"]["error"] > 0 || $_FILES["file"]["type"] != "text/csv") {
         $_SESSION['notice'] = 'Error uploading file ' . $_FILES["file"]["name"] . ':  ' . (($_FILES["file"]["error"] > 0) ? $_FILES["file"]["error"] : "wrong file format (only .csv is supported).");
@@ -70,8 +70,8 @@ if (isset($_FILES["file"])) {
                         
             while ( $line[$i] = fgets ($file, 4096) ) {                
                 $data = explode( ",", $line[$i], ($num+1) );                
-                
-                $result = $tk->createArchive($data[$index], $name, ($index == 0)?$data[$index]:$data[$index-1], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id']);
+
+                $result = $tk->createArchive($data[$index], ($index == 0)?$data[$index]:$data[$index-1], ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
                 
                 if ($result[0] !== "Archive has been created." )
                     $_SESSION['notice'] .= $result[0] . "<br/>";
@@ -80,6 +80,18 @@ if (isset($_FILES["file"])) {
             }           
         }
     }
+}
+
+// if type is user and perform user lookup
+if ($_POST['type'] == 3)
+{
+    // TODO Clean up: check if process is still running instead of "reboot" (~ hard kill + restart) method.
+    $kill = "kill -9 `ps -ef |grep yourtwapperkeeper_lookup |grep -v grep | awk '{print $2}'`";
+    exec($kill);
+
+    $job = 'php '.$tk_your_dir."yourtwapperkeeper_lookup.php";
+    $pid = $tk->startProcess($job);
+    mysql_query("update processes set pid = '$pid' where process = 'yourtwapperkeeper_lookup'", $db->connection);
 }
 
 
