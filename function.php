@@ -120,9 +120,12 @@ class YourTwapperKeeper {
         `archivesource` varchar(100) NOT NULL,
         `text` varchar(1000) NOT NULL,
         `to_user_id` varchar(100) NOT NULL,
-        `from_user` varchar(100) NOT NULL,
-        `id` varchar(100) NOT NULL,
+        `to_user` varchar(100) NOT NULL,
         `from_user_id` varchar(100) NOT NULL,
+        `from_user` varchar(100) NOT NULL,
+        `original_user_id` varchar(100) NOT NULL,
+        `original_user` varchar(100) NOT NULL,
+        `id` varchar(100) NOT NULL,        
         `iso_language_code` varchar(10) NOT NULL,
         `source` varchar(250) NOT NULL,
         `profile_image_url` varchar(250) NOT NULL,
@@ -155,7 +158,7 @@ class YourTwapperKeeper {
         $q = "select id from users where screen_name = '$screen_name' LIMIT 1";
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
-            return mysqli_fetch_assoc($r)["id"];
+            return mysql_fetch_assoc($r)["id"];
         else {
             // insert user into database
             $q = "insert into users (screen_name) values ('" . $screen_name . "')";
