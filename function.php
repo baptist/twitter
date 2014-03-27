@@ -134,12 +134,15 @@ class YourTwapperKeeper {
         `geo_coordinates_1` double NOT NULL,
         `created_at` varchar(50) NOT NULL,
         `time` int(11) NOT NULL,
+        `favorites` int(11) NULL,
+        `retweets` int(11) NULL,
         FULLTEXT `full` (`text`),
         INDEX `source` (`from_user`),
         INDEX `from_user` (`from_user`),
         INDEX `iso_language_code` (`iso_language_code`),
         INDEX `geo_type` (`geo_type`),
         INDEX `id` (`id`),
+        UNIQUE KEY (`id`),
         INDEX `time` (`time`)
         ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 

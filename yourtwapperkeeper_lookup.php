@@ -78,7 +78,7 @@ function performLookup($screen_names) {
         foreach ($search as $userobj) {
             $user = get_object_vars($userobj);
             
-            $users_found[$user["screen_name"]] = 1;
+            $users_found[strtolower($user["screen_name"])] = 1;
             $q = "update users set twitter_id = '" . $user["id"] . "', full_name = '" . $user["name"] . "', followers = " . $user["followers_count"] . " , statuses = " . $user["statuses_count"] . ", json_object = '" . str_replace("'", "\'", utf8_encode(json_encode($user))) . "', flag = 1 where screen_name = '" . $user["screen_name"] . "'";
         
             mysql_query($q, $db->connection);
@@ -87,7 +87,7 @@ function performLookup($screen_names) {
         foreach ($screen_names as $name) 
         {
             // TODO rollback creation of archive when user does not exist.                        
-            if (!array_key_exists($name, $users_found))
+            if (!array_key_exists(strtolower($name), $users_found))
                 mysql_query("update users set flag = 0 where screen_name = '" . $name . "'", $db->connection);
         }
     }

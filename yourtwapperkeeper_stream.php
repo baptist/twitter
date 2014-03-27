@@ -55,8 +55,9 @@ class DynamicTrackConsumer extends OauthPhirehose
             }
             $values = substr($values,0,-1);   
 
-            $q = "insert into rawstream values($values)";    
-            $result = mysql_query($q, $db->connection);
+            // add to list of newly created tweets.
+            $q1 = "insert into rawstream values($values)";
+            $result = mysql_query($q1, $db->connection);            
             echo ".";
         }
   }
@@ -84,7 +85,7 @@ class DynamicTrackConsumer extends OauthPhirehose
                
                 if ($user["flag"] == 1)
                 {
-                    //$track[] = "@" . $row['keyword'];
+                    $track[] = "@" . $row['keyword'];
                     $follow[] = $user['twitter_id'];
                 }
             }             
@@ -96,8 +97,7 @@ class DynamicTrackConsumer extends OauthPhirehose
   	$pid = getmypid();
 	mysql_query("update processes set last_ping = '".time()."' where pid = '$pid'", $db->connection);
 	echo "update pid\n";
-  }
-  
+  }  
 }
 
 // Start streaming

@@ -42,7 +42,7 @@ exec($kill);
 $pid = '';
 $pids = '';
 foreach ( $cmd as $key=>$value ) {
-	$job = 'php '.$tk_your_dir.$value;
+	$job = 'php ' . $tk_your_dir . $value;
 	$pid = $tk->startProcess($job);
 	$pids .= $pid.",";
 	mysql_query("update processes set pid = '$pid' where process = '$value'", $db->connection);

@@ -1,5 +1,7 @@
 <?php
 
+// TODO decide upon adding tweets from users also to hashtag archives!
+
 // load important files
 require_once('config.php');
 require_once('function.php');
@@ -17,18 +19,23 @@ while (TRUE) {
     mysql_query($q, $db->connection);
 
     // get keyword into memory
-    $q = "select id,keyword,track_id from archives";
+    $q = "select id,keyword,track_id,type from archives";
     echo $q . "\n";
     $r = mysql_query($q, $db->connection);
     $track = array();
     $follow = array();
         
-    
+    // TODO decide which has priority over the other (user > hashtag > keyword ?)
     while ($row = mysql_fetch_assoc($r)) {
-        if ($row["track_id"] !== "NULL")
+        if ($row["type"] == 1)
+            $track[$row['id']] = $row['keyword'];
+        else if ($row["type"] == 2)
+            $track[$row['id']] = "#" . $row['keyword'];
+        else if ($row["type"] == 3)
+        {
             $follow[$row['id']] = $row['keyword'];
-
-        $track[$row['id']] = $row['keyword'];
+            $track[$row['id']] = "@" . $row['keyword'];
+        }               
     }
 
     // grab the locked up tweets and load into memory
@@ -41,7 +48,8 @@ while (TRUE) {
     }
 
     // for each tweet in memory, compare against predicates and insert
-    foreach ($batch as $tweet) {
+    foreach ($batch as $tweet) 
+    {
         //echo "[" . $tweet['id'] . " - " . $tweet['text'] . "]\n";
         $inserted = FALSE;
         foreach ($follow as $ztable => $user) 
@@ -71,9 +79,10 @@ while (TRUE) {
         if (!$inserted) 
         {
             foreach ($track as $ztable => $keyword) {
+                
                 if (stristr($tweet['text'], $keyword) == TRUE) {
                     echo " vs. $keyword = insert\n";
-                    insert($ztable, $tweet);
+                    insert($ztable, $tweet, "keyword");
                 } else {
                     echo " vs. $keyword = not found\n";
                 }
@@ -115,8 +124,11 @@ while (TRUE) {
 function insert($table_id, $tweet, $reason = "") {
     global $db;
     
-    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . $tweet['to_user_id'] . "','" . $tweet['to_user'] . "','" . $tweet['from_user_id'] . "','" . $tweet['from_user'] . "','" . $tweet['original_user_id'] . "','" . $tweet['original_user'] . "','" . $tweet['id'] . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "')";
+    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . $tweet['to_user_id'] . "','" . $tweet['to_user'] . "','" . $tweet['from_user_id'] . "','" . $tweet['from_user'] . "','" . $tweet['original_user_id'] . "','" . $tweet['original_user'] . "','" . $tweet['id'] . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL)";
     $r_insert = mysql_query($q_insert, $db->connection);
+    
+    $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $tweet['time'] ."', -1)";    
+    $result = mysql_query($q2, $db->connection);
     
     return TRUE;
 }

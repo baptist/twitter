@@ -51,7 +51,7 @@ if (isset($_FILES["file"])) {
 
             //save the different fields of the firstline in an array called fields
             $fields = array();
-            $fields = explode(",", $firstline);
+            $fields = explode(",", $firstline, 2);
             
             $num = 0;
             for ($i = 0; $i < count($fields); $i++)
