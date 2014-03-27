@@ -49,15 +49,15 @@ define("DB_USER", "root");									// change to your db username
 define("DB_PASS", "");												// change to your db password
 define("DB_NAME", "twapperkeeper"); 										// change to your db name
 
-/* Don't mess with this unless you want to get your hands dirty */
-$yourtwapperkeeper_version = "version 0.6.0";
-$archive_process_array = array(/*'yourtwapperkeeper_crawl.php',*/'yourtwapperkeeper_stream.php','yourtwapperkeeper_stream_process.php');//,'yourtwapperkeeper_update_tweets.php');
+$yourtwapperkeeper_version = "version 0.7.1";
+$archive_process_array = array(/*'yourtwapperkeeper_crawl.php',*/'yourtwapperkeeper_stream.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
 $twitter_api_sleep_min = 11;
 $stream_process_stack_size = 500;
 $update_stack_size_per_second = 27000 / 3600.0;
-$update_time_window = 10 * 60; // 10 minutes
+$update_after = 6 * 60 * 60; // 12 hours **modified to 6 (TESTING)
+$update_time_window = 5 * 60; // 5 minutes
 $update_stack_size = floor($update_stack_size_per_second * $update_time_window);
-$update_after = 12 * 60 * 60; // 12 hours
+
 $php_mem_limit = "512M";
 ini_set("memory_limit",$php_mem_limit);
 

@@ -71,9 +71,12 @@ echo "<tr>";
 echo "<th>ARCHIVESOURCE</th>";
 echo "<th>TEXT</th>";
 echo "<th>TO_USER_ID</th>";
-echo "<th>FROM_USER</th>";
-echo "<th>ID</th>";
+echo "<th>TO_USER</th>";
 echo "<th>FROM_USER_ID</th>";
+echo "<th>FROM_USER</th>";
+echo "<th>ORIGINAL_USER_ID</th>";
+echo "<th>ORIGINAL_USER</th>";
+echo "<th>ID</th>";
 echo "<th>ISO_LANGUAGE_CODE</th>";
 echo "<th>SOURCE</th>";
 echo "<th>PROFILE_IMG_URL</th>";
@@ -82,6 +85,8 @@ echo "<th>GEO_COORDINATES_0</th>";
 echo "<th>GEO_COORDINATES_1</th>";
 echo "<th>CREATED_AT</th>";
 echo "<th>TIME</th>";
+echo "<th>FAVORITES</th>";
+echo "<th>RETWEETS</th>";
 echo "</tr>";
 
 foreach ($archiveTweets as $key=>$value) {

@@ -29,7 +29,7 @@ $id = $_GET['id'];
 $archiveInfo = $tk->listArchive($id);
 if ($archiveInfo['count'] <> 1 || (!(isset($_GET['id'])))) {
 	$_SESSION['notice'] = "Archive does not exist.";
-	header('Location: index.php');
+	//header('Location: index.php');
 	}
 	
 // setup perm urls
@@ -512,7 +512,7 @@ echo "</h5>";
 
             
             //preg_replace('#','<a href="http://search.twitter.com/q=$1">.$1."</a>');
-            echo "<b>@".$row['from_user']."</b> ".$text."<br><br>";
+            echo "<b>@".$row['from_user']."</b> ".$text." (RT: ".$row['retweets']." / FA: ".$row['favorites'].")<br><br>";
             echo "<font style='font-weight:lighter; font-size:8px'><i>".$row['created_at']." - tweet id <a name='tweetid-".$row['id']."'>".$row['id']."</a> - #$tw_count</i></font>";
             echo "<br>";  
             if ($row['geo_type'] <> '') {

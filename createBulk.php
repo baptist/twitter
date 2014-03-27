@@ -45,33 +45,17 @@ if (isset($_FILES["file"])) {
         
         if ($file = fopen($_FILES["file"]["tmp_name"], "r")) {
             
-            // automatically detect number of fields
-
+            // get first line
             $firstline = fgets($file, 4096);
-
-            //save the different fields of the firstline in an array called fields
-            $fields = array();
-            $fields = explode(",", $firstline, 2);
-            
-            $num = 0;
-            for ($i = 0; $i < count($fields); $i++)
-            {
-                if (!empty($fields[$i]))
-                    $num++;
-            }
-            $name = explode(".", $_FILES["file"]["name"])[0];
-            
-            $index = ($num == 1)? 0 : 1;
-            
+                      
             $line = array();
             $i = 0;
             
             $_SESSION['notice'] = "";
                         
             while ( $line[$i] = fgets ($file, 4096) ) {                
-                $data = explode( ",", $line[$i], ($num+1) );                
-
-                $result = $tk->createArchive($data[$index], ($index == 0)?$data[$index]:$data[$index-1], ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
+                $data = explode( ",", $line[$i]);
+                $result = $tk->createArchive(end($data), (count($data) == 1)? $data[$index] : implode(",", array_slice($data, 0, count($data) - 1)), ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
                 
                 if ($result[0] !== "Archive has been created." )
                     $_SESSION['notice'] .= $result[0] . "<br/>";
@@ -91,7 +75,7 @@ if ($_POST['type'] == 3)
 
     $job = 'php '.$tk_your_dir."yourtwapperkeeper_lookup.php";
     $pid = $tk->startProcess($job);
-    mysql_query("update processes set pid = '$pid' where process = 'yourtwapperkeeper_lookup'", $db->connection);
+    mysql_query("update processes set pid = '$pid' where process = 'yourtwapperkeeper_lookup.php'", $db->connection);
 }
 
 

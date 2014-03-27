@@ -189,7 +189,7 @@ ul.status-list {
 }
 
 .status-list li.correct {
-
+    font-weight:bold;
     background-image:url(../resources/icons/icons_0045_Check-small.png);
 
 }
