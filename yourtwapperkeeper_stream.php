@@ -16,6 +16,7 @@ class DynamicTrackConsumer extends OauthPhirehose
    	$status = json_decode($status);                 
         $status = get_object_vars($status);
         var_dump($status);
+        // TODO check if error message is send back!
         if ($status['id'] <> null) {
 
             $values_array = array();

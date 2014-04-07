@@ -12,6 +12,7 @@ $script_key = uniqid();
 // process loop
 // TODO limit updating to max possible amount
 // TODO log whenever too many tweets enter so not all tweets can be updated in time.
+// TODO Do not check retweets and favorites of tweet that was retweeted and already updated?
 while (TRUE) {
 
     $start = microtime(true);

@@ -63,7 +63,7 @@ class YourTwapperKeeper {
         }
 
 
-        $r = mysql_query($q . "  LIMIT 50", $db->connection);
+        $r = mysql_query($q . "  ", $db->connection);
 
         $count = 0;
         while ($row = mysql_fetch_assoc($r)) {

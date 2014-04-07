@@ -807,7 +807,8 @@ abstract class Phirehose
    */
   protected function log($message,$level='notice')
   {
-    @error_log('Phirehose: ' . $message, 0);
+      //@error_log('Phirehose: ' . $message, 0);
+      file_put_contents ( "stream_log" , $message . "\n" , FILE_APPEND );
   }
 
   /**
