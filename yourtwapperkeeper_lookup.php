@@ -24,7 +24,7 @@ $connection->useragent = $youtwapperkeeper_useragent;
 while (TRUE)
 {
 // Query for archives 
-    $q_users = "select * from users where flag = 0";
+    $q_users = "select * from twitter_users where flag = 0";
     $r_users = mysql_query($q_users, $db->connection);
 
 // Stop script if all users are checked
@@ -82,7 +82,7 @@ function performLookup($screen_names) {
             $user = get_object_vars($userobj);
             
             $users_found[strtolower($user["screen_name"])] = 1;
-            $q = "update users set twitter_id = '" . $user["id"] . "', full_name = \"" . $user["name"] . "\", followers = " . $user["followers_count"] . " , statuses = " . $user["statuses_count"] . ", json_object = '" . str_replace("'", "\'", utf8_encode(json_encode($user))) . "', flag = 1 where screen_name = '" . $user["screen_name"] . "'";
+            $q = "update twitter_users set twitter_id = '" . $user["id"] . "', full_name = \"" . $user["name"] . "\", followers = " . $user["followers_count"] . " , statuses = " . $user["statuses_count"] . ", json_object = '" . str_replace("'", "\'", utf8_encode(json_encode($user))) . "', flag = 1 where screen_name = '" . $user["screen_name"] . "'";
             mysql_query($q, $db->connection);
            
         }
@@ -91,7 +91,7 @@ function performLookup($screen_names) {
         {
             // TODO rollback dummy creation of archive when user does not exist.                        
             if (!array_key_exists(strtolower($name), $users_found))
-                mysql_query("update users set flag = -1 where screen_name = '" . $name . "'", $db->connection);
+                mysql_query("update twitter_users set flag = -1 where screen_name = '" . $name . "'", $db->connection);
         }
     }
 }

@@ -45,6 +45,8 @@ if (isset($_FILES["file"])) {
         
         if ($file = fopen($_FILES["file"]["tmp_name"], "r")) {
             
+            $name = $_FILES["file"]["name"];
+            
             // get first line
             $firstline = fgets($file, 4096);
                       
@@ -54,8 +56,9 @@ if (isset($_FILES["file"])) {
             $_SESSION['notice'] = "";
                         
             while ( $line[$i] = fgets ($file, 4096) ) {                
-                $data = explode( ",", $line[$i]);
-                $result = $tk->createArchive(end($data), (count($data) == 1)? $data[$index] : implode(",", array_slice($data, 0, count($data) - 1)), ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
+                $data = preg_split("/[;,]+/", $line[$i]);    
+                
+                $result = $tk->createArchive($data[1], (count($data) == 1)? $data[$index] : implode(",", array_slice($data, 0, count($data) - 1)), ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
                 
                 if ($result[0] !== "Archive has been created." )
                     $_SESSION['notice'] .= $result[0] . "<br/>";

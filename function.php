@@ -40,7 +40,7 @@ class YourTwapperKeeper {
     function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false) {
         global $db;
 
-        $q = "select * from archives where 1";
+        $q = "select * from archives where id IN (662,726,1080)";
 
         if ($id) {
             $q .= " and id = '$id'";
@@ -83,7 +83,7 @@ class YourTwapperKeeper {
         $response = array();
         
         // Ignore '/' (used as indication of 'unknown')
-        if ($keyword === "/")
+        if (strip($keyword) === "/")
             return $response;
 
         // Remove keyword's first character if it equals '@' or '#'.
@@ -112,7 +112,7 @@ class YourTwapperKeeper {
         else
             $user = 'NULL';
 
-        $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "')";
+        $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0)";
         $r = mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
 
@@ -330,6 +330,12 @@ class YourTwapperKeeper {
         return($result);
     }
 
+    // check status of archiving processes	
+    function statusLiveArchiving() {
+        global $db;   
+        $processes = mysql_fetch_assoc(mysql_query("select process from processes where live = 1", $db->connection));
+        return $this->statusArchiving($processes);       
+    }
 // kill archiving process
     function killProcess($pid) {
         $command = 'kill -9 ' . $pid;
@@ -342,6 +348,11 @@ class YourTwapperKeeper {
         exec($command, $op);
         $pid = (int) $op[0];
         return ($pid);
+    }
+    
+    function log($message, $level = 'notice')
+    {
+        file_put_contents ( "stream_log" , $message . "\n" , FILE_APPEND );
     }
 
 }

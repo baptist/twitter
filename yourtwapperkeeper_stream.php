@@ -81,7 +81,7 @@ class DynamicTrackConsumer extends OauthPhirehose
             else if ($row["type"] == 3)
             {               
                 // find user                
-                $user_r = mysql_query("select * from users where id = '".$row['track_id']."'", $db->connection);
+                $user_r = mysql_query("select * from twitter_users where id = '".$row['track_id']."'", $db->connection);
                 $user = mysql_fetch_assoc($user_r);                
                
                 if ($user["flag"] == 1)

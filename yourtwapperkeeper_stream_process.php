@@ -84,7 +84,7 @@ while (TRUE) {
                     echo " vs. $keyword = insert\n";
                     insert($ztable, $tweet, "keyword");
                 } else {
-                    echo " vs. $keyword = not found\n";
+                    //echo " vs. $keyword = not found\n";
                 }
             }
         }

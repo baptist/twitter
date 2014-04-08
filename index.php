@@ -66,7 +66,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                     <ul class="status-list">
                         <?php
                         if (in_array($_SESSION['access_token']['screen_name'], $admin_screen_name)) {
-                            $archiving_status = $tk->statusArchiving($archive_process_array);
+                            $archiving_status = $tk->statusLiveArchiving();
                             if ($archiving_status[0] == FALSE) {
                                 echo "<li class='" . (($archiving_status[2] == 1) ? "danger" : "caution") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></li>";
                             } else {
