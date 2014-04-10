@@ -101,6 +101,11 @@ class DynamicTrackConsumer extends OauthPhirehose
   }  
 }
 
+// setup values
+$pid = getmypid();
+// update liveness of process
+mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
+
 // Start streaming
 $sc = new DynamicTrackConsumer($tk_oauth_token, $tk_oauth_token_secret, Phirehose::METHOD_FILTER);
 $sc->consume();

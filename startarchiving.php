@@ -38,6 +38,9 @@ $cmd = $archive_process_array;
 $kill = "kill -9 `ps -ef |grep yourtwapperkeeper|grep -v grep | awk '{print $2}'`";
 exec($kill);
 
+// Reset processes liveness
+mysql_query("update processes set live = '0'", $db->connection);
+
 // Start and register jobs
 $pid = '';
 $pids = '';

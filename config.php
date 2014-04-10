@@ -35,7 +35,7 @@ $admin_screen_name=array('BaptistV');
 
 /* Your Twapper Keeper Twitter Account Information used to query for tweets (this is common for the site) */
 $tk_twitter_username = 'BaptistV';               
-$tk_twitter_password = 'chu4zudu';
+$tk_twitter_password = '';
 $tk_oauth_token = '306311209-1U8kP6tFXKM5PHCKyK4YLsMAbrSwH0BrWiqN4rys';
 $tk_oauth_token_secret = '4OBiM6uv71Vc7SmnOZPbASGoOcGqwzHQEEHPUhJunwsF8'; 
 
@@ -51,9 +51,8 @@ define("DB_NAME", "twapperkeeper"); 										// change to your db name
 
 
 $yourtwapperkeeper_version = "version 0.7.1";
-$archive_process_array = array(/*'yourtwapperkeeper_crawl.php',*/'yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
-$archive_live_processes = array();
-$twitter_api_sleep_min = 11;
+$archive_process_array = array('yourtwapperkeeper_crawl.php','yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
+$twitter_api_sleep_sec = ceil(15 * 60 / 180);
 $stream_process_stack_size = 500;
 $update_stack_size_per_second = 27000 / 3600.0;
 $update_after = 6 * 60 * 60; // 12 hours **modified to 6 (TESTING)
@@ -61,9 +60,11 @@ $update_time_window = 5 * 60; // 5 minutes
 $update_stack_size = floor($update_stack_size_per_second * $update_time_window);
 $max_user_streams = 4;
 $twitter_keyword_limit_per_stream = 400;
+$twitter_follow_limit_per_stream = 5000;
+$time_to_track_user = 24 * 60 * 60; // 24 hours to track conversation
 
 $php_mem_limit = "512M";
-ini_set("memory_limit",$php_mem_limit);
+ini_set("memory_limit", $php_mem_limit);
 
 class MySQLDB
 {

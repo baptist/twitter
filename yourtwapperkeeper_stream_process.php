@@ -11,6 +11,9 @@ require_once('twitteroauth_search.php');
 $pid = getmypid();
 $script_key = uniqid();
 
+// update liveness of process
+mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
+
 // process loop
 while (TRUE) {
     // lock up some tweets
@@ -83,6 +86,11 @@ while (TRUE) {
                 if (stristr($tweet['text'], $keyword) == TRUE) {
                     echo " vs. $keyword = insert\n";
                     insert($ztable, $tweet, "keyword");
+                    
+                    // Check if keyword represents hashtag and start following user to record conversations if necessary.
+                    if ($keyword[0] == "#")
+                        trackConversation(substr($keyword, 1), $tweet);   
+                    
                 } else {
                     //echo " vs. $keyword = not found\n";
                 }
@@ -115,6 +123,11 @@ while (TRUE) {
         //echo $q_update . "\n";
         mysql_query($q_update, $db->connection);
     }
+    
+    // TODO Should be in an other place and should not be checked EVERY time?
+    // check if some users should not be followed anymore for conversation purposes
+    $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN (select archive_id from conversations where (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user)";
+    mysql_query($q_old_users, $db->connection);
 
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
@@ -124,7 +137,7 @@ while (TRUE) {
 function insert($table_id, $tweet, $reason = "") {
     global $db;
     
-    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . $tweet['to_user_id'] . "','" . $tweet['to_user'] . "','" . $tweet['from_user_id'] . "','" . $tweet['from_user'] . "','" . $tweet['original_user_id'] . "','" . $tweet['original_user'] . "','" . $tweet['id'] . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL)";
+    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . $tweet['to_user_id'] . "','" . $tweet['to_user'] . "','" . $tweet['from_user_id'] . "','" . $tweet['from_user'] . "','" . $tweet['original_user_id'] . "','" . $tweet['original_user'] . "','" . $tweet['id'] . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
     $r_insert = mysql_query($q_insert, $db->connection);
     
     $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $tweet['time'] ."', -1)";    
@@ -132,5 +145,35 @@ function insert($table_id, $tweet, $reason = "") {
     
     return TRUE;
 }
+
+
+function trackConversation($keyword, $tweet) {
+    global $db; 
+    global $tk;
+    
+    if($archive = $tk->archiveExist($tweet['from_user']))
+    {   
+        // Archive is actively following user to track conversation
+        if ($archive["type"] == 4 && $archive["keyword"] !== $keyword)                   
+            createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]);        
+        else // Archive exists (but is not specifically dedicated to conversation tracking)     
+            createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]); 
+    }   
+    else
+    {
+        // Create new 'conversation' archive
+        $tk->createArchive($tweet['from_user'], "conversation tracking", "", $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], 4);
+        $archive = $tk->archiveExist($tweet['from_user']);
+        
+        createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]);         
+    }
+}
+
+function createConversation($user_id, $archive_id, $tweet_id)
+{
+    global $db;    
+    mysql_query("insert into conversations values ('0', '$user_id', '$tweet_id', '$archive_id', UNIX_TIMESTAMP())", $db->connection);    
+}
+
 
 ?>

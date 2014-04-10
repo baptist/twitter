@@ -9,6 +9,9 @@ require_once('twitteroauth_search.php');
 $pid = getmypid();
 $script_key = uniqid();
 
+// update liveness of process
+mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
+
 // process loop
 // TODO limit updating to max possible amount
 // TODO log whenever too many tweets enter so not all tweets can be updated in time.
@@ -22,7 +25,7 @@ while (TRUE) {
 
     $num_tweets = mysql_affected_rows();
 
-    echo "Started updating " . $num_tweets . " tweets. \n";
+    $tk->log("Started updating " . $num_tweets . " tweets. \n");
 
     if ($num_tweets > 0) 
     {
@@ -32,14 +35,14 @@ while (TRUE) {
         exec($command, $op);
 
         $time_run = (microtime(true) - $start);
-        echo "Application ran for $time_run seconds.\n";
+        $tk->log("Application ran for $time_run seconds.\n");
 
         // delete tweets from update table 'new_tweets'
         mysql_query("DELETE FROM `new_tweets` WHERE flag = '$script_key'", $db->connection);
     }
 
     $time_left = $update_time_window - $time_run;
-    echo "Updating finished. Sleeping for $time_left seconds. \n";
+    $tk->log("Updating finished. Sleeping for $time_left seconds. \n");
     sleep($time_left);
 
     // update pid and last_ping in process table

@@ -58,6 +58,7 @@
                                     <li><a href="index.php">Archives</a></li>  
                                 <?php } ?>
 
+                                <!--
                                 <?php if (basename($_SERVER['PHP_SELF']) === "news_index.php") { ?>
                                     <li class=""><a class="current" href="#">News Index</a></li>
                                 <?php } else { ?>
@@ -69,7 +70,7 @@
                                     <?php } else { ?>
                                     <li><a href="index.php">Settings</a></li>  
                                 <?php } ?>
-
+                                -->  
 
                             </ul>
                         </div>

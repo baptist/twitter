@@ -110,10 +110,10 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                 </tr>
 
                                 <tr>
-                                    <td style="width:270px"><input type="text" name="value" /></td>
-                                    <td style="width:150px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
-                                    <td style="width:300px"><input name='description'/></td> 
-                                    <td style="width:300px"><input name='tags'/></td> 
+                                    <td style="width:250px"><input type="text" name="value" /></td>
+                                    <td style="width:125px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
+                                    <td style="width:250px"><input name='description'/></td> 
+                                    <td style="width:250px"><input name='tags'/></td> 
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -135,23 +135,19 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                             <table>
                                 <tr>
                                     <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From File</td>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
+                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>  
                                     <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                     <td></td>
+                                    
                                 </tr>
 
                                 <tr>
-                                    <td style="width:270px"><input type="file" name='file' /></td>
-                                    <td style="width:150px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
-                                    <td style="width:300px"><input name='tags'/></td> 
-                                    <td></td>
+                                    <td style="width:250px"><input type="file" name='file' style="width:250px"/></td>
+                                    <td style="width:125px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
+                                    <td style="width:250px"><input name='tags'/></td>
+                                    <td style="width:250px"><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all" /></td> 
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all"/></td>
-                                </tr>
+                               
                             </table>
                             <br/>
 

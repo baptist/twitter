@@ -6,19 +6,25 @@ require_once('function.php');
 
 
 if (isset($argv[1]))
-    $user_id = $argv[1];
+    $stream_id = $argv[1];
 
-if ($user_id == NULL)
+if ($stream_id == NULL)
 {
     $tk->log("[ERROR] No ID given to track keywords for.");
     exit(2);
 }
 
+// setup values
+$pid = getmypid();
+// update liveness of process
+mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
+
 // Get user information
-$user = mysql_fetch_assoc(mysql_query("SELECT * FROM users WHERE id = " . $user_id, $db->connection));
-print var_dump($user);
+$user = mysql_fetch_assoc(mysql_query("SELECT * FROM users WHERE id = " . $stream_id, $db->connection));
+
 define('TWITTER_CONSUMER_KEY', $user["consumer_key"]);
 define('TWITTER_CONSUMER_SECRET', $user["consumer_secret"]);
+
 
 class DynamicTrackConsumer extends OauthPhirehose
 { 
@@ -79,9 +85,9 @@ class DynamicTrackConsumer extends OauthPhirehose
   public function checkFilterPredicates()
   {
         global $db;
-        global $user_id;
-   
-        $q = "select id,keyword,type,track_id from archives where tracked_by = " . $user_id;
+        global $stream_id;
+        
+        $q = "select id,keyword,type,track_id from archives where tracked_by =  '$stream_id' OR followed_by = '$stream_id'";
         $r = mysql_query($q, $db->connection);
 
         $track = array();
@@ -92,7 +98,7 @@ class DynamicTrackConsumer extends OauthPhirehose
                 $track[] = $row['keyword'];
             else if ($row["type"] == 2)
                 $track[] = "#" . $row['keyword'];
-            else if ($row["type"] == 3)
+            else if ($row["type"] == 3 || $row["type"] == 4)
             {               
                 // find user                
                 $user_r = mysql_query("select * from twitter_users where id = '".$row['track_id']."'", $db->connection);
@@ -100,10 +106,12 @@ class DynamicTrackConsumer extends OauthPhirehose
                
                 if ($user["flag"] == 1)
                 {
-                    $track[] = "@" . $row['keyword'];
+                    if ($row["type"] == 3)
+                        $track[] = "@" . $row['keyword'];
+                    
                     $follow[] = $user['twitter_id'];
                 }
-            }             
+            }            
   	}
   	$this->setTrack($track); 
         $this->setFollow($follow);
