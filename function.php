@@ -35,21 +35,26 @@ class YourTwapperKeeper {
         }
         return $output;
     }
-    
-    function archiveExists($keyword, $type = -1)
-    {
-        $r = mysql_query("select * from archives where keyword = '" . $keyword . "'" . ($type !== -1)? " AND type = '$type'" : "" , $db->connection);
 
-        if (mysql_num_rows($r) == 1)        
+    function archiveExists($keyword, $type = -1) {
+        global $db;
+
+        $r = mysql_query("select * from archives where keyword = '" . $keyword . "'" . (($type !== -1) ? " AND type = '$type'" : ""), $db->connection) or die(mysql_error());
+
+        if (!$r)
+            return FALSE;
+
+        if (mysql_num_rows($r) == 1)
             return mysql_fetch_assoc($r);
-        
+
         return FALSE;
     }
+
     // list archives
     function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false) {
         global $db;
 
-        $q = "select * from archives where 1";
+        $q = "select * from archives where type IN (1,2,3)";
 
         if ($id) {
             $q .= " and id = '$id'";
@@ -88,11 +93,11 @@ class YourTwapperKeeper {
 // create archive
 // archive types stand for the different archiving possibilities
 // (1 = keyword tracking, 2 = hashtag tracking, 3 = user tracking, 4 = user conversation tracking )
-    function createArchive($keyword, $description, $tags, $screen_name, $user_id, $type = 0, $track_id = NULL ,$debug = false) {
+    function createArchive($keyword, $description, $tags, $screen_name, $user_id, $type = 0, $track_id = NULL, $debug = false) {
         global $db;
-        
+
         $response = array();
-        
+
         // Ignore '/' (used as indication of 'unknown')
         if (trim($keyword) === "/")
             return $response;
@@ -128,7 +133,7 @@ class YourTwapperKeeper {
         $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0, 0)";
         $r = mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
-
+       
         $create_table = "CREATE TABLE IF NOT EXISTS `z_$lastid` (
         `archivesource` varchar(100) NOT NULL,
         `text` varchar(1000) NOT NULL,
@@ -159,8 +164,8 @@ class YourTwapperKeeper {
         UNIQUE KEY (`id`),
         INDEX `time` (`time`)
         ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
-
-        $r = mysql_query($create_table, $db->connection);
+        
+        $r = mysql_query($create_table, $db->connection) or die(mysql_error());
 
         $response[0] = "Archive has been created.";
 
@@ -188,11 +193,18 @@ class YourTwapperKeeper {
     function addHollowUser($screen_name, $user_id) {
         global $db;
 
-        // insert user into database
-        $q = "insert into twitter_users (screen_name, twitter_id, flag) values ('$screen_name', '$user_id', 1)";
+        // check if user does not exist in db        
+        $q = "select id from twitter_users where screen_name = '$screen_name' LIMIT 1";
         $r = mysql_query($q, $db->connection);
+        if (mysql_num_rows($r) > 0)
+            return mysql_fetch_assoc($r)["id"];
+        else {
+            // insert user into database
+            $q = "insert into twitter_users (screen_name, twitter_id, flag) values ('$screen_name', '$user_id', 1)";
+            $r = mysql_query($q, $db->connection);
 
-        return mysql_insert_id();        
+            return mysql_insert_id();
+        }
     }
 
 // get tweets
@@ -318,30 +330,28 @@ class YourTwapperKeeper {
         // If PIDs > 0 - we are considered running
         $running = TRUE;
         $pids = '';
-        $shouldBeRunning = 1;        
+        $shouldBeRunning = 1;
 
         foreach ($process_array as $key => $value) {
             $q = "select pid from processes where process = '$value'";
             $r = mysql_query($q, $db->connection);
             $r = mysql_fetch_assoc($r);
             $pid = $r['pid'];
-            
+
             unset($PROC);
             exec("ps $pid", $PROC);
-            
+
             if ($pid == 0) {
                 $running = FALSE;
                 $shouldBeRunning = FALSE;
             }
-            
+
             if (count($PROC) < 2) {
                 $running = FALSE;
                 $pids .= "<span style='color:red'>" . $pid . "</span>, ";
             }
-            else            
+            else
                 $pids .= $pid . ", ";
-            
-            
         }
         $pids = substr($pids, 0, -2);
 
@@ -365,14 +375,15 @@ class YourTwapperKeeper {
 
     // check status of archiving processes	
     function statusLiveArchiving() {
-        global $db;   
-        $processes = array();        
+        global $db;
+        $processes = array();
         $r = mysql_query("select process from processes where live = 1", $db->connection);
-        while($a = mysql_fetch_assoc($r))
+        while ($a = mysql_fetch_assoc($r))
             $processes[] = $a["process"];
-        
-        return $this->statusArchiving($processes);       
+
+        return $this->statusArchiving($processes);
     }
+
 // kill archiving process
     function killProcess($pid) {
         $command = 'kill -9 ' . $pid;
@@ -386,10 +397,9 @@ class YourTwapperKeeper {
         $pid = (int) $op[0];
         return ($pid);
     }
-    
-    function log($message, $level = 'notice')
-    {
-        file_put_contents ( "stream_log" , $message . "\n" , FILE_APPEND );
+
+    function log($message, $level = 'notice') {
+        file_put_contents("stream_log", $message . "\n", FILE_APPEND);
     }
 
 }

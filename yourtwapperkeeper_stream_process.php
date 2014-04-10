@@ -102,13 +102,13 @@ while (TRUE) {
     // delete tweets in flag
     $q = "delete from rawstream where flag = '$script_key'";
     //echo $q . "\n";
-    mysql_query($q, $db->connection);
+    //mysql_query($q, $db->connection);
 
     // update counts
 
     foreach ($follow as $ztable => $keyword) {
         $q_count = "select count(id) from z_$ztable";
-        $r_count = mysql_query($q_count, $db->connection);
+        $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
         $r_count = mysql_fetch_assoc($r_count);
         $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
         //echo $q_update . "\n";
@@ -117,17 +117,12 @@ while (TRUE) {
     
     foreach ($track as $ztable => $keyword) {
         $q_count = "select count(id) from z_$ztable";
-        $r_count = mysql_query($q_count, $db->connection);
+        $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
         $r_count = mysql_fetch_assoc($r_count);
         $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
         //echo $q_update . "\n";
         mysql_query($q_update, $db->connection);
-    }
-    
-    // TODO Should be in an other place and should not be checked EVERY time?
-    // check if some users should not be followed anymore for conversation purposes
-    $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN (select archive_id from conversations where (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user)";
-    mysql_query($q_old_users, $db->connection);
+    }      
 
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
@@ -150,22 +145,25 @@ function insert($table_id, $tweet, $reason = "") {
 function trackConversation($keyword, $tweet) {
     global $db; 
     global $tk;
+    global $tk_twitter_username;
+    global $tk_twitter_user_id;
+    global $twitter_follow_limit_per_stream;
     
-    if($archive = $tk->archiveExist($tweet['from_user']))
+    
+    if($archive = $tk->archiveExists($tweet['from_user']))
     {   
         // Archive is actively following user to track conversation
         if ($archive["type"] == 4 && $archive["keyword"] !== $keyword)                   
             createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]);        
-        else // Archive exists (but is not specifically dedicated to conversation tracking)     
+        else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
             createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]); 
     }   
     else
     {
         // Create new 'conversation' archive
-        $tk->createArchive($tweet['from_user'], "conversation tracking", "", $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], 4);
-        $archive = $tk->archiveExist($tweet['from_user']);
-        
-        createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]);         
+        $tk->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
+        $archive = $tk->archiveExists($tweet['from_user']);
+        createConversation($tweet['from_user_id'] , $archive["id"], $tweet["id"]); 
     }
 }
 

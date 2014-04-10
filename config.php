@@ -34,7 +34,8 @@ $admin_screen_name=array('BaptistV');
 
 
 /* Your Twapper Keeper Twitter Account Information used to query for tweets (this is common for the site) */
-$tk_twitter_username = 'BaptistV';               
+$tk_twitter_username = 'BaptistV'; 
+$tk_twitter_user_id = '306311209';
 $tk_twitter_password = '';
 $tk_oauth_token = '306311209-1U8kP6tFXKM5PHCKyK4YLsMAbrSwH0BrWiqN4rys';
 $tk_oauth_token_secret = '4OBiM6uv71Vc7SmnOZPbASGoOcGqwzHQEEHPUhJunwsF8'; 
@@ -51,7 +52,7 @@ define("DB_NAME", "twapperkeeper"); 										// change to your db name
 
 
 $yourtwapperkeeper_version = "version 0.7.1";
-$archive_process_array = array('yourtwapperkeeper_crawl.php','yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
+$archive_process_array = array('yourtwapperkeeper_crawl.php', 'yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
 $twitter_api_sleep_sec = ceil(15 * 60 / 180);
 $stream_process_stack_size = 500;
 $update_stack_size_per_second = 27000 / 3600.0;

@@ -14,11 +14,6 @@ if ($stream_id == NULL)
     exit(2);
 }
 
-// setup values
-$pid = getmypid();
-// update liveness of process
-mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
-
 // Get user information
 $user = mysql_fetch_assoc(mysql_query("SELECT * FROM users WHERE id = " . $stream_id, $db->connection));
 

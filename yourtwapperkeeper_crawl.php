@@ -25,11 +25,7 @@ while (TRUE) {
     $q_archives = "select * from archives";
     $r_archives = mysql_query($q_archives, $db->connection);
 
-    while ($row_archives = mysql_fetch_assoc($r_archives)) {
-
-        // sleep for rate limiting
-        echo "sleep = $sleep\n";
-        sleep($sleep);
+    while ($row_archives = mysql_fetch_assoc($r_archives)) {        
 
         echo $row_archives['id'] . " - " . $row_archives['keyword'] . "\n";
 
@@ -37,6 +33,11 @@ while (TRUE) {
         $max_id = NULL;
 
         for ($page_counter = 1; $page_counter <= 15; $page_counter = $page_counter + 1) {
+            
+            // sleep for rate limiting
+            echo "sleep = $sleep\n";
+            sleep($sleep);
+            
             echo "****TIME AROUND = " . $page_counter . "****\n";
 
             $type = ($row_archives['type'] == 1 ) ? "" : ($row_archives['type'] == 2) ? "#" : "@";
