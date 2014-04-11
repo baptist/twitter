@@ -6,6 +6,8 @@ require_once('config.php');
 require_once('function.php');
 
 $pid = getmypid();
+// update liveness of process
+mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
 
 // Check number of keywords to track and subdivide per user to meet Twitter limitations.
 $q = "select COUNT(*) c from archives where type in (1,2,3)";
@@ -15,7 +17,7 @@ print "ARCHIVES TO TRACK: " . $num_archives_track . "\n";
 // Check number of users to follow
 $q = "select COUNT(*) c from archives where type in (3,4)";
 $num_archives_follow = mysql_fetch_assoc(mysql_query($q, $db->connection))["c"];
-print "ARCHIVES TO TRACK: " . $num_archives_follow . "\n";
+print "ARCHIVES TO FOLLOW: " . $num_archives_follow . "\n";
 
 // Check number of streams
 $q = "select id from users";
@@ -27,10 +29,11 @@ if ($num_users > $max_user_streams)
     $k->log("[NOTICE] Application will only use allowed number of users to perform streaming operations.");
 
 $users = array();
-$user_ballast = array();
+$users_live = array();
 while (count($users) < $max_user_streams) {
-    $users[] = mysql_fetch_assoc($r_users);
-    $user_ballast[] = 0;
+    $u = mysql_fetch_assoc($r_users);
+    $users[] = $u;
+    $users_live[$u["id"]] = 0;
 }
 // Check if number of keywords is not too high
 $streams_necessary = max(ceil(floatval($num_archives_track) / $twitter_keyword_limit_per_stream), ceil(floatval($num_archives_follow) / $twitter_follow_limit_per_stream));
@@ -60,14 +63,13 @@ while ($user_index < $streams_necessary) {
 
     $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $users[$user_index]["id"];
     $pid = $tk->startProcess($job);
-
     mysql_query("update processes set pid = '$pid', live = '1' where process = 'yourtwapperkeeper_smart_stream_$user_index.php'", $db->connection);
-
+    $users_live[$users[$user_index]["id"]] = 1;
+    
     $user_index++;
 }
 
-// update liveness of process
-mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
+
 
 while (TRUE) {
     // sleep x second(s)
@@ -110,29 +112,47 @@ while (TRUE) {
     while ($row = mysql_fetch_assoc($r)) {
         // Pick a usable stream for user
         $stream_id = getUsableStreamId($twitter_keyword_limit_per_stream, -1);
+        if ($users_live[$stream_id] !== 1)
+        {
+            $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $stream_id;
+            $pid = $tk->startProcess($job);
+            mysql_query("update processes set pid = '$pid', live = '1' where process = 'yourtwapperkeeper_smart_stream_$user_index.php'", $db->connection);
+            $users_live[$stream_id] = 1;
+        }
 
         if ($stream_id !== NULL) {
             mysql_query("update archives set tracked_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
             mysql_query("update users set track = track + 1 where id = $stream_id", $db->connection);
         }
-    }    
+        
+    } 
+    
+    // update pid and last_ping in process table
+    mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
 }
 
 function getUsableStreamId($track_limit, $follow_limit) {
+    global $user_index;
+    global $streams_necessary;
+    global $max_user_streams;
+    global $tk_your_dir;
+    global $users;
+    global $tk;
+    global $db;
+    
+    print "FIND USABLE STREAM \n";
+    
     $r = mysql_query("SELECT id FROM users WHERE follow " . (($follow_limit > 0)? "<" . $follow_limit : ">= 0")  . " AND track " . (($track_limit > 0)? "<" . $track_limit : ">= 0") ." LIMIT 1");
     $num = mysql_num_rows($r);
-
+    print "USABLE STREAMS: $num \n";
     if ($num == 0) {
         // Open new stream (if possible)
-        if ($streams_necessary < $max_user_streams) {
-            $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $users[$user_index]["id"];
-            $pid = $tk->startProcess($job);
-            mysql_query("update processes set pid = '$pid', live = '1' where process = 'yourtwapperkeeper_smart_stream_$user_index.php'", $db->connection);
-
+        if ($streams_necessary < $max_user_streams) 
+        {            
+            $stream_id = $users[$user_index]["id"];
+            
             $user_index++;
             $streams_necessary++;
-
-            $stream_id = $users[$user_index]["id"];
         } else {
             // TODO replace oldest followed user with this new user?
             $tk->log("[ERROR] Unable to follow user. No space left!");

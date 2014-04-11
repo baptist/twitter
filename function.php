@@ -38,9 +38,16 @@ class YourTwapperKeeper {
 
     function archiveExists($keyword, $type = -1) {
         global $db;
-
-        $r = mysql_query("select * from archives where keyword = '" . $keyword . "'" . (($type !== -1) ? " AND type = '$type'" : ""), $db->connection) or die(mysql_error());
-
+        global $tk;
+                       
+        $r = mysql_query("select * from archives where keyword = '" . $keyword . "'" . (($type !== -1) ? " AND type = '$type'" : ""), $db->connection);
+       
+        if ($r == FALSE)
+        {
+             $tk->log(mysql_error());
+             exit(-1);
+        }
+             
         if (!$r)
             return FALSE;
 
@@ -399,7 +406,8 @@ class YourTwapperKeeper {
     }
 
     function log($message, $level = 'notice') {
-        file_put_contents("stream_log", $message . "\n", FILE_APPEND);
+        //file_put_contents("tk_log", $message . "\n", FILE_APPEND);
+        echo "$message \n";
     }
 
 }
