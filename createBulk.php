@@ -48,8 +48,22 @@ if (isset($_FILES["file"])) {
             $name = $_FILES["file"]["name"];
             
             // get first line
-            $firstline = fgets($file, 4096);
-                      
+            $firstline = fgets($file, 4096);            
+            // process line
+            $data = preg_split("/[;,]+/", $firstline);
+            $realsize = count($data);
+            // check if last fields are empty
+            for ($i = $realsize-1 ; $i >= 0 ; $i--)
+            {
+                if (trim($data[$i]) !== "")
+                {
+                    $realsize = $i + 1;
+                    break;
+                }
+            }
+            // TODO implement more advanced method to detect the field's meaning
+            // assume last field is twitter keyword
+            $keyword_index = $realsize - 1;
             $line = array();
             $i = 0;
             
@@ -58,12 +72,14 @@ if (isset($_FILES["file"])) {
             while ( $line[$i] = fgets ($file, 4096) ) {                
                 $data = preg_split("/[;,]+/", $line[$i]);    
                 
-                $result = $tk->createArchive($data[1], (count($data) == 1)? $data[$index] : implode(",", array_slice($data, 0, count($data) - 1)), ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
-                
-                if ($result[0] !== "Archive has been created." )
-                    $_SESSION['notice'] .= $result[0] . "<br/>";
-                
-                $i++;
+                if (count($data) >= $realsize)
+                {
+                    $result = $tk->createArchive($data[$keyword_index], ($realsize == 1)? "" : implode(",", array_slice($data, 0, $realsize - 1)), ($_POST["tags"] === "")? $name : $_POST["tags"], $_SESSION['access_token']['screen_name'], $_SESSION['access_token']['user_id'], $_POST["type"]);
+                    if ($result[0] !== "Archive has been created." )
+                        $_SESSION['notice'] .= $result[0] . "<br/>";
+
+                    $i++;
+                }
             }           
         }
     }
@@ -80,8 +96,6 @@ if ($_POST['type'] == 3)
     $pid = $tk->startProcess($job);
     mysql_query("update processes set pid = '$pid' where process = 'yourtwapperkeeper_lookup.php'", $db->connection);
 }
-
-
 
 // redirect
 header('Location: index.php');

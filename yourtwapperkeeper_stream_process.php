@@ -83,9 +83,10 @@ while (TRUE) {
 
         if (!$inserted) 
         {
+            $found = FALSE;
             foreach ($track as $ztable => $keyword) {
                 
-                if (stristr($tweet['text'], $keyword) == TRUE) {
+                if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE) {
                     echo " vs. $keyword = insert\n";
                     insert($ztable, $tweet, "keyword");
                     
@@ -93,18 +94,23 @@ while (TRUE) {
                     if ($keyword[0] == "#")
                         trackConversation($ztable, $tweet);   
                     
+                    $found = TRUE;
                 } else {
                     //echo " vs. $keyword = not found\n";
                 }
             }
         }
+        // If not found do not delete
+        if (!$found && !$inserted)            
+            mysql_query("update rawstream set flag = '-2' where id = '" . $tweet['id'] . "'", $db->connection);
+        
         echo "---------------\n";
     }
 
     // delete tweets in flag
     $q = "delete from rawstream where flag = '$script_key'";
     //echo $q . "\n";
-    //mysql_query($q, $db->connection);
+    mysql_query($q, $db->connection);
 
     // update counts
 

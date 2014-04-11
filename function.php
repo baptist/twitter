@@ -84,7 +84,7 @@ class YourTwapperKeeper {
         }
 
 
-        $r = mysql_query($q . "  ", $db->connection);
+        $r = mysql_query($q . " order by count desc  limit 50", $db->connection);
 
         $count = 0;
         while ($row = mysql_fetch_assoc($r)) {
@@ -107,8 +107,10 @@ class YourTwapperKeeper {
 
         // Ignore '/' (used as indication of 'unknown')
         if (trim($keyword) === "/")
+        {
+            $response[0] = "Ignore '/'.";
             return $response;
-
+        }
         // Remove keyword's first character if it equals '@' or '#'.
         $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
 
@@ -406,8 +408,8 @@ class YourTwapperKeeper {
     }
 
     function log($message, $level = 'notice') {
-        //file_put_contents("tk_log", $message . "\n", FILE_APPEND);
-        echo "$message \n";
+        file_put_contents("tk_log", $message . "\n", FILE_APPEND);
+        //echo "$message \n";
     }
 
 }
