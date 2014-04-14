@@ -47,7 +47,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             }
 
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
-            $values_array[] = $status['text'];                          // text
+            $values_array[] = $tk->sanitize($status['text']);           // text
             $values_array[] = $status['in_reply_to_user_id'];           // to_user_id
             $values_array[] = $status['in_reply_to_screen_name'];       // to_user
             $values_array[] = $user['id'];                              // from_user_id
@@ -73,6 +73,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             // add to list of newly created tweets.
             $q1 = "insert into rawstream values($values)";
+            print $q1 . "\n";
             $result = mysql_query($q1, $db->connection);
             echo ".";
         }
