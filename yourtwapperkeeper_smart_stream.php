@@ -24,9 +24,11 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
     public function enqueueStatus($status) {
         global $db;
+        global $tk;
+        
         $status = json_decode($status);
         $status = get_object_vars($status);
-        var_dump($status);
+
         // TODO check if error message is send back!
         if ($status['id'] <> null) {
 
