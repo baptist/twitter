@@ -145,7 +145,12 @@ function insert($table_id, $tweet, $reason = "") {
     $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . $tweet['to_user_id'] . "','" . $tweet['to_user'] . "','" . $tweet['from_user_id'] . "','" . $tweet['from_user'] . "','" . $tweet['original_user_id'] . "','" . $tweet['original_user'] . "','" . $tweet['id'] . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
     $r_insert = mysql_query($q_insert, $db->connection);
     
-    $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $tweet['time'] ."', -1)";    
+    if ($tweet['original_time'] > 0)
+        $time = $tweet['original_time'];
+    else
+        $time = $tweet['time'];
+    
+    $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $time ."', -1)";    
     $result = mysql_query($q2, $db->connection);
     
     return TRUE;

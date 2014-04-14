@@ -99,7 +99,7 @@ while (TRUE)
     // start or stop streams based on the necessity
     for ($i = 0; $i < count($streams); $i++)
     {
-        if ($streams_shouldbe_live[$streams[$i]["id"]] && !$streams_live[$streams[$i]["id"]])
+        if ((array_key_exists($streams[$i]["id"], $streams_shouldbe_live) && $streams_shouldbe_live[$streams[$i]["id"]]) && !$streams_live[$streams[$i]["id"]])
         {
             // start stream
             $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $streams[$i]["id"];
@@ -107,7 +107,7 @@ while (TRUE)
             mysql_query("update processes set pid = '$pid', live = '1' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
             $streams_live[$streams[$i]["id"]] = 1;    
         }
-        else if (!$streams_shouldbe_live[$streams[$i]["id"]] && $streams_live[$streams[$i]["id"]])
+        else if ((!array_key_exists($streams[$i]["id"], $streams_shouldbe_live) || !$streams_shouldbe_live[$streams[$i]["id"]]) && $streams_live[$streams[$i]["id"]])
         {
             // stop stream
             $tpid = mysql_fetch_assoc(mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection));            

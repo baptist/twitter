@@ -340,6 +340,9 @@ class YourTwapperKeeper {
         $running = TRUE;
         $pids = '';
         $shouldBeRunning = 1;
+        
+        $result = array();
+        $result[3] = array();
 
         foreach ($process_array as $key => $value) {
             $q = "select pid from processes where process = '$value'";
@@ -358,13 +361,14 @@ class YourTwapperKeeper {
             if (count($PROC) < 2) {
                 $running = FALSE;
                 $pids .= "<span style='color:red'>" . $pid . "</span>, ";
+                $result[3][] = $pid;
             }
             else
                 $pids .= $pid . ", ";
         }
         $pids = substr($pids, 0, -2);
 
-        $result = array();
+        
         if ($running == FALSE || count($process_array) == 0) {
             $result[0] = FALSE;
             if ($shouldBeRunning == 1 && count($process_array) !== 0) {

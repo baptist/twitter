@@ -36,10 +36,14 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $user = get_object_vars($status['user']);
 
             if (array_key_exists('retweeted_status', $status))
+            {
                 $orig_user = get_object_vars(get_object_vars($status['retweeted_status'])["user"]);
+                $orig_time = strtotime(get_object_vars(get_object_vars($status['retweeted_status'])["created_at"]));
+            }
             else {
                 $orig_user["id"] = "";
                 $orig_user["screen_name"] = "";
+                $orig_time = 0;
             }
 
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
@@ -59,6 +63,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $geo['coordinates'][1];                   // geo_coordinates_1
             $values_array[] = $status['created_at'];                    // created_at
             $values_array[] = strtotime($status['created_at']);         // time
+            $values_array[] = $orig_time;                               // original time
 
             $values = '';
             foreach ($values_array as $insert_value) {
