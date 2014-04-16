@@ -39,15 +39,15 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             if (array_key_exists('retweeted_status', $status))
             {
-                $orig_user = get_object_vars(get_object_vars($status['retweeted_status'])["user"]);
-                $orig_time = strtotime(get_object_vars(get_object_vars($status['retweeted_status'])["created_at"]));
+                $orig_user = get_object_vars(get_object_vars($status['retweeted_status'])["user"]);                
+                $orig_time = strtotime(get_object_vars($status['retweeted_status'])["created_at"]);  
             }
             else {
                 $orig_user["id"] = "";
                 $orig_user["screen_name"] = "";
                 $orig_time = 0;
             }
-
+        
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
             $values_array[] = $tk->sanitize($status['text']);           // text
             $values_array[] = (string) $status['in_reply_to_user_id'];  // to_user_id

@@ -140,6 +140,7 @@ while (TRUE) {
 
 function insert($table_id, $tweet, $reason = "") {
     global $db;
+    global $update_after;
     
     // TODO log mysql errors
     
@@ -151,8 +152,13 @@ function insert($table_id, $tweet, $reason = "") {
     else
         $time = $tweet['time'];
     
-    $q2 = "insert into new_tweets values('".((string)$tweet['id'])."', $table_id, '". $time ."', UNIX_TIMESTAMP(), -1)";    
-    $result = mysql_query($q2, $db->connection);
+    $current_time = time();
+    if ((time() - $time) < $update_after)
+    {
+        // Update is only required when tweet is not older than threshold
+        $q2 = "insert into new_tweets values('".((string)$tweet['id'])."', $table_id, '". $time ."', UNIX_TIMESTAMP(), -1)";    
+        $result = mysql_query($q2, $db->connection);        
+    }
     
     return TRUE;
 }
