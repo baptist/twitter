@@ -81,25 +81,26 @@ while (TRUE) {
             }
         }
 
-        if (!$inserted) 
-        {
-            $found = FALSE;
-            foreach ($track as $ztable => $keyword) {
+       
+        $found = FALSE;
+        foreach ($track as $ztable => $keyword) {
+
+            if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE) {
+                echo " vs. $keyword = insert\n";
                 
-                if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE) {
-                    echo " vs. $keyword = insert\n";
-                    insert($ztable, $tweet, "keyword");
-                    
-                    // Check if keyword represents hashtag and start following user to record conversations if necessary.
-                    if ($keyword[0] == "#")
-                        trackConversation($ztable, $tweet);   
-                    
-                    $found = TRUE;
-                } else {
-                    //echo " vs. $keyword = not found\n";
-                }
+                insert($ztable, $tweet, "keyword");
+
+                // Check if keyword represents hashtag and start following user to record conversations if necessary.
+                if ($keyword[0] == "#")
+                    trackConversation($ztable, $tweet);   
+
+                $found = TRUE;
+            } else {
+                //echo " vs. $keyword = not found\n";
             }
         }
+        
+        
         // If not found do not delete
         if (!$found && !$inserted)            
             mysql_query("update rawstream set flag = '-2' where id = '" . $tweet['id'] . "'", $db->connection);
