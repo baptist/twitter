@@ -28,7 +28,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
         
         $status = json_decode($status);
         $status = get_object_vars($status);
-
+    
         // TODO check if error message is send back!
         if ($status['id'] <> null) {
 
@@ -50,13 +50,13 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
             $values_array[] = $tk->sanitize($status['text']);           // text
-            $values_array[] = $status['in_reply_to_user_id'];           // to_user_id
+            $values_array[] = (string) $status['in_reply_to_user_id'];  // to_user_id
             $values_array[] = $status['in_reply_to_screen_name'];       // to_user
-            $values_array[] = $user['id'];                              // from_user_id
+            $values_array[] = (string) $user['id'];                     // from_user_id
             $values_array[] = $user['screen_name'];                     // from_user 
-            $values_array[] = $orig_user['id'];                         // original_user_id
+            $values_array[] = (string) $orig_user['id'];                // original_user_id
             $values_array[] = $orig_user['screen_name'];                // original_user          
-            $values_array[] = "'". $status['id'] . "'";                 // id -> unique id of tweet             
+            $values_array[] = (string) $status['id'];                   // id -> unique id of tweet             
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url

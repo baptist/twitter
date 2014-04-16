@@ -55,7 +55,7 @@ while (TRUE)
     
     // calculate statistics
     $total_num_tweets = mysql_fetch_assoc(mysql_query("select sum(count) as total from archives", $db->connection))["total"];
-    $num_tweets_last_hour = mysql_fetch_assoc(mysql_query("select count(*) as total from new_tweets where UNIX_TIMESTAMP() - fetched_at > 3600 AND UNIX_TIMESTAMP() - fetched_at <= 2*3600", $db->connection))["total"];
+    $num_tweets_last_hour = mysql_fetch_assoc(mysql_query("select count(*) as total from new_tweets where UNIX_TIMESTAMP() - fetched_at <= 3600", $db->connection))["total"];
     $avg_tweets_per_minute = round($num_tweets_last_hour / 60.0, 2);
     $track_load = mysql_fetch_assoc(mysql_query("select ROUND(SUM(track)/(COUNT(*)*$twitter_keyword_limit_per_stream) * 100, 1) as _load from users", $db->connection))["_load"];
     $follow_load = mysql_fetch_assoc(mysql_query("select ROUND(SUM(follow)/(COUNT(*)*$twitter_follow_limit_per_stream) * 100, 1) as _load from users", $db->connection))["_load"];

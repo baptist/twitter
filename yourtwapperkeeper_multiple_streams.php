@@ -34,8 +34,8 @@ while (count($streams) < $num_streams)
 {
     $u = mysql_fetch_assoc($r_streams);
     $streams[] = $u;
-    $live = mysql_fetch_num(mysql_query("select pid from processes where live = '1' and parameters = '".$u["id"]."'", $db->connection)) > 0;
-    $streams_live[$u["id"]] = $live;
+    //$live = mysql_fetch_num(mysql_query("select pid from processes where live = '1' and parameters = '".$u["id"]."'", $db->connection)) > 0;
+    $streams_live[$u["id"]] = 0;//$live;
 }
 
 // Start looping
