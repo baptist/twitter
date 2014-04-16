@@ -21,12 +21,59 @@ while (TRUE)
     if (count($result[3]) > 0)
     {
         // notify admin and try to restart processes
-        mail("baptist.vandersmissen@ugent.be", "Process(es) failed! Trying to restart.", "Check TwapperKeeper!");
-
+        mail($admin_mail_address, "Process(es) failed! Trying to restart.", "Check TwapperKeeper!");
+        $tk->log("Process(es) failed. Starting recovery modus!");
+              
+        foreach ($result[3] as $process)
+        {
+            $tk->log("Process " . $process . " failed. Restarting..");
+            $res = mysql_fetch_assoc(mysql_query("select process, parameters from processes where pid = $process", $db->connection));
+            $process_name = $res["process"];
+            $params = $res["parameters"];
+            $job = 'php ' . $tk_your_dir . $process_name . " " . $params;
+            $tk->log($job);
+            $pid = $tk->startProcess($job);
+            mysql_query("update processes set pid = '$pid', live = '1' where process = '$process_name'", $db->connection);  
+        } 
+        
+        // give processes time to start before new check
+        sleep(2);
+        
+        // check
+        $result = $tk->statusLiveArchiving();
+        if (count($result[3]) > 0)
+        {
+            mail($admin_mail_address, "RESTART FAILED", "CHECK TwapperKeeper!!!");
+            
+        }
+        else
+        {
+            mail($admin_mail_address, "Restart successful", "Check Logs of Twapperkeeper.");
+        }
                 
     }
+    
+    // calculate statistics
+    $total_num_tweets = mysql_fetch_assoc(mysql_query("select sum(count) as total from archives", $db->connection))["total"];
+    $num_tweets_last_hour = mysql_fetch_assoc(mysql_query("select count(*) as total from new_tweets where UNIX_TIMESTAMP() - fetched_at > 3600 AND UNIX_TIMESTAMP() - fetched_at <= 2*3600", $db->connection))["total"];
+    $avg_tweets_per_minute = round($num_tweets_last_hour / 60.0, 2);
+    $track_load = mysql_fetch_assoc(mysql_query("select ROUND(SUM(track)/(COUNT(*)*$twitter_keyword_limit_per_stream) * 100, 1) as _load from users", $db->connection))["_load"];
+    $follow_load = mysql_fetch_assoc(mysql_query("select ROUND(SUM(follow)/(COUNT(*)*$twitter_follow_limit_per_stream) * 100, 1) as _load from users", $db->connection))["_load"];
+    $num_hashtags = mysql_fetch_assoc(mysql_query("select COUNT(*) as count from archives where type = 2", $db->connection))["count"];
+    $num_follows = mysql_fetch_assoc(mysql_query("select COUNT(*) as count from archives where type = 3", $db->connection))["count"];
+    $num_conversations = mysql_fetch_assoc(mysql_query("select COUNT(*) as count from archives where type = 4", $db->connection))["count"];
+    
+    // Check if it should be updated or inserted
+    $r = mysql_query("select created_at, id from statistics ORDER BY id DESC LIMIT 1");
+    $s = mysql_fetch_assoc($r);
+    $time = $s["created_at"];
+    $id = $s["id"];
 
-
+    if ((time() - $time) > 3600)    
+        mysql_query("insert into statistics values (0, '$total_num_tweets', $avg_tweets_per_minute, $track_load, $follow_load, '$num_hashtags', '$num_follows', '$num_conversations', UNIX_TIMESTAMP())", $db->connection);
+    else
+        mysql_query("update statistics set num_tweets = '$total_num_tweets', avg_tweets =$avg_tweets_per_minute, track_load=$track_load, follow_load=$follow_load, num_hashtags='$num_hashtags', num_follows='$num_follows', num_conversations='$num_conversations' where id='$id'", $db->connection);
+    
     // sleep x seconds
     sleep(5);
 }

@@ -22,13 +22,18 @@
 class YourTwapperKeeper {
 
 // sanitize data
-    function sanitize($input) {
-        if (is_array($input)) {
-            foreach ($input as $k => $i) {
+    function sanitize($input)
+    {
+        if (is_array($input))
+        {
+            foreach ($input as $k => $i)
+            {
                 $output[$k] = $this->sanitize($i);
             }
-        } else {
-            if (get_magic_quotes_gpc()) {
+        } else
+        {
+            if (get_magic_quotes_gpc())
+            {
                 $input = stripslashes($input);
             }
             $output = mysql_real_escape_string($input);
@@ -36,18 +41,19 @@ class YourTwapperKeeper {
         return $output;
     }
 
-    function archiveExists($keyword, $type = -1) {
+    function archiveExists($keyword, $type = -1)
+    {
         global $db;
         global $tk;
-                       
+
         $r = mysql_query("select * from archives where keyword = '" . $keyword . "'" . (($type !== -1) ? " AND type = '$type'" : ""), $db->connection);
-       
+
         if ($r == FALSE)
         {
-             $tk->log(mysql_error());
-             exit(-1);
+            $tk->log(mysql_error());
+            exit(-1);
         }
-             
+
         if (!$r)
             return FALSE;
 
@@ -58,28 +64,34 @@ class YourTwapperKeeper {
     }
 
     // list archives
-    function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false) {
+    function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false)
+    {
         global $db;
 
         $q = "select * from archives where type IN (1,2,3)";
 
-        if ($id) {
+        if ($id)
+        {
             $q .= " and id = '$id'";
         }
 
-        if ($keyword) {
+        if ($keyword)
+        {
             $q .= " and keyword like '%$keyword%'";
         }
 
-        if ($description) {
+        if ($description)
+        {
             $q .= " and description like '%$description%'";
         }
 
-        if ($tags) {
+        if ($tags)
+        {
             $q .= " and tags like '%$tags%";
         }
 
-        if ($screen_name) {
+        if ($screen_name)
+        {
             $q .= " and screen_name like '%$screen_name%";
         }
 
@@ -87,7 +99,8 @@ class YourTwapperKeeper {
         $r = mysql_query($q . " order by count desc  limit 50", $db->connection);
 
         $count = 0;
-        while ($row = mysql_fetch_assoc($r)) {
+        while ($row = mysql_fetch_assoc($r))
+        {
             $count++;
             $response['results'][] = $row;
         }
@@ -97,10 +110,30 @@ class YourTwapperKeeper {
         return $response;
     }
 
+    function getStats()
+    {
+        global $db;
+
+        // TODO this is not the most efficient way to fetch latest entry?
+        $r = mysql_query("select * from statistics ORDER BY id DESC LIMIT 1");
+        $s = mysql_fetch_assoc($r);
+
+        $stats = array();
+        if (mysql_num_rows($r) == 1)
+        {
+            $stats[] = "Fetched <span style='font-weight:bold'>" . $s["num_tweets"] . " tweets </span> in total.";
+            $stats[] = "Fetching <span style='font-weight:bold'>" . $s["avg_tweets"] . " tweets per minute.</span>";
+            $stats[] = "<span style='font-weight:bold'>Track load: " . $s["track_load"] . " % -- " . "Follow load: " . $s["follow_load"] . " % </span>";
+            $stats[] = "Tracking <span style='font-weight:bold'>" . $s["num_hashtags"] . " hashtags, " . $s["num_follows"] . " users, and " . $s["num_conversations"] . " conversations.</span>";
+        }
+        return $stats;
+    }
+
 // create archive
 // archive types stand for the different archiving possibilities
 // (1 = keyword tracking, 2 = hashtag tracking, 3 = user tracking, 4 = user conversation tracking )
-    function createArchive($keyword, $description, $tags, $screen_name, $user_id, $type = 0, $track_id = NULL, $debug = false) {
+    function createArchive($keyword, $description, $tags, $screen_name, $user_id, $type = 0, $track_id = NULL, $debug = false)
+    {
         global $db;
 
         $response = array();
@@ -116,17 +149,20 @@ class YourTwapperKeeper {
 
         $q = "select * from archives where keyword = '$keyword'";
         $r = mysql_query($q, $db->connection);
-        if (mysql_num_rows($r) > 0) {
+        if (mysql_num_rows($r) > 0)
+        {
             $response[0] = "Archive for '" . $keyword . "' already exists.";
             return($response);
         }
 
-        if (strlen($keyword) < 1 || strlen($keyword) > 30) {
+        if (strlen($keyword) < 1 || strlen($keyword) > 30)
+        {
             $response[0] = (($type == 1) ? "Keyword field" : ($type == 2) ? "Hashtag field" : "User field" ) . " cannot be blank.";
             return($response);
         }
 
-        if (strlen($keyword) > 30) {
+        if (strlen($keyword) > 30)
+        {
             $response[0] = "Input value must be less than 30 characters.";
             return($response);
         }
@@ -142,7 +178,7 @@ class YourTwapperKeeper {
         $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0, 0)";
         $r = mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
-       
+
         $create_table = "CREATE TABLE IF NOT EXISTS `z_$lastid` (
         `archivesource` varchar(100) NOT NULL,
         `text` varchar(1000) NOT NULL,
@@ -173,7 +209,7 @@ class YourTwapperKeeper {
         UNIQUE KEY (`id`),
         INDEX `time` (`time`)
         ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
-        
+
         $r = mysql_query($create_table, $db->connection) or die(mysql_error());
 
         $response[0] = "Archive has been created.";
@@ -182,7 +218,8 @@ class YourTwapperKeeper {
     }
 
     // helper function
-    function addUser($screen_name) {
+    function addUser($screen_name)
+    {
         global $db;
 
         // check if user does not exist in db        
@@ -190,7 +227,8 @@ class YourTwapperKeeper {
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
             return mysql_fetch_assoc($r)["id"];
-        else {
+        else
+        {
             // insert user into database
             $q = "insert into twitter_users (screen_name) values ('" . $screen_name . "')";
             $r = mysql_query($q, $db->connection);
@@ -199,7 +237,8 @@ class YourTwapperKeeper {
         }
     }
 
-    function addHollowUser($screen_name, $user_id) {
+    function addHollowUser($screen_name, $user_id)
+    {
         global $db;
 
         // check if user does not exist in db        
@@ -207,7 +246,8 @@ class YourTwapperKeeper {
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
             return mysql_fetch_assoc($r)["id"];
-        else {
+        else
+        {
             // insert user into database
             $q = "insert into twitter_users (screen_name, twitter_id, flag) values ('$screen_name', '$user_id', 1)";
             $r = mysql_query($q, $db->connection);
@@ -217,7 +257,8 @@ class YourTwapperKeeper {
     }
 
 // get tweets
-    function getTweets($id, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false) {
+    function getTweets($id, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false)
+    {
         global $db;
 
         $response = array();
@@ -243,39 +284,48 @@ class YourTwapperKeeper {
         // build param query
         $qparam = '';
 
-        if ($start > 0) {
+        if ($start > 0)
+        {
             $qparam .= " and time > $start";
         }
 
-        if ($end > 0) {
+        if ($end > 0)
+        {
             $qparam .= " and time < $end";
         }
 
-        if ($nort == 1) {
+        if ($nort == 1)
+        {
             $qparam .= " and text not like 'RT%'";
         }
 
-        if ($from_user) {
+        if ($from_user)
+        {
             $qparam .= " and from_user = '$from_user'";
         }
 
-        if ($text) {
+        if ($text)
+        {
             $qparam .= " and text like '%$text%'";
         }
 
-        if ($lang) {
+        if ($lang)
+        {
             $qparam .= " and iso_language_code='$lang'";
         }
 
-        if ($since_id) {
+        if ($since_id)
+        {
             $qparam .= " and id >= $since_id";
         }
 
-        if ($max_id) {
+        if ($max_id)
+        {
             $qparam .= " and id <= $max_id";
         }
 
-        if ($lat OR $long OR $rad) {
+        if ($lat OR $long OR $rad)
+        {
 
             $R = 6371;  // earth's radius, km
 
@@ -288,13 +338,16 @@ class YourTwapperKeeper {
             $qparam .= " and geo_coordinates_0 > $minLat and geo_coordinates_0 < $maxLat and geo_coordinates_1 > $minLon and geo_coordinates_1 < $maxLon";
         }
 
-        if ($orderby == "a") {
+        if ($orderby == "a")
+        {
             $qparam .= " order by time asc";
-        } else {
+        } else
+        {
             $qparam .= " order by time desc";
         }
 
-        if ($limit) {
+        if ($limit)
+        {
             $qparam .= " limit $limit";
         }
 
@@ -303,14 +356,16 @@ class YourTwapperKeeper {
         $r = mysql_query($query, $db->connection);
 
         $response = array();
-        while ($row = mysql_fetch_assoc($r)) {
+        while ($row = mysql_fetch_assoc($r))
+        {
             $response[] = $row;
         }
         return $response;
     }
 
 // delete archive
-    function deleteArchive($id) {
+    function deleteArchive($id)
+    {
         global $db;
         $q = "delete from archives where id = '$id'";
         $r = mysql_query($q, $db->connection);
@@ -323,7 +378,8 @@ class YourTwapperKeeper {
     }
 
 // update archive
-    function updateArchive($id, $description, $tags) {
+    function updateArchive($id, $description, $tags)
+    {
         global $db;
         $q = "update archives set description = '$description' where id = '$id'";
         $r = mysql_query($q, $db->connection);
@@ -334,17 +390,19 @@ class YourTwapperKeeper {
     }
 
 // check status of archiving processes	
-    function statusArchiving($process_array) {
+    function statusArchiving($process_array)
+    {
         global $db;
         // If PIDs > 0 - we are considered running
         $running = TRUE;
         $pids = '';
         $shouldBeRunning = 1;
-        
+
         $result = array();
         $result[3] = array();
 
-        foreach ($process_array as $key => $value) {
+        foreach ($process_array as $key => $value)
+        {
             $q = "select pid from processes where process = '$value'";
             $r = mysql_query($q, $db->connection);
             $r = mysql_fetch_assoc($r);
@@ -353,12 +411,14 @@ class YourTwapperKeeper {
             unset($PROC);
             exec("ps $pid", $PROC);
 
-            if ($pid == 0) {
+            if ($pid == 0)
+            {
                 $running = FALSE;
                 $shouldBeRunning = FALSE;
             }
 
-            if (count($PROC) < 2) {
+            if (count($PROC) < 2)
+            {
                 $running = FALSE;
                 $pids .= "<span style='color:red'>" . $pid . "</span>, ";
                 $result[3][] = $pid;
@@ -368,17 +428,21 @@ class YourTwapperKeeper {
         }
         $pids = substr($pids, 0, -2);
 
-        
-        if ($running == FALSE || count($process_array) == 0) {
+
+        if ($running == FALSE || count($process_array) == 0)
+        {
             $result[0] = FALSE;
-            if ($shouldBeRunning == 1 && count($process_array) !== 0) {
+            if ($shouldBeRunning == 1 && count($process_array) !== 0)
+            {
                 $result[1] = "Archiving processes have died.  (PIDS = $pids)";
                 $result[2] = 1;
-            } else {
+            } else
+            {
                 $result[1] = "Archiving processes are NOT running.";
                 $result[2] = 0;
             }
-        } else {
+        } else
+        {
             $result[0] = TRUE;
             $result[1] = "Archiving processes are running. (PIDS = $pids)";
         }
@@ -387,7 +451,8 @@ class YourTwapperKeeper {
     }
 
     // check status of archiving processes	
-    function statusLiveArchiving() {
+    function statusLiveArchiving()
+    {
         global $db;
         $processes = array();
         $r = mysql_query("select process from processes where live = 1", $db->connection);
@@ -398,21 +463,24 @@ class YourTwapperKeeper {
     }
 
 // kill archiving process
-    function killProcess($pid) {
+    function killProcess($pid)
+    {
         $command = 'kill -9 ' . $pid;
         exec($command);
     }
 
 // start archiving process
-    function startProcess($cmd) {
+    function startProcess($cmd)
+    {
         $command = "$cmd > /dev/null 2>&1 & echo $!";
         exec($command, $op);
         $pid = (int) $op[0];
         return ($pid);
     }
 
-    function log($message, $level = 'notice') {
-        file_put_contents("tk_log", $message . "\n", FILE_APPEND);
+    function log($message, $level = 'notice')
+    {
+        file_put_contents("tk_log", gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
         //echo "$message \n";
     }
 

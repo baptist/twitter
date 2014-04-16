@@ -23,16 +23,19 @@ $num_streams = mysql_num_rows($r_streams);
 
 // Validity check
 if ($num_streams > $max_user_streams)
+{
     $k->log("[NOTICE] Application will only use allowed number of users to perform streaming operations.");
-
+    $num_streams = $max_user_streams;
+}
 // Get all streams
 $streams = array();
 $streams_live = array();
-while (count($streams) < $max_user_streams)
+while (count($streams) < $num_streams)
 {
     $u = mysql_fetch_assoc($r_streams);
     $streams[] = $u;
-    $streams_live[$u["id"]] = 0;
+    $live = mysql_fetch_num(mysql_query("select pid from processes where live = '1' and parameters = '".$u["id"]."'", $db->connection)) > 0;
+    $streams_live[$u["id"]] = $live;
 }
 
 // Start looping
@@ -104,7 +107,7 @@ while (TRUE)
             // start stream
             $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $streams[$i]["id"];
             $pid = $tk->startProcess($job);
-            mysql_query("update processes set pid = '$pid', live = '1' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
+            mysql_query("update processes set pid = '$pid', live = '1', parameters = '".$streams[$i]["id"]."' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
             $streams_live[$streams[$i]["id"]] = 1;    
         }
         else if ((!array_key_exists($streams[$i]["id"], $streams_shouldbe_live) || !$streams_shouldbe_live[$streams[$i]["id"]]) && $streams_live[$streams[$i]["id"]])
@@ -112,7 +115,7 @@ while (TRUE)
             // stop stream
             $tpid = mysql_fetch_assoc(mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection));            
             $tk->killProcess($tpid['pid']);            
-            mysql_query("update processes set pid = '0', live = '0' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
+            mysql_query("update processes set pid = '0', live = '0', parameters = '' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
             $streams_live[$streams[$i]["id"]] = 0; 
         }
     }
@@ -121,6 +124,7 @@ while (TRUE)
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
 
     // sleep x second(s)
+    echo "sleep.";
     sleep(3);
 }
 
@@ -141,7 +145,7 @@ function getUsableStreamId($track_limit, $follow_limit)
     }
     else
         $stream_id = mysql_fetch_assoc($r)["id"];
-
+ 
     return $stream_id;
 }
 ?>

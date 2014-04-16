@@ -150,7 +150,7 @@ function insert($table_id, $tweet, $reason = "") {
     else
         $time = $tweet['time'];
     
-    $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $time ."', -1)";    
+    $q2 = "insert into new_tweets values('".$tweet['id']."', $table_id, '". $time ."', 'UNIX_TIMESTAMP()', -1)";    
     $result = mysql_query($q2, $db->connection);
     
     return TRUE;

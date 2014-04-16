@@ -71,11 +71,19 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                 echo "<li class='" . (($archiving_status[2] == 1) ? "danger" : "caution") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></li>";
                             } else {
                                 echo "<li class='correct'>$archiving_status[1] <a href='stoparchiving.php'>Stop</a></li>";
+                                echo "<li class=''></li>";
+                                // display some statistics.
+                                $stats = $tk->getStats();
+                                foreach ($stats as $stat)
+                                {
+                                    echo "<li class='infor'>$stat</li>";
+                                }
                             }
                         }
-                        if (isset($_SESSION['notice'])) {
+                        /*if (isset($_SESSION['notice'])) {
                             echo "<li class='infor'>" . $_SESSION['notice'] . "</li>";
-                        }
+                        }*/
+                        
                         ?>
                     </ul>
                 </div>

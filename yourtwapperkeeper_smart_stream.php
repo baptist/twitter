@@ -10,7 +10,7 @@ if (isset($argv[1]))
     $stream_id = $argv[1];
 
 if ($stream_id == NULL) {
-    $tk->log("[ERROR] No ID given to track keywords for.");
+    $tk->log("[ERROR] No ID given to track keywords with.");
     exit(2);
 }
 
@@ -56,7 +56,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $user['screen_name'];                     // from_user 
             $values_array[] = $orig_user['id'];                         // original_user_id
             $values_array[] = $orig_user['screen_name'];                // original_user          
-            $values_array[] = $status['id'];                            // id -> unique id of tweet             
+            $values_array[] = "'". $status['id'] . "'";                 // id -> unique id of tweet             
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url

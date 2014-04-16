@@ -27,6 +27,7 @@ $youtwapperkeeper_useragent = "YourTwapper Keeper";											// change to whate
 
 /* Administrators - Twitter screen name(s) who can administer / start / stop archiving */
 $admin_screen_name=array('BaptistV'); 
+$admin_mail_address = "baptist.vandersmissen@ugent.be";
 
 /* Users - Twitter screen names that are allowed to use Your Twapper Keeper site - leaving commented means anyone can use site*/
 /* $auth_screen_name=array('JohnSmith','SallySue'); */
@@ -52,7 +53,7 @@ define("DB_NAME", "twapperkeeper"); 										// change to your db name
 
 
 $yourtwapperkeeper_version = "version 0.7.1";
-$archive_process_array = array(/*'yourtwapperkeeper_crawl.php',*/ 'yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
+$archive_process_array = array('yourtwapperkeeper_crawl.php', 'yourtwapperkeeper_monitor_processes.php', 'yourtwapperkeeper_multiple_streams.php','yourtwapperkeeper_stream_process.php','yourtwapperkeeper_update_tweets.php');
 $twitter_api_sleep_sec = ceil(15 * 60 / 180);
 $stream_process_stack_size = 500;
 $update_stack_size_per_second = 27000 / 3600.0;
