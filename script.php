@@ -14,7 +14,7 @@ require_once('function.php');
         
 	// run over all tweets
 
-	$q = "select id,time from z_$table where retweets is NULL and favorites is NULL";
+	$q = "select id,time from z_$table limit 50";
 	
 	$r = mysql_query($q, $db->connection);
 	print "NUM: " . mysql_num_rows($r). "\n";

@@ -33,6 +33,9 @@ while (TRUE) {
         $command = "java -jar library/updateTweets.jar '$script_key'";
         echo "$command \n";
         exec($command, $op);
+        
+        foreach ($op as $line)        
+             $tk->log($line);        
 
         $time_run = (microtime(true) - $start);
         $tk->log("Application ran for $time_run seconds.\n");

@@ -36,20 +36,26 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             $geo = get_object_vars($status['geo']);
             $user = get_object_vars($status['user']);
-
+            
             if (array_key_exists('retweeted_status', $status))
             {
-                $orig_user = get_object_vars(get_object_vars($status['retweeted_status'])["user"]);                
-                $orig_time = strtotime(get_object_vars($status['retweeted_status'])["created_at"]);  
+                $orig = get_object_vars($status['retweeted_status']);
+                $orig_user = get_object_vars($orig["user"]);                
+                $orig_time = strtotime($orig["created_at"]); 
+                
+                $text = "RT @" . $orig_user['screen_name'] . ": " . $tk->sanitize($orig['text']);              
+                $orig_id = $orig["id"];
             }
             else {
                 $orig_user["id"] = "";
                 $orig_user["screen_name"] = "";
                 $orig_time = 0;
+                $orig_id = 0;
+                $text = $tk->sanitize($status['text']);                
             }
         
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
-            $values_array[] = $tk->sanitize($status['text']);           // text
+            $values_array[] = $text;                                    // text
             $values_array[] = (string) $status['in_reply_to_user_id'];  // to_user_id
             $values_array[] = $status['in_reply_to_screen_name'];       // to_user
             $values_array[] = (string) $user['id'];                     // from_user_id
@@ -65,6 +71,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $geo['coordinates'][1];                   // geo_coordinates_1
             $values_array[] = $status['created_at'];                    // created_at
             $values_array[] = strtotime($status['created_at']);         // time
+            //$values_array[] = $orig_id;                                 // original id
             $values_array[] = $orig_time;                               // original time
 
             $values = '';

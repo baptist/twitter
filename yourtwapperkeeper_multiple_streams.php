@@ -44,7 +44,8 @@ while (TRUE)
     $streams_shouldbe_live = array();
 
     // Check if some users should not be followed anymore for conversation purposes
-    $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN (select archive_id from conversations where (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user)";
+    $subquery = "select archive from conversations where (UNIX_TIMESTAMP() - `created_at`) > (24*3600) AND NOT archive IN (SELECT archive FROM conversations WHERE (UNIX_TIMESTAMP() - `created_at`) < (24*3600))";
+    $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN ($subquery)";
     mysql_query($q_old_users, $db->connection);
 
     // Update stream track and follow statistics
