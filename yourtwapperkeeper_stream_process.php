@@ -92,7 +92,7 @@ while (TRUE) {
 
                 // Check if keyword represents hashtag and start following user to record conversations if necessary.
                 if ($keyword[0] == "#")
-                    trackConversation($ztable, $tweet);   
+                    $tk->trackConversation($ztable, $tweet);   
 
                 $found = TRUE;
             } else {
@@ -166,51 +166,7 @@ function insert($table_id, $tweet, $reason = "") {
 }
 
 
-function trackConversation($base_archive, $tweet) {
-    global $db; 
-    global $tk;
-    global $tk_twitter_username;
-    global $tk_twitter_user_id;
-    
-    $archive = $tk->archiveExists($tweet['from_user']);
-    if ($archive !== FALSE)
-    {   
-        // Archive is actively following user to track conversation        
-        if ($archive["type"] == 4)  
-        {
-            // Get previous conversation(s)
-            $q = "select to_archive from conversations where user_id = '" . $tweet['from_user_id'] . "'";
-            $r = mysql_query($q, $db->connection);
-            
-            $found = FALSE;
-            while ($row = mysql_fetch_assoc($r))
-            {
-                if ($row["to_archive"] == $base_archive)
-                {
-                    $found = TRUE;
-                    break;
-                }
-            }
-            if (!$found)
-                createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive );        
-        }
-        else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
-            createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive); 
-    }   
-    else
-    {
-        // Create new 'conversation' archive
-        $tk->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
-        $archive = $tk->archiveExists($tweet['from_user']);
-        createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive); 
-    }
-}
 
-function createConversation($user_id, $tweet_id, $archive_id, $base_archive)
-{
-    global $db;    
-    mysql_query("insert into conversations values ('0', '$user_id', '$tweet_id', '$archive_id', '$base_archive' ,UNIX_TIMESTAMP())", $db->connection);    
-}
 
 
 ?>

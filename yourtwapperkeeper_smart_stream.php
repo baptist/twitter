@@ -25,6 +25,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
     public function enqueueStatus($status) {
         global $db;
         global $tk;
+        global $stream_id;
         
         $status = json_decode($status);
         $status = get_object_vars($status);
@@ -82,9 +83,12 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             // add to list of newly created tweets.
             $q1 = "insert into rawstream values($values)";
-            print $q1 . "\n";
+            $tk->log($q1 . "-- from stream $stream_id \n");
             $result = mysql_query($q1, $db->connection);
-            echo ".";
+            
+            if (mysql_error() != "")
+                $tk->log("Error: " . mysql_error() . " \n");
+            
         }
     }
 

@@ -462,6 +462,52 @@ class YourTwapperKeeper {
         return $this->statusArchiving($processes);
     }
 
+    function trackConversation($base_archive, $tweet)
+    {
+        global $db;        
+        global $tk_twitter_username;
+        global $tk_twitter_user_id;
+
+        $archive = $this->archiveExists($tweet['from_user']);
+        if ($archive !== FALSE)
+        {
+            // Archive is actively following user to track conversation        
+            if ($archive["type"] == 4)
+            {
+                // Get previous conversation(s)
+                $q = "select to_archive from conversations where user_id = '" . $tweet['from_user_id'] . "'";
+                $r = mysql_query($q, $db->connection);
+
+                $found = FALSE;
+                while ($row = mysql_fetch_assoc($r))
+                {
+                    if ($row["to_archive"] == $base_archive)
+                    {
+                        $found = TRUE;
+                        break;
+                    }
+                }
+                if (!$found)
+                    $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
+            }
+            else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
+                $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
+        }
+        else
+        {
+            // Create new 'conversation' archive
+            $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
+            $archive = $this->archiveExists($tweet['from_user']);
+            $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
+        }
+    }
+
+    function createConversation($user_id, $tweet_id, $archive_id, $base_archive)
+    {
+        global $db;
+        mysql_query("insert into conversations values ('0', '$user_id', '$tweet_id', '$archive_id', '$base_archive' ,UNIX_TIMESTAMP())", $db->connection);
+    }
+
 // kill archiving process
     function killProcess($pid)
     {
@@ -478,9 +524,9 @@ class YourTwapperKeeper {
         return ($pid);
     }
 
-    function log($message, $level = 'notice')
+    function log($message, $level = 'notice', $file = 'tk_log')
     {
-        file_put_contents("tk_log", gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
+        file_put_contents($file, gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
         //echo "$message \n";
     }
 

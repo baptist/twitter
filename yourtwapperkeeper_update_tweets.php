@@ -45,8 +45,14 @@ while (TRUE) {
     }
 
     $time_left = $update_time_window - $time_run;
-    $tk->log("Updating finished. Sleeping for $time_left seconds. \n");
-    sleep($time_left);
+    
+    if ($time_left > 0)
+    {
+        $tk->log("Updating finished. Sleeping for $time_left seconds. \n");    
+        sleep($time_left);
+    } else
+        $tk->log("Application has run too long! \n"); 
+       
 
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);

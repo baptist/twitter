@@ -1,4 +1,5 @@
 <?php
+
 require_once('Phirehose.php');
 require_once('OauthPhirehose.php');
 require_once('config.php');
@@ -10,11 +11,14 @@ $pid = getmypid();
 // Update liveness of process
 mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
 
-// Reset streams counters
-mysql_query("UPDATE users SET track = 0, follow = 0", $db->connection);
+if ($application_reset)
+{
+    // Reset streams counters
+    mysql_query("UPDATE users SET track = 0, follow = 0", $db->connection);
 
-// Reset tracking and follow information for archives
-mysql_query("UPDATE archives SET tracked_by = 0, followed_by = 0", $db->connection);
+    // Reset tracking and follow information for archives
+    mysql_query("UPDATE archives SET tracked_by = 0, followed_by = 0", $db->connection);
+}
 
 // Check number of streams
 $q = "select id from users";
@@ -35,18 +39,44 @@ while (count($streams) < $num_streams)
     $u = mysql_fetch_assoc($r_streams);
     $streams[] = $u;
     //$live = mysql_fetch_num(mysql_query("select pid from processes where live = '1' and parameters = '".$u["id"]."'", $db->connection)) > 0;
-    $streams_live[$u["id"]] = 0;//$live;
+    $streams_live[$u["id"]] = 0; //$live;
 }
 
 // Start looping
+$count = 0;
+$last_updated = 0;
+// TODO make this more efficient as a whole.
 while (TRUE)
-{
+{    
     $streams_shouldbe_live = array();
 
-    // Check if some users should not be followed anymore for conversation purposes
-    $subquery = "select archive from conversations where (UNIX_TIMESTAMP() - `created_at`) > (24*3600) AND NOT archive IN (SELECT archive FROM conversations WHERE (UNIX_TIMESTAMP() - `created_at`) < (24*3600))";
-    $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN ($subquery)";
-    mysql_query($q_old_users, $db->connection);
+    // Check if some users should not be followed anymore for conversation purposes (only every 30 minutes!)
+    if (time() - $last_updated >= 1800)
+    {
+        // get archives that can be dropped
+        $subquery1 = "select archive from conversations where (UNIX_TIMESTAMP() - `created_at`) <= $time_to_track_user";
+        $archives_to_keep_temp = mysql_query($subquery1, $db->connection);
+        $keep_archives = "";
+        while ($r = mysql_fetch_assoc($archives_to_keep_temp))
+            $keep_archives .= "," . $r["archive"];
+        
+        print "KEEP: " .substr($keep_archives, 1) . "\n\n";
+        
+        $subquery2 = "select archive from conversations WHERE (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user AND id NOT IN (".substr($keep_archives, 1).")";        
+        $archives_to_drop_temp = mysql_query($subquery2, $db->connection);
+        $drop_archives = "";
+        while ($r = mysql_fetch_assoc($archives_to_drop_temp))
+            $drop_archives .=  "," . $r["archive"];
+        
+        print "DROP: " .substr($drop_archives, 1) . "\n\n";
+               
+        $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN (" . substr($drop_archives, 1) . ")";
+        mysql_query($q_old_users, $db->connection);
+        
+        print "AFFECTED: " . mysql_affected_rows() . "\n\n";
+
+        $last_updated = time();
+    }
 
     // Update stream track and follow statistics
     for ($i = 0; $i < count($streams); $i++)
@@ -56,11 +86,11 @@ while (TRUE)
         $num_tracks = mysql_fetch_assoc(mysql_query($q_track, $db->connection))["tracks"];
         $q_follow = "select count(*) follows from archives where followed_by = '" . $streams[$i]["id"] . "'";
         $num_follows = mysql_fetch_assoc(mysql_query($q_follow, $db->connection))["follows"];
-        
+
         // check if counts are zero or not
         if ($num_tracks > 0 || $num_follows > 0)
             $streams_shouldbe_live[$streams[$i]["id"]] = 1;
-        
+
         // update follow and track counts
         $q_counts = "update users set follow = '$num_follows', track = '$num_tracks' where id = '" . $streams[$i]["id"] . "'";
         mysql_query($q_counts, $db->connection);
@@ -78,7 +108,7 @@ while (TRUE)
         {
             mysql_query("update archives set followed_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
             mysql_query("update users set follow = follow + 1 where id = $stream_id", $db->connection);
-            
+
             $streams_shouldbe_live[$stream_id] = 1;
         }
     }
@@ -95,7 +125,7 @@ while (TRUE)
         {
             mysql_query("update archives set tracked_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
             mysql_query("update users set track = track + 1 where id = $stream_id", $db->connection);
-            
+
             $streams_shouldbe_live[$stream_id] = 1;
         }
     }
@@ -108,25 +138,26 @@ while (TRUE)
             // start stream
             $job = 'php ' . $tk_your_dir . "yourtwapperkeeper_smart_stream.php " . $streams[$i]["id"];
             $pid = $tk->startProcess($job);
-            mysql_query("update processes set pid = '$pid', live = '1', parameters = '".$streams[$i]["id"]."' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
-            $streams_live[$streams[$i]["id"]] = 1;    
-        }
-        else if ((!array_key_exists($streams[$i]["id"], $streams_shouldbe_live) || !$streams_shouldbe_live[$streams[$i]["id"]]) && $streams_live[$streams[$i]["id"]])
+            mysql_query("update processes set pid = '$pid', live = '1', parameters = '" . $streams[$i]["id"] . "' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
+            $streams_live[$streams[$i]["id"]] = 1;
+        } else if ((!array_key_exists($streams[$i]["id"], $streams_shouldbe_live) || !$streams_shouldbe_live[$streams[$i]["id"]]) && $streams_live[$streams[$i]["id"]])
         {
             // stop stream
-            $tpid = mysql_fetch_assoc(mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection));            
-            $tk->killProcess($tpid['pid']);            
+            $tpid = mysql_fetch_assoc(mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection));
+            $tk->killProcess($tpid['pid']);
             mysql_query("update processes set pid = '0', live = '0', parameters = '' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
-            $streams_live[$streams[$i]["id"]] = 0; 
+            $streams_live[$streams[$i]["id"]] = 0;
         }
     }
-     
+
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
 
     // sleep x second(s)
     echo "sleep.";
     sleep(3);
+
+    $count++;
 }
 
 function getUsableStreamId($track_limit, $follow_limit)
@@ -139,14 +170,15 @@ function getUsableStreamId($track_limit, $follow_limit)
     $num = mysql_num_rows($r);
 
     if ($num == 0)
-    {        
+    {
         // TODO replace oldest followed user with this new user?
         $tk->log("[ERROR] Unable to follow or track user. No space left!");
-        $stream_id = NULL;        
+        $stream_id = NULL;
     }
     else
         $stream_id = mysql_fetch_assoc($r)["id"];
- 
+
     return $stream_id;
 }
+
 ?>

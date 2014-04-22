@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 $tk_your_url = "http://localhost/Twitter/TwapperKeeper/";  												// make sure to include the trailing slash
 $tk_your_dir = "/home/bvdrsmis/Desktop/Projects/Twitter/TwapperKeeper/";  															// make sure to include the trailing slash
 $youtwapperkeeper_useragent = "YourTwapper Keeper";											// change to whatever you want!
-
+// TODO Make unified user system
 /* Administrators - Twitter screen name(s) who can administer / start / stop archiving */
 $admin_screen_name=array('BaptistV'); 
 $admin_mail_address = "baptist.vandersmissen@ugent.be";
@@ -64,6 +64,7 @@ $max_user_streams = 4;
 $twitter_keyword_limit_per_stream = 400;
 $twitter_follow_limit_per_stream = 5000;
 $time_to_track_user = 24 * 60 * 60; // 24 hours to track conversation
+$application_reset = false;
 
 $php_mem_limit = "512M";
 ini_set("memory_limit", $php_mem_limit);
