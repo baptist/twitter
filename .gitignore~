@@ -7,4 +7,3 @@ config_withpasswords.php
 /stream_log
 /tk_log
 /log/crawl_process_log
-/config.php

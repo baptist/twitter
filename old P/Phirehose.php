@@ -154,8 +154,6 @@ abstract class Phirehose
   protected $tcpBackoffMax  = 16;
   protected $httpBackoff  = 10;
   protected $httpBackoffMax  = 240;
-  protected $hostPort = 80;
-  protected $secureHostPort = 443;
   
   /**
    * Create a new Phirehose object attached to the appropriate twitter stream method.
@@ -606,11 +604,12 @@ abstract class Phirehose
       }
       
       // Filter takes additional parameters
-      if (($this->method == self::METHOD_FILTER || $this->method == self::METHOD_USER) && count($this->trackWords) > 0) {
+      if ($this->method == self::METHOD_FILTER && count($this->trackWords) > 0) {
         $requestParams['track'] = implode(',', $this->trackWords);
       }
       if ( ($this->method == self::METHOD_FILTER || $this->method == self::METHOD_SITE)
             && count($this->followIds) > 0) {
+          $this->log("Following users: " . implode(",", $this->followIds));
         $requestParams['follow'] = implode(',', $this->followIds);
       }
       if ($this->method == self::METHOD_FILTER && count($this->locationBoxes) > 0) {
@@ -630,7 +629,7 @@ abstract class Phirehose
        */
       $errNo = $errStr = NULL;
       $scheme = ($urlParts['scheme'] == 'https') ? 'ssl://' : 'tcp://';
-      $port = ($urlParts['scheme'] == 'https') ? $this->secureHostPort : $this->hostPort;
+      $port = ($urlParts['scheme'] == 'https') ? 443 : 80;
       
       /**
        * We must perform manual host resolution here as Twitter's IP regularly rotates (ie: DNS TTL of 60 seconds) and
@@ -707,7 +706,7 @@ abstract class Phirehose
       // Consume each header response line until we get to body
       while ($hLine = trim(fgets($this->conn, 4096))) {
         $respHeaders .= $hLine."\n";
-        if(strtolower($hLine) == 'transfer-encoding: chunked') $isChunking = true;
+        if($hLine=='Transfer-Encoding: chunked')$isChunking=true;
       }
       
       // If we got a non-200 response, we need to backoff and retry
@@ -808,7 +807,8 @@ abstract class Phirehose
    */
   protected function log($message,$level='notice')
   {
-    @error_log('Phirehose: ' . $message, 0);
+      //@error_log('Phirehose: ' . $message, 0);
+      file_put_contents ( "stream_log" , $message . "\n" , FILE_APPEND );
   }
 
   /**
@@ -850,28 +850,6 @@ abstract class Phirehose
    * @return NULL
    */
   public function heartbeat() {}
-  
-  /**
-   * Set host port
-   *
-   * @param string $host
-   * @return void
-   */
-  public function setHostPort($port)
-  {
-    $this->hostPort = $port;
-  }
- 
-  /**
-   * Set secure host port
-   *
-   * @param int $port
-   * @return void
-   */
-  public function setSecureHostPort($port)
-  {
-    $this->secureHostPort = $port;
-  }
 
 } // End of class
 
