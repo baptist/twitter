@@ -128,14 +128,10 @@ while (TRUE)
                     if (mysql_error() != "")
                         $tk->log("insert from crawling: " . mysql_error(), "", $crawl_log_file);
 
-                    // add to update stream if tweet is not older than specified number of hours (cf. config).
-                    // TODO [WARNING] This could possibly produce a too high amount of tweets to be able to update.
-                    if (time() - $orig_time < $update_after)
-                    {
-                        mysql_query("insert into new_tweets values('" . $tweet["id"] . "', '" . $row_archives['id'] . "', '" . strtotime($tweet["created_at"]) . "', UNIX_TIMESTAMP(), '-1' )", $db->connection);
-                        $tk->log("update required", "", $crawl_log_file);
-                        
-                    }
+                    // add to update stream
+                    // TODO [WARNING] This could possibly produce a too high amount of tweets to be able to update.                    
+                    mysql_query("insert into new_tweets values('" . $tweet["id"] . "', '" . $row_archives['id'] . "', '" . strtotime($tweet["created_at"]) . "', UNIX_TIMESTAMP(), '-1' )", $db->connection);
+                                       
                     // track conversation if not too old and dealing with hashtagged tweet
                     //print "Type:" . $type . "  AND  " . (time() - $orig_time) . " < " . $time_to_track_user . "\n";                    
                     if (time() - $orig_time < $time_to_track_user && $type=="#")

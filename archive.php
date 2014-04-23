@@ -499,12 +499,12 @@ echo "</h5>";
 
 <?php        
 		$tw_count = 0;
-                $default_img = "http://abs.twimg.com/images/themes/theme1/bg.png";
+       
         
         foreach ($archiveTweets as $row) {
             $tw_count = $tw_count + 1;
             echo "<div style='margin-bottom:5px'>";
-            echo "<div style='float:left; margin-right:5px'><img src='".(($row['profile_image_url'] === $default_img)? "resources/twitter-search.png" : $row['profile_image_url']) ."' height='40px'/></div>";
+            echo "<div style='float:left; margin-right:5px'><img src='".(($row['archivesource'] === "twitter-search")? "resources/twitter-search.png" : $row['profile_image_url']) ."' height='40px'/></div>";
             echo "<div style='float:left; width:950px'>";
             $text = preg_replace('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $row['text']);
             $matches = array();
