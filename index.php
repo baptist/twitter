@@ -96,69 +96,81 @@ $stats = $tk->getStats();
                         ?>
                     </ul>
                 </div>
-             
-                <div style="float:left; margin-left:250px; margin-top:30px">
-                    <span style='font-weight:bold; padding-left:20px'>Tweet Fetch Count</span>
-                    <br/>
-                    <canvas id="canvas_line" height="150" width="500"></canvas>
-                </div>
+
+                <?php
+                $archiving_status = $tk->statusLiveArchiving();
+                if ($archiving_status[0] == TRUE)
+                {
+                    ?>
+                    <div style="float:left; margin-left:250px; margin-top:30px">
+                        <span style='font-weight:bold; padding-left:20px;'><img src="resources/icons/icons_0054_Bar-Graph-small.png" style='position:relative;top:2px' /> Tweet Fetch Count</span>
+                        <br/>
+                        <canvas id="canvas_line" height="150" width="500"></canvas>
+                    </div>
+
+                    <script>
+                        var data = {
+                            labels: [<?php echo implode(",", $historyFetchStats[0]); ?>],
+                            datasets: [
+                                {
+                                    fillColor: "rgba(255,255,255,0.3)",
+                                    strokeColor: "rgba(0,0,0,.7)",
+                                    pointColor: "rgba(0,0,0,.7)",
+                                    pointStrokeColor: "#000",
+                                    data: [<?php echo implode(",", $historyFetchStats[1]); ?>]
+                                }
+                            ]
+
+                        }
+
+                        var options = {
+                            //String - Colour of the scale line	
+                            scaleLineColor: "rgba(0,0,0,.1)",
+                            //Boolean - Whether to show labels on the scale	
+                            scaleShowLabels: false,
+                            ///Boolean - Whether grid lines are shown across the chart
+                            scaleShowGridLines: true,
+                            //String - Colour of the grid lines
+                            scaleGridLineColor: "rgba(1,1,1,.05)",
+                            //Number - Width of the grid lines
+                            scaleGridLineWidth: 1,
+                            //Boolean - Whether to show a dot for each point
+                            pointDot: true,
+                            //Number - Radius of each point dot in pixels
+                            pointDotRadius: 3,
+                            //Number - Pixel width of point dot stroke
+                            pointDotStrokeWidth: 1,
+                            //Boolean - Whether to show a stroke for datasets
+                            datasetStroke: true,
+                            //Number - Pixel width of dataset stroke
+                            datasetStrokeWidth: 2,
+                            //Boolean - Whether to fill the dataset with a colour
+                            datasetFill: true
+                        }
+
+                        new Chart(document.getElementById("canvas_line").getContext("2d")).Line(data, options);
+
+
+                    </script>
+                    <?php
+                }
+                ?>
+
+
 
             </div>
         </div>
     <?php } ?>
-    <script>
-        var data = {
-            labels: [<?php echo implode(",", $historyFetchStats[0]); ?>],
-            datasets: [
-                {
-                    fillColor: "rgba(255,255,255,0.3)",
-                    strokeColor: "rgba(0,0,0,.7)",
-                    pointColor: "rgba(0,0,0,.7)",
-                    pointStrokeColor: "#000",
-                    data: [<?php echo implode(",", $historyFetchStats[1]); ?>]
-                }
-            ]
 
-        }
-
-        var options = {
-            //String - Colour of the scale line	
-            scaleLineColor: "rgba(0,0,0,.1)",
-            //Boolean - Whether to show labels on the scale	
-            scaleShowLabels: false,
-            ///Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(1,1,1,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show a dot for each point
-            pointDot: true,
-            //Number - Radius of each point dot in pixels
-            pointDotRadius: 3,
-            //Number - Pixel width of point dot stroke
-            pointDotStrokeWidth: 1,
-            //Boolean - Whether to show a stroke for datasets
-            datasetStroke: true,
-            //Number - Pixel width of dataset stroke
-            datasetStrokeWidth: 2,
-            //Boolean - Whether to fill the dataset with a colour
-            datasetFill: true
-        }
-
-        new Chart(document.getElementById("canvas_line").getContext("2d")).Line(data, options);
-
-
-    </script>
 
     <!-- ARCHIVE CREATION AREA -->
     <br/><br/>
     <div class='main'>
 
-<?php
-if ($logged_in)
-{
-    ?>
+        <?php
+        if ($logged_in)
+        {
+            ?>
 
             <div class="main-block">
 
