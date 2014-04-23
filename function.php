@@ -140,10 +140,19 @@ class YourTwapperKeeper {
         $values = array();
         if (mysql_num_rows($r) == $num)
         {
+            $index = $num - 1;
+            for($i = 0; $i < $num; $i++)
+            {
+                $labels[$i] = 0;
+                $values[$i] = 0;
+            }
+            
             while($record = mysql_fetch_assoc($r))
             {
-                $labels[] = date("'ga'", $record["created_at"]);
-                $values[] = $record["avg_tweets"];                
+                $labels[$index] = date("'ga'", $record["created_at"]);
+                $values[$index] = $record["avg_tweets"];  
+                
+                $index--;
             }
         }
         return [$labels, $values];
