@@ -38,7 +38,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $logged_in = TRUE;
 }
 
-$historyFetchStats = $tk->getHistoryStats(12);
+$historyFetchStats = $tk->getHistoryStats(24);
 $stats = $tk->getStats();
 ?>
 
