@@ -2114,3 +2114,1062 @@
 
 22-Apr-2014 16:32:37	Error: Query execution was interrupted 
 
+23-Apr-2014 13:11:48	Started updating 2250 tweets. 
+
+23-Apr-2014 13:12:05	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #vk14','','','79816789','MarkvanRooijen_','','','458956475571122176','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:12:05 +0000 2014','1398258725','0')-- from stream 1 
+
+23-Apr-2014 13:12:33	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','559374022','GruyterJoy','2192527904','angelverleye','458956593225543680','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/454296730486718465/mj3jLYbx_normal.jpeg','','','','Wed Apr 23 13:12:33 +0000 2014','1398258753','1396818484')-- from stream 1 
+
+23-Apr-2014 13:12:50	insert into rawstream values('-1','EIN-DE-LIJK @CouckeMarc heeft het door. Een te lang seizoen en event. Europees is echt wel nefast voor #weireldploegsje','','','142957085','Justindg31','','','458956662460919808','en','web','http://pbs.twimg.com/profile_images/378800000011435078/65b7981c4074a81453c8c112b47e1312_normal.jpeg','','','','Wed Apr 23 13:12:49 +0000 2014','1398258769','0')-- from stream 1 
+
+23-Apr-2014 13:13:15	insert into rawstream values('-1','RT @Antjevdkelen: Moest ik het echt goed hebben enz dan had ik anders tegen u gedaan maar verlang nu nie da ik door alles nog beste vrienden me ga zijn ze','','','1162888004','juliedesmit','2425860068','Antjevdkelen','458956766664212480','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/456506430309167104/3GcvT41U_normal.jpeg','','','','Wed Apr 23 13:13:14 +0000 2014','1398258794','1398256561')-- from stream 1 
+
+23-Apr-2014 13:13:21	insert into rawstream values('-1','RT @RF_HFC: \"Maar nog erger is, dat het zelfreinigend vermogen bij de organisatie volstrekt afwezig lijkt te zijn\" #jeugdzorg http://t.co/oapAqVZKt6','','','48090573','suffie63','281033838','RF_HFC','458956792866037761','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:13:21 +0000 2014','1398258801','1398252395')-- from stream 1 
+
+23-Apr-2014 13:13:21	insert into rawstream values('-1','RT @Belgianfootball: L’Entraîneur fédéral @WilmotsMarc dévoilera sa présélection pour la CM le mardi 13/5 (12h) ! #worldcup #reddevilstobrazil','','','137731724','yvessimonsevy','382018313','Belgianfootball','458956794375979008','fr','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/3041059427/1df69f9b86f98058e274ad23e6b940e3_normal.jpeg','','','','Wed Apr 23 13:13:21 +0000 2014','1398258801','1398251473')-- from stream 1 
+
+23-Apr-2014 13:13:24	insert into rawstream values('-1','@Antjevdkelen ?','2425860068','Antjevdkelen','1162888004','juliedesmit','','','458956806136795136','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/456506430309167104/3GcvT41U_normal.jpeg','','','','Wed Apr 23 13:13:24 +0000 2014','1398258804','0')-- from stream 1 
+
+23-Apr-2014 13:13:44	insert into rawstream values('-1','RT @JorisW_GP: Emma Marcegaglia, baas van de Europese werkgevers, vindt de slappe Europese klimaatambities nog te ver gaan. Aiaiai. http://t.co/AqxBFkA4Kh','','','48090573','suffie63','1221473166','JorisW_GP','458956890190675968','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:13:44 +0000 2014','1398258824','1398252674')-- from stream 1 
+
+23-Apr-2014 13:13:57	insert into rawstream values('-1','@JacoHenri mijn maat is bioloog.  Prijs je gelukkig,  ze zijn slechts aan het, geen idee hoe muggen het noemen,  fistfucken','225776192','JacoHenri','25133400','christ0phf','','','458956943424778240','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/454577909601427456/kJkKDKMh_normal.jpeg','','','','Wed Apr 23 13:13:56 +0000 2014','1398258836','0')-- from stream 1 
+
+23-Apr-2014 13:14:02	insert into rawstream values('-1','In slaap gevallen int park oeps','','','1350029983','LrRossa','','','458956966153703424','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451359335923580928/vn6v-m0T_normal.jpeg','','','','Wed Apr 23 13:14:02 +0000 2014','1398258842','0')-- from stream 1 
+
+23-Apr-2014 13:14:05	insert into rawstream values('-1','@FaQuix @destandaard in Vlaanderen dankzij de ondernemers lage werkloosheid en Wallonië hoge werkloosheid dank aan politiek?','298167656','FaQuix','493947578','giovanniamelinc','','','458956979592249345','nl','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows Phone</a>','http://pbs.twimg.com/profile_images/3749484544/de9f9a3a25de9715f94c52ad768ddf82_normal.jpeg','','','','Wed Apr 23 13:14:05 +0000 2014','1398258845','0')-- from stream 1 
+
+23-Apr-2014 13:14:31	insert into rawstream values('-1','@sandercarollo juridisch gesproken dus net niet. Wat het punt was. @de_nva','280194603','SanderCarollo','236495045','pieterdesmet','','','458957088598028288','en','<a href="http://mobile.twitter.com" rel="nofollow">Mobile Web</a>','http://pbs.twimg.com/profile_images/454002518084050946/CalaMsel_normal.jpeg','','','','Wed Apr 23 13:14:31 +0000 2014','1398258871','0')-- from stream 1 
+
+23-Apr-2014 13:14:35	insert into rawstream values('-1','@pieterdesmet http://t.co/DNNGirstaI zie ook laatste alinea bij artikel van @vereeck @de_NVA','280194603','SanderCarollo','280194603','SanderCarollo','','','458957103621996544','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/3771579558/dec903aa6762969c5ea2921c5934f573_normal.jpeg','','','','Wed Apr 23 13:14:35 +0000 2014','1398258875','0')-- from stream 1 
+
+23-Apr-2014 13:14:54	insert into rawstream values('-1','@nikmahie Triggerfinger heeft daar momenteel een signeersessie, dacht ik?! Boeken kopen is dus niet meer nodig :p','186023330','nikmahie','54868059','PieterxJan','','','458957183385083905','en','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000730094185/b4155af1df94f986c7c28e0e8374c35a_normal.jpeg','','','','Wed Apr 23 13:14:54 +0000 2014','1398258894','0')-- from stream 1 
+
+23-Apr-2014 13:15:07	insert into rawstream values('-1','Even in their own country, money and #oil is more important than the people: http://t.co/23LJjg4OlQ #keystone #indians','','','1045786196','VdammeBram','','','458957237705519104','en','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/3586446013/c5e45ea1e95b93fdce8241ca5fe090dd_normal.jpeg','','','','Wed Apr 23 13:15:07 +0000 2014','1398258907','0')-- from stream 1 
+
+23-Apr-2014 13:15:25	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #Raad070','','','79816789','MarkvanRooijen_','','','458957315287552000','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:15:25 +0000 2014','1398258925','0')-- from stream 1 
+
+23-Apr-2014 13:15:41	insert into rawstream values('-1','@Knack @eliodirupo @BenWeyts @N_VA  Als etnische Vlaming, had ik voeling met de VU van destijds.  Die kenmerkende sociale  reflex is ver weg','260169083','Knack','1528306628','mahieddine64','','','458957381993766912','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for Android Tablets</a>','http://pbs.twimg.com/profile_images/422064976279662592/kJ0KJuPX_normal.jpeg','','','','Wed Apr 23 13:15:41 +0000 2014','1398258941','0')-- from stream 1 
+
+23-Apr-2014 13:15:43	insert into rawstream values('-1','@pieterdesmet Goede opmerking, maar rekening houden met betekenis in realiteit. (Ik vind het ook allemaal raar hoor.) @de_nva','236495045','pieterdesmet','280194603','SanderCarollo','','','458957388167790593','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/3771579558/dec903aa6762969c5ea2921c5934f573_normal.jpeg','','','','Wed Apr 23 13:15:43 +0000 2014','1398258943','0')-- from stream 1 
+
+23-Apr-2014 13:15:46	insert into rawstream values('-1','RT @cdenv: “ Er moet meer aandacht gaan naar het personele aspect om zo tot kwaliteitsvol onderwijs te komen” @KathleenHelsen #onderwijsdebat #vk14','','','136918530','mrcarreyn','15753618','cdenv','458957395361038337','nl','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000229375425/6570011f86507963079b68007ea6edc5_normal.jpeg','','','','Wed Apr 23 13:15:44 +0000 2014','1398258944','1398244628')-- from stream 1 
+
+23-Apr-2014 13:15:46	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #Operatie200','','','79816789','MarkvanRooijen_','','','458957401686016000','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:15:46 +0000 2014','1398258946','0')-- from stream 1 
+
+23-Apr-2014 13:15:53	insert into rawstream values('-1','@LrRossa slaapkop','1350029983','LrRossa','359907304','LuccaFourneau','','','458957429620105216','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458300194468413440/EK9-ueiq_normal.jpeg','','','','Wed Apr 23 13:15:52 +0000 2014','1398258952','0')-- from stream 1 
+
+23-Apr-2014 13:15:54	Total time: 245058 ms
+23-Apr-2014 13:15:54	Downloaded tweets: 2250
+23-Apr-2014 13:15:54	Failed tweets: 0
+23-Apr-2014 13:15:54	Application ran for 246.32384300232 seconds.
+
+23-Apr-2014 13:15:54	Updating finished. Sleeping for 53.676156997681 seconds. 
+
+23-Apr-2014 13:15:54	insert into rawstream values('-1','RT @cdenv: “Meer inzetten op samenwerken. Infrastructuren zowel gebruiken voor sport als voor onderwijs” @wbeke #onderwijsdebat #vk14','','','136918530','mrcarreyn','15753618','cdenv','458957435651489792','nl','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000229375425/6570011f86507963079b68007ea6edc5_normal.jpeg','','','','Wed Apr 23 13:15:54 +0000 2014','1398258954','1398246889')-- from stream 1 
+
+23-Apr-2014 13:16:08	insert into rawstream values('-1','Neo-liberalen versus vlaams-nationalisten? @david_knockaert @lindewin','1556374496','david_knockaert','109335745','JacquesHinckxt','','','458957492752773120','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/662824755/iywtm_normal.JPG','','','','Wed Apr 23 13:16:07 +0000 2014','1398258967','0')-- from stream 1 
+
+23-Apr-2014 13:16:12	insert into rawstream values('-1','RT @AlainGerlache: \"Le web et la campagne électorale\" c\'est ce soir à #Liège http://t.co/95GjLzQDVw @CafeNLg @UlgWebinfo #be2505 avec des twittos dedans','','','349549540','CafeNumerique','14117639','AlainGerlache','458957509647405056','fr','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000483325603/65047a6d337e88c21c002f27b327de33_normal.jpeg','','','','Wed Apr 23 13:16:11 +0000 2014','1398258971','1398240991')-- from stream 1 
+
+23-Apr-2014 13:16:16	insert into rawstream values('-1','Elke keer ik een tweet van @Koen_Crucke lees, hoor ik de stem van Albertoooo. En dan zijn die nog eens zo plezant.','','','137443543','sclaessens','','','458957525980024832','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/428466499657805825/EIXXYWE2_normal.jpeg','Point','50.82934514','3.30179913','Wed Apr 23 13:16:15 +0000 2014','1398258975','0')-- from stream 1 
+
+23-Apr-2014 13:16:18	insert into rawstream values('-1','RT @Gelerobbie: NVA heeft niks gedaan met mandaat vd kiezer omdat ze eraf gereden werden na 540d NON vd PS http://t.co/gIE03bYr0N #ElioLiegt','','','136220204','MarcJacobs500','45790113','Gelerobbie','458957535614361600','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:16:18 +0000 2014','1398258978','1398258459')-- from stream 1 
+
+23-Apr-2014 13:16:27	insert into rawstream values('-1','RT @Hugues: will be there RT @NicolasBaygert: Les réseaux sociaux, le web et la campagne électorale: débat @cafenlg ce soir http://t.co/HkictB82k7','','','222060939','cafenlg','11634432','Hugues','458957572838789120','fr','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000483435959/b06a6bccb2e5f1af450a31ddb679c27f_normal.jpeg','','','','Wed Apr 23 13:16:27 +0000 2014','1398258987','1398247492')-- from stream 1 
+
+23-Apr-2014 13:16:31	insert into rawstream values('-1','@Qlurichaun U slaat de bal mis. Liberalisme en marktwerking NVT (integendeel zelfs). Gaat hier om inschrijvingsbeleid. (1)','358137748','Qlurichaun','15753618','cdenv','','','458957591276965888','nl','web','http://pbs.twimg.com/profile_images/2914480846/c0cd3d2ad8a4f697f9fc906573e8ac2c_normal.jpeg','','','','Wed Apr 23 13:16:31 +0000 2014','1398258991','0')-- from stream 1 
+
+23-Apr-2014 13:16:32	insert into rawstream values('-1','RT @JackCobus1: @de_NVA @AKohl @vrtderedactie De middeleeuwen leidden wel naar één van de rijkste (op alle gebieden) periodes van de Mens...\nBravo Rupo','','','712168447','AKohl','733249254','JackCobus1','458957593122439169','nl','web','http://pbs.twimg.com/profile_images/2428086866/3huizdx5a1t5dbz9oo6f_normal.jpeg','','','','Wed Apr 23 13:16:31 +0000 2014','1398258991','1398254917')-- from stream 1 
+
+23-Apr-2014 13:16:36	insert into rawstream values('-1','@nokeraar @destandaard Jobs gesponsord door de staat, met geld die er dus niet is maar nog steeds wordt geleend.  Zeer verstandig... *not* !','2326973492','nokeraar','576565207','Anarchazazel','','','458957610222632960','nl','web','http://pbs.twimg.com/profile_images/3422617954/83ec4a76b944786603ad510b0d9144d4_normal.jpeg','','','','Wed Apr 23 13:16:35 +0000 2014','1398258995','0')-- from stream 1 
+
+23-Apr-2014 13:16:38	insert into rawstream values('-1','RT @Gelerobbie: Eerst de winnaar vd verkiezingen kaltstellen, dan roepen jullie hebben Rien/Niks/Nada gedaan. #ElioLiegt http://t.co/XHXyAZmfIX','','','136220204','MarcJacobs500','45790113','Gelerobbie','458957618816774145','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:16:38 +0000 2014','1398258998','1398258314')-- from stream 1 
+
+23-Apr-2014 13:16:47	Started updating 2250 tweets. 
+
+23-Apr-2014 13:16:51	insert into rawstream values('-1','@Qlurichaun We pleiten voor vrije schoolkeuze (die er al is). Nieuwe decretale grondslag moet gelijke kansen kind garanderen. (2)','358137748','Qlurichaun','15753618','cdenv','','','458957675343413248','nl','web','http://pbs.twimg.com/profile_images/2914480846/c0cd3d2ad8a4f697f9fc906573e8ac2c_normal.jpeg','','','','Wed Apr 23 13:16:51 +0000 2014','1398259011','0')-- from stream 1 
+
+23-Apr-2014 13:17:01	insert into rawstream values('-1','Boeidende nascholing over @sol_tweet - Latex in leeromgeving - mooi zo!','','','136918530','mrcarreyn','','','458957717416071168','nl','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000229375425/6570011f86507963079b68007ea6edc5_normal.jpeg','','','','Wed Apr 23 13:17:01 +0000 2014','1398259021','0')-- from stream 1 
+
+23-Apr-2014 13:17:06	insert into rawstream values('-1','Een zalig middagdutje gehad 👌','','','1466839675','YasmineKasmi','','','458957736072724480','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/455392154349998080/IE-ml-bL_normal.jpeg','','','','Wed Apr 23 13:17:05 +0000 2014','1398259025','0')-- from stream 1 
+
+23-Apr-2014 13:17:08	insert into rawstream values('-1','@MP_Peeters neem er ook maar de \"huurbonus\" bij!  Ook fiscale aftrek voor burgers die geen woning kunnen verwerven.','560537100','MP_Peeters','432407013','vercamst','','','458957743639232512','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/2337192328/image_normal.jpg','','','','Wed Apr 23 13:17:07 +0000 2014','1398259027','0')-- from stream 1 
+
+23-Apr-2014 13:17:12	insert into rawstream values('-1','@Qlurichaun  Betrekken maatsch. middenveld. Concurrentie op basis van kwaliteit, niet prijs (tip: lees het Moedige midden van @wbeke) (3)','358137748','Qlurichaun','15753618','cdenv','','','458957761196593152','nl','web','http://pbs.twimg.com/profile_images/2914480846/c0cd3d2ad8a4f697f9fc906573e8ac2c_normal.jpeg','','','','Wed Apr 23 13:17:11 +0000 2014','1398259031','0')-- from stream 1 
+
+23-Apr-2014 13:17:14	insert into rawstream values('-1','Waarom zijn vk #EP deze keer anders? Waarom wil @JunckerEU @EU_Commission vz worden? Wat zijn zn prioriteiten?http://t.co/MtdOedMHUZ','','','1391716604','EVP_BE','','','458957770222764032','nl','web','http://pbs.twimg.com/profile_images/378800000865750007/yRo6Uagd_normal.png','','','','Wed Apr 23 13:17:14 +0000 2014','1398259034','0')-- from stream 1 
+
+23-Apr-2014 13:17:15	insert into rawstream values('-1','Alle details over het van de grond gaan van @JokeVandeVelde1 hoor je vanmiddag in De #WimO Show. Blijven luisteren! http://t.co/ToLyEarkta','','','176345469','Qmusic_BE','','','458957772466319362','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/415424478571540480/nNUSFAW9_normal.jpeg','','','','Wed Apr 23 13:17:14 +0000 2014','1398259034','0')-- from stream 1 
+
+23-Apr-2014 13:17:17	insert into rawstream values('-1','Kostuumpje passen 👔 (@ W-dress) http://t.co/FxFdenMVEH','','','1589029927','Timontje_','','','458957782960861184','nl','<a href="http://foursquare.com" rel="nofollow">foursquare</a>','http://pbs.twimg.com/profile_images/447714554638647298/Rw-fYnJi_normal.jpeg','Point','51.15576379','3.19480962','Wed Apr 23 13:17:17 +0000 2014','1398259037','0')-- from stream 1 
+
+23-Apr-2014 13:17:21	insert into rawstream values('-1','Heksenjacht op renners heeft ook keerzijde... \"Wielrenner die uit leven wilde stappen voor dopingplas vrijgesproken\" http://t.co/KZ9YTwNHGj','','','299066966','FilipAertsDigi','','','458957799704510464','en','<a href="http://www.apple.com" rel="nofollow">iOS</a>','http://pbs.twimg.com/profile_images/378800000801185549/22c8e8885ca3cc5a097e03ba9fc35707_normal.jpeg','','','','Wed Apr 23 13:17:21 +0000 2014','1398259041','0')-- from stream 1 
+
+23-Apr-2014 13:17:21	insert into rawstream values('-1','Hoe groot is het misbruik met werkloosheidsuitkeringen? http://t.co/PwVeCJhlTg #Factcheck14 #vk14','','','408055387','KatiaGrosemans','','','458957802161987584','en','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/3033105244/3376933e06e55cd1faf83a93672f9bec_normal.jpeg','','','','Wed Apr 23 13:17:21 +0000 2014','1398259041','0')-- from stream 1 
+
+23-Apr-2014 13:17:43	insert into rawstream values('-1','@RikMende Malheureusement, il n\'y aura pas de streaming pour cette fois. Mais nous réfléchissons à un système de résumés en vidéo.','1562961949','RikMende','222060939','cafenlg','','','458957894705512448','fr','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000483435959/b06a6bccb2e5f1af450a31ddb679c27f_normal.jpeg','','','','Wed Apr 23 13:17:43 +0000 2014','1398259063','0')-- from stream 1 
+
+23-Apr-2014 13:17:44	insert into rawstream values('-1','@nokeraar @destandaard Ze zouden beter werk maken om ondernemerschap te stimuleren en vooral, maken v aantrekkelijker klimaat vr bedrijven','2326973492','nokeraar','576565207','Anarchazazel','','','458957898153197568','nl','web','http://pbs.twimg.com/profile_images/3422617954/83ec4a76b944786603ad510b0d9144d4_normal.jpeg','','','','Wed Apr 23 13:17:44 +0000 2014','1398259064','0')-- from stream 1 
+
+23-Apr-2014 13:17:50	insert into rawstream values('-1','RT @mrcarreyn: Boeidende nascholing over @sol_tweet - Latex in leeromgeving - mooi zo!','','','335183503','sol_tweet','136918530','mrcarreyn','458957920827621376','en','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows</a>','http://pbs.twimg.com/profile_images/1937804214/sol_s_normal.png','','','','Wed Apr 23 13:17:50 +0000 2014','1398259070','1398259021')-- from stream 1 
+
+23-Apr-2014 13:17:54	insert into rawstream values('-1','@LontanoMolino @demorgen @openvld politicus hoeft niet populair te zijn, wel programma van diens partij. Maggie en kris kopen er niets mee','148676153','LontanoMolino','1962561122','JohnCroughs','','','458957938166878208','nl','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows Phone</a>','http://pbs.twimg.com/profile_images/378800000600203031/b9912d535a84d7b40e9f3315db32afc4_normal.jpeg','','','','Wed Apr 23 13:17:54 +0000 2014','1398259074','0')-- from stream 1 
+
+23-Apr-2014 13:18:02	insert into rawstream values('-1','@VSKnet @KSurgeloose ik ga ervan uit dat voorzitster niet degene is die hier de account van de scholierenkoepel bedient, of vergis ik me? ;D','300157544','VSKnet','56056450','joscarwilde','','','458957972396597248','en','web','http://pbs.twimg.com/profile_images/448205158128693248/RHoxhbAB_normal.jpeg','','','','Wed Apr 23 13:18:02 +0000 2014','1398259082','0')-- from stream 1 
+
+23-Apr-2014 13:18:07	insert into rawstream values('-1','Enkel wie bijdraagt tt onze sociale zekerheid heeft er recht op..\nhttp://t.co/cbjv1ug3CJ\nTenzij we ht #OCMW vd wereld willen (kunnen) zijn.','','','733249254','JackCobus1','','','458957993087082496','nl','web','http://pbs.twimg.com/profile_images/2652077136/64a5ccc47b2773150d2389683dd9d5cb_normal.jpeg','','','','Wed Apr 23 13:18:07 +0000 2014','1398259087','0')-- from stream 1 
+
+23-Apr-2014 13:18:13	insert into rawstream values('-1','.@VK14_VRT @WouterVanBesien Sommige scholen zijn al benut van 7 tot 21u. bvb dag en avondschool niet altijd evident hoor. #kso #dko','2282407514','VK14_VRT','113654035','MAVACAbe','','','458958016482902017','en','web','http://pbs.twimg.com/profile_images/691475986/19177_1343648912961_1283398546_1039451_6699134_n_normal.jpg','','','','Wed Apr 23 13:18:12 +0000 2014','1398259092','0')-- from stream 1 
+
+23-Apr-2014 13:18:15	insert into rawstream values('-1','RT @rwauters: Ben op zoek naar jongere werkloze mét diploma en wil om te werken. Voor (korte) getuigenis in de kant. DM als je me kan verder helpen.','','','59080684','dverhauwaert','199404268','rwauters','458958027753000960','nl','web','http://pbs.twimg.com/profile_images/458948189949665280/XWER6txh_normal.jpeg','','','','Wed Apr 23 13:18:15 +0000 2014','1398259095','1398257677')-- from stream 1 
+
+23-Apr-2014 13:18:18	insert into rawstream values('-1','RT @demorgen: Di Rupo sneert naar N-VA: \"Jullie denken als in de middeleeuwen\" http://t.co/cQjdnut8oO','','','110681472','Saigaatje','5499602','demorgen','458958039887147008','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000420251669/bb3335e2ead278546e89688fe7917d83_normal.jpeg','','','','Wed Apr 23 13:18:18 +0000 2014','1398259098','1398254562')-- from stream 1 
+
+23-Apr-2014 13:18:19	insert into rawstream values('-1','@MP_Peeters @GeertBourgeois @LiesbethHomans eerst verkiezingen, dan postjes aub! @lindewin #vk14','560537100','MP_Peeters','409186951','StefaanSintobin','','','458958045150986240','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1631939239/foto_normal.JPG','','','','Wed Apr 23 13:18:19 +0000 2014','1398259099','0')-- from stream 1 
+
+23-Apr-2014 13:18:21	insert into rawstream values('-1','. @eliodirupo Dit hebt u gerealiseerd. Een mooie 5de plaats (na GR, IT, SP, PO &amp; Il) Geef mij maar een wit blad! http://t.co/czKMpRYA7U #vvv','4808861','eliodirupo','59244667','HansVansweevelt','','','458958052222570496','en','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows Phone</a>','http://pbs.twimg.com/profile_images/430440381143318528/lovSxKiD_normal.jpeg','','','','Wed Apr 23 13:18:21 +0000 2014','1398259101','0')-- from stream 1 
+
+23-Apr-2014 13:18:29	insert into rawstream values('-1','@martseyn @JPScheffer Natuurlijk blijft een eigen baan de doelstelling. Maar in de tussentijd: waarom geen tegenprestatie?','140163729','martseyn','382138163','MDevoldere','','','458958085550522368','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:18:29 +0000 2014','1398259109','0')-- from stream 1 
+
+23-Apr-2014 13:18:30	insert into rawstream values('-1','RT @fff007: . #Villapolitica @vlaparl @lindewin Weer enorm veel volk. Ong +€4000 per mnd/pp.Wrm gn aanwezigh register. 2 off. afwezg volgens Jan Peumans','','','342607723','leojuli2009','17422327','fff007','458958087664451584','en','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/445570391692808192/jCuZX5Lc_normal.jpeg','','','','Wed Apr 23 13:18:29 +0000 2014','1398259109','1398258896')-- from stream 1 
+
+23-Apr-2014 13:18:41	insert into rawstream values('-1','@tijd Wat deed PS .....belasten, liegen en bedriegen !','3147651','tijd','136220204','MarcJacobs500','','','458958135928315904','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:18:41 +0000 2014','1398259121','0')-- from stream 1 
+
+23-Apr-2014 13:18:45	insert into rawstream values('-1','How do I look today? http://t.co/fLoSXKfrz5 Met @JokeVandeVelde1 #WimO','','','53060760','WimOosterlinck','','','458958152843931649','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/444817107554148352/4wBUiBsP_normal.jpeg','','','','Wed Apr 23 13:18:45 +0000 2014','1398259125','0')-- from stream 1 
+
+23-Apr-2014 13:19:10	insert into rawstream values('-1','@DermauxClmence misschien','2176689077','DermauxClmence','1883579048','TuffreauJens','','','458958258557173760','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/447097772022697984/y9RqCK5Q_normal.jpeg','','','','Wed Apr 23 13:19:10 +0000 2014','1398259150','0')-- from stream 1 
+
+23-Apr-2014 13:19:13	insert into rawstream values('-1','@mp_peeters Vreemd, we brachten uw tweet ter sprake in de Senaat, maar uw partijgenoten De Crem en de Bethune lieten u in de steek. Words...','560537100','MP_Peeters','984297140','BartLaeremans','','','458958270791966720','nl','<a href="https://mobile.twitter.com" rel="nofollow">Mobile Web (M2)</a>','http://pbs.twimg.com/profile_images/2994016213/d1f49ac1c4080e2e559f46fa3f41b783_normal.jpeg','','','','Wed Apr 23 13:19:13 +0000 2014','1398259153','0')-- from stream 1 
+
+23-Apr-2014 13:19:17	insert into rawstream values('-1','@Anarchazazel @destandaard valt niet tegen te spreken. Moet zuurstof in onze economie gepompt worden. Geen vacuüm trekken','576565207','Anarchazazel','2326973492','nokeraar','','','458958285035806720','nl','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows</a>','http://pbs.twimg.com/profile_images/430671269454172160/9lBKjvpC_normal.jpeg','','','','Wed Apr 23 13:19:16 +0000 2014','1398259156','0')-- from stream 1 
+
+23-Apr-2014 13:19:32	insert into rawstream values('-1','Geen WK voetbal op groot scherm in #leuven? http://t.co/N2tdiww8zZ #robnieuws','','','229600073','rob_televisie','','','458958349607116801','nl','web','http://pbs.twimg.com/profile_images/378800000558779091/2cebdb2600984d43a4f3e5cd483418cc_normal.jpeg','','','','Wed Apr 23 13:19:32 +0000 2014','1398259172','0')-- from stream 1 
+
+23-Apr-2014 13:19:51	insert into rawstream values('-1','RT @rwauters: Ben op zoek naar jongere werkloze mét diploma en wil om te werken. Voor (korte) getuigenis in de kant. DM als je me kan verder helpen.','','','880209409','ColorusEsther','199404268','rwauters','458958429168873472','en','web','http://pbs.twimg.com/profile_images/378800000072455751/4a882dc3e95b51bb5497e9204e37f3fd_normal.jpeg','','','','Wed Apr 23 13:19:51 +0000 2014','1398259191','1398257677')-- from stream 1 
+
+23-Apr-2014 13:19:52	insert into rawstream values('-1','RT @Marliesvdwalle: Van mij mag Peumans gerust nog een legislatuur voorzitter van het Vlaams Parlement zijn. #villapolitica','','','845520331','ECuenen','51596975','Marliesvdwalle','458958435133173762','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/458670681535053824/vQ9mq7yX_normal.jpeg','','','','Wed Apr 23 13:19:52 +0000 2014','1398259192','1398258664')-- from stream 1 
+
+23-Apr-2014 13:20:03	insert into rawstream values('-1','@cdenv Schoolkeuze is niet zo vrij als jullie doen uitschijnen: beperkt aantal plaatsen beperkt de keuze en maakt het een schaarse dienst /1','15753618','cdenv','358137748','Qlurichaun','','','458958479701868544','nl','web','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:20:03 +0000 2014','1398259203','0')-- from stream 1 
+
+23-Apr-2014 13:20:07	insert into rawstream values('-1','@cafenlg ok merci, c\'est un peu ma spécialité depuis 3 ans, donc si vous recherchez une solution dans le futur, je peux en parler','222060939','cafenlg','1562961949','RikMende','','','458958495728275457','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000113947452/676c6a54eb0b0cd0a8e127f11347bdf3_normal.jpeg','','','','Wed Apr 23 13:20:07 +0000 2014','1398259207','0')-- from stream 1 
+
+23-Apr-2014 13:20:08	insert into rawstream values('-1','Laatste overbodige actuele vragen in plenaire vergadering in #VlaParl Iedereen in verkiezingsmodus. Vermoeiend...','','','236322168','tomassergooris','','','458958498869825537','nl','web','http://pbs.twimg.com/profile_images/1252278865/affiche_18_normal.jpg','','','','Wed Apr 23 13:20:07 +0000 2014','1398259207','0')-- from stream 1 
+
+23-Apr-2014 13:20:20	insert into rawstream values('-1','RT @Berlaymonster: But Schulz and Juncker are from \'the old days\' MT @javiersolana Schulz, Juncker tell @euHvR \'the old days are over’ http://t.co/TtyOJSe5Nc','','','48090573','suffie63','19227096','Berlaymonster','458958552468848640','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:20:20 +0000 2014','1398259220','1398254039')-- from stream 1 
+
+23-Apr-2014 13:20:27	insert into rawstream values('-1','RT @BenDreesen: Di Rupo tegen N-VA: \'Wat heeft u gedaan met uw mandaat? Rien, niks, nada\', wij voerden t land tenminste nr d haaien. http://t.co/tfd9chlhP2','','','136220204','MarcJacobs500','220142000','BenDreesen','458958581086552064','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:20:27 +0000 2014','1398259227','1398257419')-- from stream 1 
+
+23-Apr-2014 13:20:30	insert into rawstream values('-1','RT @GriffinVdsch: Altijd jammer als personen verkiezingsborden bekladden, een verlies voor de #democratie. #vk2014 #respect','','','65433914','bogeyorworse','2204742530','GriffinVdsch','458958592767692800','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/378800000246762004/2c8170f0a023a853120a590565aaabcb_normal.jpeg','','','','Wed Apr 23 13:20:30 +0000 2014','1398259230','1398182858')-- from stream 1 
+
+23-Apr-2014 13:20:40	insert into rawstream values('-1','RT @BenDreesen: Di Rupo sneert nr N-VA: \"Jullie denken als in d middeleeuwen\" http://t.co/RzKCoqo8B2 #DeMorgen Voor de middeleeuwen moet j in Wallonie zijn.','','','136220204','MarcJacobs500','220142000','BenDreesen','458958635704811520','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:20:40 +0000 2014','1398259240','1398257308')-- from stream 1 
+
+23-Apr-2014 13:20:41	insert into rawstream values('-1','RT @thierryd: misschien kan Paleis eens een Nederlandskundige persmedewerker in dienst nemen? http://t.co/Mumls9qF0M','','','342607723','leojuli2009','15644938','thierryd','458958641161580544','en','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/445570391692808192/jCuZX5Lc_normal.jpeg','','','','Wed Apr 23 13:20:41 +0000 2014','1398259241','1396685276')-- from stream 1 
+
+23-Apr-2014 13:20:43	Total time: 245058 ms
+23-Apr-2014 13:20:43	Downloaded tweets: 2250
+23-Apr-2014 13:20:43	Failed tweets: 0
+23-Apr-2014 13:20:43	Total time: 234215 ms
+23-Apr-2014 13:20:43	Downloaded tweets: 2250
+23-Apr-2014 13:20:43	Failed tweets: 0
+23-Apr-2014 13:20:43	Application ran for 235.72916102409 seconds.
+
+23-Apr-2014 13:20:43	Updating finished. Sleeping for 64.270838975906 seconds. 
+
+23-Apr-2014 13:21:09	insert into rawstream values('-1','RT @Joos4: “@BartTrouw: \'Moeten we niet eerst testen?!\'\n\'Dat doen we toch?\' http://t.co/qaMHef5kaw” #zorgakkoord','','','48090573','suffie63','47102354','Joos4','458958756450418688','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:21:09 +0000 2014','1398259269','1398254171')-- from stream 1 
+
+23-Apr-2014 13:21:29	insert into rawstream values('-1','tendens bij #VK2014 de soc. partijen schofferen tegenstanders, maar pronken niet/nauwelijks met eigen realisaties #erisookniks','','','373265591','Bogusoi','','','458958842228117504','nl','web','http://pbs.twimg.com/profile_images/2609249695/oqs07cem320pwukyayzz_normal.jpeg','','','','Wed Apr 23 13:21:29 +0000 2014','1398259289','0')-- from stream 1 
+
+23-Apr-2014 13:21:32	insert into rawstream values('-1','@cdenv Oneindige vraag met een beperkte dienst/goed best op te lossen door marktwerking TENZIJ een overheid ingrijpt, meestal arbitrair /2','15753618','cdenv','358137748','Qlurichaun','','','458958853896695808','nl','web','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:21:32 +0000 2014','1398259292','0')-- from stream 1 
+
+23-Apr-2014 13:21:44	insert into rawstream values('-1','@MDevoldere @JPScheffer Schoonmaken, poetsen,...kan door regulier bedrijf= meer jobs. Geld genoeg als iedereen eerlijk belastingen betaalt','382138163','MDevoldere','140163729','martseyn','','','458958904266067969','en','web','http://pbs.twimg.com/profile_images/1517793339/Katsberg_aug2011_normal.jpg','','','','Wed Apr 23 13:21:44 +0000 2014','1398259304','0')-- from stream 1 
+
+23-Apr-2014 13:21:47	Started updating 2250 tweets. 
+
+23-Apr-2014 13:21:50	insert into rawstream values('-1','@cdenv Maar als een overheid arbitrair ingrijpt, is ze nooit vrij 3/3','15753618','cdenv','358137748','Qlurichaun','','','458958928655941632','nl','web','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:21:50 +0000 2014','1398259310','0')-- from stream 1 
+
+23-Apr-2014 13:21:52	insert into rawstream values('-1','RT @FILIPDEMYTTEN: #vk14 De ‘verdoezeling\' om België te redden http://t.co/xkcLktHIDE via @tijd - alweer nagels met koppen door Louis Verbeke','','','136220204','MarcJacobs500','34090099','FILIPDEMYTTEN','458958939003322369','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:21:52 +0000 2014','1398259312','1398252457')-- from stream 1 
+
+23-Apr-2014 13:21:55	insert into rawstream values('-1','@Newsmonkey_BE Om het half jaar een nieuwer model. De afvalberg elektronica wordt alarmerend groot!','1950129770','Newsmonkey_BE','437004541','hanvaree','','','458958947576459264','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/378800000552348436/f794c98bdb660d8b808a636560af6a43_normal.jpeg','','','','Wed Apr 23 13:21:54 +0000 2014','1398259314','0')-- from stream 1 
+
+23-Apr-2014 13:21:58	insert into rawstream values('-1','RT @molcater: @vadderiVRT Zit er in de fed. stemtest een vraag over internetprivacy? N-VA enige partij die burgers wil bespioneren. http://t.co/yUNQPzkPGz','','','48090573','suffie63','388017628','molcater','458958960100655104','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:21:57 +0000 2014','1398259317','1398255846')-- from stream 1 
+
+23-Apr-2014 13:22:08	insert into rawstream values('-1','RT @spinocle: Iemand die een ticket voor Marble Sounds wilt, nu vrijdag in de Handelsbeurs in Gent? Kan helaas niet meer gaan. RT = een thee of een koffie','','','1577322732','TinnekeClaes','50667502','spinocle','458959003524292608','nl','web','http://pbs.twimg.com/profile_images/449908212024999936/ZrdwIZNq_normal.jpeg','','','','Wed Apr 23 13:22:08 +0000 2014','1398259328','1398244976')-- from stream 1 
+
+23-Apr-2014 13:22:12	insert into rawstream values('-1','@cdenv Maar als een overheid arbitrair ingrijpt, is de keuze nooit vrij 3/3','15753618','cdenv','358137748','Qlurichaun','','','458959021765324800','nl','web','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:22:12 +0000 2014','1398259332','0')-- from stream 1 
+
+23-Apr-2014 13:22:14	insert into rawstream values('-1','@nokeraar @destandaard Akkoord, als er een gegarandeerde return is op termijn. Je kan geen putten blijven maken zoals ze al jarenlang doen?','2326973492','nokeraar','576565207','Anarchazazel','','','458959027268239360','nl','web','http://pbs.twimg.com/profile_images/3422617954/83ec4a76b944786603ad510b0d9144d4_normal.jpeg','','','','Wed Apr 23 13:22:13 +0000 2014','1398259333','0')-- from stream 1 
+
+23-Apr-2014 13:22:32	insert into rawstream values('-1','willen jullie meer of minder franstaligen? #nva #vk2014','','','428870697','arnedescamps','','','458959103302574080','nl','web','http://pbs.twimg.com/profile_images/378800000342466591/aeba92acff25a816a85c8b98fbd82a89_normal.jpeg','','','','Wed Apr 23 13:22:31 +0000 2014','1398259351','0')-- from stream 1 
+
+23-Apr-2014 13:22:36	insert into rawstream values('-1','@TorbenGering staatsrecht zeker ook van diene Caluwaert? ;)','560607447','TorbenGering','138810385','LouisVanRoy','','','458959119895257088','nl','web','http://pbs.twimg.com/profile_images/3184960125/f00d9617bcfdb2befaf3cff8261d269e_normal.jpeg','','','','Wed Apr 23 13:22:35 +0000 2014','1398259355','0')-- from stream 1 
+
+23-Apr-2014 13:22:46	insert into rawstream values('-1','RT @JoVanLimbergen: Nationale sport \'NVA-bashen\' heeft ons alleen maar groter gemaakt (2010). Je zou denken dat ze nu een andere tactiek zouden kiezen #vk2014','','','136220204','MarcJacobs500','297614368','JoVanLimbergen','458959162438057984','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:22:46 +0000 2014','1398259366','1398256687')-- from stream 1 
+
+23-Apr-2014 13:22:48	insert into rawstream values('-1','Jongeren lanceren digitaal politiek magazine rond werk http://t.co/ZewXwFiZct #vk14','','','23498005','vrtderedactie','','','458959170759569408','nl','<a href="http://ifttt.com" rel="nofollow">IFTTT</a>','http://pbs.twimg.com/profile_images/3348647161/1c9c21f920de8cee3df786e28ef4e26e_normal.jpeg','','','','Wed Apr 23 13:22:48 +0000 2014','1398259368','0')-- from stream 1 
+
+23-Apr-2014 13:22:49	insert into rawstream values('-1','Misschien moet ik eens vertrekken...','','','1577322732','TinnekeClaes','','','458959176350568449','nl','web','http://pbs.twimg.com/profile_images/449908212024999936/ZrdwIZNq_normal.jpeg','','','','Wed Apr 23 13:22:49 +0000 2014','1398259369','0')-- from stream 1 
+
+23-Apr-2014 13:22:49	insert into rawstream values('-1','RT @HansVansweevelt: . @eliodirupo Dit hebt u gerealiseerd. Een mooie 5de plaats (na GR, IT, SP, PO &amp; Il) Geef mij maar een wit blad! http://t.co/czKMpRYA7U #vvv','','','712168447','AKohl','59244667','HansVansweevelt','458959176384147457','nl','web','http://pbs.twimg.com/profile_images/2428086866/3huizdx5a1t5dbz9oo6f_normal.jpeg','','','','Wed Apr 23 13:22:49 +0000 2014','1398259369','1398259101')-- from stream 1 
+
+23-Apr-2014 13:22:51	insert into rawstream values('-1','@CVankeirsbilck natuurlijk! Het is nu te doen aan je favo afdeling: #sterkendrank Muug aanschuiven wel...','298125721','CVankeirsbilck','2161115606','BrejenJohn','','','458959183178919936','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000660667748/63bddbf202f686581dbd1674522b2597_normal.jpeg','','','','Wed Apr 23 13:22:50 +0000 2014','1398259370','0')-- from stream 1 
+
+23-Apr-2014 13:23:02	insert into rawstream values('-1','Top Populaire tags:  1 #halloAIVD 2 #multichannel14 3 #myNYPD 4 #raad070 5 #Opstelten','','','52205948','CurrentlyNL','','','458959232214503424','en','<a href="http://www.twirus.com" rel="nofollow">Twirus</a>','http://pbs.twimg.com/profile_images/427862494929887232/_Fs5UJmc_normal.png','','','','Wed Apr 23 13:23:02 +0000 2014','1398259382','0')-- from stream 1 
+
+23-Apr-2014 13:23:12	insert into rawstream values('-1','@SanderCarollo @pieterdesmet Lees a.u.b. hoe de #NVA Confederatie België met deelstaten Vlaanderen en Wallonië ... 1/2','280194603','SanderCarollo','24688336','de_NVA','','','458959269795463169','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/378800000710642987/72160f0c6bbd2a24ec05432e9d7bd623_normal.png','','','','Wed Apr 23 13:23:11 +0000 2014','1398259391','0')-- from stream 1 
+
+23-Apr-2014 13:23:18	insert into rawstream values('-1','Bijnaaaa naar huis','','','1513930008','nathlievrouw','','','458959298337730560','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/455616385025310720/bSv6np7K_normal.jpeg','','','','Wed Apr 23 13:23:18 +0000 2014','1398259398','0')-- from stream 1 
+
+23-Apr-2014 13:23:22	insert into rawstream values('-1','@martseyn @JPScheffer Gemeenschapsdienst is een mooie tegenprestatie die maatschappelijk draagvlak voor hogere uitkeringen behoudt.','140163729','martseyn','382138163','MDevoldere','','','458959314947178496','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:23:22 +0000 2014','1398259402','0')-- from stream 1 
+
+23-Apr-2014 13:23:25	insert into rawstream values('-1','De beste💋 http://t.co/12pCEWdRXt','','','1506053070','Simone_Hanne','','','458959327702040576','nl','<a href="http://instagram.com" rel="nofollow">Instagram</a>','http://pbs.twimg.com/profile_images/451424316727775232/NgJ6ppzn_normal.jpeg','','','','Wed Apr 23 13:23:25 +0000 2014','1398259405','0')-- from stream 1 
+
+23-Apr-2014 13:23:29	insert into rawstream values('-1','@MP_Peeters Senaat wordt dus studiebureau, lees vergeetput.','560537100','MP_Peeters','577008628','J_Van_Hauthem','','','458959342587625474','nl','<a href="http://blackberry.com/twitter" rel="nofollow">Twitter for BlackBerry®</a>','http://pbs.twimg.com/profile_images/2209376885/Joris_Van_Hauthem_normal.jpg','','','','Wed Apr 23 13:23:28 +0000 2014','1398259408','0')-- from stream 1 
+
+23-Apr-2014 13:23:38	insert into rawstream values('-1','RT @BenDreesen: De echte peiling: http://t.co/xDrMzzEDu3','','','51444989','debrackeleer','220142000','BenDreesen','458959383129759745','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:23:38 +0000 2014','1398259418','1398256120')-- from stream 1 
+
+23-Apr-2014 13:23:44	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #vacature','','','79816789','MarkvanRooijen_','','','458959408027148289','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:23:44 +0000 2014','1398259424','0')-- from stream 1 
+
+23-Apr-2014 13:23:45	insert into rawstream values('-1','@cdenv En marktwerking is dan geen concurrentie o.b.v. kwaliteit? Hoge prijs en slechte kwaliteit wordt altijd geëlimineerd @wbeke','15753618','cdenv','358137748','Qlurichaun','','','458959409612587008','nl','web','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:23:44 +0000 2014','1398259424','0')-- from stream 1 
+
+23-Apr-2014 13:23:46	insert into rawstream values('-1','@SanderCarollo @pieterdesmet ... en de twee bijzondere regio’s ziet in onze def. congresteksten op http://t.co/ZgoMr2cOfG 2/2','24688336','de_NVA','24688336','de_NVA','','','458959416952627200','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/378800000710642987/72160f0c6bbd2a24ec05432e9d7bd623_normal.png','','','','Wed Apr 23 13:23:46 +0000 2014','1398259426','0')-- from stream 1 
+
+23-Apr-2014 13:23:51	insert into rawstream values('-1','RT @WeversW: Di Rupo noemt N-VA \'gecastreerden in een harem\' - Straffe taal. Wie probeert er ook weer te polariseren? Juist ja... http://t.co/teuG9LYmCT','','','136220204','MarcJacobs500','54561156','WeversW','458959436380655616','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:23:51 +0000 2014','1398259431','1398259090')-- from stream 1 
+
+23-Apr-2014 13:23:53	insert into rawstream values('-1','@josephsneyers Goed ! @BenDreesen','1223784397','josephsneyers','51444989','debrackeleer','','','458959446178533376','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:23:53 +0000 2014','1398259433','0')-- from stream 1 
+
+23-Apr-2014 13:24:09	insert into rawstream values('-1','Lessen Nederlands als voorwaarde voor een leefloon stellen is crimineel! http://t.co/Sp00tPf1wM #vk2014 Had dit echt niet verwacht...','','','1560887042','Tim_Joye','','','458959513320968192','nl','web','http://pbs.twimg.com/profile_images/427536497995022337/U7SDAuC3_normal.jpeg','','','','Wed Apr 23 13:24:09 +0000 2014','1398259449','0')-- from stream 1 
+
+23-Apr-2014 13:24:33	insert into rawstream values('-1','RT @laurestuyck: 3 duidelijke @openvld prioriteiten in #onderwijsdebat: investeren in basisonderwijs, in leerkrachten en in infrastructuur door meer #pps','','','544095607','KMalfliet','208153772','laurestuyck','458959611241168896','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/446186634883522560/fpd0o_gE_normal.jpeg','','','','Wed Apr 23 13:24:33 +0000 2014','1398259473','1398246060')-- from stream 1 
+
+23-Apr-2014 13:24:37	insert into rawstream values('-1','RT @WeversW: \"N-VA\'ers zijn eunuchen in een harem.\" Jawel, een uitspraak van de premier van alle 11 miljoen inwoners van België. U hebt het goed gehoord.','','','136220204','MarcJacobs500','54561156','WeversW','458959628261675009','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:24:37 +0000 2014','1398259477','1398259454')-- from stream 1 
+
+23-Apr-2014 13:24:42	insert into rawstream values('-1','RT @WeversW: Di Rupo noemt N-VA \'gecastreerden in een harem\' - Straffe taal. Wie probeert er ook weer te polariseren? Juist ja... http://t.co/teuG9LYmCT','','','135495684','cedriclingier','54561156','WeversW','458959648469835776','nl','web','http://pbs.twimg.com/profile_images/378800000707560040/b947a89779c2bd2358a30a12c2de5fac_normal.png','','','','Wed Apr 23 13:24:41 +0000 2014','1398259481','1398259090')-- from stream 1 
+
+23-Apr-2014 13:24:43	insert into rawstream values('-1','RT @BenDreesen: De echte peiling: http://t.co/xDrMzzEDu3','','','351689871','Mickiflodi','220142000','BenDreesen','458959654153125888','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/421368238719905793/9jE4BhqA_normal.jpeg','','','','Wed Apr 23 13:24:43 +0000 2014','1398259483','1398256120')-- from stream 1 
+
+23-Apr-2014 13:24:56	insert into rawstream values('-1','RT @vladandjeric: earn money online try easy steps http://t.co/BJBryqQBGs','','','1323840157','video88earn','968607355','vladandjeric','458959708104425472','en','<a href="https://roundteam.co" rel="nofollow">RoundTeam</a>','http://pbs.twimg.com/profile_images/3469733148/3d39b8ca1430ae9df126ec8e05cd307e_normal.jpeg','','','','Wed Apr 23 13:24:56 +0000 2014','1398259496','1398255888')-- from stream 1 
+
+23-Apr-2014 13:25:15	insert into rawstream values('-1','@Anarchazazel @destandaard investeren op lange termijn, op productivitiet, duurzaamheid en creëren vaste jobs. Sleutelwoorden voor toekomst','576565207','Anarchazazel','2326973492','nokeraar','','','458959786584072194','nl','<a href="http://www.twitter.com" rel="nofollow">Twitter for Windows</a>','http://pbs.twimg.com/profile_images/430671269454172160/9lBKjvpC_normal.jpeg','','','','Wed Apr 23 13:25:14 +0000 2014','1398259514','0')-- from stream 1 
+
+23-Apr-2014 13:25:16	insert into rawstream values('-1','RT @doobox: New stack “Count Up” Just released :\nhttp://t.co/cNx18Nx8uS http://t.co/9tddfDFzET','','','51444989','debrackeleer','129251434','doobox','458959791776612354','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:25:16 +0000 2014','1398259516','1398257931')-- from stream 1 
+
+23-Apr-2014 13:25:23	insert into rawstream values('-1','RT @TV_Monkey_BE: Oh ja @BegijnLeBleu van #foutevrienden is totaal onterecht het kneusje. Onterecht, zeggen we u! http://t.co/VNyRRy2NJw cc @FouteVriendenBE','','','1950129770','Newsmonkey_BE','2330314440','TV_Monkey_BE','458959822046896129','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000728169060/1c08fba51e4035a1645d5c55100d0ad5_normal.jpeg','','','','Wed Apr 23 13:25:23 +0000 2014','1398259523','1398258027')-- from stream 1 
+
+23-Apr-2014 13:25:38	insert into rawstream values('-1','@PietDeZaeger @M_Suykens @Knack Fout in Knack: APB-tarief Kraainem 2014=2012. Maar 4 gemeenten met lagere APB/OV zonder hogere andere taks.','373478501','PietDeZaeger','1968834090','JanLeroyVVSG','','','458959883476680704','nl','web','http://pbs.twimg.com/profile_images/378800000613650687/c135db20856030c0c24136785095963a_normal.jpeg','','','','Wed Apr 23 13:25:37 +0000 2014','1398259537','0')-- from stream 1 
+
+23-Apr-2014 13:25:49	insert into rawstream values('-1','RT @HansVansweevelt: . @eliodirupo Dit hebt u gerealiseerd. Een mooie 5de plaats (na GR, IT, SP, PO &amp; Il) Geef mij maar een wit blad! http://t.co/czKMpRYA7U #vvv','','','606619193','lutgroenez','59244667','HansVansweevelt','458959930524205056','nl','web','http://pbs.twimg.com/profile_images/3698766312/dc1c81ac60ce596aab61d40d4f4567b6_normal.jpeg','','','','Wed Apr 23 13:25:49 +0000 2014','1398259549','1398259101')-- from stream 1 
+
+23-Apr-2014 13:25:52	insert into rawstream values('-1','RT @Gelerobbie: Die stoottroepen voor \"solidariteit\" worden pisnijdig als ze aangesproken worden om zélf mee solidair te zijn voor vlg generaties.','','','351689871','Mickiflodi','45790113','Gelerobbie','458959943333593088','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/421368238719905793/9jE4BhqA_normal.jpeg','','','','Wed Apr 23 13:25:52 +0000 2014','1398259552','1397317933')-- from stream 1 
+
+23-Apr-2014 13:25:53	Total time: 245058 ms
+23-Apr-2014 13:25:53	Downloaded tweets: 2250
+23-Apr-2014 13:25:53	Failed tweets: 0
+23-Apr-2014 13:25:53	Total time: 234215 ms
+23-Apr-2014 13:25:53	Downloaded tweets: 2250
+23-Apr-2014 13:25:53	Failed tweets: 0
+23-Apr-2014 13:25:53	Total time: 245139 ms
+23-Apr-2014 13:25:53	Downloaded tweets: 2250
+23-Apr-2014 13:25:53	Failed tweets: 0
+23-Apr-2014 13:25:53	Application ran for 246.56552600861 seconds.
+
+23-Apr-2014 13:25:53	Updating finished. Sleeping for 53.434473991394 seconds. 
+
+23-Apr-2014 13:26:05	insert into rawstream values('-1','@IlRedeimondani Hahaha, het socialisme gaat helemaal niet over vrijheid. Dat is immers NEOLIBERALISME!!! @implosionblue @AndyKerkhofs','1148701050','IlRedeimondani','1890462613','eerlijkesos','','','458959999000383489','en','web','http://pbs.twimg.com/profile_images/434738316903071744/bgts-7PZ_normal.png','','','','Wed Apr 23 13:26:05 +0000 2014','1398259565','0')-- from stream 1 
+
+23-Apr-2014 13:26:10	insert into rawstream values('-1','@MP_Peeters #Woonbonus = marktmanupilatie met kunstmatig hoge woningprijzen tot gevolg en als enige winnaars de banken met hun interesten!','560537100','MP_Peeters','475302692','KoenBols','','','458960018872991744','en','web','http://pbs.twimg.com/profile_images/1783548564/319613_2255664145245_1057564254_32486266_796057147_n_normal.jpg','','','','Wed Apr 23 13:26:10 +0000 2014','1398259570','0')-- from stream 1 
+
+23-Apr-2014 13:26:25	insert into rawstream values('-1','RT @NoelSlangen: Aangekomen voor nationaal verkiezingsdebat @HorecaVL In debat met oa @Koen_Geens1 @WouterVanBesien @JanDeHaes over toekomst #horeca.','','','208153772','laurestuyck','140883033','NoelSlangen','458960081963724800','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/3441609714/1b7bb270bfdf6d9641c96900aa9d4989_normal.jpeg','','','','Wed Apr 23 13:26:25 +0000 2014','1398259585','1398256059')-- from stream 1 
+
+23-Apr-2014 13:26:34	insert into rawstream values('-1','Je hart zit links. Klopt het nog? #IkVersterkLinks Ik stem #PVDA+ http://t.co/dujqrVCKIy','','','418988048','JouweV','','','458960116608282624','nl','web','http://pbs.twimg.com/profile_images/434071065803771904/3DYseK5K_normal.png','','','','Wed Apr 23 13:26:33 +0000 2014','1398259593','0')-- from stream 1 
+
+23-Apr-2014 13:26:36	insert into rawstream values('-1','@isabelleory le Français n\'aime pas la diphtongue: il voit la balle a-out et non out :-)','71245999','isabelleory','109335745','JacquesHinckxt','','','458960126335258624','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/662824755/iywtm_normal.JPG','','','','Wed Apr 23 13:26:35 +0000 2014','1398259595','0')-- from stream 1 
+
+23-Apr-2014 13:26:39	insert into rawstream values('-1','@IlRedeimondani Dat is een leugen. @JoVanLimbergen @implosionblue @AndyKerkhofs','1148701050','IlRedeimondani','1890462613','eerlijkesos','','','458960139878666240','en','web','http://pbs.twimg.com/profile_images/434738316903071744/bgts-7PZ_normal.png','','','','Wed Apr 23 13:26:39 +0000 2014','1398259599','0')-- from stream 1 
+
+23-Apr-2014 13:26:46	Started updating 2250 tweets. 
+
+23-Apr-2014 13:26:49	insert into rawstream values('-1','@cdenv Mensen financieren voor hun onderwijs is beter dan structuren: meer initiatief, meer marktwerking en vooral meer aanbod','15753618','cdenv','358137748','Qlurichaun','','','458960182056607745','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454235888340316160/WZz1kHkw_normal.jpeg','','','','Wed Apr 23 13:26:49 +0000 2014','1398259609','0')-- from stream 1 
+
+23-Apr-2014 13:27:02	insert into rawstream values('-1','I did it again','','','1975158686','AnkeLiebrand','','','458960238771994624','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/451685188440174592/Eug_GHLQ_normal.jpeg','','','','Wed Apr 23 13:27:02 +0000 2014','1398259622','0')-- from stream 1 
+
+23-Apr-2014 13:27:06	insert into rawstream values('-1','RT @Real_Liam_Payne: Felt like tweeting but I have absolutely nothing interesting to talk about lol so ermm hi 😎','','','1347048636','Juskeeeee','158314798','Real_Liam_Payne','458960254286708736','nl','web','http://pbs.twimg.com/profile_images/3527123300/538918c73517e6334bcc607aca9451a2_normal.jpeg','','','','Wed Apr 23 13:27:06 +0000 2014','1398259626','1398085858')-- from stream 1 
+
+23-Apr-2014 13:27:12	insert into rawstream values('-1','Waren we allemaal werkloos dan moest er niemand werken. #linkselogica #vk14','','','390140134','Oli4VR','','','458960277506383872','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1602413512/image_normal.jpg','','','','Wed Apr 23 13:27:11 +0000 2014','1398259631','0')-- from stream 1 
+
+23-Apr-2014 13:27:20	insert into rawstream values('-1','@Z24nl En ondanks de omvangrijke staatssubsidie die zelfs groter is als de winst:\nhttp://t.co/fNyhPOtP7m @erikwesselius','28308561','Z24nl','48090573','suffie63','','','458960314357522432','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:27:20 +0000 2014','1398259640','0')-- from stream 1 
+
+23-Apr-2014 13:27:26	insert into rawstream values('-1','@TuffreauJens boe wi','1883579048','TuffreauJens','2176689077','DermauxClmence','','','458960336151126017','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458659449998426115/gfCq6QBb_normal.jpeg','','','','Wed Apr 23 13:27:25 +0000 2014','1398259645','0')-- from stream 1 
+
+23-Apr-2014 13:27:39	insert into rawstream values('-1','Ok wimoosterlinck ik vertel het jou tot in het kleinste detail  # isjokevandeveldealvandegrondgegaan.be http://t.co/SzfN9SaH2A','','','1465373948','jokevandevelde1','','','458960393575337984','nl','<a href="http://instagram.com" rel="nofollow">Instagram</a>','http://pbs.twimg.com/profile_images/445515559795720192/QrPNdUIR_normal.jpeg','','','','Wed Apr 23 13:27:39 +0000 2014','1398259659','0')-- from stream 1 
+
+23-Apr-2014 13:27:45	insert into rawstream values('-1','RT @AKohl: Di Rupo noemt N-VA\'ers \'gecastreerden in een harem\' - Het Nieuwsblad http://t.co/66j04xWnNa','','','136220204','MarcJacobs500','712168447','AKohl','458960416019087360','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:27:44 +0000 2014','1398259664','1398259601')-- from stream 1 
+
+23-Apr-2014 13:28:01	insert into rawstream values('-1','RT @FilipAertsDigi: Zwaantje slaat vleugels uit tijdens Waalse Pijl #waalsepijl http://t.co/KMeaFnNT8l http://t.co/5B4kAhs0Zo','','','2451112962','20thCenturyBE','299066966','FilipAertsDigi','458960483207614464','en','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/457094751452270593/Ja1vsBke_normal.jpeg','','','','Wed Apr 23 13:28:00 +0000 2014','1398259680','1398259238')-- from stream 1 
+
+23-Apr-2014 13:28:07	insert into rawstream values('-1','#BrunoValkeniers: #VlaamsBelang steunt #resolutie ter bescherming Christenen &amp; andere religieuze minderen in #Afri... http://t.co/hgjT14eOso','','','18135725','Tanguy_Veys','','','458960508620898304','nl','<a href="http://foursquare.com" rel="nofollow">foursquare</a>','http://pbs.twimg.com/profile_images/446715547732803584/VnBs7s81_normal.jpeg','Point','50.847051','4.364999','Wed Apr 23 13:28:06 +0000 2014','1398259686','0')-- from stream 1 
+
+23-Apr-2014 13:28:08	insert into rawstream values('-1','@actupol j\'ai vu j\'ai vu ;)','63845775','actupol','19444574','_belgium4ever','','','458960513486319616','nl','web','http://pbs.twimg.com/profile_images/3042041822/0fb91c9ae0acfe6a47776aedb85b2c9e_normal.png','','','','Wed Apr 23 13:28:08 +0000 2014','1398259688','0')-- from stream 1 
+
+23-Apr-2014 13:28:08	insert into rawstream values('-1','RT @RocaBatista: #SantJordi Sur la Rambla de #Barcelone, il y a foule devant les stands des partis indépendantistes, ici @Esquerra_ERC http://t.co/yXY0fANkA5','','','51444989','debrackeleer','819000242','RocaBatista','458960514941734912','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:28:08 +0000 2014','1398259688','1398259551')-- from stream 1 
+
+23-Apr-2014 13:28:16	insert into rawstream values('-1','@jokevandevelde1 Het kleinste? Oei, innige deelneming dat je daar dan anderhalf jaar moet op wachten. :(','1465373948','jokevandevelde1','22416662','edwinaarschot','','','458960547380469760','en','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000769239015/865c2c424b2a1ad528c2918938da7df3_normal.jpeg','','','','Wed Apr 23 13:28:16 +0000 2014','1398259696','0')-- from stream 1 
+
+23-Apr-2014 13:28:38	insert into rawstream values('-1','RT @rwauters: Ben op zoek naar jongere werkloze mét diploma en wil om te werken. Voor (korte) getuigenis in de kant. DM als je me kan verder helpen.','','','432617270','ACWIeper','199404268','rwauters','458960641907494912','nl','web','http://pbs.twimg.com/profile_images/1683308536/acwieper_normal.jpg','','','','Wed Apr 23 13:28:38 +0000 2014','1398259718','1398257677')-- from stream 1 
+
+23-Apr-2014 13:28:51	insert into rawstream values('-1','RT @Andreas_Bieler: Key aspects of an alternative trade regime, see http://t.co/kWtYps9k02 @AdamDavidMorton @CPERN06 @SachaDierckx @socialism21','','','418988048','JouweV','582996784','Andreas_Bieler','458960693736525824','nl','web','http://pbs.twimg.com/profile_images/434071065803771904/3DYseK5K_normal.png','','','','Wed Apr 23 13:28:51 +0000 2014','1398259731','1398257628')-- from stream 1 
+
+23-Apr-2014 13:28:58	insert into rawstream values('-1','@VoxLiber Graag gedaan. Zie ook http://t.co/CtSvdBR0QW worden een aantal goede punten aangehaald.','418984346','VoxLiber','838779152','AsterBerghe','','','458960723620929537','en','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/2635422663/3685b6b23d5ef9357cb653abf4f7fda9_normal.jpeg','','','','Wed Apr 23 13:28:58 +0000 2014','1398259738','0')-- from stream 1 
+
+23-Apr-2014 13:29:01	insert into rawstream values('-1','@_belgium4ever ça m\'a fait trop fait rappelé les questions communautaires chez toi ! :p','19444574','_belgium4ever','63845775','actupol','','','458960736380018689','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/3570860569/664aa72616ab74e4ad6de4e291502f84_normal.jpeg','','','','Wed Apr 23 13:29:01 +0000 2014','1398259741','0')-- from stream 1 
+
+23-Apr-2014 13:29:02	insert into rawstream values('-1','RT @terzaketv: Heeft armoede-expert Jan Vranken een punt als hij @LiesbethHomans\nvergelijkt met Thatcher? Beiden komen nr #TerzakeTV http://t.co/dn7RoZHJyA','','','1685350141','ThomasEpo','144880437','terzaketv','458960739739664384','nl','web','http://pbs.twimg.com/profile_images/378800000327896460/8ac2febff9f6afeb2ff493155879de0a_normal.jpeg','','','','Wed Apr 23 13:29:02 +0000 2014','1398259742','1398259407')-- from stream 1 
+
+23-Apr-2014 13:29:06	insert into rawstream values('-1','@LinksVlaams @de_NVA mi vallen beide voor hen samen, met nuances rechts-liberale v vlaams-nationalistische vleugels','891681331','LinksVlaams','109335745','JacquesHinckxt','','','458960755707363328','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/662824755/iywtm_normal.JPG','','','','Wed Apr 23 13:29:05 +0000 2014','1398259745','0')-- from stream 1 
+
+23-Apr-2014 13:29:08	insert into rawstream values('-1','Het overmoedige midden:\n#cdenv #NVA #vk14 #lectrr http://t.co/tF0I9LBNmC','','','89227431','chjanssens','','','458960766087856128','nl','web','http://pbs.twimg.com/profile_images/436902039541399554/MBngSOKR_normal.jpeg','','','','Wed Apr 23 13:29:08 +0000 2014','1398259748','0')-- from stream 1 
+
+23-Apr-2014 13:29:17	insert into rawstream values('-1','@LouisVanRoy Jup :)','138810385','LouisVanRoy','560607447','TorbenGering','','','458960803560169472','nl','web','http://pbs.twimg.com/profile_images/3196811918/c61945d26e4648d07e59bdfe4a9e178b_normal.jpeg','','','','Wed Apr 23 13:29:17 +0000 2014','1398259757','0')-- from stream 1 
+
+23-Apr-2014 13:29:18	insert into rawstream values('-1','@VK14_VRT gisteren was lenen nog onbespreekbaar voor Peter de roover in debat SISA Antwerpen #krachtvanvertwijfeling @sp_a #vk14','2282407514','VK14_VRT','517667778','DeBoeckTom','','','458960805791551489','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/3262369843/9c75a28c4817e012aa51e7cae1f99c9e_normal.jpeg','','','','Wed Apr 23 13:29:17 +0000 2014','1398259757','0')-- from stream 1 
+
+23-Apr-2014 13:29:32	insert into rawstream values('-1','@GunFUNarvfm Ze slaan in paniek ! Het is nu al 5 voor 12 voor de trado\'s ! @AKohl','729093414','GunFUNarvfm','51444989','debrackeleer','','','458960864197246977','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:29:31 +0000 2014','1398259771','0')-- from stream 1 
+
+23-Apr-2014 13:29:32	insert into rawstream values('-1','@jensdehaese je kan afspraak maken via website','6068172','jensdehaese','171487487','thomvil','','','458960865476501504','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/2556670691/32yp1815il6kel17llge_normal.jpeg','','','','Wed Apr 23 13:29:32 +0000 2014','1398259772','0')-- from stream 1 
+
+23-Apr-2014 13:29:39	insert into rawstream values('-1','RT @TwitPolitique: Toutes les questions que vous vous posez sur les sondages: chat ce jeudi http://t.co/l552osc6Ws','','','95434109','JohanneMontay','271385094','TwitPolitique','458960895750995968','fr','<a href="http://www.echofon.com/" rel="nofollow">Echofon</a>','http://pbs.twimg.com/profile_images/378800000594368631/d281050ed4db1ffaf434b045673f1b18_normal.jpeg','','','','Wed Apr 23 13:29:39 +0000 2014','1398259779','1398259624')-- from stream 1 
+
+23-Apr-2014 13:29:41	insert into rawstream values('-1','RT @GasGrosjean: Les réseaux sociaux, le web et la campagne électorale: débat @cafenlg ce soir - http://t.co/ILghtHTT5k #Liège #Be2505','','','222060939','cafenlg','317724093','GasGrosjean','458960903619493888','fr','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000483435959/b06a6bccb2e5f1af450a31ddb679c27f_normal.jpeg','','','','Wed Apr 23 13:29:41 +0000 2014','1398259781','1398259467')-- from stream 1 
+
+23-Apr-2014 13:29:44	insert into rawstream values('-1','Thatcher aan de Schelde vanavond in Terzake.','','','1685350141','ThomasEpo','','','458960915573276672','nl','web','http://pbs.twimg.com/profile_images/378800000327896460/8ac2febff9f6afeb2ff493155879de0a_normal.jpeg','','','','Wed Apr 23 13:29:44 +0000 2014','1398259784','0')-- from stream 1 
+
+23-Apr-2014 13:29:45	insert into rawstream values('-1','Violen afstemmen ;-) #vk14 (@ sp.a HQ) http://t.co/bRV2TfcXK4','','','39532020','AllemaalSam','','','458960920405082112','en','<a href="http://foursquare.com" rel="nofollow">foursquare</a>','http://pbs.twimg.com/profile_images/445288415870058496/Q0KDKJHK_normal.jpeg','Point','50.846135','4.35364','Wed Apr 23 13:29:45 +0000 2014','1398259785','0')-- from stream 1 
+
+23-Apr-2014 13:29:55	insert into rawstream values('-1','@MP_Peeters Staats hervorming in de verkeerde richting aka staatsmisvorming, alles nog ingewikkelder! nog duurder #vlaparl #villapolitica','560537100','MP_Peeters','475302692','KoenBols','','','458960963686109184','en','web','http://pbs.twimg.com/profile_images/1783548564/319613_2255664145245_1057564254_32486266_796057147_n_normal.jpg','','','','Wed Apr 23 13:29:55 +0000 2014','1398259795','0')-- from stream 1 
+
+23-Apr-2014 13:30:02	insert into rawstream values('-1','RT \"@GieGoris: Directeur jezuietencollege waarschuwt voor alliantie grootkapitaal en communautaire krachten: http://t.co/q7kECJJZ8Y','','','418988048','JouweV','','','458960990412238848','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/434071065803771904/3DYseK5K_normal.png','','','','Wed Apr 23 13:30:01 +0000 2014','1398259801','0')-- from stream 1 
+
+23-Apr-2014 13:30:02	insert into rawstream values('-1','@MP_Peeters vi@dt dar kiezer recht heeft te weten met wie @de_NVA als MP nr kiezer trekt #villapooliica','560537100','MP_Peeters','372202760','lindewin','','','458960990923935744','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/448473190474346497/1MeJYR2n_normal.jpeg','','','','Wed Apr 23 13:30:01 +0000 2014','1398259801','0')-- from stream 1 
+
+23-Apr-2014 13:30:08	insert into rawstream values('-1','@sol_tweet wanneer zal de latex actief zijn?','335183503','sol_tweet','136918530','mrcarreyn','','','458961012788822016','nl','<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>','http://pbs.twimg.com/profile_images/378800000229375425/6570011f86507963079b68007ea6edc5_normal.jpeg','','','','Wed Apr 23 13:30:07 +0000 2014','1398259807','0')-- from stream 1 
+
+23-Apr-2014 13:30:21	insert into rawstream values('-1','RT @BenWeyts: Vertrouwen van CD&amp;V in KP wankelt, driengend assistentie nodig. Eerst de kiezer verdorie, pas dan de posten. http://t.co/84D556A2OT','','','136220204','MarcJacobs500','1451696935','BenWeyts','458961072746414080','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:30:21 +0000 2014','1398259821','1398173249')-- from stream 1 
+
+23-Apr-2014 13:30:23	insert into rawstream values('-1','@tombogman : gelukkig zetten jullie niet veel borden :)','5434452','tombogman','360784538','leendierick','','','458961081919365120','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/2857806681/6a271539c5ac1b87dc903f4e2a30927b_normal.jpeg','','','','Wed Apr 23 13:30:23 +0000 2014','1398259823','0')-- from stream 1 
+
+23-Apr-2014 13:30:30	insert into rawstream values('-1','http://t.co/mX6HyrwV5w','','','1691056303','ZelfaMadhloum','','','458961109119401984','nl','<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>','http://pbs.twimg.com/profile_images/452561201609072640/Ib1Jshc1_normal.jpeg','','','','Wed Apr 23 13:30:30 +0000 2014','1398259830','0')-- from stream 1 
+
+23-Apr-2014 13:30:32	insert into rawstream values('-1','RT @chjanssens: Het overmoedige midden:\n#cdenv #NVA #vk14 #lectrr http://t.co/tF0I9LBNmC','','','136220204','MarcJacobs500','89227431','chjanssens','458961118434959360','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:30:32 +0000 2014','1398259832','1398259748')-- from stream 1 
+
+23-Apr-2014 13:30:34	insert into rawstream values('-1','Juij! RT @dirk_roels: Bomen maken come back in centrum #Gent @groen @filipwatteeuw http://t.co/iVHRkNCiC2','','','24164149','maartendegendt','','','458961126668398592','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/660783206/profile_normal.jpg','','','','Wed Apr 23 13:30:34 +0000 2014','1398259834','0')-- from stream 1 
+
+23-Apr-2014 13:30:42	Total time: 245058 ms
+23-Apr-2014 13:30:42	Downloaded tweets: 2250
+23-Apr-2014 13:30:42	Failed tweets: 0
+23-Apr-2014 13:30:42	Total time: 234215 ms
+23-Apr-2014 13:30:42	Downloaded tweets: 2250
+23-Apr-2014 13:30:42	Failed tweets: 0
+23-Apr-2014 13:30:42	Total time: 245139 ms
+23-Apr-2014 13:30:42	Downloaded tweets: 2250
+23-Apr-2014 13:30:42	Failed tweets: 0
+23-Apr-2014 13:30:42	Total time: 234469 ms
+23-Apr-2014 13:30:42	Downloaded tweets: 2250
+23-Apr-2014 13:30:42	Failed tweets: 0
+23-Apr-2014 13:30:42	Application ran for 235.76911497116 seconds.
+
+23-Apr-2014 13:30:42	Updating finished. Sleeping for 64.230885028839 seconds. 
+
+23-Apr-2014 13:30:49	insert into rawstream values('-1','Naast #Nederland zoekt @DunkinDonuts ook franchisers voor #België. #DunkinDonuts','','','217614725','lennycant','','','458961187011842048','nl','web','http://pbs.twimg.com/profile_images/456097361144455168/4phRKYSz_normal.jpeg','','','','Wed Apr 23 13:30:48 +0000 2014','1398259848','0')-- from stream 1 
+
+23-Apr-2014 13:31:13	insert into rawstream values('-1','\'\'Ultrarechts\'\' en \'\'liberaal\'\' zijn volgens de kameraden linksmensjes synoniemen van elkaar. Geert Hoste mag concurrentie verwachten. #vk14','','','134789513','KjellLanoye','','','458961291508318208','nl','<a href="http://messaging.nokia.com/" rel="nofollow">Social by Nokia</a>','http://pbs.twimg.com/profile_images/457964916666691584/6cnuk2gM_normal.jpeg','','','','Wed Apr 23 13:31:13 +0000 2014','1398259873','0')-- from stream 1 
+
+23-Apr-2014 13:31:20	insert into rawstream values('-1','#VlaamsBelang steunt #resolutie ter bescherming Christenen &amp; religieuze minderheden in #Afrika #MiddenOo... https://t.co/B4CjPZaN7w','','','18135725','Tanguy_Veys','','','458961321305075713','nl','<a href="http://foursquare.com" rel="nofollow">foursquare</a>','http://pbs.twimg.com/profile_images/446715547732803584/VnBs7s81_normal.jpeg','Point','50.847051','4.364999','Wed Apr 23 13:31:20 +0000 2014','1398259880','0')-- from stream 1 
+
+23-Apr-2014 13:31:34	insert into rawstream values('-1','RT @Marliesvdwalle: Van mij mag Peumans gerust nog een legislatuur voorzitter van het Vlaams Parlement zijn. #villapolitica','','','606619193','lutgroenez','51596975','Marliesvdwalle','458961377626161153','nl','web','http://pbs.twimg.com/profile_images/3698766312/dc1c81ac60ce596aab61d40d4f4567b6_normal.jpeg','','','','Wed Apr 23 13:31:34 +0000 2014','1398259894','1398258664')-- from stream 1 
+
+23-Apr-2014 13:31:44	insert into rawstream values('-1','RT @hgillijns: Kunnen #Proximus gebruikers bevestigen dat het personal hotspot-probleem op #iPhone opgelost is na update #iOS711?','','','481452715','GianniPiens','255656570','hgillijns','458961418822639616','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458758509614862336/A1-3sFkr_normal.jpeg','','','','Wed Apr 23 13:31:44 +0000 2014','1398259904','1398258715')-- from stream 1 
+
+23-Apr-2014 13:31:45	insert into rawstream values('-1','RT @rwauters: Ben op zoek naar jongere werkloze mét diploma en wil om te werken. Voor (korte) getuigenis in de kant. DM als je me kan verder helpen.','','','41200735','SuperGrenouille','199404268','rwauters','458961424560451584','fr','web','http://pbs.twimg.com/profile_images/1268953943/DSC_0050_ret_red_twitter_normal.jpg','','','','Wed Apr 23 13:31:45 +0000 2014','1398259905','1398257677')-- from stream 1 
+
+23-Apr-2014 13:31:46	Started updating 2250 tweets. 
+
+23-Apr-2014 13:31:51	insert into rawstream values('-1','@posthumusnatus éénmanspartij met onissuethema. Macht.','260734057','posthumusnatus','426518737','BartDeMeulenaer','','','458961446966407168','nl','web','http://pbs.twimg.com/profile_images/1775515567/twitter2logo_normal.png','','','','Wed Apr 23 13:31:50 +0000 2014','1398259910','0')-- from stream 1 
+
+23-Apr-2014 13:31:52	insert into rawstream values('-1','Peilingwijzer: licht herstel PVV, SP daalt - http://t.co/TZOmluFFHM #PVV #SPNL #D66 #PvdA #CDA #VVD','','','100215015','yonidewolff','','','458961454473826305','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/378800000549203231/f00c0887ba08e72533de0a8f65ec9007_normal.png','','','','Wed Apr 23 13:31:52 +0000 2014','1398259912','0')-- from stream 1 
+
+23-Apr-2014 13:32:04	insert into rawstream values('-1','@Lotto_Belisol komaan jelle !! @flechewallonne','74688840','Lotto_Belisol','34090099','FILIPDEMYTTEN','','','458961501098106880','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000773991132/c3080a660fa3a1303f2e00bd627559bc_normal.jpeg','Point','51.1439868','3.25103807','Wed Apr 23 13:32:03 +0000 2014','1398259923','0')-- from stream 1 
+
+23-Apr-2014 13:32:05	insert into rawstream values('-1','@filipwatteeuw Mogen we ook suggesties doen? Wil graag terug bomen in mijn straat (weggehaald in jaren 90 of zo). // cc @dirk_roels @groen','239435519','dirk_roels','24164149','maartendegendt','','','458961508891119617','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/660783206/profile_normal.jpg','','','','Wed Apr 23 13:32:05 +0000 2014','1398259925','0')-- from stream 1 
+
+23-Apr-2014 13:32:12	insert into rawstream values('-1','@DermauxClmence mo zeg ma da matthias gaat :p ton misschien wel','2176689077','DermauxClmence','1883579048','TuffreauJens','','','458961539270471680','nl','web','http://pbs.twimg.com/profile_images/447097772022697984/y9RqCK5Q_normal.jpeg','','','','Wed Apr 23 13:32:12 +0000 2014','1398259932','0')-- from stream 1 
+
+23-Apr-2014 13:32:17	insert into rawstream values('-1','RT @posthumusnatus: @bartdemeulenaer   zou de #cdenv intussen niet de echte éénmanspartij geworden zijn ? #MP_Peeters','','','136220204','MarcJacobs500','260734057','posthumusnatus','458961556211261440','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:32:16 +0000 2014','1398259936','1398254091')-- from stream 1 
+
+23-Apr-2014 13:32:33	insert into rawstream values('-1','RT @terzaketv: Heeft armoede-expert Jan Vranken een punt als hij @LiesbethHomans\nvergelijkt met Thatcher? Beiden komen nr #TerzakeTV http://t.co/dn7RoZHJyA','','','2150913114','lievenverstrae1','144880437','terzaketv','458961625744441344','nl','web','http://pbs.twimg.com/profile_images/378800000637033484/d096b9b261527c6d995570c64ee0ca80_normal.jpeg','','','','Wed Apr 23 13:32:33 +0000 2014','1398259953','1398259407')-- from stream 1 
+
+23-Apr-2014 13:32:34	insert into rawstream values('-1','@VlaanderenVL dat krijg je dan he Italiaans, Waals, homo en geen dokter die deze kwaal kan verhelpen ... Een homowaalsitalia in dokters taal','333524954','VlaanderenVL','2333749551','swarol55','','','458961630223925248','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for Android Tablets</a>','http://pbs.twimg.com/profile_images/445430163585908736/ev55XirC_normal.jpeg','','','','Wed Apr 23 13:32:34 +0000 2014','1398259954','0')-- from stream 1 
+
+23-Apr-2014 13:32:37	insert into rawstream values('-1','temidden de kasten aan mij vragen \" waar staan de kasten meneer \" ... \" BIJ DE K !!! \"','','','1032894392','wardmarkey','','','458961641074597888','en','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for  Android</a>','http://pbs.twimg.com/profile_images/451807801426190336/lAd6ElIG_normal.jpeg','','','','Wed Apr 23 13:32:36 +0000 2014','1398259956','0')-- from stream 1 
+
+23-Apr-2014 13:32:40	insert into rawstream values('-1','RT @BuystKim: Laatste plenaire @vlaparl @groen Kempen gaat uit zijn dak voor @DirkPeetersVP http://t.co/wjvFRqXRmK','','','8200752','groen','1085994108','BuystKim','458961655955984384','nl','web','http://pbs.twimg.com/profile_images/455674599401721856/IryjaIjk_normal.jpeg','','','','Wed Apr 23 13:32:40 +0000 2014','1398259960','1398258376')-- from stream 1 
+
+23-Apr-2014 13:32:41	insert into rawstream values('-1','@JacquesHinckxt dan zit u nog in de confederale mist die ze gecreëerd hebben. :-)','109335745','JacquesHinckxt','891681331','LinksVlaams','','','458961656811630592','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/378800000745050948/86d0f33775bf35e87f1f25024f8ed90b_normal.jpeg','','','','Wed Apr 23 13:32:40 +0000 2014','1398259960','0')-- from stream 1 
+
+23-Apr-2014 13:32:47	insert into rawstream values('-1','@MDevoldere @JPScheffer en ze fluo-hesje aantrekken dat ze opvallen, zal ook applaus krijgen van veel hardwerkende Vlamingen. #strafzemaar','382138163','MDevoldere','140163729','martseyn','','','458961682531094528','en','web','http://pbs.twimg.com/profile_images/1517793339/Katsberg_aug2011_normal.jpg','','','','Wed Apr 23 13:32:46 +0000 2014','1398259966','0')-- from stream 1 
+
+23-Apr-2014 13:32:57	insert into rawstream values('-1','@jokevandevelde1 Benieuwd. ;)','1465373948','jokevandevelde1','79436746','Bellovux','','','458961725564649472','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000598805858/7f2064f10e8f474e4276902d5942705e_normal.jpeg','','','','Wed Apr 23 13:32:57 +0000 2014','1398259977','0')-- from stream 1 
+
+23-Apr-2014 13:32:57	insert into rawstream values('-1','RT @Loesvancleemput: Bedankt @DirkPeetersVP en @MiekeVogels voor jullie werk in het @vlaparl. twee toppers die aan hun laatste zitting bezig zijn. @groen','','','49304624','liescorneillie','39963899','Loesvancleemput','458961726260903937','en','web','http://pbs.twimg.com/profile_images/452874222700752896/6QBRCGzf_normal.jpeg','','','','Wed Apr 23 13:32:57 +0000 2014','1398259977','1398259931')-- from stream 1 
+
+23-Apr-2014 13:33:02	insert into rawstream values('-1','@debrackeleer @GunFUNarvfm Idd... Niet voor confederatie hoor, maar de beerputten...','51444989','debrackeleer','712168447','AKohl','','','458961747983220736','nl','web','http://pbs.twimg.com/profile_images/2428086866/3huizdx5a1t5dbz9oo6f_normal.jpeg','','','','Wed Apr 23 13:33:02 +0000 2014','1398259982','0')-- from stream 1 
+
+23-Apr-2014 13:33:05	insert into rawstream values('-1','Woensdag dat betekent @jokevandevelde1 op Q-music!','','','213021423','FuzzBbii','','','458961761115574272','nl','web','http://pbs.twimg.com/profile_images/450662665895956480/1nuwQ94W_normal.jpeg','','','','Wed Apr 23 13:33:05 +0000 2014','1398259985','0')-- from stream 1 
+
+23-Apr-2014 13:33:21	insert into rawstream values('-1','@dubray0pascale ik denk niet dat 14-jarige kinderen in opdracht van de leerkracht, gaan zakkenrollen op de meir door free hugs uit te delen.','1451137045','dubray0pascale','567183956','klaraknaeps','','','458961827733716992','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/450633165011701760/WGfF7YUm_normal.jpeg','','','','Wed Apr 23 13:33:21 +0000 2014','1398260001','0')-- from stream 1 
+
+23-Apr-2014 13:33:29	insert into rawstream values('-1','RT @AKohl: @debrackeleer @GunFUNarvfm Idd... Niet voor confederatie hoor, maar de beerputten...','','','606619193','lutgroenez','712168447','AKohl','458961860872921088','nl','web','http://pbs.twimg.com/profile_images/3698766312/dc1c81ac60ce596aab61d40d4f4567b6_normal.jpeg','','','','Wed Apr 23 13:33:29 +0000 2014','1398260009','1398259982')-- from stream 1 
+
+23-Apr-2014 13:33:38	insert into rawstream values('-1','@martseyn @JPScheffer Bovendien is gemeenschapsdienst ook in het belang van de cliënt: eigenwaarde. Nieuwe attitudes.','140163729','martseyn','382138163','MDevoldere','','','458961897694724097','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:33:38 +0000 2014','1398260018','0')-- from stream 1 
+
+23-Apr-2014 13:33:38	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','1417844880','RaniDeDecker','2192527904','angelverleye','458961900093865984','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/417292266240499712/wYJ5xlkd_normal.jpeg','','','','Wed Apr 23 13:33:38 +0000 2014','1398260018','1396818484')-- from stream 1 
+
+23-Apr-2014 13:34:00	insert into rawstream values('-1','Ook #Nederland wil wedstrijden organiseren tijdens #Euro2020.  @AmsterdamArenA is het beoogde stadion. #ArenA #UEFA #EK2020','','','217614725','lennycant','','','458961991466774528','nl','web','http://pbs.twimg.com/profile_images/456097361144455168/4phRKYSz_normal.jpeg','','','','Wed Apr 23 13:34:00 +0000 2014','1398260040','0')-- from stream 1 
+
+23-Apr-2014 13:34:39	insert into rawstream values('-1','@TuffreauJens nin wi haha ie moe mie nie zien sukkelen ze 😂','1883579048','TuffreauJens','2176689077','DermauxClmence','','','458962154314797057','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458659449998426115/gfCq6QBb_normal.jpeg','','','','Wed Apr 23 13:34:39 +0000 2014','1398260079','0')-- from stream 1 
+
+23-Apr-2014 13:34:45	insert into rawstream values('-1','RT @Loesvancleemput: Bedankt @DirkPeetersVP en @MiekeVogels voor jullie werk in het @vlaparl. twee toppers die aan hun laatste zitting bezig zijn. @groen','','','8200752','groen','39963899','Loesvancleemput','458962179224793088','nl','web','http://pbs.twimg.com/profile_images/455674599401721856/IryjaIjk_normal.jpeg','','','','Wed Apr 23 13:34:45 +0000 2014','1398260085','1398259931')-- from stream 1 
+
+23-Apr-2014 13:34:46	insert into rawstream values('-1','Is er nog een postje dat N-VA nog niet geclaimd heeft? Gok dat van minister van landbouw? Doe ons dat aub niet aan e! #boerendochtertweet','','','42874563','annecoek','','','458962184723505152','nl','web','http://pbs.twimg.com/profile_images/458206146784804864/bdBnREl2_normal.jpeg','','','','Wed Apr 23 13:34:46 +0000 2014','1398260086','0')-- from stream 1 
+
+23-Apr-2014 13:34:49	insert into rawstream values('-1','#vk14 http://t.co/XkUf5nVQNv','','','734654684','HelmutVanBrande','','','458962195771322368','nl','web','http://pbs.twimg.com/profile_images/441710773577195520/4-3C5yxm_normal.jpeg','','','','Wed Apr 23 13:34:49 +0000 2014','1398260089','0')-- from stream 1 
+
+23-Apr-2014 13:34:49	insert into rawstream values('-1','.@jokevandevelde1 kan je niet effe wachten? Ons moeder weet nog van niets he!! @WimOosterlinck','1465373948','jokevandevelde1','619005881','CNeuts','','','458962196593381376','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/458192691269206016/GoXIUyHk_normal.jpeg','','','','Wed Apr 23 13:34:49 +0000 2014','1398260089','0')-- from stream 1 
+
+23-Apr-2014 13:35:00	insert into rawstream values('-1','@thomvil 2 jaar geleden account voor aangemaakt, maar was nogal crap toen. lijkt nu vlot te gaan. Thx voor de tip!','171487487','thomvil','6068172','jensdehaese','','','458962242751709184','en','<a href="http://www.metrotwit.com/" rel="nofollow">MetroTwit</a>','http://pbs.twimg.com/profile_images/3287337157/f4a13f0abcc080ebcd8a836c603f21d0_normal.png','','','','Wed Apr 23 13:35:00 +0000 2014','1398260100','0')-- from stream 1 
+
+23-Apr-2014 13:35:09	insert into rawstream values('-1','Thank you @NVAZoersel for giving me +K about Europe! http://t.co/WyZsvRajTS','','','89227431','chjanssens','','','458962278528712704','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/436902039541399554/MBngSOKR_normal.jpeg','','','','Wed Apr 23 13:35:08 +0000 2014','1398260108','0')-- from stream 1 
+
+23-Apr-2014 13:35:16	insert into rawstream values('-1','#NL | F-16’s Volkel opgestegen voor onderschepping Russische bommenwerpers. | http://t.co/dfoiBfvL98','','','210497440','mukayiranga','','','458962310397452288','en','web','http://pbs.twimg.com/profile_images/3481523455/1a32142628510bb218f463273e22865e_normal.png','','','','Wed Apr 23 13:35:16 +0000 2014','1398260116','0')-- from stream 1 
+
+23-Apr-2014 13:35:43	insert into rawstream values('-1','RT @rob_televisie: Vanavond reikt @stadleuven de jaarlijkse sportprijs uit: http://t.co/Sv0t7XwBDn #robnieuws','','','955555627','cin_winters','229600073','rob_televisie','458962422628634624','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/2864888803/b27bf1aa0319c62b844e15b75f5f45ba_normal.jpeg','','','','Wed Apr 23 13:35:43 +0000 2014','1398260143','1398257105')-- from stream 1 
+
+23-Apr-2014 13:35:46	insert into rawstream values('-1','RT @ksdknews: #Ways2Save The 10 best and worst items to buy online. http://t.co/DK4NVQF3LK (H/T @MattGranite)','','','1323840157','video88earn','42921216','ksdknews','458962435706466304','en','<a href="https://roundteam.co" rel="nofollow">RoundTeam</a>','http://pbs.twimg.com/profile_images/3469733148/3d39b8ca1430ae9df126ec8e05cd307e_normal.jpeg','','','','Wed Apr 23 13:35:46 +0000 2014','1398260146','1398259505')-- from stream 1 
+
+23-Apr-2014 13:35:47	insert into rawstream values('-1','RT @nancymattox430: Join me now!  Make money by viewing ads online 3 min per day.  http://t.co/RYMWafFhGH. sign up for free at:  https://t.co/oXQj5Pyv0x','','','1323840157','video88earn','2244264038','nancymattox430','458962438109790208','en','<a href="https://roundteam.co" rel="nofollow">RoundTeam</a>','http://pbs.twimg.com/profile_images/3469733148/3d39b8ca1430ae9df126ec8e05cd307e_normal.jpeg','','','','Wed Apr 23 13:35:47 +0000 2014','1398260147','1398259533')-- from stream 1 
+
+23-Apr-2014 13:35:47	Total time: 245058 ms
+23-Apr-2014 13:35:47	Downloaded tweets: 2250
+23-Apr-2014 13:35:47	Failed tweets: 0
+23-Apr-2014 13:35:47	Total time: 234215 ms
+23-Apr-2014 13:35:47	Downloaded tweets: 2250
+23-Apr-2014 13:35:47	Failed tweets: 0
+23-Apr-2014 13:35:47	Total time: 245139 ms
+23-Apr-2014 13:35:47	Downloaded tweets: 2250
+23-Apr-2014 13:35:47	Failed tweets: 0
+23-Apr-2014 13:35:47	Total time: 234469 ms
+23-Apr-2014 13:35:47	Downloaded tweets: 2250
+23-Apr-2014 13:35:47	Failed tweets: 0
+23-Apr-2014 13:35:47	Total time: 239536 ms
+23-Apr-2014 13:35:47	Downloaded tweets: 2250
+23-Apr-2014 13:35:47	Failed tweets: 0
+23-Apr-2014 13:35:47	Application ran for 240.70477294922 seconds.
+
+23-Apr-2014 13:35:47	Updating finished. Sleeping for 59.295227050781 seconds. 
+
+23-Apr-2014 13:35:48	insert into rawstream values('-1','RT @jaquanp22: Click this link to learn the benefits of making money online fast and simple http://t.co/rQJYy1rUGr','','','1323840157','video88earn','2361726554','jaquanp22','458962441976942593','en','<a href="https://roundteam.co" rel="nofollow">RoundTeam</a>','http://pbs.twimg.com/profile_images/3469733148/3d39b8ca1430ae9df126ec8e05cd307e_normal.jpeg','','','','Wed Apr 23 13:35:47 +0000 2014','1398260147','1398259545')-- from stream 1 
+
+23-Apr-2014 13:35:48	insert into rawstream values('-1','7 jaar geleden begon ik aan het @axemia avontuur... Nog geen moment spijt van gehad!','','','17390319','FilipHerman','','','458962443369467904','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/435201680360353792/bZGt5LWG_normal.jpeg','','','','Wed Apr 23 13:35:48 +0000 2014','1398260148','0')-- from stream 1 
+
+23-Apr-2014 13:35:49	insert into rawstream values('-1','RT @alliancez_com: Earning Money Online Is Truly Possible http://t.co/NeQYv8Ywvn','','','1323840157','video88earn','1658480564','alliancez_com','458962445542121472','en','<a href="https://roundteam.co" rel="nofollow">RoundTeam</a>','http://pbs.twimg.com/profile_images/3469733148/3d39b8ca1430ae9df126ec8e05cd307e_normal.jpeg','','','','Wed Apr 23 13:35:48 +0000 2014','1398260148','1398259562')-- from stream 1 
+
+23-Apr-2014 13:36:02	insert into rawstream values('-1','RT @hautekiet: #hautekiet gaat op zoek naar de ideale voetbalcommentator. Is die droog en analytisch? Of zit die vol vuur en passie? http://t.co/FLPBq4JS9M','','','734654684','HelmutVanBrande','401586214','hautekiet','458962501888380929','nl','web','http://pbs.twimg.com/profile_images/441710773577195520/4-3C5yxm_normal.jpeg','','','','Wed Apr 23 13:36:02 +0000 2014','1398260162','1398257664')-- from stream 1 
+
+23-Apr-2014 13:36:03	insert into rawstream values('-1','\"All the single ladies, all the single ladies, now put your cats up\" #singalong','','','1273233576','_katrijn','','','458962506179174400','en','web','http://pbs.twimg.com/profile_images/3659157213/7c644bba957346f6506cee87abc8fcf0_normal.jpeg','','','','Wed Apr 23 13:36:03 +0000 2014','1398260163','0')-- from stream 1 
+
+23-Apr-2014 13:36:10	insert into rawstream values('-1','@IngeMoerenhout je hebt veel beziens','600767947','IngeMoerenhout','2176776240','P_Verschelden','','','458962537258975232','nl','web','http://pbs.twimg.com/profile_images/378800000699786234/2212fdc45d029e96886f751b2513f04c_normal.jpeg','','','','Wed Apr 23 13:36:10 +0000 2014','1398260170','0')-- from stream 1 
+
+23-Apr-2014 13:36:32	insert into rawstream values('-1','@GriffinVdsch @lutgroenez waar horen we minister Geens en CD&amp;v nu?het mag gezegd het is gene gewone \"leugenaar\" of was het een vergissing?','2204742530','GriffinVdsch','378618808','Emprise2','','','458962628480483328','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png','','','','Wed Apr 23 13:36:32 +0000 2014','1398260192','0')-- from stream 1 
+
+23-Apr-2014 13:36:33	insert into rawstream values('-1','@gretadhondt Euhm, welke rol moet @terzaketv volgens u juist spelen?','947823176','gretadhondt','382138163','MDevoldere','','','458962633090428929','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:36:33 +0000 2014','1398260193','0')-- from stream 1 
+
+23-Apr-2014 13:36:35	insert into rawstream values('-1','Jan Blommaert: Het DNA van een politiek mediaformat http://t.co/NnZkJMFe8g \nHet succes van de N-VA campagne  - http://t.co/sadjsUGOXi …','','','48090573','suffie63','','','458962639914147840','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:36:35 +0000 2014','1398260195','0')-- from stream 1 
+
+23-Apr-2014 13:36:36	insert into rawstream values('-1','RT @rob_televisie: Vanavond reikt @stadleuven de jaarlijkse sportprijs uit: http://t.co/Sv0t7XwBDn #robnieuws','','','927304478','TofsportLeuven','229600073','rob_televisie','458962644079497217','nl','web','http://pbs.twimg.com/profile_images/2809819903/5231b4f6f3a660f83271f888bc035c1b_normal.jpeg','','','','Wed Apr 23 13:36:36 +0000 2014','1398260196','1398257105')-- from stream 1 
+
+23-Apr-2014 13:36:39	insert into rawstream values('-1','@JouweV @GieGoris Wie is dat, het \"grootkapitaal\"? Zijn dat de Joden?','418988048','JouweV','1890462613','eerlijkesos','','','458962657270591488','en','web','http://pbs.twimg.com/profile_images/434738316903071744/bgts-7PZ_normal.png','','','','Wed Apr 23 13:36:39 +0000 2014','1398260199','0')-- from stream 1 
+
+23-Apr-2014 13:36:46	Started updating 2178 tweets. 
+
+23-Apr-2014 13:37:01	insert into rawstream values('-1','@leendierick lag het aan mij ze verdwenen. Maar had begrepen dat jij geen voorstander bent om deze verspilling aan te pakken ;-)','360784538','leendierick','5434452','tombogman','','','458962747821400064','nl','<a href="http://tapbots.com/tweetbot" rel="nofollow">Tweetbot for iOS</a>','http://pbs.twimg.com/profile_images/378800000854358738/d310ff6304c0718e703beec97086053b_normal.jpeg','','','','Wed Apr 23 13:37:00 +0000 2014','1398260220','0')-- from stream 1 
+
+23-Apr-2014 13:37:06	insert into rawstream values('-1','@YSLagmaui PROFICIAAAAAAAAAAAAAT TANTE YOSRA!!!!!  PROFICIAAAT HANAN EN SOUFIAN!!! MESJE/ JONGEN????','2178954338','YSLagmaui','216458454','Mariariaria___','','','458962769396916224','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458025939520487424/I-aj9XF__normal.jpeg','','','','Wed Apr 23 13:37:06 +0000 2014','1398260226','0')-- from stream 1 
+
+23-Apr-2014 13:37:26	insert into rawstream values('-1','RT @Edevrie1: @JMDedecker die 100 miljoen is geen ramp; jobs kinderen van @JoganVDL toch gered? @sp_a #PSgov','','','378618808','Emprise2','393647392','Edevrie1','458962854956498944','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png','','','','Wed Apr 23 13:37:26 +0000 2014','1398260246','1398248535')-- from stream 1 
+
+23-Apr-2014 13:37:35	insert into rawstream values('-1','RT @yannickvf: “@angelverleye: I CANT STOP CRYING http://t.co/puGt4HS2rS” dees ist 🙅','','','1897728734','rhmitje','1423424292','yannickvf','458962890897489921','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/456748160551903232/g-MJgPmX_normal.jpeg','','','','Wed Apr 23 13:37:34 +0000 2014','1398260254','1398256172')-- from stream 1 
+
+23-Apr-2014 13:37:42	insert into rawstream values('-1','#Villapolitica @MP_Peeters wil opnieuw MP zijn indien @cdenv de grootste is ! Niet meer dus ! Go @LiesbethHomans','','','51444989','debrackeleer','','','458962921692090368','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:37:42 +0000 2014','1398260262','0')-- from stream 1 
+
+23-Apr-2014 13:37:45	insert into rawstream values('-1','RT @IngeNouwen: @paulnuyts Mijn grote leider zie ik elke morgen in de spiegel, u mag in hokjes denken zoveel u wil.','','','136220204','MarcJacobs500','332407547','IngeNouwen','458962932416913408','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:37:44 +0000 2014','1398260264','1398260085')-- from stream 1 
+
+23-Apr-2014 13:37:50	insert into rawstream values('-1','@Bromtommig wat moet ik vertellen?','79801325','Bromtommig','114434664','Liesjevdw','','','458962953447170048','en','web','http://pbs.twimg.com/profile_images/449894261384048640/QILimdnq_normal.jpeg','','','','Wed Apr 23 13:37:49 +0000 2014','1398260269','0')-- from stream 1 
+
+23-Apr-2014 13:38:02	insert into rawstream values('-1','@MDevoldere @JPScheffer Zeker, door een job als mos tussen de voegen krabben; meer eigenwaarde.','382138163','MDevoldere','140163729','martseyn','','','458963004466675713','en','web','http://pbs.twimg.com/profile_images/1517793339/Katsberg_aug2011_normal.jpg','','','','Wed Apr 23 13:38:02 +0000 2014','1398260282','0')-- from stream 1 
+
+23-Apr-2014 13:38:05	insert into rawstream values('-1','@lindewin @MP_Peeters @de_NVA  Moeten @openvld, @sp_a en @groen volgens @cdenv dan ook een kandidaat MP hebben? #dtv','372202760','lindewin','240193502','ferrycomhair','','','458963019276759040','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/2306865613/3tuppphgcnj40ahse80n_normal.jpeg','','','','Wed Apr 23 13:38:05 +0000 2014','1398260285','0')-- from stream 1 
+
+23-Apr-2014 13:38:07	insert into rawstream values('-1','@JeeLeden Doen !!','303365604','JeeLeden','136220204','MarcJacobs500','','','458963026847490048','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/1430524809/marc_normal.jpg','','','','Wed Apr 23 13:38:07 +0000 2014','1398260287','0')-- from stream 1 
+
+23-Apr-2014 13:38:16	insert into rawstream values('-1','En dan te bedenken dat ik ooit respect had voor de persoon dirupo. #nietmijnpremier','','','493139723','IanCailliau','','','458963064810143744','en','web','http://pbs.twimg.com/profile_images/454893092751953920/mwrUNLyV_normal.jpeg','','','','Wed Apr 23 13:38:16 +0000 2014','1398260296','0')-- from stream 1 
+
+23-Apr-2014 13:38:35	insert into rawstream values('-1','@cdenv @MP_Peeters @KathleenHelsen dus geen beloning voor jullie de eerste 100 jaar','15753618','cdenv','2333749551','swarol55','','','458963144636121089','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for Android Tablets</a>','http://pbs.twimg.com/profile_images/445430163585908736/ev55XirC_normal.jpeg','','','','Wed Apr 23 13:38:35 +0000 2014','1398260315','0')-- from stream 1 
+
+23-Apr-2014 13:38:40	insert into rawstream values('-1','Volgens @MP_Peeters start de campagne van @cdenv pas na zaterdag. Waar waren al die maandag campagnedagen dan voor? #dtv #villapolitica','','','382138163','MDevoldere','','','458963164768768000','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:38:40 +0000 2014','1398260320','0')-- from stream 1 
+
+23-Apr-2014 13:38:41	insert into rawstream values('-1','Gevatte Di Rupo in de Kamer: \"n-va is als euneuchen in een harem, jullie weten hoe en waar het gebeurt maar jullie kunnen het zelf niet\" :-)','','','1530365256','DemuynckDi','','','458963168384262145','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000189906222/e4c47abe588bba87f43d6591424341fa_normal.jpeg','','','','Wed Apr 23 13:38:41 +0000 2014','1398260321','0')-- from stream 1 
+
+23-Apr-2014 13:38:59	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','2318999272','katalambeets','2192527904','angelverleye','458963245555265536','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458723521368428544/pKfnJ3-D_normal.jpeg','','','','Wed Apr 23 13:38:59 +0000 2014','1398260339','1396818484')-- from stream 1 
+
+23-Apr-2014 13:38:59	insert into rawstream values('-1','RT @JouweV: Je hart zit links. Klopt het nog? #IkVersterkLinks Ik stem #PVDA+ http://t.co/dujqrVCKIy','','','477571076','D_Kjartan','418988048','JouweV','458963245848858626','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/2691788745/a0f17fa681547316ac73e3e552a88506_normal.jpeg','','','','Wed Apr 23 13:38:59 +0000 2014','1398260339','1398259593')-- from stream 1 
+
+23-Apr-2014 13:39:06	insert into rawstream values('-1','@posthumusnatus \"Grote Leider\", smalend gebruikt om Bart De Wever aan te duiden, doet de meesten dus aan iemand anders denken. Woehaha.','260734057','posthumusnatus','426518737','BartDeMeulenaer','','','458963271971000320','nl','web','http://pbs.twimg.com/profile_images/1775515567/twitter2logo_normal.png','','','','Wed Apr 23 13:39:05 +0000 2014','1398260345','0')-- from stream 1 
+
+23-Apr-2014 13:39:14	insert into rawstream values('-1','RT @VlaamsABVV: Hogere pensioenen dankzij solidariteit!: Vijf weken voor de regionale, federale en Europese verkiezingen... http://t.co/mGDQXeM9xO #ABVV','','','48090573','suffie63','420269234','VlaamsABVV','458963307479982080','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:39:14 +0000 2014','1398260354','1398257945')-- from stream 1 
+
+23-Apr-2014 13:39:22	insert into rawstream values('-1','@jokevandevelde1 weer alles missen @WimOosterlinck @Qmusic_BE','1465373948','jokevandevelde1','843658592','Mr__CoFFee_','','','458963341906812928','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/430376012539789312/Tndv8wT3_normal.jpeg','','','','Wed Apr 23 13:39:22 +0000 2014','1398260362','0')-- from stream 1 
+
+23-Apr-2014 13:39:26	insert into rawstream values('-1','En dan te bedenken dat ik ooit respect had voor de persoon @eliodirupo . #nietmijnpremier #laf','','','493139723','IanCailliau','','','458963358918934529','en','web','http://pbs.twimg.com/profile_images/454893092751953920/mwrUNLyV_normal.jpeg','','','','Wed Apr 23 13:39:26 +0000 2014','1398260366','0')-- from stream 1 
+
+23-Apr-2014 13:39:41	insert into rawstream values('-1','@martseyn @JPScheffer Arbeid adelt toch?','140163729','martseyn','382138163','MDevoldere','','','458963421791535104','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:39:41 +0000 2014','1398260381','0')-- from stream 1 
+
+23-Apr-2014 13:39:58	insert into rawstream values('-1','@MDevoldere @MP_Peeters @cdenv tiens, Roeselare staat vol met plakkaten uit de... précampagne?','382138163','MDevoldere','426518737','BartDeMeulenaer','','','458963491114983425','nl','web','http://pbs.twimg.com/profile_images/1775515567/twitter2logo_normal.png','','','','Wed Apr 23 13:39:58 +0000 2014','1398260398','0')-- from stream 1 
+
+23-Apr-2014 13:40:13	insert into rawstream values('-1','RT @SPnl: Duurdere treinkaartjes spits is absurd, zegt @EricSmaling. \'Gros reizigers heeft geen mogelijkheid te flexwerken.\' http://t.co/hanuIyYDyE','','','48090573','suffie63','17289752','SPnl','458963555765993473','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:40:13 +0000 2014','1398260413','1398258165')-- from stream 1 
+
+23-Apr-2014 13:40:23	insert into rawstream values('-1','Nah... http://t.co/XxzJBqSDe6','','','2150929239','Tessa_VeePee','','','458963595837976576','nl','web','http://pbs.twimg.com/profile_images/453421880104738816/1Conk0my_normal.jpeg','','','','Wed Apr 23 13:40:23 +0000 2014','1398260423','0')-- from stream 1 
+
+23-Apr-2014 13:40:33	Total time: 245058 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2250
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Total time: 234215 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2250
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Total time: 245139 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2250
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Total time: 234469 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2250
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Total time: 239536 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2250
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Total time: 225767 ms
+23-Apr-2014 13:40:33	Downloaded tweets: 2178
+23-Apr-2014 13:40:33	Failed tweets: 0
+23-Apr-2014 13:40:33	Application ran for 227.18851399422 seconds.
+
+23-Apr-2014 13:40:33	Updating finished. Sleeping for 72.811486005783 seconds. 
+
+23-Apr-2014 13:40:42	insert into rawstream values('-1','VDK Verkiezingsmobiel is klaar voor de strijd @sp_a @PES_PSE @kvanbrempt @johncrombez @johanvandelanotte #vk14 http://t.co/OegI7CsAHW','','','2392391055','VdkMaxim','','','458963677388210176','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/442107033421381632/Fv6sYr6R_normal.jpeg','','','','Wed Apr 23 13:40:42 +0000 2014','1398260442','0')-- from stream 1 
+
+23-Apr-2014 13:40:46	insert into rawstream values('-1','RT @WimOosterlinck: How do I look today? http://t.co/fLoSXKfrz5 Met @JokeVandeVelde1 #WimO','','','1465373948','jokevandevelde1','53060760','WimOosterlinck','458963692714229760','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/445515559795720192/QrPNdUIR_normal.jpeg','','','','Wed Apr 23 13:40:46 +0000 2014','1398260446','1398259125')-- from stream 1 
+
+23-Apr-2014 13:40:51	insert into rawstream values('-1','@iTomTweet Het staat er toch! 17% worstelt ermee / bij mannen maar 10% die ermee worstelt. De andere 90% heeft er totaal geen probleem mee.','234309269','iTomTweet','114434664','Liesjevdw','','','458963712934936576','en','web','http://pbs.twimg.com/profile_images/449894261384048640/QILimdnq_normal.jpeg','','','','Wed Apr 23 13:40:50 +0000 2014','1398260450','0')-- from stream 1 
+
+23-Apr-2014 13:40:51	insert into rawstream values('-1','RT @evesdadisbest: @annmoens2 Check out Sarah Mason &amp; Jim Armstrong - http://t.co/n8SsAPscyn … -GREAT MUSIC FOR ALL !','','','1207624764','annmoens2','229921861','evesdadisbest','458963713174024192','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for  Android</a>','http://pbs.twimg.com/profile_images/3291046309/7a1b3736c7de29dd1800f3f269e6f8cd_normal.jpeg','','','','Wed Apr 23 13:40:51 +0000 2014','1398260451','1398249479')-- from stream 1 
+
+23-Apr-2014 13:40:57	insert into rawstream values('-1','@cdenv @MP_Peeters @JDeMeulemeester  vraag het maar eerst eens aan een vlaming','15753618','cdenv','2333749551','swarol55','','','458963739396812800','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for Android Tablets</a>','http://pbs.twimg.com/profile_images/445430163585908736/ev55XirC_normal.jpeg','','','','Wed Apr 23 13:40:57 +0000 2014','1398260457','0')-- from stream 1 
+
+23-Apr-2014 13:41:09	insert into rawstream values('-1','Sterke argumentatie #sarcasmsign #vk14 Maar wanneer gaat hij nu eens in debat gaan?  http://t.co/9tfZZ4xlAL','','','442834100','FPerdaens','','','458963789313220608','nl','web','http://pbs.twimg.com/profile_images/451351610870861825/TW7Lv4Zj_normal.jpeg','','','','Wed Apr 23 13:41:09 +0000 2014','1398260469','0')-- from stream 1 
+
+23-Apr-2014 13:41:24	insert into rawstream values('-1','De politiek van te dicht bij volgen is slecht voor de gezondheid: de ergernis aan het bochtenwerk is slecht voor het hart #villapolitica','','','51596975','Marliesvdwalle','','','458963851032424448','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:41:23 +0000 2014','1398260483','0')-- from stream 1 
+
+23-Apr-2014 13:41:27	insert into rawstream values('-1','@HateAshbury_ Vanendert goed! Tim Wellens ook en ambitieus. :)','1393053439','HateAshbury_','18611099','ksavje','','','458963866928816128','en','<a href="http://www.twitter.com" rel="nofollow">Twitter for BlackBerry</a>','http://pbs.twimg.com/profile_images/455694812591558658/neomD4qW_normal.jpeg','','','','Wed Apr 23 13:41:27 +0000 2014','1398260487','0')-- from stream 1 
+
+23-Apr-2014 13:41:44	insert into rawstream values('-1','RT @Leilafeetje: Selfie-tijd in het Meetjesland #iedersstemtelt http://t.co/UcZNQ4DPq9','','','2228051227','Iedersstemtelt','166124348','Leilafeetje','458963936369737729','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/448837140869156866/64byOAUE_normal.jpeg','','','','Wed Apr 23 13:41:44 +0000 2014','1398260504','1398259294')-- from stream 1 
+
+23-Apr-2014 13:41:45	Started updating 116 tweets. 
+
+23-Apr-2014 13:41:52	insert into rawstream values('-1','RT @JouweV: Je hart zit links. Klopt het nog? #IkVersterkLinks Ik stem #PVDA+ http://t.co/dujqrVCKIy','','','48090573','suffie63','418988048','JouweV','458963969139822592','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:41:52 +0000 2014','1398260512','1398259593')-- from stream 1 
+
+23-Apr-2014 13:42:00	Total time: 245058 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2250
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 234215 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2250
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 245139 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2250
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 234469 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2250
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 239536 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2250
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 225767 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 2178
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Total time: 14011 ms
+23-Apr-2014 13:42:00	Downloaded tweets: 116
+23-Apr-2014 13:42:00	Failed tweets: 0
+23-Apr-2014 13:42:00	Application ran for 14.564019203186 seconds.
+
+23-Apr-2014 13:42:00	Updating finished. Sleeping for 285.43598079681 seconds. 
+
+23-Apr-2014 13:42:01	insert into rawstream values('-1','@Drklwrs @GeertGooris kiekensoep?','290172519','Drklwrs','51596975','Marliesvdwalle','','','458964008192978944','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:42:01 +0000 2014','1398260521','0')-- from stream 1 
+
+23-Apr-2014 13:42:02	insert into rawstream values('-1','@Tessa_VeePee Na deze voormiddag durf ik niet meer te reageren ;-)','2150929239','Tessa_VeePee','434113390','tvluchene','','','458964011821043712','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1686888654/Tenerife_normal.jpg','','','','Wed Apr 23 13:42:02 +0000 2014','1398260522','0')-- from stream 1 
+
+23-Apr-2014 13:42:10	insert into rawstream values('-1','Het was al langer duidelijk dat het voor @cdenv vooral om poppetjes ging: zo staat de kopman op élke affiche. Eenmanspartij? #villapolitica','','','382138163','MDevoldere','','','458964044217864192','nl','web','http://pbs.twimg.com/profile_images/1572786800/antigone_normal.jpg','','','','Wed Apr 23 13:42:09 +0000 2014','1398260529','0')-- from stream 1 
+
+23-Apr-2014 13:42:12	insert into rawstream values('-1','RT @ImadeAnnouri: #unselfie voor @Iedersstemtelt, omdat elke stem gehoord mt worden. Check hun website! #stemmenisgeenspel #imade2014 http://t.co/noTkaTIhnm','','','368825674','Welzijnszorg','394657529','ImadeAnnouri','458964055487950848','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/441532273402576896/xKbLBEwG_normal.jpeg','','','','Wed Apr 23 13:42:12 +0000 2014','1398260532','1398257468')-- from stream 1 
+
+23-Apr-2014 13:42:12	insert into rawstream values('-1','RT @ImadeAnnouri: #unselfie voor @Iedersstemtelt, omdat elke stem gehoord mt worden. Check hun website! #stemmenisgeenspel #imade2014 http://t.co/noTkaTIhnm','','','2228051227','Iedersstemtelt','394657529','ImadeAnnouri','458964056062566400','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/448837140869156866/64byOAUE_normal.jpeg','','','','Wed Apr 23 13:42:12 +0000 2014','1398260532','1398257468')-- from stream 1 
+
+23-Apr-2014 13:42:16	insert into rawstream values('-1','voilà, bij deze is de trend gezet... Primeur in Disneyland: Belg vraagt vriendin ten huwelijk - HLN.be http://t.co/2chyfbRw92','','','2355248450','SteephanieVC','','','458964072164114432','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/436949637870542848/AZVy8AcK_normal.jpeg','','','','Wed Apr 23 13:42:16 +0000 2014','1398260536','0')-- from stream 1 
+
+23-Apr-2014 13:42:18	insert into rawstream values('-1','@MariaVANL @lutgroenez het was een grapje voor de duidelijkheid','2394221167','MariaVANL','51596975','Marliesvdwalle','','','458964077134753792','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:42:17 +0000 2014','1398260537','0')-- from stream 1 
+
+23-Apr-2014 13:42:18	insert into rawstream values('-1','@PieterRombouts @MichOpgenhaffen @fdgraeve @StampMedia Present!','1553105923','PieterRombouts','432008126','Valerie_VNuffel','','','458964077856178176','nl','web','http://pbs.twimg.com/profile_images/417009057485291520/lwlMqHXz_normal.jpeg','','','','Wed Apr 23 13:42:17 +0000 2014','1398260537','0')-- from stream 1 
+
+23-Apr-2014 13:42:20	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','1641106518','m_margauxx','2192527904','angelverleye','458964087675035648','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/452522838491430912/pns3UhRP_normal.jpeg','','','','Wed Apr 23 13:42:20 +0000 2014','1398260540','1396818484')-- from stream 1 
+
+23-Apr-2014 13:42:21	insert into rawstream values('-1','\"ik ben niet aan postjes gehecht?\"  Ik vind je een fijn man, maar dit geloof ik toch niet @MP_Peeters . #villapolitica #vk14','','','1045786196','VdammeBram','','','458964093081497600','en','web','http://pbs.twimg.com/profile_images/3586446013/c5e45ea1e95b93fdce8241ca5fe090dd_normal.jpeg','','','','Wed Apr 23 13:42:21 +0000 2014','1398260541','0')-- from stream 1 
+
+23-Apr-2014 13:42:22	insert into rawstream values('-1','RT @RaeymakersSam: Mentaal en fysiek te zwak voor deze laatste weken school','','','1668166968','LauraxBaeyens','1062977618','RaeymakersSam','458964096411779072','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457243738029694976/PzW-iUPR_normal.jpeg','','','','Wed Apr 23 13:42:22 +0000 2014','1398260542','1398199483')-- from stream 1 
+
+23-Apr-2014 13:42:29	insert into rawstream values('-1','RT @FKeuleneer: Het morele statuut van het embryo (tris) - De Standaard http://t.co/iQU6RC2AHE via @destandaard','','','1028066958','TomHKMortier','23618173','FKeuleneer','458964124417146881','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/378800000777991145/f2210da9ea0b2a792a9259d5bd258bd0_normal.jpeg','','','','Wed Apr 23 13:42:29 +0000 2014','1398260549','1398252095')-- from stream 1 
+
+23-Apr-2014 13:42:33	insert into rawstream values('-1','@ZapSala eerder: zeer bekwaam :-)','2232908112','ZapSala','51596975','Marliesvdwalle','','','458964141773185024','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:42:33 +0000 2014','1398260553','0')-- from stream 1 
+
+23-Apr-2014 13:42:44	insert into rawstream values('-1','RT @AsterBerghe: Je hebt mensen die werken voor een inkomen en je hebt mensen die stemmen voor een inkomen. #vk2014','','','250663402','Beursparels','','','458964190125113344','en','<a href="http://bufferapp.com" rel="nofollow">Buffer</a>','http://pbs.twimg.com/profile_images/3479597257/f8e6180b4585caf4c3aafe7721496232_normal.jpeg','','','','Wed Apr 23 13:42:44 +0000 2014','1398260564','0')-- from stream 1 
+
+23-Apr-2014 13:43:04	insert into rawstream values('-1','@Liesjevdw Hmm .. Ja eigenlijk trekt dat er al meer op he:)','114434664','Liesjevdw','234309269','iTomTweet','','','458964271138103296','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458226255713009664/rbjPyltX_normal.jpeg','','','','Wed Apr 23 13:43:04 +0000 2014','1398260584','0')-- from stream 1 
+
+23-Apr-2014 13:43:06	insert into rawstream values('-1','@Marliesvdwalle allez Marlies, geef dat nu toch toe dat je hem eens goed wil vastpakken en nijpen in die kaakskes ;)','51596975','Marliesvdwalle','2232908112','ZapSala','','','458964279346339840','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:43:06 +0000 2014','1398260586','0')-- from stream 1 
+
+23-Apr-2014 13:43:19	insert into rawstream values('-1','Wat gaat @MP_Peeters doen als ze DERDE partij worden. Ev grootste zou ik Mr zwijgen.Postje niet belangrijk,hoe ongeloofwaardig komt di over.','','','342607723','leojuli2009','','','458964336049143809','en','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/445570391692808192/jCuZX5Lc_normal.jpeg','','','','Wed Apr 23 13:43:19 +0000 2014','1398260599','0')-- from stream 1 
+
+23-Apr-2014 13:43:20	insert into rawstream values('-1','net #stemtest gedaan, meest met een partij is slechts 60 percent.. #waaromstemmen #nieuwepartijnodig #vk14 #vk2014 #stemtest2014','','','1657412652','S_Nijs','','','458964337223536640','nl','web','http://pbs.twimg.com/profile_images/378800000817411487/bdcbe327eb0dd61512009500dc2db378_normal.jpeg','','','','Wed Apr 23 13:43:19 +0000 2014','1398260599','0')-- from stream 1 
+
+23-Apr-2014 13:43:32	insert into rawstream values('-1','RT @BartDeMeulenaer: @posthumusnatus éénmanspartij met onissuethema. Macht.','','','606619193','lutgroenez','426518737','BartDeMeulenaer','458964389438455808','nl','web','http://pbs.twimg.com/profile_images/3698766312/dc1c81ac60ce596aab61d40d4f4567b6_normal.jpeg','','','','Wed Apr 23 13:43:32 +0000 2014','1398260612','1398259910')-- from stream 1 
+
+23-Apr-2014 13:43:39	insert into rawstream values('-1','@Tessa_VeePee en ze mogen diep gaan maar dan wel dwars he #pompompom','2150929239','Tessa_VeePee','123236457','peterkes','','','458964417032769536','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000591382478/17883cc19b40556eb25abf81e13a9b06_normal.jpeg','','','','Wed Apr 23 13:43:38 +0000 2014','1398260618','0')-- from stream 1 
+
+23-Apr-2014 13:43:43	insert into rawstream values('-1','@KCoulommier gewoon hemels da 👌👌😏','1238569249','KCoulommier','924265688','BEeraerts','','','458964434246184960','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457848206735732736/kZomipKA_normal.jpeg','','','','Wed Apr 23 13:43:42 +0000 2014','1398260622','0')-- from stream 1 
+
+23-Apr-2014 13:43:50	insert into rawstream values('-1','Di Rupo noemt N-VA\'ers gecastreerden in een harem.\nHet is te hopen dat na 25 mei het niveau in de kamer van volksvertegenwoordigers verhoogt','','','89227431','chjanssens','','','458964466009640960','nl','web','http://pbs.twimg.com/profile_images/436902039541399554/MBngSOKR_normal.jpeg','','','','Wed Apr 23 13:43:50 +0000 2014','1398260630','0')-- from stream 1 
+
+23-Apr-2014 13:44:02	insert into rawstream values('-1','RT @HorecaVL: Kick off #horecadebat http://t.co/qcqnHyTvXV','','','1585166444','Koen_Geens1','425665229','HorecaVL','458964515875737600','nl','web','http://pbs.twimg.com/profile_images/452243241727832064/g5H15Q3M_normal.png','','','','Wed Apr 23 13:44:02 +0000 2014','1398260642','1398259736')-- from stream 1 
+
+23-Apr-2014 13:44:09	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #ob','','','79816789','MarkvanRooijen_','','','458964546007621632','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:44:09 +0000 2014','1398260649','0')-- from stream 1 
+
+23-Apr-2014 13:44:09	insert into rawstream values('-1','RT @xStephnie: Ik wil echt nie op sportdag vrijdag 😭','','','1668166968','LauraxBaeyens','1311493483','xStephnie','458964546225725440','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457243738029694976/PzW-iUPR_normal.jpeg','','','','Wed Apr 23 13:44:09 +0000 2014','1398260649','1398256556')-- from stream 1 
+
+23-Apr-2014 13:44:11	insert into rawstream values('-1','Mysterie van bizar gekwaak in Zuidelijke Oceaan opgehelderd - Wetenschap - De Morgen http://t.co/RozfOyXwqB #DeMorgen via @demorgen','','','26589995','Elke_DP','','','458964551199780864','en','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/420526534688915457/xRZCBpEc_normal.png','','','','Wed Apr 23 13:44:10 +0000 2014','1398260650','0')-- from stream 1 
+
+23-Apr-2014 13:44:16	insert into rawstream values('-1','#Villapolitica @lindewin schuif dit eens even onder de neus van @MP_Peeters http://t.co/S7Rl1hVgWZ','','','51444989','debrackeleer','','','458964571546324992','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:44:15 +0000 2014','1398260655','0')-- from stream 1 
+
+23-Apr-2014 13:44:19	insert into rawstream values('-1','@VdkMaxim Nu is het wachten op de VDK bank die luid protesteert :-D','2392391055','VdkMaxim','150385429','WinghMan','','','458964586830766081','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/447752921828962305/1VmeOJPO_normal.jpeg','','','','Wed Apr 23 13:44:19 +0000 2014','1398260659','0')-- from stream 1 
+
+23-Apr-2014 13:44:20	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','796075544','Leeeeexiiiii','2192527904','angelverleye','458964591448694784','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458326424802590721/XKuDoIE7_normal.jpeg','','','','Wed Apr 23 13:44:20 +0000 2014','1398260660','1396818484')-- from stream 1 
+
+23-Apr-2014 13:44:20	insert into rawstream values('-1','@xStephnie in fucking bikini en tga regenen😭','1311493483','xStephnie','1668166968','LauraxBaeyens','','','458964592111386626','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457243738029694976/PzW-iUPR_normal.jpeg','','','','Wed Apr 23 13:44:20 +0000 2014','1398260660','0')-- from stream 1 
+
+23-Apr-2014 13:44:30	insert into rawstream values('-1','@tvluchene no worries, gaat over iets helemaal anders dat ik alleen hier efkes wil ventileren omdat de persoon in kwestie niet tweet..','434113390','tvluchene','2150929239','Tessa_VeePee','','','458964634251575296','nl','web','http://pbs.twimg.com/profile_images/453421880104738816/1Conk0my_normal.jpeg','','','','Wed Apr 23 13:44:30 +0000 2014','1398260670','0')-- from stream 1 
+
+23-Apr-2014 13:44:35	insert into rawstream values('-1','#sociaal vs #socialistisch http://t.co/umT3LA80f6 via @9GAG','','','442834100','FPerdaens','','','458964652462833664','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/451351610870861825/TW7Lv4Zj_normal.jpeg','','','','Wed Apr 23 13:44:34 +0000 2014','1398260674','0')-- from stream 1 
+
+23-Apr-2014 13:44:37	insert into rawstream values('-1','Het bleek het gebabbel van een walvis #wijs http://t.co/lung5hdgK5','','','26589995','Elke_DP','','','458964663586136065','en','<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>','http://pbs.twimg.com/profile_images/420526534688915457/xRZCBpEc_normal.png','','','','Wed Apr 23 13:44:37 +0000 2014','1398260677','0')-- from stream 1 
+
+23-Apr-2014 13:44:44	insert into rawstream values('-1','De #electrawinds saga.\nHet surrealisme à la Belge.\nhttp://t.co/RHVTOsY0ox','','','89227431','chjanssens','','','458964690392317952','nl','web','http://pbs.twimg.com/profile_images/436902039541399554/MBngSOKR_normal.jpeg','','','','Wed Apr 23 13:44:44 +0000 2014','1398260684','0')-- from stream 1 
+
+23-Apr-2014 13:44:54	insert into rawstream values('-1','RT @Verabgh: Raar maar waar voor NVA bestaat er maar 1 regering nl de federale, de Vlaamse Regering kennen ze blijkbaar niet! Nog nooit van gehoord!','','','1889991344','schotte_sarah','2192727466','Verabgh','458964731924316160','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/454894740325302272/sLHmPlSM_normal.jpeg','','','','Wed Apr 23 13:44:53 +0000 2014','1398260693','1398259403')-- from stream 1 
+
+23-Apr-2014 13:44:57	insert into rawstream values('-1','@peterkes Hahahahaha ja absoluut!!! #thx :)','123236457','peterkes','2150929239','Tessa_VeePee','','','458964744662441984','nl','web','http://pbs.twimg.com/profile_images/453421880104738816/1Conk0my_normal.jpeg','','','','Wed Apr 23 13:44:56 +0000 2014','1398260696','0')-- from stream 1 
+
+23-Apr-2014 13:45:01	insert into rawstream values('-1','@LauraxBaeyens ik heb daar echt geen zin in 😭 en neee ga het regenen?😩','1668166968','LauraxBaeyens','1311493483','xStephnie','','','458964760894394368','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458008899388727296/OB7IL-QK_normal.jpeg','','','','Wed Apr 23 13:45:00 +0000 2014','1398260700','0')-- from stream 1 
+
+23-Apr-2014 13:45:05	insert into rawstream values('-1','40+ Tools &amp; Tips to Execute a Winning Content Strategy - http://t.co/E5T2kkwJxG','','','2154576689','karinvanhees','','','458964778002575360','en','<a href="http://klout.com" rel="nofollow">Post with Klout</a>','http://pbs.twimg.com/profile_images/378800000651325589/875d133abfeb2c2b136144c7810cc32e_normal.jpeg','','','','Wed Apr 23 13:45:04 +0000 2014','1398260704','0')-- from stream 1 
+
+23-Apr-2014 13:45:09	insert into rawstream values('-1','@eerlijkesos Ik vroeg me al af wanneer je je nog eens zou komen moeien. http://t.co/6UmPEsjxca','1890462613','eerlijkesos','418988048','JouweV','','','458964794427842560','nl','web','http://pbs.twimg.com/profile_images/434071065803771904/3DYseK5K_normal.png','','','','Wed Apr 23 13:45:08 +0000 2014','1398260708','0')-- from stream 1 
+
+23-Apr-2014 13:45:33	insert into rawstream values('-1','@chjanssens passende symboliek: willen en niet kunnen, maar eerder een land 541 dagen castreren','89227431','chjanssens','2232908112','ZapSala','','','458964897347665920','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:45:33 +0000 2014','1398260733','0')-- from stream 1 
+
+23-Apr-2014 13:45:43	insert into rawstream values('-1','RT @WimOosterlinck: Luisteraar Sven uit Geraardsbergen brengt verslag uit van de Waalse Pijl in de #WimO Show vandaag.\n(van voor zijn televisie in Tollembeek)','','','1465373948','jokevandevelde1','53060760','WimOosterlinck','458964940414799872','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/445515559795720192/QrPNdUIR_normal.jpeg','','','','Wed Apr 23 13:45:43 +0000 2014','1398260743','1398259504')-- from stream 1 
+
+23-Apr-2014 13:45:48	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','131841715','jaspersjani','2192527904','angelverleye','458964958458687488','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457915603458990081/oXL5PE6Y_normal.jpeg','','','','Wed Apr 23 13:45:47 +0000 2014','1398260747','1396818484')-- from stream 1 
+
+23-Apr-2014 13:45:48	insert into rawstream values('-1','RT @WeversW: \"N-VA\'ers zijn eunuchen in een harem.\" Jawel, een uitspraak van de premier van alle 11 miljoen inwoners van België. U hebt het goed gehoord.','','','338930412','EVandeweerdt','54561156','WeversW','458964959083655168','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:45:48 +0000 2014','1398260748','1398259454')-- from stream 1 
+
+23-Apr-2014 13:46:10	insert into rawstream values('-1','@ZapSala De enige 541 dagen dat het goed ging ! @chjanssens','2232908112','ZapSala','51444989','debrackeleer','','','458965051198963712','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:46:10 +0000 2014','1398260770','0')-- from stream 1 
+
+23-Apr-2014 13:46:22	insert into rawstream values('-1','@StefanSchippers Vandaag nog uw auto verkopen? http://t.co/auyYwK5CmQ vul uw gegevens in en we nemen vandaag nog contact met u op!','51987375','StefanSchippers','157415494','Vandaagverkopen','','','458965098808500225','en','web','http://pbs.twimg.com/profile_images/1007384422/vandaagverkopen_normal.jpg','','','','Wed Apr 23 13:46:21 +0000 2014','1398260781','0')-- from stream 1 
+
+23-Apr-2014 13:46:34	insert into rawstream values('-1','RT @chjanssens: Di Rupo noemt N-VA\'ers gecastreerden in een harem.\nHet is te hopen dat na 25 mei het niveau in de kamer van volksvertegenwoordigers verhoogt','','','333524954','VlaanderenVL','89227431','chjanssens','458965151904169984','nl','web','http://pbs.twimg.com/profile_images/1437121377/vlaamseleeuw_normal.gif','','','','Wed Apr 23 13:46:34 +0000 2014','1398260794','1398260630')-- from stream 1 
+
+23-Apr-2014 13:46:35	insert into rawstream values('-1','Kan politiek de cultuur redden? Volg het #cultuurdebat met @JJDeGucht vanaf 20u00 via http://t.co/wNzwE8fJuM #vk14 http://t.co/uWufuPINre','','','21994861','openvld','','','458965157956182016','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/142333671/logo_normal.png','','','','Wed Apr 23 13:46:35 +0000 2014','1398260795','0')-- from stream 1 
+
+23-Apr-2014 13:46:39	insert into rawstream values('-1','Madame Non va en effet très bien avec les Bruxellois #conservateurs','','','19444574','_belgium4ever','','','458965172456284161','nl','web','http://pbs.twimg.com/profile_images/3042041822/0fb91c9ae0acfe6a47776aedb85b2c9e_normal.png','','','','Wed Apr 23 13:46:38 +0000 2014','1398260798','0')-- from stream 1 
+
+23-Apr-2014 13:46:42	insert into rawstream values('-1','RT @chjanssens: De #electrawinds saga.\nHet surrealisme à la Belge.\nhttp://t.co/RHVTOsY0ox','','','542564426','kritischewind','89227431','chjanssens','458965185559298048','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000081525654/1279062af81111d0747d7398960390b5_normal.jpeg','','','','Wed Apr 23 13:46:42 +0000 2014','1398260802','1398260684')-- from stream 1 
+
+23-Apr-2014 13:46:45	Started updating 8 tweets. 
+
+23-Apr-2014 13:46:48	Total time: 245058 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2250
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 234215 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2250
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 245139 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2250
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 234469 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2250
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 239536 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2250
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 225767 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 2178
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 14011 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 116
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Total time: 3150 ms
+23-Apr-2014 13:46:48	Downloaded tweets: 8
+23-Apr-2014 13:46:48	Failed tweets: 0
+23-Apr-2014 13:46:48	Application ran for 3.6315371990204 seconds.
+
+23-Apr-2014 13:46:49	Updating finished. Sleeping for 296.36846280098 seconds. 
+
+23-Apr-2014 13:46:54	insert into rawstream values('-1','@Valerie_VNuffel @PieterRombouts @MichOpgenhaffen @StampMedia Cool!','432008126','Valerie_VNuffel','5539772','fdgraeve','','','458965235035295745','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/456781678703149058/1uvCmLI9_normal.jpeg','','','','Wed Apr 23 13:46:53 +0000 2014','1398260813','0')-- from stream 1 
+
+23-Apr-2014 13:47:01	insert into rawstream values('-1','@WeversW @AKohl De premier die zoiets zegt is een premier onwaardig, maar dat wisten we al, cette sujette:-)','54561156','WeversW','338930412','EVandeweerdt','','','458965267255951360','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:47:01 +0000 2014','1398260821','0')-- from stream 1 
+
+23-Apr-2014 13:47:03	insert into rawstream values('-1','RT @nbsport: Uitslag Waalse Pijl: 1 Valverde 2 D.Martin 3 Kwiatowski 4 Mollema 5 Slagter  6 J.Vanendert 7 Albasini 8 Kreuziger 9 Moreno 10 Gibert #wpijl','','','333524954','VlaanderenVL','610677589','nbsport','458965273329291265','nl','web','http://pbs.twimg.com/profile_images/1437121377/vlaamseleeuw_normal.gif','','','','Wed Apr 23 13:47:02 +0000 2014','1398260822','1398260638')-- from stream 1 
+
+23-Apr-2014 13:47:26	insert into rawstream values('-1','MP Peeters aan @lindewin : Wij, CDnV willen Vlaanderen #leiden...\n\nZou n politieker niet \'ten dienste staan\' van Vlaanderen?\n#FührerPeeters','','','733249254','JackCobus1','','','458965371673124864','nl','web','http://pbs.twimg.com/profile_images/2652077136/64a5ccc47b2773150d2389683dd9d5cb_normal.jpeg','','','','Wed Apr 23 13:47:26 +0000 2014','1398260846','0')-- from stream 1 
+
+23-Apr-2014 13:47:31	insert into rawstream values('-1','ouders, wie zit er of heeft er in de #schoolraad gezeteld en formuleerde al ooit een advies aan schoolbestuur RT is top','','','1391451036','KnippenbergM','','','458965393072488448','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000761599399/571a5b7701fdbe59155bc3251017f9bb_normal.jpeg','','','','Wed Apr 23 13:47:31 +0000 2014','1398260851','0')-- from stream 1 
+
+23-Apr-2014 13:47:35	insert into rawstream values('-1','@joscarwilde Nee, daar heeft @KSurgeloose personeel voor ;)','56056450','joscarwilde','300157544','VSKnet','','','458965408348114944','nl','web','http://pbs.twimg.com/profile_images/3292577221/002b5e3af368207397349d8705c071c0_normal.jpeg','','','','Wed Apr 23 13:47:35 +0000 2014','1398260855','0')-- from stream 1 
+
+23-Apr-2014 13:47:43	insert into rawstream values('-1','RT @chjanssens: Di Rupo noemt N-VA\'ers gecastreerden in een harem.\nHet is te hopen dat na 25 mei het niveau in de kamer van volksvertegenwoordigers verhoogt','','','2350847532','Vlaamse_Lente','89227431','chjanssens','458965440983990272','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/435930093882314752/nA3vD03I_normal.jpeg','','','','Wed Apr 23 13:47:42 +0000 2014','1398260862','1398260630')-- from stream 1 
+
+23-Apr-2014 13:47:46	insert into rawstream values('-1','@jokevandevelde1 Zwijgen hé op antenne, denk aan mijn vrouw en kinderen! @WimOosterlinck','1465373948','jokevandevelde1','56047219','bakkerkrof','','','458965453764067328','nl','web','http://pbs.twimg.com/profile_images/378800000668321918/2ef3ce4fabafa8b261c030da7a54fd10_normal.jpeg','','','','Wed Apr 23 13:47:46 +0000 2014','1398260866','0')-- from stream 1 
+
+23-Apr-2014 13:47:51	insert into rawstream values('-1','@vlareg zelfs oneens over onverdoofd castreren van biggen. @sp_a en @de_NVA geloven niet in engagementen van de sector! @HendrikABS','448066958','VlaReg','409186951','StefaanSintobin','','','458965476300046336','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1631939239/foto_normal.JPG','','','','Wed Apr 23 13:47:51 +0000 2014','1398260871','0')-- from stream 1 
+
+23-Apr-2014 13:47:53	insert into rawstream values('-1','RT @poeki23: Inderdaad @veliyuksel @Aboujahjah nergens beter dan thuis, lekker groen blaadje... http://t.co/9Jek52q6Ch','','','338930412','EVandeweerdt','2243770033','poeki23','458965485238108160','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:47:53 +0000 2014','1398260873','1398248193')-- from stream 1 
+
+23-Apr-2014 13:47:57	insert into rawstream values('-1','Groen eist én krijgt extra budget voor schoolkrijt in ruil voor steun aan VL minderheidsregering #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458965502967422977','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:47:57 +0000 2014','1398260877','0')-- from stream 1 
+
+23-Apr-2014 13:48:08	insert into rawstream values('-1','RT @bol_com_games: Laatste kans: volg &amp; RT = kans maken op GXT 38 &amp; GXT 304 http://t.co/lMBi3QHc73 Morgen maken we de winnaars bekend. http://t.co/js0Lz12IzT','','','839343517','SkyPien','518418706','bol_com_games','458965546047131648','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:48:08 +0000 2014','1398260888','1398258022')-- from stream 1 
+
+23-Apr-2014 13:48:12	insert into rawstream values('-1','Hahahaha, oké @MP_Peeters kan sommige grappig zijn.. #villapolitica','','','51596975','Marliesvdwalle','','','458965564099403776','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:48:12 +0000 2014','1398260892','0')-- from stream 1 
+
+23-Apr-2014 13:48:30	insert into rawstream values('-1','Tweede plaats..','','','1577322732','TinnekeClaes','','','458965638271467520','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/449908212024999936/ZrdwIZNq_normal.jpeg','Point','51.1989958','4.4337154','Wed Apr 23 13:48:29 +0000 2014','1398260909','0')-- from stream 1 
+
+23-Apr-2014 13:48:36	insert into rawstream values('-1','@chjanssens maar ze zijn wel met heel veel tot spijt van wie het benijdt.','89227431','chjanssens','817539337','JanKuse','','','458965664704004096','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/2877774394/3ae91b29d3e0e9d9597e3688ae74288e_normal.jpeg','','','','Wed Apr 23 13:48:36 +0000 2014','1398260916','0')-- from stream 1 
+
+23-Apr-2014 13:48:46	insert into rawstream values('-1','@debrackeleer @chjanssens ik dacht net dat je dikker werd na castratie ;)','51444989','debrackeleer','2232908112','ZapSala','','','458965706542161920','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:48:46 +0000 2014','1398260926','0')-- from stream 1 
+
+23-Apr-2014 13:48:48	insert into rawstream values('-1','@ZapSala oei, nee dat soort fantasieën heb ik niet, ik hou niet zo van baarden ;-)','2232908112','ZapSala','51596975','Marliesvdwalle','','','458965713315975168','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/435422505696636928/J0Bo_9T4_normal.jpeg','','','','Wed Apr 23 13:48:47 +0000 2014','1398260927','0')-- from stream 1 
+
+23-Apr-2014 13:48:50	insert into rawstream values('-1','@ANK2D2 (welke scene is dé scene?)','853204159','ANK2D2','225776192','JacoHenri','','','458965724883861505','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/448922556998119424/4kuBE58K_normal.jpeg','','','','Wed Apr 23 13:48:50 +0000 2014','1398260930','0')-- from stream 1 
+
+23-Apr-2014 13:48:52	insert into rawstream values('-1','Baron Dave Sinardet en Ridder Lode Vereeck op bezoek bij de depressieve Bert Anciaux drs. #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458965732890787840','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:48:52 +0000 2014','1398260932','0')-- from stream 1 
+
+23-Apr-2014 13:49:03	insert into rawstream values('-1','RT @dewereldmorgen: Spaanse Robin Hood licht banken op -  http://t.co/vDWY5ATvot','','','48090573','suffie63','34906045','dewereldmorgen','458965777522372608','nl','web','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:49:03 +0000 2014','1398260943','1398260788')-- from stream 1 
+
+23-Apr-2014 13:49:16	insert into rawstream values('-1','Luchthaven Zaventem komt in handen van Tecteo. #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458965832903954432','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:49:16 +0000 2014','1398260956','0')-- from stream 1 
+
+23-Apr-2014 13:49:18	insert into rawstream values('-1','“@debrackeleer: #Villapolitica @lindewin schuif dit eens even onder de neus van @MP_Peeters http://t.co/5UUVR91Czc”RT zal niet zijn!','51444989','debrackeleer','342607723','leojuli2009','','','458965838037811201','en','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/445570391692808192/jCuZX5Lc_normal.jpeg','','','','Wed Apr 23 13:49:17 +0000 2014','1398260957','0')-- from stream 1 
+
+23-Apr-2014 13:49:22	insert into rawstream values('-1','@Marliesvdwalle aha, een trendmevrouwtje! nu, u kan het vergeten hoor, mijn baard blijft staan!','51596975','Marliesvdwalle','2232908112','ZapSala','','','458965856635351040','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:49:22 +0000 2014','1398260962','0')-- from stream 1 
+
+23-Apr-2014 13:49:23	insert into rawstream values('-1','@JouweV Noem eens een paar voorbeelden van \"grootkapitaal\"?','418988048','JouweV','1890462613','eerlijkesos','','','458965863413317632','en','web','http://pbs.twimg.com/profile_images/434738316903071744/bgts-7PZ_normal.png','','','','Wed Apr 23 13:49:23 +0000 2014','1398260963','0')-- from stream 1 
+
+23-Apr-2014 13:49:31	insert into rawstream values('-1','We kiezen voor stabiliteit en zekerheid op vlak van fiscaliteit @wbeke op debat fiscaliteit','','','156916093','ThomasVints','','','458965894388260864','en','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/440436341109583872/yWGud-0B_normal.jpeg','','','','Wed Apr 23 13:49:31 +0000 2014','1398260971','0')-- from stream 1 
+
+23-Apr-2014 13:49:31	insert into rawstream values('-1','Federale kieskring splitst! #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458965894593785856','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:49:31 +0000 2014','1398260971','0')-- from stream 1 
+
+23-Apr-2014 13:49:47	insert into rawstream values('-1','Vlaanderen wordt eindelijk erkent als economisch ontwikkelinsgebied!  #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458965963883704321','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:49:47 +0000 2014','1398260987','0')-- from stream 1 
+
+23-Apr-2014 13:49:54	insert into rawstream values('-1','@JohanneMontay @grosfilley LAMENTABLE!! Dire que le 25 mai... Des guignols!!! \nhttp://t.co/t45CSY2iJX','95434109','JohanneMontay','78280004','REnalddo','','','458965992455303168','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1946494884/image_normal.jpg','','','','Wed Apr 23 13:49:54 +0000 2014','1398260994','0')-- from stream 1 
+
+23-Apr-2014 13:49:57	insert into rawstream values('-1','RT @cnnbrk: Madeleine McCann mystery: UK police say 6 more intruder cases may be linked. http://t.co/wRsta2Mx1B http://t.co/n8mluxnpOH','','','1950129770','Newsmonkey_BE','428333','cnnbrk','458966002454499328','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/378800000728169060/1c08fba51e4035a1645d5c55100d0ad5_normal.jpeg','','','','Wed Apr 23 13:49:56 +0000 2014','1398260996','1398260882')-- from stream 1 
+
+23-Apr-2014 13:49:57	insert into rawstream values('-1','@LinksVlaams alleen schijnt die mist naar waarde geschat te worden ;) ;(','891681331','LinksVlaams','109335745','JacquesHinckxt','','','458966003465355264','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/662824755/iywtm_normal.JPG','','','','Wed Apr 23 13:49:57 +0000 2014','1398260997','0')-- from stream 1 
+
+23-Apr-2014 13:50:03	insert into rawstream values('-1','Jongeren lanceren digitaal politiek magazine rond werk http://t.co/k0Jk91B32F #werkwoorden','','','299066966','FilipAertsDigi','','','458966030900297728','en','<a href="http://bitly.com" rel="nofollow">bitly</a>','http://pbs.twimg.com/profile_images/378800000801185549/22c8e8885ca3cc5a097e03ba9fc35707_normal.jpeg','','','','Wed Apr 23 13:50:03 +0000 2014','1398261003','0')-- from stream 1 
+
+23-Apr-2014 13:50:04	insert into rawstream values('-1','@PieterRombouts @MichOpgenhaffen @fdgraeve @StampMedia Aangekruist in de agenda.','1553105923','PieterRombouts','462858972','GuntherMalin','','','458966033530109953','nl','web','http://pbs.twimg.com/profile_images/378800000235378258/ef24f5da2ffe1f0e1ba3d4605f14164e_normal.jpeg','','','','Wed Apr 23 13:50:04 +0000 2014','1398261004','0')-- from stream 1 
+
+23-Apr-2014 13:50:04	insert into rawstream values('-1','RT @jandemol: Willen jullie meer of minder handen? http://t.co/6zGP1z7yeO','','','143524253','JHerregods','76427268','jandemol','458966034696142848','en','web','http://pbs.twimg.com/profile_images/378800000493663308/d0225da9d11e012a63897d5b78989d6a_normal.jpeg','','','','Wed Apr 23 13:50:04 +0000 2014','1398261004','1398260967')-- from stream 1 
+
+23-Apr-2014 13:50:07	insert into rawstream values('-1','\'k\' Kundje nog korter zin ?','','','1883579048','TuffreauJens','','','458966048151449600','nl','web','http://pbs.twimg.com/profile_images/447097772022697984/y9RqCK5Q_normal.jpeg','','','','Wed Apr 23 13:50:07 +0000 2014','1398261007','0')-- from stream 1 
+
+23-Apr-2014 13:50:10	insert into rawstream values('-1','@groen stemtest argument tegen premie zuiniger auto slaat nergens op, nieuwe gaat echt niet vaker gebruikt worden en compenseert dat zelf ng','8200752','groen','1657412652','S_Nijs','','','458966060218474496','nl','web','http://pbs.twimg.com/profile_images/378800000817411487/bdcbe327eb0dd61512009500dc2db378_normal.jpeg','','','','Wed Apr 23 13:50:10 +0000 2014','1398261010','0')-- from stream 1 
+
+23-Apr-2014 13:50:16	insert into rawstream values('-1','Kocht Groen kat in de zak? Scholen blijken electronische borden te hebben. #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458966084981620736','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:50:16 +0000 2014','1398261016','0')-- from stream 1 
+
+23-Apr-2014 13:50:17	insert into rawstream values('-1','@IlRedeimondani Noem eens een paar machtige economische dynastieën? @JoVanLimbergen @implosionblue @AndyKerkhofs','1148701050','IlRedeimondani','1890462613','eerlijkesos','','','458966088790077440','en','web','http://pbs.twimg.com/profile_images/434738316903071744/bgts-7PZ_normal.png','','','','Wed Apr 23 13:50:17 +0000 2014','1398261017','0')-- from stream 1 
+
+23-Apr-2014 13:50:31	insert into rawstream values('-1','@JacoHenri (dé scene in de sept)','225776192','JacoHenri','853204159','ANK2D2','','','458966145325105152','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/443071422160969728/-quK-Zg7_normal.jpeg','','','','Wed Apr 23 13:50:30 +0000 2014','1398261030','0')-- from stream 1 
+
+23-Apr-2014 13:50:33	insert into rawstream values('-1','@BartLagae ben je blij met ryan giggs ?','1449479876','platteauloic','1449479876','platteauloic','','','458966156901355520','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/457940039973208064/Rtbh-at8_normal.jpeg','','','','Wed Apr 23 13:50:33 +0000 2014','1398261033','0')-- from stream 1 
+
+23-Apr-2014 13:50:41	insert into rawstream values('-1','RT @JMDedecker: Enkel wie bijdraagt tot onze sociaal zekerheid heeft er recht op!http://t.co/CECzZkLBMk','','','206826703','Vdsteenesteven','166555933','JMDedecker','458966189499490304','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/434355521521717249/ivMrcY0v_normal.jpeg','','','','Wed Apr 23 13:50:41 +0000 2014','1398261041','1398258492')-- from stream 1 
+
+23-Apr-2014 13:50:51	insert into rawstream values('-1','Vrijdag komt Klaas Delrue liedjes zingen in de #Bond98. Welkom! #Leuven @Delruemusique http://t.co/slOR3Xvk5T','','','49304624','liescorneillie','','','458966228933951490','en','web','http://pbs.twimg.com/profile_images/452874222700752896/6QBRCGzf_normal.jpeg','','','','Wed Apr 23 13:50:50 +0000 2014','1398261050','0')-- from stream 1 
+
+23-Apr-2014 13:50:52	insert into rawstream values('-1','Geen Leuven in Scène in stadspark: http://t.co/qzuTwGHPdm #robnieuws #leuven','','','229600073','rob_televisie','','','458966233552285696','nl','web','http://pbs.twimg.com/profile_images/378800000558779091/2cebdb2600984d43a4f3e5cd483418cc_normal.jpeg','','','','Wed Apr 23 13:50:51 +0000 2014','1398261051','0')-- from stream 1 
+
+23-Apr-2014 13:50:53	insert into rawstream values('-1','@leojuli2009 Dat durft @lindewin niet ... Haar bazen kijken mee @MP_Peeters','342607723','leojuli2009','51444989','debrackeleer','','','458966238476382208','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:50:53 +0000 2014','1398261053','0')-- from stream 1 
+
+23-Apr-2014 13:51:04	insert into rawstream values('-1','Europse kamervoorzitter Guy Verhofstadt ontsiert trans-Atlantisch akkoord. #KrantenkoppenNa25mei #CoalitieVerliezers','','','137627470','CScheers','','','458966286593449984','nl','web','http://pbs.twimg.com/profile_images/378800000166080939/5ba5c9d7be8d07002fd6ce2c0f87b4a3_normal.jpeg','','','','Wed Apr 23 13:51:04 +0000 2014','1398261064','0')-- from stream 1 
+
+23-Apr-2014 13:51:10	insert into rawstream values('-1','RT @LievenTailly: \"BE schuldgraad klokt af op 101,5%\" waar #Planbureau amper 2 maand geleden 99.8% berekende. Weer zelfde liedje met BE #Overheidsbeslag?','','','338930412','EVandeweerdt','350930537','LievenTailly','458966309112643584','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:51:09 +0000 2014','1398261069','1398258567')-- from stream 1 
+
+23-Apr-2014 13:51:11	insert into rawstream values('-1','@Tessa_VeePee Oef [voor mij] :-)','2150929239','Tessa_VeePee','434113390','tvluchene','','','458966313592168449','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/1686888654/Tenerife_normal.jpg','','','','Wed Apr 23 13:51:11 +0000 2014','1398261071','0')-- from stream 1 
+
+23-Apr-2014 13:51:11	insert into rawstream values('-1','RT @Belgianfootball: Bondscoach @WilmotsMarc maakt op dinsdag 13/5 (12u) zijn preselectie bekend voor het WK! #worldcup #reddevilstobrazil','','','40860297','KenVanDyck','382018313','Belgianfootball','458966315689324544','nl','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/378800000265298037/564952035c2928327b5118dc53e1cdc8_normal.jpeg','','','','Wed Apr 23 13:51:11 +0000 2014','1398261071','1398251453')-- from stream 1 
+
+23-Apr-2014 13:51:25	insert into rawstream values('-1','@chjanssens Duidelijk dat Ruppo niet van #gecastreerden houdt...','89227431','chjanssens','733249254','JackCobus1','','','458966371523919872','nl','web','http://pbs.twimg.com/profile_images/2652077136/64a5ccc47b2773150d2389683dd9d5cb_normal.jpeg','','','','Wed Apr 23 13:51:24 +0000 2014','1398261084','0')-- from stream 1 
+
+23-Apr-2014 13:51:27	insert into rawstream values('-1','@JanLeroyVVSG @M_Suykens @Knack Ergo ... in de 4 gemeenten waar de belastingdruk daalt, maakt de #NVA deel uit van de coalitie. :-)','1968834090','JanLeroyVVSG','373478501','PietDeZaeger','','','458966382361985024','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/344513261577141830/5cbdf3a898e55f4805d495aa7c5cd4c9_normal.jpeg','','','','Wed Apr 23 13:51:27 +0000 2014','1398261087','0')-- from stream 1 
+
+23-Apr-2014 13:51:36	insert into rawstream values('-1','@eerlijkesos het sultanaat van Brunei  @IlRedeimondani @JoVanLimbergen @implosionblue @AndyKerkhofs','1890462613','eerlijkesos','2232908112','ZapSala','','','458966417329905664','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:51:35 +0000 2014','1398261095','0')-- from stream 1 
+
+23-Apr-2014 13:51:39	insert into rawstream values('-1','RT @debrackeleer: #Villapolitica @lindewin schuif dit eens even onder de neus van @MP_Peeters http://t.co/S7Rl1hVgWZ','','','712168447','AKohl','51444989','debrackeleer','458966430894276608','nl','web','http://pbs.twimg.com/profile_images/2428086866/3huizdx5a1t5dbz9oo6f_normal.jpeg','','','','Wed Apr 23 13:51:38 +0000 2014','1398261098','1398260655')-- from stream 1 
+
+23-Apr-2014 13:51:39	insert into rawstream values('-1','RT @MDevoldere: Het was al langer duidelijk dat het voor @cdenv vooral om poppetjes ging: zo staat de kopman op élke affiche. Eenmanspartij? #villapolitica','','','716505890','hv1967','382138163','MDevoldere','458966433599610880','nl','web','http://pbs.twimg.com/profile_images/443436946648338432/WqvTJdwL_normal.png','','','','Wed Apr 23 13:51:39 +0000 2014','1398261099','1398260529')-- from stream 1 
+
+23-Apr-2014 13:51:45	Started updating 1 tweets. 
+
+23-Apr-2014 13:51:47	Total time: 245058 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2250
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 234215 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2250
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 245139 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2250
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 234469 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2250
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 239536 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2250
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 225767 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 2178
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 14011 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 116
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 3150 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 8
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Total time: 2181 ms
+23-Apr-2014 13:51:47	Downloaded tweets: 1
+23-Apr-2014 13:51:47	Failed tweets: 0
+23-Apr-2014 13:51:47	Application ran for 2.619115114212 seconds.
+
+23-Apr-2014 13:51:47	Updating finished. Sleeping for 297.38088488579 seconds. 
+
+23-Apr-2014 13:52:05	insert into rawstream values('-1','RT @MauranneDesch: Jaloers op de mensen die hele dagen rond en bij je zijn','','','412840100','staybymeforever','1640394385','MauranneDesch','458966542169153536','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/458717383797276672/R8GQ83vY_normal.jpeg','','','','Wed Apr 23 13:52:05 +0000 2014','1398261125','1398068910')-- from stream 1 
+
+23-Apr-2014 13:52:09	insert into rawstream values('-1','@jokevandevelde1 Volgens @WimOosterlinck ben je verdacht als je met iemand op foto staat enkele uren voor de feiten.  Verbrand de klasfotos!','1465373948','jokevandevelde1','248697937','Applesqueez','','','458966559340625920','en','web','http://pbs.twimg.com/profile_images/1524873972/logo_normal.jpg','','','','Wed Apr 23 13:52:09 +0000 2014','1398261129','0')-- from stream 1 
+
+23-Apr-2014 13:52:11	insert into rawstream values('-1','Blair: Grootste dreiging is radicale islam http://t.co/CmAGgCAoOO via @refdag','','','222308094','metzada3833','','','458966564809613312','en','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/1181253733/yaakov_normal.jpg','','','','Wed Apr 23 13:52:10 +0000 2014','1398261130','0')-- from stream 1 
+
+23-Apr-2014 13:52:19	insert into rawstream values('-1','@Pensioenspook Ik had het ook al getweet, op dat bochtengekronkel en die #hypocretie staat van #BDW geen maat  #vk14 (alles om te \'winnen\')','415067387','Pensioenspook','515467212','BenjaminVBr','','','458966601157844992','nl','web','http://pbs.twimg.com/profile_images/378800000296522303/a5214630af0195fd541c60ce9b68b42a_normal.jpeg','','','','Wed Apr 23 13:52:19 +0000 2014','1398261139','0')-- from stream 1 
+
+23-Apr-2014 13:52:31	insert into rawstream values('-1','Just like de prinsessen op mijn gitaar I\'m feeling rather pink today http://t.co/496iz5xCoi','','','1373954636','detomhelsen','','','458966650063441920','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/458647548756897792/M5O0-gt2_normal.jpeg','','','','Wed Apr 23 13:52:31 +0000 2014','1398261151','0')-- from stream 1 
+
+23-Apr-2014 13:52:34	insert into rawstream values('-1','@Barttommelein @vereeck @spa @de_NVA gaat @openvld de 21 % BTW op advocaten, notarissen en gerechtsdeurwaarders ook afvoeren? #miserietaks','42885656','Barttommelein','1254997172','DirkVerreyt','','','458966662960930817','nl','web','http://pbs.twimg.com/profile_images/3361813791/3c8625351fe713ce6b19470a0826ec25_normal.jpeg','','','','Wed Apr 23 13:52:34 +0000 2014','1398261154','0')-- from stream 1 
+
+23-Apr-2014 13:52:48	insert into rawstream values('-1','@EnergiewachtNL van fb?','237179902','EnergiewachtNL','839343517','SkyPien','','','458966719818903553','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:52:47 +0000 2014','1398261167','0')-- from stream 1 
+
+23-Apr-2014 13:53:12	insert into rawstream values('-1','.@guidooohh Hoe discreter en minder intrusief (voor anderen) de wearable gadget, hoe groter z\'n slaagkans. @SAI','14083484','guidooohh','299066966','FilipAertsDigi','','','458966823900561408','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000801185549/22c8e8885ca3cc5a097e03ba9fc35707_normal.jpeg','','','','Wed Apr 23 13:53:12 +0000 2014','1398261192','0')-- from stream 1 
+
+23-Apr-2014 13:53:14	insert into rawstream values('-1','@SvenDeNeef @de_NVA @CDenVLeoHep @openvld @sp_a  die traditionele partijen,veel beloven en niets doen! Zie waar we staan,nergens!','35225663','SvenDeNeef','2257565010','desmedtgerard','','','458966830368194561','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png','','','','Wed Apr 23 13:53:14 +0000 2014','1398261194','0')-- from stream 1 
+
+23-Apr-2014 13:53:26	insert into rawstream values('-1','@FreekieDM That\'s the spirit. Deel je hem ook even met mij #please','238110963','FreekieDM','1577322732','TinnekeClaes','','','458966879248609281','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/449908212024999936/ZrdwIZNq_normal.jpeg','Point','51.1985956','4.4290967','Wed Apr 23 13:53:25 +0000 2014','1398261205','0')-- from stream 1 
+
+23-Apr-2014 13:53:26	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','1589000587','phaedramofo','2192527904','angelverleye','458966879366045696','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/456874121994194944/zMv02eKG_normal.jpeg','','','','Wed Apr 23 13:53:25 +0000 2014','1398261205','1396818484')-- from stream 1 
+
+23-Apr-2014 13:53:27	insert into rawstream values('-1','@JacoHenri Voyeur!','225776192','JacoHenri','338930412','EVandeweerdt','','','458966885774929921','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:53:27 +0000 2014','1398261207','0')-- from stream 1 
+
+23-Apr-2014 13:53:30	insert into rawstream values('-1','RT @IngeNouwen: @paulnuyts Mijn grote leider zie ik elke morgen in de spiegel, u mag in hokjes denken zoveel u wil.','','','817539337','JanKuse','332407547','IngeNouwen','458966899549011968','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/2877774394/3ae91b29d3e0e9d9597e3688ae74288e_normal.jpeg','','','','Wed Apr 23 13:53:30 +0000 2014','1398261210','1398260085')-- from stream 1 
+
+23-Apr-2014 13:53:31	insert into rawstream values('-1','Politiek heeft net nood aan nieuwkomers, maar dan wel échte nieuwkomers! CD&amp;V toont zich erg conservatief in dit debat #vk14 #vlareg','','','432008126','Valerie_VNuffel','','','458966902447304704','nl','web','http://pbs.twimg.com/profile_images/417009057485291520/lwlMqHXz_normal.jpeg','','','','Wed Apr 23 13:53:31 +0000 2014','1398261211','0')-- from stream 1 
+
+23-Apr-2014 13:53:34	insert into rawstream values('-1','RT @MDevoldere: Volgens @MP_Peeters start de campagne van @cdenv pas na zaterdag. Waar waren al die maandag campagnedagen dan voor? #dtv #villapolitica','','','716505890','hv1967','382138163','MDevoldere','458966914510127104','nl','web','http://pbs.twimg.com/profile_images/443436946648338432/WqvTJdwL_normal.png','','','','Wed Apr 23 13:53:34 +0000 2014','1398261214','1398260320')-- from stream 1 
+
+23-Apr-2014 13:53:50	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #EP2014','','','79816789','MarkvanRooijen_','','','458966981140819969','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:53:50 +0000 2014','1398261230','0')-- from stream 1 
+
+23-Apr-2014 13:53:51	insert into rawstream values('-1','RT @JoVanLimbergen: Oesje, @cdenv nee toch :-S ... http://t.co/Rc6RUzApJf','','','431567342','SaadetGulhan','297614368','JoVanLimbergen','458966983699365888','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/2894227629/9f65d21bdc0ec3acb09857158516d6f9_normal.jpeg','','','','Wed Apr 23 13:53:50 +0000 2014','1398261230','1398252298')-- from stream 1 
+
+23-Apr-2014 13:53:51	insert into rawstream values('-1','@hgillijns personal hotspot-probleem?','255656570','hgillijns','50001091','kurtvdpoel','','','458966986039767040','en','<a href="http://tapbots.com/tweetbot" rel="nofollow">Tweetbot for iOS</a>','http://pbs.twimg.com/profile_images/2568848978/VDPKU_2_normal.jpeg','','','','Wed Apr 23 13:53:51 +0000 2014','1398261231','0')-- from stream 1 
+
+23-Apr-2014 13:53:53	insert into rawstream values('-1','@MDevoldere @JPScheffer Meer nog, ooit waren er mensen die beweerden: Arbeid macht frei. Oorspronkelijk niet cynisch maar belerend bedoeld','382138163','MDevoldere','140163729','martseyn','','','458966992243150849','en','web','http://pbs.twimg.com/profile_images/1517793339/Katsberg_aug2011_normal.jpg','','','','Wed Apr 23 13:53:52 +0000 2014','1398261232','0')-- from stream 1 
+
+23-Apr-2014 13:53:54	insert into rawstream values('-1','RT @BenDreesen: Di Rupo sneert nr N-VA: \"Jullie denken als in d middeleeuwen\" http://t.co/RzKCoqo8B2 #DeMorgen Voor de middeleeuwen moet j in Wallonie zijn.','','','338930412','EVandeweerdt','220142000','BenDreesen','458966997083365376','en','web','http://pbs.twimg.com/profile_images/378800000842892895/9f8dc1e5a80911e3c9345cb25d1e128d_normal.jpeg','','','','Wed Apr 23 13:53:53 +0000 2014','1398261233','1398257308')-- from stream 1 
+
+23-Apr-2014 13:53:59	insert into rawstream values('-1','RT @Frans_Bosch: #Unseen Prime minister of #belgium scolds own people and largest party of #Flanders #EU','','','733249254','JackCobus1','240649511','Frans_Bosch','458967019191562240','nl','web','http://pbs.twimg.com/profile_images/2652077136/64a5ccc47b2773150d2389683dd9d5cb_normal.jpeg','','','','Wed Apr 23 13:53:59 +0000 2014','1398261239','1398260948')-- from stream 1 
+
+23-Apr-2014 13:54:25	insert into rawstream values('-1','RT @ididwiddy: Please don\'t think it won\'t happen to you, it only takes a minute http://t.co/0Y5o5wWiXN','','','1451137045','dubray0pascale','42727444','ididwiddy','458967126595104768','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/378800000571437053/c01d2c0d7cf25e6d6d957121eca5e4de_normal.jpeg','','','','Wed Apr 23 13:54:24 +0000 2014','1398261264','1398259005')-- from stream 1 
+
+23-Apr-2014 13:54:36	insert into rawstream values('-1','RT @Baxshop: Wil jij naar 538Koningsdag in Breda? Wij hebben 2 VIP kaarten om weg te geven! Follow @Baxshop, RT en win! #baxkoning','','','839343517','SkyPien','52727038','Baxshop','458967175467106304','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:54:36 +0000 2014','1398261276','1398260670')-- from stream 1 
+
+23-Apr-2014 13:54:41	insert into rawstream values('-1','#Studenten deze al gezien http://t.co/j3DEFX1Mc3 ? #utrecht #halloAIVD','','','79816789','MarkvanRooijen_','','','458967194094010368','en','web','http://pbs.twimg.com/profile_images/439109740300222464/VAiCKuPh_normal.jpeg','','','','Wed Apr 23 13:54:40 +0000 2014','1398261280','0')-- from stream 1 
+
+23-Apr-2014 13:54:42	insert into rawstream values('-1','Niet vloeken he @lindewin het geluid komt wel terug ;) #villapolitica','','','1045786196','VdammeBram','','','458967199324323840','en','web','http://pbs.twimg.com/profile_images/3586446013/c5e45ea1e95b93fdce8241ca5fe090dd_normal.jpeg','','','','Wed Apr 23 13:54:42 +0000 2014','1398261282','0')-- from stream 1 
+
+23-Apr-2014 13:54:44	insert into rawstream values('-1','RT @tuyaertsnoa: Zielige oude meneertjes alleen zien doet mijn hart echt breken pff 😔','','','2214448131','celestesoenen','993718447','tuyaertsnoa','458967206341378048','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/452853943719456768/yjMY2kea_normal.jpeg','','','','Wed Apr 23 13:54:43 +0000 2014','1398261283','1397818564')-- from stream 1 
+
+23-Apr-2014 13:55:01	insert into rawstream values('-1','GeenStijl: VIDEO! 100 euro per gebroken inbrekersbot - http://t.co/tK1LZ6symK','','','48090573','suffie63','','','458967281289031680','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/452474518280220672/26k1rB_S_normal.jpeg','','','','Wed Apr 23 13:55:01 +0000 2014','1398261301','0')-- from stream 1 
+
+23-Apr-2014 13:55:05	insert into rawstream values('-1','BioForum Vlaanderen wil dat landbouw naar agro-ecologie evolueert http://t.co/52eROQ3iG0 #vk14','','','23498005','vrtderedactie','','','458967297592668160','nl','<a href="http://ifttt.com" rel="nofollow">IFTTT</a>','http://pbs.twimg.com/profile_images/3348647161/1c9c21f920de8cee3df786e28ef4e26e_normal.jpeg','','','','Wed Apr 23 13:55:05 +0000 2014','1398261305','0')-- from stream 1 
+
+23-Apr-2014 13:55:08	insert into rawstream values('-1','RT @bashoogland: Dit TOP 24 pers.HUIS op Texel voor #familieweekend\n(NIEUWE VIDEO) :\n\nhttp://t.co/OSxgr08KLb\n\nis nog vrij wknd:\n22aug, 26sept,28nov, 5 &amp;19dec','','','839343517','SkyPien','65077102','bashoogland','458967306065166336','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:55:07 +0000 2014','1398261307','1398260058')-- from stream 1 
+
+23-Apr-2014 13:55:13	insert into rawstream values('-1','RT @celestesoenen: Wij meisjes gaan nooit alleen naar het toilet 🚺','','','2343493481','Ferreeee_','2214448131','celestesoenen','458967328634724352','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/454505883188609024/foBb6YB__normal.jpeg','','','','Wed Apr 23 13:55:13 +0000 2014','1398261313','1398102551')-- from stream 1 
+
+23-Apr-2014 13:55:15	insert into rawstream values('-1','@Groen maakt in het #zuurstofplan geld vrij voor #investeringen in #schoolgebouwen en voor extra #ondersteuning... http://t.co/WTJJ408m8r','8200752','groen','607019966','GroenHamme','','','458967338830675968','nl','<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>','http://pbs.twimg.com/profile_images/453876249296113664/c6XBv-tT_normal.png','','','','Wed Apr 23 13:55:15 +0000 2014','1398261315','0')-- from stream 1 
+
+23-Apr-2014 13:55:16	insert into rawstream values('-1','RT @diane_vs: @KristofJoos ik ben campagne klaar ( mijn auto ook) :-) http://t.co/uJtNXCwzJV','','','431567342','SaadetGulhan','370754373','diane_vs','458967342652063744','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/2894227629/9f65d21bdc0ec3acb09857158516d6f9_normal.jpeg','','','','Wed Apr 23 13:55:16 +0000 2014','1398261316','1398260479')-- from stream 1 
+
+23-Apr-2014 13:55:20	insert into rawstream values('-1','RT @nbsport: Uitslag Waalse Pijl: 1 Valverde 2 D.Martin 3 Kwiatowski 4 Mollema 5 Slagter  6 J.Vanendert 7 Albasini 8 Kreuziger 9 Moreno 10 Gibert #wpijl','','','1035716768','miaen88','610677589','nbsport','458967360679194624','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for  Android</a>','http://pbs.twimg.com/profile_images/420552236507607040/TRW6CwM0_normal.jpeg','','','','Wed Apr 23 13:55:20 +0000 2014','1398261320','1398260638')-- from stream 1 
+
+23-Apr-2014 13:55:22	insert into rawstream values('-1','Yes but how many cheaters among the 3.5 billion poorest! ;-) “Gap betw the rich and poor widening in EU http://t.co/AFuUiBpZsC” @ZapSala','','','109335745','JacquesHinckxt','','','458967366727372800','fr','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/662824755/iywtm_normal.JPG','','','','Wed Apr 23 13:55:22 +0000 2014','1398261322','0')-- from stream 1 
+
+23-Apr-2014 13:55:28	insert into rawstream values('-1','RT @IceWatchEyewear: Zo kun jij 26 april in stijl vieren! http://t.co/MgyVCz2Zxq','','','839343517','SkyPien','1722466093','IceWatchEyewear','458967394086846465','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:55:28 +0000 2014','1398261328','1398259924')-- from stream 1 
+
+23-Apr-2014 13:55:32	insert into rawstream values('-1','“@lindewin: @freyabos @de_NVA ministersposten . @de_NVA #villapolitica”RT er is een verschil tussen recht op postjes of postjes invullen.','372202760','lindewin','342607723','leojuli2009','','','458967407739273216','en','<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>','http://pbs.twimg.com/profile_images/445570391692808192/jCuZX5Lc_normal.jpeg','','','','Wed Apr 23 13:55:31 +0000 2014','1398261331','0')-- from stream 1 
+
+23-Apr-2014 13:55:32	insert into rawstream values('-1','http://t.co/CmEVevcfPQ @JelleGul','','','1054586604','roel_vdl','','','458967409790296064','nl','web','http://pbs.twimg.com/profile_images/378800000482474736/d4d71faf57fbae4ffa2ffaea1d93ed92_normal.png','','','','Wed Apr 23 13:55:32 +0000 2014','1398261332','0')-- from stream 1 
+
+23-Apr-2014 13:55:49	insert into rawstream values('-1','RT @AndreH6Jr: Eerste exemplaar naar m\'n grote vriend!! Vanaf vrijdag overal verkrijgbaar! Kopen jullie hem allemaal?! http://t.co/2bEEfgUtG5','','','839343517','SkyPien','55212272','AndreH6Jr','458967479986176000','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:55:49 +0000 2014','1398261349','1398259733')-- from stream 1 
+
+23-Apr-2014 13:55:56	insert into rawstream values('-1','#turkey #gülhanepark @ Gülhanepark http://t.co/k50nZZT5hy','','','1522793700','Zeger___','','','458967511405690880','en','<a href="http://instagram.com" rel="nofollow">Instagram</a>','http://pbs.twimg.com/profile_images/439738935481077761/RJn0lZuK_normal.jpeg','Point','51.3205545','4.9294374','Wed Apr 23 13:55:56 +0000 2014','1398261356','0')-- from stream 1 
+
+23-Apr-2014 13:55:58	insert into rawstream values('-1','@JacquesHinckxt thanks to the 2% cheaters, we need to drop this model!','109335745','JacquesHinckxt','2232908112','ZapSala','','','458967517575520256','en','web','http://pbs.twimg.com/profile_images/455492897136070656/IBR4fzsi_normal.jpeg','','','','Wed Apr 23 13:55:58 +0000 2014','1398261358','0')-- from stream 1 
+
+23-Apr-2014 13:56:05	insert into rawstream values('-1','RT @VolkelWolken: We gaan 1250 volgers denk ik niet halen voor 25-5, daarom bij 1050 volgers, 2 entreekaartjes aan willekeurige volger van @VolkelWolken','','','839343517','SkyPien','304536545','VolkelWolken','458967549070544896','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:56:05 +0000 2014','1398261365','1398259198')-- from stream 1 
+
+23-Apr-2014 13:56:14	insert into rawstream values('-1','@VolkelWolken leuk','304536545','VolkelWolken','839343517','SkyPien','','','458967586789916672','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:56:14 +0000 2014','1398261374','0')-- from stream 1 
+
+23-Apr-2014 13:56:20	insert into rawstream values('-1','RT @LeopoldBoeken: Maak kans op het boek \'Waar is de kroon?!\' van Dolf Verroen &amp; Thé Tjong-Khing bij het Kinderboekenmuseum! http://t.co/IVcdTvDFhl','','','839343517','SkyPien','394040833','LeopoldBoeken','458967611678937088','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:56:20 +0000 2014','1398261380','1398259103')-- from stream 1 
+
+23-Apr-2014 13:56:38	insert into rawstream values('-1','@GuntherMalin @PieterRombouts @MichOpgenhaffen @StampMedia Op sommige mensen kun je toch rekenen, hé? Tot straks!','462858972','GuntherMalin','5539772','fdgraeve','','','458967686564044800','nl','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/456781678703149058/1uvCmLI9_normal.jpeg','','','','Wed Apr 23 13:56:38 +0000 2014','1398261398','0')-- from stream 1 
+
+23-Apr-2014 13:56:41	insert into rawstream values('-1','@MDevoldere @gretadhondt @terzaketv beiden evenveel spreektijd geven en laten uitspreken?','382138163','MDevoldere','469086297','SahraFeline','','','458967696873639936','en','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/3348582712/434ed67445e44be3a0963354de3a1bd4_normal.jpeg','','','','Wed Apr 23 13:56:40 +0000 2014','1398261400','0')-- from stream 1 
+
+23-Apr-2014 13:56:44	Started updating 16 tweets. 
+
+23-Apr-2014 13:56:49	Total time: 245058 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2250
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 234215 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2250
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 245139 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2250
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 234469 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2250
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 239536 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2250
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 225767 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 2178
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 14011 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 116
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 3150 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 8
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 2181 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 1
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Total time: 4584 ms
+23-Apr-2014 13:56:49	Downloaded tweets: 16
+23-Apr-2014 13:56:49	Failed tweets: 0
+23-Apr-2014 13:56:49	Application ran for 5.0159142017365 seconds.
+
+23-Apr-2014 13:56:49	Updating finished. Sleeping for 294.98408579826 seconds. 
+
+23-Apr-2014 13:57:03	insert into rawstream values('-1','@SkyPien dankje!:)','839343517','SkyPien','1716071623','Sheshopsnl','','','458967789148315648','nl','web','http://pbs.twimg.com/profile_images/378800000390718283/86d9bb1921f6f5c58b87dfe3a95482ff_normal.png','','','','Wed Apr 23 13:57:02 +0000 2014','1398261422','0')-- from stream 1 
+
+23-Apr-2014 13:57:05	insert into rawstream values('-1','@Beursparels @AsterBerghe en dan heb je nog een grote groep die verplicht zijn om te stemmen op die bende politiekers poenpakkers','250663402','Beursparels','421018772','FlorDeridder','','','458967797973131265','nl','web','http://pbs.twimg.com/profile_images/378800000526093982/677d9a34d7a9b0f1cca4e3db460f2fb2_normal.png','','','','Wed Apr 23 13:57:04 +0000 2014','1398261424','0')-- from stream 1 
+
+23-Apr-2014 13:57:06	insert into rawstream values('-1','RT @AppleSpotNL: LAATSTE KANS Prijsvraag: Win 1 van de 3 kortingsbonnen t.w.v. €15,- voor 123BestDeal.nl http://t.co/YWNCg8fZa6','','','839343517','SkyPien','175771931','AppleSpotNL','458967803270549504','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:57:06 +0000 2014','1398261426','1398258638')-- from stream 1 
+
+23-Apr-2014 13:57:12	insert into rawstream values('-1','RT @angelverleye: Meisjes die slapen met BH ga ik NOOIT begrijpen echt nooit wtf','','','1931561731','LouiseManson123','2192527904','angelverleye','458967830156046336','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/449993740741255169/a5QT8Ag3_normal.jpeg','','','','Wed Apr 23 13:57:12 +0000 2014','1398261432','1396818484')-- from stream 1 
+
+23-Apr-2014 13:57:18	insert into rawstream values('-1','RT @AdriaanRems: Ik had de eer om voor @de_NVA te debatteren voor scholieren van KRAS Leuven over oa milieuproblematiek #winning http://t.co/nDEtYUDrbm','','','51444989','debrackeleer','230001867','AdriaanRems','458967854143270912','nl','web','http://pbs.twimg.com/profile_images/438051737639714816/ACKr8dZQ_normal.png','','','','Wed Apr 23 13:57:18 +0000 2014','1398261438','1398261390')-- from stream 1 
+
+23-Apr-2014 13:57:19	insert into rawstream values('-1','RT @Krisjelena: mooie laatste tussenkomst v @Verabgh in @vlaparl! we zetten met trots je werk voort! @openvld #samenvooruit #zorg #voorbijdehandicap #vk14','','','208153772','laurestuyck','7759312','Krisjelena','458967855951020032','en','<a href="https://about.twitter.com/products/tweetdeck" rel="nofollow">TweetDeck</a>','http://pbs.twimg.com/profile_images/3441609714/1b7bb270bfdf6d9641c96900aa9d4989_normal.jpeg','','','','Wed Apr 23 13:57:18 +0000 2014','1398261438','1398250631')-- from stream 1 
+
+23-Apr-2014 13:57:31	insert into rawstream values('-1','@Samm1610 @VincentDejongh echt hoh daar hebbe ze lekkere wafels','515769779','Samm1610','1350029983','LrRossa','','','458967907675164672','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451359335923580928/vn6v-m0T_normal.jpeg','','','','Wed Apr 23 13:57:31 +0000 2014','1398261451','0')-- from stream 1 
+
+23-Apr-2014 13:57:32	insert into rawstream values('-1','RT @HetAirportHotel: Weleens gehoord van #wijn in #eetbare #vorm? Het bestaat echt! http://t.co/czSfaigg6c','','','839343517','SkyPien','254045454','HetAirportHotel','458967911504547840','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:57:31 +0000 2014','1398261451','1398258307')-- from stream 1 
+
+23-Apr-2014 13:57:33	insert into rawstream values('-1','\'Waarom houdt Opstelten zijn mond niet inzake Demmink?\'\nhttp://t.co/bOaMzi1FNS\nSchade aan #rechtsstaat is onvoorstelbaar - Voor decennia!!','','','733249254','JackCobus1','','','458967915987890176','nl','<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>','http://pbs.twimg.com/profile_images/2652077136/64a5ccc47b2773150d2389683dd9d5cb_normal.jpeg','','','','Wed Apr 23 13:57:33 +0000 2014','1398261453','0')-- from stream 1 
+
+23-Apr-2014 13:57:38	insert into rawstream values('-1','RT @Nijmegenaar1992: Opa en zijn kameraden vlak voor de Duitse invasie van mei 1940. http://t.co/w8xvIBADIn','','','1035716768','miaen88','2403082363','Nijmegenaar1992','458967939660525568','nl','<a href="https://twitter.com/download/android" rel="nofollow">Twitter for  Android</a>','http://pbs.twimg.com/profile_images/420552236507607040/TRW6CwM0_normal.jpeg','','','','Wed Apr 23 13:57:38 +0000 2014','1398261458','1398259495')-- from stream 1 
+
+23-Apr-2014 13:57:45	insert into rawstream values('-1','@AKohl dat niveau is bijna even laag als bij die politieker die hem onlangs pedofiel noemde.#soortzoektsoort','712168447','AKohl','817539337','JanKuse','','','458967966173118464','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/2877774394/3ae91b29d3e0e9d9597e3688ae74288e_normal.jpeg','','','','Wed Apr 23 13:57:45 +0000 2014','1398261465','0')-- from stream 1 
+
+23-Apr-2014 13:57:45	insert into rawstream values('-1','@eerlijkesos in Vlaanderen: Boël, Vandamme, De Nul, Spoelberch, Vlerick, De Clerck, al zijn het internationaal dwergen. @JoVanLimbergen.','1890462613','eerlijkesos','1148701050','IlRedeimondani','','','458967967678877696','nl','web','http://pbs.twimg.com/profile_images/444097645972168704/kBDdZbU7_normal.jpeg','','','','Wed Apr 23 13:57:45 +0000 2014','1398261465','0')-- from stream 1 
+
+23-Apr-2014 13:57:56	insert into rawstream values('-1','@Babette_Verstr 📲','501619032','Babette_Verstr','2214448131','celestesoenen','','','458968013031895040','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/452853943719456768/yjMY2kea_normal.jpeg','','','','Wed Apr 23 13:57:56 +0000 2014','1398261476','0')-- from stream 1 
+
+23-Apr-2014 13:58:03	insert into rawstream values('-1','@LrRossa @VincentDejongh kom af zou ik zeggen','1350029983','LrRossa','515769779','Samm1610','','','458968043138605057','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451488654939410432/XFbnFFan_normal.jpeg','','','','Wed Apr 23 13:58:03 +0000 2014','1398261483','0')-- from stream 1 
+
+23-Apr-2014 13:58:04	insert into rawstream values('-1','Back at the office. Next: #curatr and #LearningLocker! #xAPI (@ Winston Wolfe - Innovative HR Solutions) http://t.co/JXzbBpJweZ','','','1388922331','MathVermeulen','','','458968047794257920','nl','<a href="http://foursquare.com" rel="nofollow">foursquare</a>','http://pbs.twimg.com/profile_images/3590126572/28d8de279fe9a2a244ad27061a249a4c_normal.jpeg','','','','Wed Apr 23 13:58:04 +0000 2014','1398261484','0')-- from stream 1 
+
+23-Apr-2014 13:58:05	insert into rawstream values('-1','RT @schwalbekoenig: De Muur van Hoei is zó steil dat je er pardoes vergeet hoe je foutloos moet spellen. http://t.co/ukc091NEiE','','','616047393','FrankVanLaeken','14879446','schwalbekoenig','458968051476881408','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/378800000847453317/9072de73b9a1f26d68f337202b987114_normal.jpeg','','','','Wed Apr 23 13:58:05 +0000 2014','1398261485','1398259236')-- from stream 1 
+
+23-Apr-2014 13:58:08	insert into rawstream values('-1','@lindewin @freyabos Dus u bent al 100% zeker dat @de_NVA de grootste partij zal worden? #vk14','372202760','lindewin','57806458','O_Verstraeten','','','458968062214299648','nl','web','http://pbs.twimg.com/profile_images/449561542732681216/ggh7x516_normal.jpeg','','','','Wed Apr 23 13:58:07 +0000 2014','1398261487','0')-- from stream 1 
+
+23-Apr-2014 13:58:08	insert into rawstream values('-1','@MrGeens @TomDeeCee Ik zit al op de trein schattekes','196496064','MrGeens','1577322732','TinnekeClaes','','','458968063782952961','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/449908212024999936/ZrdwIZNq_normal.jpeg','Point','51.1835097','4.4711862','Wed Apr 23 13:58:08 +0000 2014','1398261488','0')-- from stream 1 
+
+23-Apr-2014 13:58:09	insert into rawstream values('-1','How cool is that !','','','206826703','Vdsteenesteven','','','458968070087016448','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/434355521521717249/ivMrcY0v_normal.jpeg','','','','Wed Apr 23 13:58:09 +0000 2014','1398261489','0')-- from stream 1 
+
+23-Apr-2014 13:58:10	insert into rawstream values('-1','“@katocavens1: Kmoet zo vaak naar het toilet ik heb echt een plasprobleem ofzo” jup @LaureHendrick','272352520','katocavens1','1350029983','LrRossa','','','458968071881781250','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451359335923580928/vn6v-m0T_normal.jpeg','','','','Wed Apr 23 13:58:10 +0000 2014','1398261490','0')-- from stream 1 
+
+23-Apr-2014 13:58:23	insert into rawstream values('-1','Heel #trendycool enzo, maar graag ook zo\'n ding voor Eurosuper 95 #zoumisschienwélgebruiktworden http://t.co/s8UoU5tEcb','','','10156612','LeoKnock','','','458968124617162752','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/378800000250064860/eb817402ec53651a2d397625a0fd765c_normal.png','','','','Wed Apr 23 13:58:22 +0000 2014','1398261502','0')-- from stream 1 
+
+23-Apr-2014 13:58:27	insert into rawstream values('-1','RT @AKohl: @lindewin @freyabos @de_NVA Hierzie, een ingevuld postje. Met belastingsgeld. http://t.co/NFOYDU8VJ3','','','57806458','O_Verstraeten','712168447','AKohl','458968145089527809','nl','web','http://pbs.twimg.com/profile_images/449561542732681216/ggh7x516_normal.jpeg','','','','Wed Apr 23 13:58:27 +0000 2014','1398261507','1398261445')-- from stream 1 
+
+23-Apr-2014 13:58:35	insert into rawstream values('-1','@Samm1610 @VincentDejongh altijd voor u, komt gij in de raaf een ijsje ete','515769779','Samm1610','1350029983','LrRossa','','','458968178102915072','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451359335923580928/vn6v-m0T_normal.jpeg','','','','Wed Apr 23 13:58:35 +0000 2014','1398261515','0')-- from stream 1 
+
+23-Apr-2014 13:58:42	insert into rawstream values('-1','@Pieter__D  proficiat!','96958977','Pieter__D','2214448131','celestesoenen','','','458968205575618560','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/452853943719456768/yjMY2kea_normal.jpeg','','','','Wed Apr 23 13:58:42 +0000 2014','1398261522','0')-- from stream 1 
+
+23-Apr-2014 13:58:53	insert into rawstream values('-1','@cdenv @MP_Peeters En nogmaals de Vlamingen verloochenen met de P.S. of MR !!! Dank je.','15753618','cdenv','2257565010','desmedtgerard','','','458968250932797440','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png','','','','Wed Apr 23 13:58:52 +0000 2014','1398261532','0')-- from stream 1 
+
+23-Apr-2014 13:58:55	insert into rawstream values('-1','@LrRossa @VincentDejongh zeg wanneer en ik kom wel haha 😉','1350029983','LrRossa','515769779','Samm1610','','','458968260118343681','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/451488654939410432/XFbnFFan_normal.jpeg','','','','Wed Apr 23 13:58:55 +0000 2014','1398261535','0')-- from stream 1 
+
+23-Apr-2014 13:58:56	insert into rawstream values('-1','RT @vanmartinstof: #WINACTIE Wil jij deze  #relaxfauteuil winnen? http://t.co/1D2yK7bScp Retweet en VOLG','','','839343517','SkyPien','1954225674','vanmartinstof','458968265260544000','nl','<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>','http://pbs.twimg.com/profile_images/454140422701744128/AW112fI0_normal.jpeg','','','','Wed Apr 23 13:58:56 +0000 2014','1398261536','1398261372')-- from stream 1 
+
+23-Apr-2014 13:59:00	insert into rawstream values('-1','@SkyPien @bol_com_kids dank je :-) erg blij mee','839343517','SkyPien','126036367','koraAgema1974','','','458968283577069568','nl','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/378800000333495717/8f6bf74800434a60cf319a7c5f2a18c0_normal.jpeg','','','','Wed Apr 23 13:59:00 +0000 2014','1398261540','0')-- from stream 1 
+
+23-Apr-2014 13:59:01	insert into rawstream values('-1','@BlondieML we kunnen vrienden worden en de wereld gaan zien?','281485461','BlondieML','1949102300','Kosdemoerasvos','','','458968286596960256','nl','<a href="http://ubersocial.com" rel="nofollow">UberSocial for Android</a>','http://pbs.twimg.com/profile_images/378800000571026307/7bf908d93c48c45b0c01e66de5e37b64_normal.jpeg','','','','Wed Apr 23 13:59:01 +0000 2014','1398261541','0')-- from stream 1 
+
+23-Apr-2014 13:59:02	insert into rawstream values('-1','RT @AdriaanRems: Ik had de eer om voor @de_NVA te debatteren voor scholieren van KRAS Leuven over oa milieuproblematiek #winning http://t.co/nDEtYUDrbm','','','1081857536','luchillen','230001867','AdriaanRems','458968291701440512','en','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/3214848792/ed2ff3bf7a5c1109baade190824b1ff9_normal.jpeg','','','','Wed Apr 23 13:59:02 +0000 2014','1398261542','1398261390')-- from stream 1 
+
+23-Apr-2014 13:59:05	insert into rawstream values('-1','@stonymalone Opgegroeid in de 80\'s en 90\'s zie ik: join the (best grote) club','2159056992','stonymalone','492545948','YvonMocking','','','458968303705550848','nl','<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>','http://pbs.twimg.com/profile_images/443833012481175552/upO42gYp_normal.jpeg','','','','Wed Apr 23 13:59:05 +0000 2014','1398261545','0')-- from stream 1 
+
+23-Apr-2014 13:59:05	insert into rawstream values('-1','RT @JackCobus1: @chjanssens Duidelijk dat Ruppo niet van #gecastreerden houdt...','','','606619193','lutgroenez','733249254','JackCobus1','458968304687013888','nl','web','http://pbs.twimg.com/profile_images/3698766312/dc1c81ac60ce596aab61d40d4f4567b6_normal.jpeg','','','','Wed Apr 23 13:59:05 +0000 2014','1398261545','1398261084')-- from stream 1 
+
+23-Apr-2014 13:59:07	insert into rawstream values('-1','RT @AKohl: @lindewin @freyabos @de_NVA Hierzie, een ingevuld postje. Met belastingsgeld. http://t.co/NFOYDU8VJ3','','','1081857536','luchillen','712168447','AKohl','458968310835855360','en','<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>','http://pbs.twimg.com/profile_images/3214848792/ed2ff3bf7a5c1109baade190824b1ff9_normal.jpeg','','','','Wed Apr 23 13:59:07 +0000 2014','1398261547','1398261445')-- from stream 1 
+

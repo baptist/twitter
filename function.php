@@ -115,7 +115,7 @@ class YourTwapperKeeper {
         global $db;
 
         // TODO this is not the most efficient way to fetch latest entry?
-        $r = mysql_query("select * from statistics ORDER BY id DESC LIMIT 1");
+        $r = mysql_query("select * from statistics ORDER BY id DESC LIMIT 1", $db->connection);
         $s = mysql_fetch_assoc($r);
 
         $stats = array();
@@ -126,8 +126,28 @@ class YourTwapperKeeper {
             $stats[] = "<span style='font-weight:bold'>Track load: " . $s["track_load"] . " % -- " . "Follow load: " . $s["follow_load"] . " % </span>";
             $stats[] = "Tracking <span style='font-weight:bold'>" . $s["num_hashtags"] . " hashtags, " . $s["num_follows"] . " users, and " . $s["num_conversations"] . " conversations.</span>";
         }
-        return $stats;
+        return $s;
     }
+    
+    function getHistoryStats($num = 12)
+    {
+        global $db;
+
+        // TODO this is not the most efficient way to fetch latest entry?
+        $r = mysql_query("select * from statistics ORDER BY id DESC LIMIT $num", $db->connection);
+
+        $labels = array();
+        $values = array();
+        if (mysql_num_rows($r) == $num)
+        {
+            while($record = mysql_fetch_assoc($r))
+            {
+                $labels[] = date("'ga'", $record["created_at"]);
+                $values[] = $record["avg_tweets"];                
+            }
+        }
+        return [$labels, $values];
+    }  
 
 // create archive
 // archive types stand for the different archiving possibilities

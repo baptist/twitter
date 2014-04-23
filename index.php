@@ -25,16 +25,21 @@ require_once('function.php');
 require_once('twitteroauth.php');
 
 // OAuth login check
-if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret']))
+{
     $login_status = "<a href='./oauthlogin.php' ><img src='./resources/lighter.png'/></a>";
     $logged_in = FALSE;
-} else {
+} else
+{
     $access_token = $_SESSION['access_token'];
     $connection = new TwitterOAuth($tk_oauth_consumer_key, $tk_oauth_consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
     $login_info = $connection->get('account/verify_credentials');
     $login_status = "Hi " . $_SESSION['access_token']['screen_name'] . ", are you ready to archive?<br><a href='./clearsessions.php'>logout</a>";
     $logged_in = TRUE;
 }
+
+$historyFetchStats = $tk->getHistoryStats(12);
+$stats = $tk->getStats();
 ?>
 
 <?php include("templates/header.php"); ?>
@@ -45,6 +50,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $(document).ready(function() {
 
     });
+
 </script>
 
 <section id="overview-content">
@@ -52,7 +58,10 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
     <!-- NOTIFICATION AREA -->
 
-    <?php if ($logged_in) { ?>
+    <?php
+    if ($logged_in)
+    {
+        ?>
         <div class="container-bg left">
             <div class="container-header">
                 <div style="padding:3px 10px;">
@@ -61,41 +70,95 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 </div>
             </div>
 
-            <div>
-                <div style="padding:15px 25px">
+            <div style="position:relative;">
+                <div style="float:left;  padding:15px 25px">
                     <ul class="status-list">
                         <?php
-                        if (in_array($_SESSION['access_token']['screen_name'], $admin_screen_name)) {
+                        if (in_array($_SESSION['access_token']['screen_name'], $admin_screen_name))
+                        {
                             $archiving_status = $tk->statusLiveArchiving();
-                            if ($archiving_status[0] == FALSE) {
+                            if ($archiving_status[0] == FALSE)
+                            {
                                 echo "<li class='" . (($archiving_status[2] == 1) ? "danger" : "caution") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></li>";
-                            } else {
+                            } else
+                            {
                                 echo "<li class='correct'>$archiving_status[1] <a href='stoparchiving.php'>Stop</a></li>";
                                 echo "<li class=''></li>";
-                                // display some statistics.
-                                $stats = $tk->getStats();
-                                foreach ($stats as $stat)
-                                {
-                                    echo "<li class='infor'>$stat</li>";
-                                }
+                                echo "<li class='infor'>" . "Fetched <span style='font-weight:bold'>" . $stats["num_tweets"] . " tweets </span> in total." . "</li>";
+                                echo "<li class='infor'>" . "Fetching <span style='font-weight:bold'>" . $stats["avg_tweets"] . " tweets per minute.</span>" . "</li>";
+                                echo "<li class='infor'>" . "<span style='font-weight:bold'>Track load: " . $stats["track_load"] . " % -- " . "Follow load: " . $stats["follow_load"] . " % </span>" . "</li>";
+                                echo "<li class='infor'>" . "Tracking <span style='font-weight:bold'>" . $stats["num_hashtags"] . " hashtags, " . $stats["num_follows"] . " users, and " . $stats["num_conversations"] . " conversations.</span>" . "</li>";
                             }
                         }
-                        /*if (isset($_SESSION['notice'])) {
-                            echo "<li class='infor'>" . $_SESSION['notice'] . "</li>";
-                        }*/
-                        
+                        /* if (isset($_SESSION['notice'])) {
+                          echo "<li class='infor'>" . $_SESSION['notice'] . "</li>";
+                          } */
                         ?>
                     </ul>
                 </div>
+             
+                <div style="float:left; margin-left:250px; margin-top:30px">
+                    <span style='font-weight:bold; padding-left:20px'>Tweet Fetch Count</span>
+                    <br/>
+                    <canvas id="canvas_line" height="150" width="500"></canvas>
+                </div>
+
             </div>
         </div>
     <?php } ?>
+    <script>
+        var data = {
+            labels: [<?php echo implode(",", $historyFetchStats[0]); ?>],
+            datasets: [
+                {
+                    fillColor: "rgba(255,255,255,0.3)",
+                    strokeColor: "rgba(0,0,0,.7)",
+                    pointColor: "rgba(0,0,0,.7)",
+                    pointStrokeColor: "#000",
+                    data: [<?php echo implode(",", $historyFetchStats[1]); ?>]
+                }
+            ]
+
+        }
+
+        var options = {
+            //String - Colour of the scale line	
+            scaleLineColor: "rgba(0,0,0,.1)",
+            //Boolean - Whether to show labels on the scale	
+            scaleShowLabels: false,
+            ///Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: "rgba(1,1,1,.05)",
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show a dot for each point
+            pointDot: true,
+            //Number - Radius of each point dot in pixels
+            pointDotRadius: 3,
+            //Number - Pixel width of point dot stroke
+            pointDotStrokeWidth: 1,
+            //Boolean - Whether to show a stroke for datasets
+            datasetStroke: true,
+            //Number - Pixel width of dataset stroke
+            datasetStrokeWidth: 2,
+            //Boolean - Whether to fill the dataset with a colour
+            datasetFill: true
+        }
+
+        new Chart(document.getElementById("canvas_line").getContext("2d")).Line(data, options);
+
+
+    </script>
 
     <!-- ARCHIVE CREATION AREA -->
     <br/><br/>
     <div class='main'>
 
-        <?php if ($logged_in) { ?>
+<?php
+if ($logged_in)
+{
+    ?>
 
             <div class="main-block">
 
@@ -146,7 +209,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                     <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>  
                                     <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                     <td></td>
-                                    
+
                                 </tr>
 
                                 <tr>
@@ -155,7 +218,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                     <td style="width:250px"><input name='tags'/></td>
                                     <td style="width:250px"><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all" /></td> 
                                 </tr>
-                               
+
                             </table>
                             <br/>
 
@@ -176,13 +239,16 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             echo "<table>";
             echo "<tr><th>Archive ID</th><th>Keyword / Hashtag</th><th>Description</th><th>Tags</th><th>Screen Name</th><th>Count</th><th>Create Time</th><th></th></tr>";
 
-            if (array_key_exists("results", $archives)) {
+            if (array_key_exists("results", $archives))
+            {
 
-                foreach ($archives['results'] as $value) {
+                foreach ($archives['results'] as $value)
+                {
                     echo "<tr><td>" . $value['id'] . "</td><td>" . $value['keyword'] . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td>" . $value['count'] . "</td><td>" . date(DATE_RFC2822, $value['create_time']) . "</td>";
                     echo "<td>";
                     echo "<a href='archive.php?id=" . $value['id'] . "' target='_blank' alt='View'><img src='./resources/binoculars_24.png' alt='View Archive' title='View Archive'/></a>";
-                    if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name']) {
+                    if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name'])
+                    {
                         ?>
                         <script type="text/javascript">
                             $(function() {
