@@ -109,9 +109,11 @@ class YourTwapperKeeper {
         {
             $q .= " and screen_name like '%$screen_name%'";
         }
+        
+        if (!$id && !$keyword && !$description && !$tags && !$screen_name && !$debug)
+            $limit = "limit 50";
 
-
-        $r = mysql_query($q . " order by count desc  limit 50", $db->connection);
+        $r = mysql_query($q . " order by count desc $limit", $db->connection);
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
         {
