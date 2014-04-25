@@ -62,6 +62,21 @@ class YourTwapperKeeper {
 
         return FALSE;
     }
+    
+    function getUniformTags($num = 3)
+    {
+        global $db;
+        
+        $tags = array();
+        
+        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc limit $num";
+        $result = mysql_query($q, $db->connection);
+        
+        while ($row = mysql_fetch_assoc($result))
+            $tags[] = $row["tags"];
+        
+        return $tags;
+    }
 
     // list archives
     function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false)
@@ -87,17 +102,16 @@ class YourTwapperKeeper {
 
         if ($tags)
         {
-            $q .= " and tags like '%$tags%";
+            $q .= " and tags like '%$tags%'";
         }
 
         if ($screen_name)
         {
-            $q .= " and screen_name like '%$screen_name%";
+            $q .= " and screen_name like '%$screen_name%'";
         }
 
 
         $r = mysql_query($q . " order by count desc  limit 50", $db->connection);
-
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
         {
@@ -109,6 +123,8 @@ class YourTwapperKeeper {
 
         return $response;
     }
+    
+ 
 
     function getStats()
     {
