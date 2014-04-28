@@ -68,7 +68,7 @@ while (TRUE)
     
     if ($num_tweets_last_10minutes == 0)
     {
-        mail($admin_mail_address, "No tweets fetched last 10 minutes!", "Check TwapperKeeper!!!");
+        //mail($admin_mail_address, "No tweets fetched last 10 minutes!", "Check TwapperKeeper!!!");
     }
     
     
