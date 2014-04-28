@@ -32,68 +32,65 @@ while (TRUE)
         $num_inserted = 0;
         // Loop for 15 pages
         $max_id = NULL;
-            
+
         $type = ($row_archives['type'] == 1 ) ? "" : ($row_archives['type'] == 2) ? "#" : "@";
-        
-        if ($row_archives["type"] != 4)
+
+        for ($page_counter = 1; $page_counter <= 15; $page_counter = $page_counter + 1)
         {
-            
-            for ($page_counter = 1; $page_counter <= 15; $page_counter = $page_counter + 1)
+
+            // sleep for rate limiting
+            sleep($sleep);
+
+            //echo "****TIME AROUND = " . $page_counter . "****\n";                
+
+            if ($max_id == NULL)
             {
+                $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'result_type' => 'recent'));
+                //echo "NO - no max_id is not set\n";
+            } else
+            {
+                $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'max_id' => $max_id, 'result_type' => 'recent'));
+                //echo "YES - max_id is set\n";
+            }
 
-                // sleep for rate limiting
-                sleep($sleep);
 
-                //echo "****TIME AROUND = " . $page_counter . "****\n";                
+            $searchresult = get_object_vars($search);
+            $count = count($searchresult['statuses']);
 
-                if ($max_id == NULL)
+            // parse results
+            foreach ($searchresult['statuses'] as $key => $value)
+            {
+                $tweet = $tk->extractTweetData($value);
+
+                // duplicate record check and insert into proper cache table if not a duplicate
+                $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
+                $result_check = mysql_query($q_check, $db->connection);
+
+                if (mysql_numrows($result_check) == 0)
                 {
-                    $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'result_type' => 'recent'));
-                    //echo "NO - no max_id is not set\n";
-                } else
-                {
-                    $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'max_id' => $max_id, 'result_type' => 'recent'));
-                    //echo "YES - max_id is set\n";
+                    $num_inserted++;
+                    insertTweet($row_archives['id'], $row_archives['keyword'], $tweet, $row_archives['type']);
                 }
+                $max_id = $tweet["id"]; // resetting to lowest tweet id
+            }
 
-
-                $searchresult = get_object_vars($search);
-                $count = count($searchresult['statuses']);
-
-                // parse results
-                foreach ($searchresult['statuses'] as $key => $value)
-                {
-                    $tweet = $tk->extractTweetData($value);
-
-                    // duplicate record check and insert into proper cache table if not a duplicate
-                    $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
-                    $result_check = mysql_query($q_check, $db->connection);
-
-                    if (mysql_numrows($result_check) == 0)
-                    {
-                        $num_inserted++;
-                        insertTweet($row_archives['id'], $row_archives['keyword'], $tweet, $row_archives['type']);
-                    }
-                    $max_id = $tweet["id"]; // resetting to lowest tweet id
-                }
-
-                // If count for page is less than 100, break since there is no reason to keep going
-                if ($count < 100)
-                {
-                    break;
-                }
+            // If count for page is less than 100, break since there is no reason to keep going
+            if ($count < 100)
+            {
+                break;
             }
         }
+    
         // If type is user tracking fetch user tweets through timeline
         if ($row_archives['type'] == 3 or $row_archives['type'] == 4)
         {
             $searchresult = $connection->get('statuses/user_timeline', array('screen_name' => $row_archives['keyword']));
-            
+
             // parse results
             foreach ($searchresult as $key => $value)
             {
                 $tweet = $tk->extractTweetData($value);
-                
+
                 //var_dump($tweet);
                 // duplicate record check and insert into proper cache table if not a duplicate
                 $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
@@ -121,6 +118,7 @@ while (TRUE)
     }
 }
 
+    
 function insertTweet($id, $keyword, $tweet, $type)
 {
     global $db;
