@@ -21,7 +21,7 @@ while (TRUE)
     if (count($result[3]) > 0)
     {
         // notify admin and try to restart processes
-        mail($admin_mail_address, "Process(es) FAILED!", "Check TwapperKeeper!!!");
+        //mail($admin_mail_address, "Process(es) FAILED!", "Check TwapperKeeper!!!");
         /*$tk->log("Process(es) failed. Starting recovery modus!");
               
         foreach ($result[3] as $process)

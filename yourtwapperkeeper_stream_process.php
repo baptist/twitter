@@ -145,7 +145,7 @@ function insert($table_id, $tweet, $reason = "") {
     
     // TODO log mysql errors
     
-    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tweet['text'] . "','" . ((string)$tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string)$tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string)$tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string)$tweet['id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
+    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tk->sanitize($tweet['text']) . "','" . ((string)$tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string)$tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string)$tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string)$tweet['id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
     $r_insert = mysql_query($q_insert, $db->connection);
     
     if ($tweet['original_time'] > 0)
@@ -153,14 +153,11 @@ function insert($table_id, $tweet, $reason = "") {
     else
         $time = $tweet['time'];
     
-    $current_time = time();
     
-    if ((time() - $time) < $update_after)
-    {
-        // Update is only required when tweet is not older than threshold
-        $q2 = "insert into new_tweets values('".((string)$tweet['id'])."', $table_id, '". $time ."', UNIX_TIMESTAMP(), -1)";    
-        $result = mysql_query($q2, $db->connection);        
-    } 
+    // Update is only required when tweet is not older than threshold
+    $q2 = "insert into new_tweets values('".((string)$tweet['id'])."', $table_id, '". $time ."', UNIX_TIMESTAMP(), -1)";    
+    $result = mysql_query($q2, $db->connection);        
+    
     
     return TRUE;
 }

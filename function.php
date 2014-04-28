@@ -62,19 +62,19 @@ class YourTwapperKeeper {
 
         return FALSE;
     }
-    
+
     function getUniformTags($num = 3)
     {
         global $db;
-        
+
         $tags = array();
-        
+
         $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc limit $num";
         $result = mysql_query($q, $db->connection);
-        
+
         while ($row = mysql_fetch_assoc($result))
             $tags[] = $row["tags"];
-        
+
         return $tags;
     }
 
@@ -109,9 +109,11 @@ class YourTwapperKeeper {
         {
             $q .= " and screen_name like '%$screen_name%'";
         }
-        
+
         if (!$id && !$keyword && !$description && !$tags && !$screen_name && !$debug)
             $limit = "limit 50";
+        else
+            $limit = "";
 
         $r = mysql_query($q . " order by count desc $limit", $db->connection);
         $count = 0;
@@ -125,8 +127,6 @@ class YourTwapperKeeper {
 
         return $response;
     }
-    
- 
 
     function getStats()
     {
@@ -146,7 +146,7 @@ class YourTwapperKeeper {
         }
         return $s;
     }
-    
+
     function getHistoryStats($num = 12)
     {
         global $db;
@@ -159,22 +159,22 @@ class YourTwapperKeeper {
         if (mysql_num_rows($r) == $num)
         {
             $index = $num - 1;
-            for($i = 0; $i < $num; $i++)
+            for ($i = 0; $i < $num; $i++)
             {
                 $labels[$i] = 0;
                 $values[$i] = 0;
             }
-            
-            while($record = mysql_fetch_assoc($r))
+
+            while ($record = mysql_fetch_assoc($r))
             {
                 $labels[$index] = date("'ga'", $record["created_at"]);
-                $values[$index] = $record["avg_tweets"];  
-                
+                $values[$index] = $record["avg_tweets"];
+
                 $index--;
             }
         }
         return [$labels, $values];
-    }  
+    }
 
 // create archive
 // archive types stand for the different archiving possibilities
@@ -410,6 +410,63 @@ class YourTwapperKeeper {
         return $response;
     }
 
+    function extractTweetData($jsonobject)
+    {
+        global $tk;
+        
+        $value = get_object_vars($jsonobject);
+        if (array_key_exists('retweeted_status', $value))
+        {
+            $orig = get_object_vars($value['retweeted_status']);
+            $orig_user = get_object_vars($orig["user"]);
+            $orig_time = strtotime($orig["created_at"]);
+
+            $text = "RT @" . $orig_user['screen_name'] . ": " . $tk->sanitize($orig['text']);
+            $orig_id = $orig["id"];
+        } else
+        {
+            $orig_user["id"] = "";
+            $orig_user["screen_name"] = "";
+            $orig_time = strtotime($value['created_at']);
+            $orig_id = 0;
+            $text = $tk->sanitize($value['text']);
+        }
+
+        // extract data
+        //extract($value,EXTR_PREFIX_ALL,'temp');
+
+        $tweet = array();
+
+        $tweet["text"] = $text;
+        $tweet["to_user"] = $value['in_reply_to_screen_name'];
+        $tweet["to_user_id"] = (string) $value['in_reply_to_user_id'];
+        $tweet["from_user"] = $value['user']->screen_name;
+        $tweet["from_user_id"] = (string) $value['user']->id;
+        $tweet["id"] = $value['id_str'];
+        $tweet["original_user"] = $orig_user['id'];
+        $tweet["original_user_id"] = $orig_user['screen_name'];
+        $tweet["iso_language_code"] = $value['user']->lang;
+        $tweet["source"] = $value['source'];
+        $tweet["profile_image_url"] = $value['user']->profile_image_url;
+        $tweet["created_at"] = $value['created_at'];
+
+        // extract geo information               
+        if ($value['geo'] != NULL)
+        {
+            $geo = get_object_vars($value['geo']);
+            $tweet['geo_type'] = $geo['type'];
+            $tweet['geo_coordinates_0'] = $geo['coordinates'][0];
+            $tweet['geo_coordinates_1'] = $geo['coordinates'][1];
+        } else
+        {
+            $tweet['geo_type'] = NULL;
+            $tweet['geo_coordinates_0'] = 0;
+            $tweet['geo_coordinates_1'] = 0;
+        }
+
+        return $tweet;
+    }
+
 // delete archive
     function deleteArchive($id)
     {
@@ -511,7 +568,7 @@ class YourTwapperKeeper {
 
     function trackConversation($base_archive, $tweet)
     {
-        global $db;        
+        global $db;
         global $tk_twitter_username;
         global $tk_twitter_user_id;
 

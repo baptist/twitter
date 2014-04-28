@@ -40,7 +40,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
 $historyFetchStats = $tk->getHistoryStats(24);
 $stats = $tk->getStats();
-$tags = $tk->getUniformTags();
+$tags = $tk->getUniformTags(4);
 ?>
 
 <?php include("templates/header.php"); ?>
