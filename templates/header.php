@@ -67,13 +67,13 @@
                                     <li><a href="index.php">Archives</a></li>  
                                 <?php } ?>
 
-                                <!--
-                                <?php if (basename($_SERVER['PHP_SELF']) === "news_index.php")
+                                
+                                <?php if (basename($_SERVER['PHP_SELF']) === "export.php")
                                 { ?>
-                                        <li class=""><a class="current" href="#">News Index</a></li>
+                                        <li class=""><a class="current" href="#">Export</a></li>
                                 <?php } else
                                 { ?>
-                                        <li><a href="index.php">News Index</a></li>  
+                                        <li><a href="index.php">Export</a></li>  
     <?php } ?>
 
     <?php if (basename($_SERVER['PHP_SELF']) === "settings.php")
@@ -83,7 +83,7 @@
                         { ?>
                                         <li><a href="index.php">Settings</a></li>  
     <?php } ?>
-                                -->  
+                                  
 
                             </ul>
                         </div>
