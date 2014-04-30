@@ -206,22 +206,36 @@ class YourTwapperKeeper {
         // Remove keyword's first character if it equals '@' or '#'.
         $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
 
-        $q = "select * from archives where keyword = '$keyword'";
+        $q = "select * from archives where keyword = '$keyword' and (type='$type' or (type IN (4,5) and $type=3))";
+       
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
-        {
+        {            
             $response[0] = "Archive for '" . $keyword . "' already exists.";
-            $oldTags = mysql_fetch_assoc($r)['tags'];
-            
-            if ($tags !== $oldTags)
+            $result = mysql_fetch_assoc($r);
+            $oldTags = $result['tags'];
+                      
+            if (strcasecmp($tags, $oldTags) != 0)
             {
                 if (strlen($oldTags) > 0)
                     $oldTags .= ',';
-
-                // Modify tag so archive can be properly listed
-                $q = "update archives set tags = '".($oldTags . $tags)."'  where keyword = '$keyword'";
-                $r = mysql_query($q, $db->connection);
+                
+                $newTags = ($oldTags . $tags);                
             }
+            else
+                $newTags = $oldTags;
+            
+            // Check if type should be upgraded (from 4 or 5 to 3)
+            if (($result['type'] == 4 || $result['type'] == 5) && $type == 3)
+                $newType = 3;
+            else
+                $newType = $result['type'];
+                        
+            
+            // Modify tag so archive can be properly listed
+            $q = "update archives set tags = '$newTags', type = '$newType' where keyword = '$keyword'";           
+            $r = mysql_query($q, $db->connection);
+            
             return($response);
         }
 
