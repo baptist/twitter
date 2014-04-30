@@ -73,8 +73,20 @@ class YourTwapperKeeper {
         $result = mysql_query($q, $db->connection);
 
         while ($row = mysql_fetch_assoc($result))
-            $tags[] = $row["tags"];
-
+        {
+            if (strpos($row["tags"], ",") >= 0)
+            {
+                $parts = explode(",", $row["tags"]);
+                foreach ($parts as $part)
+                {
+                    if (!in_array(strtolower($part), $tags))
+                        $tags[] = strtolower($part);
+                }
+            }
+            else if (!in_array(strtolower($part), $tags))
+                $tags[] = strtolower($row["tags"]);
+        }
+            
         return $tags;
     }
 
@@ -199,6 +211,17 @@ class YourTwapperKeeper {
         if (mysql_num_rows($r) > 0)
         {
             $response[0] = "Archive for '" . $keyword . "' already exists.";
+            $oldTags = mysql_fetch_assoc($r)['tags'];
+            
+            if ($tags !== $oldTags)
+            {
+                if (strlen($oldTags) > 0)
+                    $oldTags .= ',';
+
+                // Modify tag so archive can be properly listed
+                $q = "update archives set tags = '".($oldTags . $tags)."'  where keyword = '$keyword'";
+                $r = mysql_query($q, $db->connection);
+            }
             return($response);
         }
 
@@ -225,17 +248,17 @@ class YourTwapperKeeper {
         $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0, 0)";
         $r = mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
-
+        //        `in_reply_to_status_id` varchar(100) NOT NULL,
         $create_table = "CREATE TABLE IF NOT EXISTS `z_$lastid` (
         `archivesource` varchar(100) NOT NULL,
         `text` varchar(1000) NOT NULL,
         `to_user_id` varchar(100) NOT NULL,
-        `to_user` varchar(100) NOT NULL,
+        `to_user` varchar(100) NOT NULL,             
         `from_user_id` varchar(100) NOT NULL,
         `from_user` varchar(100) NOT NULL,
         `original_user_id` varchar(100) NOT NULL,
         `original_user` varchar(100) NOT NULL,
-        `id` varchar(100) NOT NULL,        
+        `id` varchar(100) NOT NULL,
         `iso_language_code` varchar(10) NOT NULL,
         `source` varchar(250) NOT NULL,
         `profile_image_url` varchar(250) NOT NULL,
@@ -304,7 +327,7 @@ class YourTwapperKeeper {
     }
 
 // get tweets
-    function getTweets($id, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false)
+    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false)
     {
         global $db;
 
@@ -405,6 +428,25 @@ class YourTwapperKeeper {
         $response = array();
         while ($row = mysql_fetch_assoc($r))
         {
+
+            if ($type == 2)
+            {
+                // get conversation related to this archive and tweet.
+                $subq = "select archive from conversations where to_archive = '$id' and tweet_id = '" . $row['id'] . "'";
+                $subr = mysql_query($subq, $db->connection);
+
+                if (mysql_num_rows($r) == 1)
+                {
+                    $conversation_archive = mysql_fetch_assoc($subr)["archive"];
+                    $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "'";
+                    $subsubr = mysql_query($subsubq, $db->connection);
+
+                    $response['conversation'] = array();
+                    while ($subsubrow = mysql_fetch_assoc($subsubr))
+                        $response['conversation'][] = $subsubrow;
+                }
+            }
+
             $response[] = $row;
         }
         return $response;
@@ -413,7 +455,7 @@ class YourTwapperKeeper {
     function extractTweetData($jsonobject)
     {
         global $tk;
-        
+
         $value = get_object_vars($jsonobject);
         if (array_key_exists('retweeted_status', $value))
         {
@@ -443,6 +485,7 @@ class YourTwapperKeeper {
         $tweet["from_user"] = $value['user']->screen_name;
         $tweet["from_user_id"] = (string) $value['user']->id;
         $tweet["id"] = $value['id_str'];
+        $tweet["in_reply_to_status_id"] = $value['in_reply_to_status_id_str'];
         $tweet["original_user"] = $orig_user['id'];
         $tweet["original_user_id"] = $orig_user['screen_name'];
         $tweet["iso_language_code"] = $value['user']->lang;
