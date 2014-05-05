@@ -86,16 +86,17 @@ class YourTwapperKeeper {
             else if (!in_array(strtolower($part), $tags))
                 $tags[] = strtolower($row["tags"]);
         }
-            
+
         return $tags;
     }
+
     // list archives
     function listArchivesWithCondition($condition)
     {
         global $db;
 
         $q = "select * from archives where $condition";
-       
+
         $r = mysql_query($q, $db->connection);
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
@@ -226,35 +227,35 @@ class YourTwapperKeeper {
         $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
 
         $q = "select * from archives where keyword = '$keyword' and (type='$type' or (type IN (4,5) and $type=3))";
-       
+
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
-        {            
+        {
             $response[0] = "Archive for '" . $keyword . "' already exists.";
             $result = mysql_fetch_assoc($r);
             $oldTags = $result['tags'];
-                      
+
             if (strcasecmp($tags, $oldTags) != 0)
             {
                 if (strlen($oldTags) > 0)
                     $oldTags .= ',';
-                
-                $newTags = ($oldTags . $tags);                
+
+                $newTags = ($oldTags . $tags);
             }
             else
                 $newTags = $oldTags;
-            
+
             // Check if type should be upgraded (from 4 or 5 to 3)
             if (($result['type'] == 4 || $result['type'] == 5) && $type == 3)
                 $newType = 3;
             else
                 $newType = $result['type'];
-                        
-            
+
+
             // Modify tag so archive can be properly listed
-            $q = "update archives set tags = '$newTags', type = '$newType' where keyword = '$keyword'";           
+            $q = "update archives set tags = '$newTags', type = '$newType' where keyword = '$keyword'";
             $r = mysql_query($q, $db->connection);
-            
+
             return($response);
         }
 
@@ -359,22 +360,29 @@ class YourTwapperKeeper {
             return mysql_insert_id();
         }
     }
-    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false )
-    {       
+
+    function cmpTweets($a, $b)
+    {
+        return $a["time"] - $b["time"];
+    }
+
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
+    {
         $response = array();
-        
+
         foreach ($archives as $archive)
         {
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, $limit, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
             $response = array_merge($response, $result);
         }
         
+        usort($response, array($this, "cmpTweets"));
+
         return $response;
     }
-    
 
 // get tweets
-    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false )
+    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         global $db;
 
@@ -395,8 +403,8 @@ class YourTwapperKeeper {
         $lat = $this->sanitize($lat);
         $long = $this->sanitize($long);
         $rad = $this->sanitize($rad);
-        $retweets =  $this->sanitize($retweets);
-        $favorites =  $this->sanitize($favorites);
+        $retweets = $this->sanitize($retweets);
+        $favorites = $this->sanitize($favorites);
 
         $q = "select * from z_" . $id . " where 1";
 
@@ -442,10 +450,10 @@ class YourTwapperKeeper {
         {
             $qparam .= " and id <= $max_id";
         }
-        
+
         if ($retweets || $favorites)
         {
-            $qparam .= " and (" . (($retweets)?"retweets >= " . $retweets : "") . (($retweets && $favorites)? " or " : "") . (($favorites)?"favorites >= " . $favorites : "") . ")";
+            $qparam .= " and (" . (($retweets) ? "retweets >= " . $retweets : "") . (($retweets && $favorites) ? " or " : "") . (($favorites) ? "favorites >= " . $favorites : "") . ")";
         }
 
         if ($lat OR $long OR $rad)
@@ -476,7 +484,7 @@ class YourTwapperKeeper {
         }
 
         $query = $q . $qparam;
-        
+
         $r = mysql_query($query, $db->connection);
 
         $response = array();
@@ -677,7 +685,7 @@ class YourTwapperKeeper {
             {
                 // Get previous conversation(s)
                 $q = "select to_archive from conversations where user_id = '" . $tweet['from_user_id'] . "'";
-                $r = mysql_query($q, $db->connection);                              
+                $r = mysql_query($q, $db->connection);
 
                 $found = FALSE;
                 while ($row = mysql_fetch_assoc($r))
@@ -690,9 +698,9 @@ class YourTwapperKeeper {
                 }
                 if (!$found)
                     $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
-                
+
                 if ($archive["type"] == 5)
-                    mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);       
+                    mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
             }
             else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
                 $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);

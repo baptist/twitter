@@ -25,10 +25,7 @@ require_once('function.php');
 require_once('twitteroauth.php');
 
 $archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
-if ($archiveInfo['count'] <> 1 || (!(isset($_GET['id'])))) {
-    $_SESSION['notice'] = "Archives do not exist.";
-    //header('Location: index.php');
-}
+
 	
 // setup perm urls
 $permurl= $tk_your_url."archive.php?".htmlentities($_SERVER['QUERY_STRING']); 
@@ -70,12 +67,6 @@ $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time
 } else {
 $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'],null,null,             $limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
 }
-
-function cmp($a, $b) {
-    return $a["time"] - $b["time"];
-}
-usort($archiveTweets, "cmp");
-
 
 // OAuth login check
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
