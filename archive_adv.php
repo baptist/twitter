@@ -71,6 +71,11 @@ $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time
 $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'],null,null,             $limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
 }
 
+function cmp($a, $b) {
+    return $a["time"] - $b["time"];
+}
+usort($archiveTweets, "cmp");
+
 
 // OAuth login check
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
@@ -129,7 +134,7 @@ $logged_in = TRUE;
 $month_num = array(1,2,3,4,5,6,7,8,9,10,11,12);
 $month_verbose = array('January','February','March','April','May','June','July','August','September','October','November','December');  
 $day = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
-$year = array('2009','2010','2011','2012','2013');
+$year = array('2011', '2012', '2013', '2014');
 $order_values = array('ascending'=>'a','descending'=>'d');
 $limit_values = array(10,25,50,250,500,1000,10000,100000,1000000,10000000);
 $languageCodes = array(
@@ -324,7 +329,6 @@ $languageCodes = array(
 <div style='border-top:1px solid black; border-bottom:1px solid black; text-align:center; margin-left:auto; margin-right:auto; padding:5px; width:1280px'>
 <center>
 <form method='get' action='archive_adv.php'>
-<input type='hidden' name='id' value='<?php echo $id; ?>'>
 <table>
 <tr>
 <td><b>START DATE</b></td><td></td><td></td><td></td><td><b>END DATE</b></td><td></td><td></td><td><b>ORDER</b></td><td><b>VIEW LIMIT</b></td><td><b>FROM USER</b></td><td><b>TWEET TEXT</b></td><td><b>LANGUAGE</b></td>
