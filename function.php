@@ -273,6 +273,7 @@ class YourTwapperKeeper {
         `original_user_id` varchar(100) NOT NULL,
         `original_user` varchar(100) NOT NULL,
         `id` varchar(100) NOT NULL,
+        `in_reply_to_status_id` varchar(100) NOT NULL,
         `iso_language_code` varchar(10) NOT NULL,
         `source` varchar(250) NOT NULL,
         `profile_image_url` varchar(250) NOT NULL,
@@ -633,11 +634,11 @@ class YourTwapperKeeper {
         if ($archive !== FALSE)
         {
             // Archive is actively following user to track conversation        
-            if ($archive["type"] == 4)
+            if ($archive["type"] == 4 || $archive["type"] == 5)
             {
                 // Get previous conversation(s)
                 $q = "select to_archive from conversations where user_id = '" . $tweet['from_user_id'] . "'";
-                $r = mysql_query($q, $db->connection);
+                $r = mysql_query($q, $db->connection);                              
 
                 $found = FALSE;
                 while ($row = mysql_fetch_assoc($r))
@@ -650,6 +651,9 @@ class YourTwapperKeeper {
                 }
                 if (!$found)
                     $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
+                
+                if ($archive["type"] == 5)
+                    mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);       
             }
             else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
                 $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);

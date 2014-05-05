@@ -178,7 +178,7 @@ function insert($table_id, $tweet, $reason = "") {
     
     // TODO log mysql errors
     $tk->log('Inserting tweet', '', $process_log_file);
-    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tk->sanitize($tweet['text']) . "','" . ((string)$tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string)$tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string)$tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string)$tweet['id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
+    $q_insert = "insert into z_$table_id values ('twitter-stream-$reason','" . $tk->sanitize($tweet['text']) . "','" . ((string)$tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string)$tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string)$tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string)$tweet['id']). "','" . ((string)$tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
     $r_insert = mysql_query($q_insert, $db->connection);
 
     $tk->log("$q_insert", '', $process_log_file);

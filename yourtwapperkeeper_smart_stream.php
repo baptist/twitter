@@ -38,6 +38,8 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $geo = get_object_vars($status['geo']);
             $user = get_object_vars($status['user']);
             
+            $in_reply_to_status_id = (string) (array_key_exists('in_reply_to_status_id_str', $status))? $status['in_reply_to_status_id_str'] : "";
+            
             if (array_key_exists('retweeted_status', $status))
             {
                 $orig = get_object_vars($status['retweeted_status']);
@@ -63,7 +65,8 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $user['screen_name'];                     // from_user 
             $values_array[] = (string) $orig_user['id'];                // original_user_id
             $values_array[] = $orig_user['screen_name'];                // original_user          
-            $values_array[] = (string) $status['id'];                   // id -> unique id of tweet             
+            $values_array[] = (string) $status['id'];                   // id -> unique id of tweet  
+            $values_array[] = $in_reply_to_status_id;                   // in reply to status id
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url

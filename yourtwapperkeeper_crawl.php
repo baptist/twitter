@@ -127,7 +127,7 @@ function insertTweet($id, $keyword, $tweet, $type, $reason = '')
     global $time_to_track_user;
     global $page_counter;
 
-    $q = "insert into z_$id values ('twitter-$reason','" . $tk->sanitize($tweet["text"]) . "','" . $tweet["to_user_id"] . "','" . $tweet["to_user"] . "','" . $tweet["from_user_id"] . "','" . $tweet["from_user"] . "','" . $tweet["original_user_id"] . "','" . $tweet["original_user"] . "','" . $tweet["id"] . "','" . $tweet["iso_language_code"] . "','" . $tweet["source"] . "','" . $tweet["profile_image_url"] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet["created_at"] . "','" . strtotime($tweet["created_at"]) . "', NULL, NULL, NULL)";
+    $q = "insert into z_$id values ('twitter-$reason','" . $tk->sanitize($tweet["text"]) . "','" . $tweet["to_user_id"] . "','" . $tweet["to_user"] . "','" . $tweet["from_user_id"] . "','" . $tweet["from_user"] . "','" . $tweet["original_user_id"] . "','" . $tweet["original_user"] . "','" . $tweet["id"] . "','" . $tweet["in_reply_to_status_id"]  . "','" . $tweet["iso_language_code"] . "','" . $tweet["source"] . "','" . $tweet["profile_image_url"] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet["created_at"] . "','" . strtotime($tweet["created_at"]) . "', NULL, NULL, NULL)";
     mysql_query($q, $db->connection);
     if (mysql_error() != "")
     {
