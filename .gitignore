@@ -8,3 +8,4 @@ config_withpasswords.php
 /tk_log
 /log/crawl_process_log
 /config.php
+/log/process_log

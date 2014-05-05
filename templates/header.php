@@ -73,7 +73,7 @@
                                         <li class=""><a class="current" href="#">Export</a></li>
                                 <?php } else
                                 { ?>
-                                        <li><a href="index.php">Export</a></li>  
+                                        <li><a href="export.php">Export</a></li>  
     <?php } ?>
 
     <?php if (basename($_SERVER['PHP_SELF']) === "settings.php")
@@ -81,7 +81,7 @@
                                         <li class=""><a class="current" href="#">Settings</a></li>
                         <?php } else
                         { ?>
-                                        <li><a href="index.php">Settings</a></li>  
+                                        <li><a href="settings.php">Settings</a></li>  
     <?php } ?>
                                   
 

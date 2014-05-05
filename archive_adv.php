@@ -24,13 +24,11 @@ require_once('config.php');
 require_once('function.php');
 require_once('twitteroauth.php');
 
-
-$id = $_GET['id'];
-$archiveInfo = $tk->listArchive($id);
+$archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
 if ($archiveInfo['count'] <> 1 || (!(isset($_GET['id'])))) {
-	$_SESSION['notice'] = "Archive does not exist.";
-	//header('Location: index.php');
-	}
+    $_SESSION['notice'] = "Archives do not exist.";
+    //header('Location: index.php');
+}
 	
 // setup perm urls
 $permurl= $tk_your_url."archive.php?".htmlentities($_SERVER['QUERY_STRING']); 
@@ -68,9 +66,9 @@ if (isset($_GET['ed']) && isset($_GET['ed']) && isset($_GET['ey']) &&  $_GET['em
     
 // Get tweets
 if ($start_time <> '' || $end_time <> '') {
-$archiveTweets = $tk->getTweets($_GET['id'], $archiveInfo['results'][0]['type'], $start_time,$end_time,$limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug']);
+$archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time,$end_time,$limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
 } else {
-$archiveTweets = $tk->getTweets($_GET['id'], $archiveInfo['results'][0]['type'],null,null,$limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug']);
+$archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'],null,null,             $limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
 }
 
 
@@ -325,7 +323,7 @@ $languageCodes = array(
 ?>
 <div style='border-top:1px solid black; border-bottom:1px solid black; text-align:center; margin-left:auto; margin-right:auto; padding:5px; width:1280px'>
 <center>
-<form method='get' action='archive.php'>
+<form method='get' action='archive_adv.php'>
 <input type='hidden' name='id' value='<?php echo $id; ?>'>
 <table>
 <tr>

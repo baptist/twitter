@@ -89,6 +89,25 @@ class YourTwapperKeeper {
             
         return $tags;
     }
+    // list archives
+    function listArchivesWithCondition($condition)
+    {
+        global $db;
+
+        $q = "select * from archives where $condition";
+       
+        $r = mysql_query($q, $db->connection);
+        $count = 0;
+        while ($row = mysql_fetch_assoc($r))
+        {
+            $count++;
+            $response['results'][] = $row;
+        }
+
+        $response['count'] = $count;
+
+        return $response;
+    }
 
     // list archives
     function listArchive($id = false, $keyword = false, $description = false, $tags = false, $screen_name = false, $debug = false)
@@ -340,9 +359,22 @@ class YourTwapperKeeper {
             return mysql_insert_id();
         }
     }
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false )
+    {       
+        $response = array();
+        
+        foreach ($archives as $archive)
+        {
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, $limit, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $response = array_merge($response, $result);
+        }
+        
+        return $response;
+    }
+    
 
 // get tweets
-    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false)
+    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false )
     {
         global $db;
 
@@ -363,6 +395,8 @@ class YourTwapperKeeper {
         $lat = $this->sanitize($lat);
         $long = $this->sanitize($long);
         $rad = $this->sanitize($rad);
+        $retweets =  $this->sanitize($retweets);
+        $favorites =  $this->sanitize($favorites);
 
         $q = "select * from z_" . $id . " where 1";
 
@@ -408,6 +442,11 @@ class YourTwapperKeeper {
         {
             $qparam .= " and id <= $max_id";
         }
+        
+        if ($retweets || $favorites)
+        {
+            $qparam .= " and (" . (($retweets)?"retweets >= " . $retweets : "") . (($retweets && $favorites)? " or " : "") . (($favorites)?"favorites >= " . $favorites : "") . ")";
+        }
 
         if ($lat OR $long OR $rad)
         {
@@ -437,7 +476,7 @@ class YourTwapperKeeper {
         }
 
         $query = $q . $qparam;
-
+        
         $r = mysql_query($query, $db->connection);
 
         $response = array();
