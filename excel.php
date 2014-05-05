@@ -81,18 +81,22 @@ if ($start_time <> '' || $end_time <> '')
 $export_file = $archiveInfo['results'][0]['keyword'] . ".xls";
 ob_end_clean();
 ini_set('zlib.output_compression', 'Off');
-
-header('Pragma: public');
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");                  // Date in the past   
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-header('Cache-Control: no-store, no-cache, must-revalidate');     // HTTP/1.1
-header('Cache-Control: pre-check=0, post-check=0, max-age=0');    // HTTP/1.1
-header("Pragma: no-cache");
-header("Expires: 0");
-header('Content-Transfer-Encoding: none');
-header('Content-Type: application/vnd.ms-excel;');                 // This should work for IE & Opera
-header("Content-type: application/x-msexcel");                    // This should work for the rest
-header('Content-Disposition: attachment; filename="' . basename($export_file) . '"');
+/*
+  header('Pragma: public');
+  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");                  // Date in the past
+  header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+  header('Cache-Control: no-store, no-cache, must-revalidate');     // HTTP/1.1
+  header('Cache-Control: pre-check=0, post-check=0, max-age=0');    // HTTP/1.1
+  header("Pragma: no-cache");
+  header("Expires: 0");
+  header('Content-Transfer-Encoding: none');
+  header('Content-Type: application/vnd.ms-excel; charset=utf-8');                 // This should work for IE & Opera
+  header("Content-type: application/x-msexcel; charset=utf-8");                    // This should work for the rest
+  header('Content-Disposition: attachment; filename="' . basename($export_file) . '"');
+ */
+echo "<head>";
+echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\" />";
+echo "</head>";
 
 echo "<table>";
 echo "<tr>";
@@ -104,6 +108,7 @@ echo "<th>FROM_USER</th>";
 echo "<th>ORIGINAL_USER_ID</th>";
 echo "<th>ORIGINAL_USER</th>";
 echo "<th>ID</th>";
+echo "<th>IN_REPLY_TO_STATUS_ID</th>";
 echo "<th>ISO_LANGUAGE_CODE</th>";
 echo "<th>SOURCE</th>";
 echo "<th>PROFILE_IMG_URL</th>";
@@ -114,24 +119,61 @@ echo "<th>CREATED_AT</th>";
 echo "<th>TIME</th>";
 echo "<th>FAVORITES</th>";
 echo "<th>RETWEETS</th>";
+echo "<th>EXPANDED URLS</th>";
 echo "</tr>";
 
-foreach ($archiveTweets as $key => $value)
-{
+$keys_to_print = array("text",
+    "to_user_id",
+    "to_user",
+    "from_user_id",
+    "from_user",
+    "original_user_id",
+    "original_user",
+    "id",
+    "in_reply_to_status_id",
+    "iso_language_code",
+    "source",
+    "profile_image_url",
+    "geo_type",
+    "geo_coordinates_0",
+    "geo_coordinates_1",
+    "created_at",
+    "time",
+    "favorites",
+    "retweets");
 
-    echo "<tr>";
-    foreach ($value as $valuekey => $cols)
-    {
-        if ($valuekey == "archivesource")
-            continue;
-        
-        if ($valuekey == "id")
-            echo "<td>'$cols</td>";
-        else
-            echo "<td>$cols</td>";
+$ids = array();
+
+foreach ($archiveTweets as $key => $value)
+    if (!in_array($value['id'], $ids))
+    { {
+            echo "<tr>";
+            foreach ($keys_to_print as $index => $print)
+            {
+                if ($print == "id")
+                    echo "<td>'" . $value['id'] . "</td>";
+                else
+                    echo "<td>" . $value[$print] . "</td>";
+            }
+
+            // TODO check if tweets contains multiple urls
+            // Check if tweet contains url
+            preg_match_all('/https?:\/\/[^\s`!()\[\]{};:\'\",<>?«»“”‘’]+/', $value["text"], $urls);
+
+            if ($urls !== NULL && count($urls[0]) == 2)
+            {
+                foreach ($urls[0] as $url)
+                {
+                    $expandedURL = $tk->expandShortUrl($url);
+                    echo "<td>$url</td><td>$expandedURL</td>";
+                }
+            }
+
+            echo "</tr>";
+            
+            $ids[] = $value['id'];
+        }
     }
-    echo "</tr>";
-}
 
 echo "</table>";
 ?>

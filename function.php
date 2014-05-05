@@ -741,6 +741,30 @@ class YourTwapperKeeper {
         file_put_contents($file, gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
         //echo "$message \n";
     }
+    
+    function expandShortUrl($url) 
+    {
+        global $db;
+        
+        $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);        
+        if (mysql_num_rows($result) == 1)
+            return mysql_fetch_assoc ($result)["expanded_url"];
+
+        $headers = get_headers($url,1);        
+
+        if (!empty($headers['Location']) || !empty($headers['location'])) 
+        {            
+            $headers['Location'] = (array) ((empty($headers['Location']))? $headers['location'] : $headers['Location']);
+            $new_url = array_pop($headers['Location']);
+            
+            // insert in db
+            mysql_query("insert into urls values(0,'$url', '$new_url')",$db->connection);
+            
+            return $new_url;
+        }        
+        return $url;
+    }
+		
 
 }
 
