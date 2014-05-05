@@ -81,7 +81,7 @@ if ($start_time <> '' || $end_time <> '')
 $export_file = $archiveInfo['results'][0]['keyword'] . ".xls";
 ob_end_clean();
 ini_set('zlib.output_compression', 'Off');
-/*
+
   header('Pragma: public');
   header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");                  // Date in the past
   header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -93,10 +93,10 @@ ini_set('zlib.output_compression', 'Off');
   header('Content-Type: application/vnd.ms-excel; charset=utf-8');                 // This should work for IE & Opera
   header("Content-type: application/x-msexcel; charset=utf-8");                    // This should work for the rest
   header('Content-Disposition: attachment; filename="' . basename($export_file) . '"');
- */
+ /*
 echo "<head>";
 echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\" />";
-echo "</head>";
+echo "</head>";*/
 
 echo "<table>";
 echo "<tr>";
@@ -108,7 +108,7 @@ echo "<th>FROM_USER</th>";
 echo "<th>ORIGINAL_USER_ID</th>";
 echo "<th>ORIGINAL_USER</th>";
 echo "<th>ID</th>";
-echo "<th>IN_REPLY_TO_STATUS_ID</th>";
+//echo "<th>IN_REPLY_TO_STATUS_ID</th>";
 echo "<th>ISO_LANGUAGE_CODE</th>";
 echo "<th>SOURCE</th>";
 echo "<th>PROFILE_IMG_URL</th>";
@@ -130,7 +130,7 @@ $keys_to_print = array("text",
     "original_user_id",
     "original_user",
     "id",
-    "in_reply_to_status_id",
+ //   "in_reply_to_status_id",
     "iso_language_code",
     "source",
     "profile_image_url",
@@ -160,7 +160,7 @@ foreach ($archiveTweets as $key => $value)
             // Check if tweet contains url
             preg_match_all('/https?:\/\/[^\s`!()\[\]{};:\'\",<>?«»“”‘’]+/', $value["text"], $urls);
 
-            if ($urls !== NULL && count($urls[0]) == 2)
+            if ($urls !== NULL && count($urls[0]) > 0)
             {
                 foreach ($urls[0] as $url)
                 {
