@@ -489,23 +489,23 @@ class YourTwapperKeeper {
 
         $response = array();
         while ($row = mysql_fetch_assoc($r))
-        {
-
+        {            
             if ($type == 2)
-            {
+            {                
                 // get conversation related to this archive and tweet.
                 $subq = "select archive from conversations where to_archive = '$id' and tweet_id = '" . $row['id'] . "'";
                 $subr = mysql_query($subq, $db->connection);
-
-                if (mysql_num_rows($r) == 1)
+                
+                if (mysql_num_rows($subr) == 1)
                 {
                     $conversation_archive = mysql_fetch_assoc($subr)["archive"];
                     $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "'";
                     $subsubr = mysql_query($subsubq, $db->connection);
-
-                    $response['conversation'] = array();
+                                        
+                    $row['conversation'] = array();
                     while ($subsubrow = mysql_fetch_assoc($subsubr))
-                        $response['conversation'][] = $subsubrow;
+                        $row['conversation'][] = $subsubrow;
+             
                 }
             }
 
@@ -570,6 +570,25 @@ class YourTwapperKeeper {
         }
 
         return $tweet;
+    }
+    
+    function isReply($replyTweet, $origTweet)
+    {
+        global $time_to_track_user;
+        
+        if ($replyTweet["in_reply_to_status_id"] == $origTweet["id"])
+            return TRUE;
+        else if ($replyTweet["in_reply_to_status_id"] == "")
+        {
+            if ($replyTweet["to_user"] == $origTweet["from_user"])
+            {
+                //print "TIME DIFF: ". ((int)$replyTweet["time"] - (int)$origTweet["time"]) . " seconds. MAX($time_to_track_user) <br/>";
+                if ($replyTweet["time"] - $origTweet["time"] > 0 && $replyTweet["time"] - $origTweet["time"] < $time_to_track_user)
+                    return TRUE;                
+            }
+        }
+        return FALSE;
+        
     }
 
 // delete archive

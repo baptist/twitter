@@ -151,6 +151,26 @@ img
     color:#F0F0F0;
 }
 
+ul.tags {
+    color:#111;
+    display: inline;
+    margin:0;
+    padding:0;
+    font-size:10px;
+
+
+}
+
+.tags li{
+    padding:5px;
+    background:#555;
+    color:#FFF;
+    border-radius:5px;
+    display: inline;
+    margin:5px 5px 5px 0;
+}
+
+
 
 ul.status-list {
     color:#111;

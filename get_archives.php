@@ -31,7 +31,7 @@ if (array_key_exists("results", $archives))
 
     foreach ($archives['results'] as $value)
     {
-        echo "<tr><td>" . $value['id'] . "</td><td>" . $value['keyword'] . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td>" . $value['count'] . "</td><td>" . date(DATE_RFC2822, $value['create_time']) . "</td>";
+        echo "<tr><td>" . $value['id'] . "</td><td>" . $value['keyword'] . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td>" .number_format ( $value['count']) . "</td><td>" . date(DATE_RFC2822, $value['create_time']) . "</td>";
         echo "<td>";
         echo "<a href='archive.php?id=" . $value['id'] . "' target='_blank' alt='View'><img src='./resources/binoculars_24.png' alt='View Archive' title='View Archive'/></a>";
         if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name'])

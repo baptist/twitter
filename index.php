@@ -114,10 +114,10 @@ $tags = $tk->getUniformTags(4);
                             {
                                 echo "<li class='correct'>$archiving_status[1] <a href='stoparchiving.php'>Stop</a></li>";
                                 echo "<li class=''></li>";
-                                echo "<li class='infor'>" . "Fetched <span style='font-weight:bold'>" . $stats["num_tweets"] . " tweets </span> in total." . "</li>";
+                                echo "<li class='infor'>" . "Fetched <span style='font-weight:bold'>" . number_format ($stats["num_tweets"]) . " tweets </span> in total." . "</li>";
                                 echo "<li class='infor'>" . "Fetching <span style='font-weight:bold'>" . $stats["avg_tweets"] . " tweets per minute.</span>" . "</li>";
                                 echo "<li class='infor'>" . "<span style='font-weight:bold'>Track load: " . $stats["track_load"] . " % -- " . "Follow load: " . $stats["follow_load"] . " % </span>" . "</li>";
-                                echo "<li class='infor'>" . "Tracking <span style='font-weight:bold'>" . $stats["num_hashtags"] . " hashtags, " . $stats["num_follows"] . " users, and " . $stats["num_conversations"] . " conversations.</span>" . "</li>";
+                                echo "<li class='infor'>" . "Tracking <span style='font-weight:bold'>" . number_format ($stats["num_hashtags"]) . " hashtags, " . number_format ($stats["num_follows"]) . " users, and " . number_format ($stats["num_conversations"]) . " conversations.</span>" . "</li>";
                             }
                         }
                         /* if (isset($_SESSION['notice'])) {
