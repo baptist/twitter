@@ -651,14 +651,14 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                             {
                                 echo "<font style='font-weight:lighter; font-size:8px'><i>geo info: " . $reply['geo_type'] . " - lat = " . $reply['geo_coordinates_0'] . " - long = " . $reply['geo_coordinates_1'] . "</i></font><br>";
                             }
-                            echo "</div>";
-                            
-                             if ($first)
-                                echo "</div>";
+                            echo "</div>";  
                              
                              
                              $first = false;
                         }
+                         if ($c == count($row['conversation']))
+                            echo "</div>";
+                        
                         $c++;
                     }
                     
