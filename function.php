@@ -493,12 +493,12 @@ class YourTwapperKeeper {
             if ($type == 2)
             {                
                 // get conversation related to this archive and tweet.
-                $subq = "select archive from conversations where to_archive = '$id' and tweet_id = '" . $row['id'] . "'";
+                $subq = "select id from archives where keyword = '" . $row['from_user'] . "'";
                 $subr = mysql_query($subq, $db->connection);
                 
                 if (mysql_num_rows($subr) == 1)
                 {
-                    $conversation_archive = mysql_fetch_assoc($subr)["archive"];
+                    $conversation_archive = mysql_fetch_assoc($subr)["id"];
                     $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "'";
                     $subsubr = mysql_query($subsubq, $db->connection);
                                         
@@ -701,29 +701,15 @@ class YourTwapperKeeper {
         {
             // If archive type is 5 make it active again.
             if ($archive["type"] == 5)
-                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
-            
-            // Create new conversation if not existing
-            $q = "select id from conversations where archive = '" . $archive["id"] . "' and tweet_id = '" . $tweet['id'] . "'";
-            $r = mysql_query($q, $db->connection);
-            
-            if (mysql_num_rows($r) == 0)
-                 $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);        
+                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);    
         }
         else
         {
             // Create new 'conversation' archive
             $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
-            $archive = $this->archiveExists($tweet['from_user']);
-            $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
         }
     }
 
-    function createConversation($user_id, $tweet_id, $archive_id, $base_archive)
-    {
-        global $db;
-        mysql_query("insert into conversations values ('0', '$user_id', '$tweet_id', '$archive_id', '$base_archive' ,UNIX_TIMESTAMP())", $db->connection);
-    }
 
 // kill archiving process
     function killProcess($pid)
