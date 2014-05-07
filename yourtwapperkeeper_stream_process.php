@@ -32,6 +32,8 @@ while (TRUE) {
     $r = mysql_query($q, $db->connection);
     if (mysql_error() != "")
 	$tk->log("Error when selecting archives: " . mysql_error(), '', $process_log_file);
+    
+    $tk->log("Num archives fetched: " . mysql_num_rows($r), '', $process_log_file);
 
     $track = array();
     $follow = array();
@@ -76,26 +78,17 @@ while (TRUE) {
         $inserted = FALSE;
         foreach ($follow as $ztable => $user) 
         {
-            if (strcasecmp($user, $tweet['from_user'])  == 0)
-            {
-                $inserted = insert($ztable, $tweet, "creator");
-                break;
-            }
-            else if (strcasecmp($user, $tweet['to_user']) == 0)
-            {
-                $inserted = insert($ztable, $tweet, "reply");
-                break;
-            }
-            else if (strcasecmp($user, $tweet['original_user'])  == 0)
-            {
-                $inserted = insert($ztable, $tweet, "retweet");
-                break;
-            }
-            else if (strcasecmp($user, substr(explode(" ", $tweet['text'])[0], 1))  == 0)
-            {
-                $inserted = insert($ztable, $tweet, "mention");
-                break;
-            }
+            if (strcasecmp($user, $tweet['from_user'])  == 0)            
+                $inserted = insert($ztable, $tweet, "creator");               
+            
+            else if (strcasecmp($user, $tweet['to_user']) == 0)            
+                $inserted = insert($ztable, $tweet, "reply");                
+            
+            else if (strcasecmp($user, $tweet['original_user'])  == 0)            
+                $inserted = insert($ztable, $tweet, "retweet");                
+            
+            else if (strcasecmp($user, substr(explode(" ", $tweet['text'])[0], 1))  == 0)            
+                $inserted = insert($ztable, $tweet, "mention");           
         }
 
        
