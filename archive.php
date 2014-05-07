@@ -554,13 +554,14 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             <div style='margin:5px 0px;font-size:25px'>
                 <?php echo $archiveInfo['results'][0]['keyword']; ?> 
 
-                <?php if ($archiveInfo['results'][0]['description'] != "")
+                <?php
+                if ($archiveInfo['results'][0]['description'] != "")
                 {
                     ?>
                     <span style='padding-left:15px;font-size:15px'>&laquo;<?php echo $archiveInfo['results'][0]['description']; ?>&raquo;</span>
 <?php } ?>
             </div>
-            <div style='margin:5px 0px;font-size:15px;font-weight:bold'><?php echo number_format ($archiveInfo['results'][0]['count']); ?> tweets in collection.</div> 
+            <div style='margin:5px 0px;font-size:15px;font-weight:bold'><?php echo number_format($archiveInfo['results'][0]['count']); ?> tweets in collection.</div> 
             <div style='margin:5px 0px;'><?php echo date(DATE_RFC2822, $archiveInfo['results'][0]['create_time']); ?></div> 
             <div style='margin:15px 0px;'>
 
@@ -608,42 +609,42 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 //preg_replace('#','<a href="http://search.twitter.com/q=$1">.$1."</a>');
                 echo "<span style='font-weight:bold'>@" . $row['from_user'] . "</span> <span>" . $text . "</span><br/>";
                 echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $row['created_at'] . " - tweet id <a name='tweetid-" . $row['id'] . "'>" . $row['id'] . "</a> - #$tw_count</span>";
-                
-                if ($row['retweets'] || $row['favorites'])                
+
+                if ($row['retweets'] || $row['favorites'])
                     echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $row['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
-                
-                
+
+
                 if ($row['geo_type'] <> '')
                 {
                     echo "<font style='font-weight:lighter; font-size:8px'><i>geo info: " . $row['geo_type'] . " - lat = " . $row['geo_coordinates_0'] . " - long = " . $row['geo_coordinates_1'] . "</i></font><br>";
                 }
-                
+
                 if (array_key_exists('conversation', $row) && count($row['conversation']) > 0)
                 {
                     $c = 1;
                     $first = true;
-                    
+
                     foreach ($row['conversation'] as $reply)
                     {
                         if ($tk->isReply($reply, $row))
-                        {               
+                        {
                             if ($first)
                                 echo "<div style='margin-top:30px;margin-left:50px;'>";
-                            
+
                             $text = preg_replace('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $reply['text']);
                             $matches = array();
                             preg_match('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', $reply['text'], $matches);
                             $text = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
-                            
+
                             echo "<div style='margin:25px'>";
-                            
+
                             echo "<div style='float:left; margin-right:5px'><img src='" . (($reply['archivesource'] === "twitter-search") ? "resources/twitter-search.png" : $reply['profile_image_url']) . "' height='40px'/></div>";
-                
+
                             //preg_replace('#','<a href="http://search.twitter.com/q=$1">.$1."</a>');
                             echo "<span style='font-weight:bold'>@" . $reply['from_user'] . "</span> <span>" . $text . "</span>";
                             echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $reply['created_at'] . " - tweet id <a name='tweetid-" . $reply['id'] . "'>" . $reply['id'] . "</a> - #$c</span>";
 
-                            if ($reply['retweets'] || $reply['favorites'])                
+                            if ($reply['retweets'] || $reply['favorites'])
                                 echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $reply['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
 
 
@@ -651,20 +652,19 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                             {
                                 echo "<font style='font-weight:lighter; font-size:8px'><i>geo info: " . $reply['geo_type'] . " - lat = " . $reply['geo_coordinates_0'] . " - long = " . $reply['geo_coordinates_1'] . "</i></font><br>";
                             }
-                            echo "</div>";  
-                             
-                             
-                             $first = false;
-                        }
-                         if ($c == count($row['conversation']))
                             echo "</div>";
-                        
+
+
+                            $first = FALSE;
+                        }
+                        if ($c == count($row['conversation']) && !$first)
+                            echo "</div>";
+
                         $c++;
                     }
-                    
                 }
 
-                
+
                 echo "</div>";
                 echo "</div>";
                 echo "<div style='clear:both; margin-bottom:10px; margin-top:10px; border-bottom:1px dotted #333333'><br></div>";
