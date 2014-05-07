@@ -37,8 +37,7 @@ while (TRUE) {
 
     $track = array();
     $follow = array();
-        
-    // TODO decide which has priority over the other (user > hashtag > keyword ?)
+
     while ($row = mysql_fetch_assoc($r)) {
 
 	//$tk->log('Looping over archives.', '', $process_log_file);

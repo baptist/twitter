@@ -699,30 +699,16 @@ class YourTwapperKeeper {
         $archive = $this->archiveExists($tweet['from_user']);
         if ($archive !== FALSE)
         {
-            // Archive is actively following user to track conversation        
-            if ($archive["type"] == 4 || $archive["type"] == 5)
-            {
-                // Get previous conversation(s)
-                $q = "select to_archive from conversations where user_id = '" . $tweet['from_user_id'] . "'";
-                $r = mysql_query($q, $db->connection);
-
-                $found = FALSE;
-                while ($row = mysql_fetch_assoc($r))
-                {
-                    if ($row["to_archive"] == $base_archive)
-                    {
-                        $found = TRUE;
-                        break;
-                    }
-                }
-                if (!$found)
-                    $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
-
-                if ($archive["type"] == 5)
-                    mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
-            }
-            else if ($archive["type"] !== 4) // Archive exists (but is not specifically dedicated to conversation tracking)     
-                $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);
+            // If archive type is 5 make it active again.
+            if ($archive["type"] == 5)
+                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
+            
+            // Create new conversation if not existing
+            $q = "select id from conversations where archive = '" . $archive["id"] . "' and tweet_id = '" . $tweet['id'] . "'";
+            $r = mysql_query($q, $db->connection);
+            
+            if (mysql_num_rows($r) == 0)
+                 $this->createConversation($tweet['from_user_id'], $tweet["id"], $archive["id"], $base_archive);        
         }
         else
         {

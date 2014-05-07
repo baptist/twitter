@@ -22,7 +22,7 @@ mysql_query("update processes set live = '1' where pid = '$pid'", $db->connectio
 while (TRUE)
 {
     // Query for archives 
-    $q_archives = "select * from archives where type in (1,2,3,4) order by count desc";
+    $q_archives = "select * from archives where type in (1,2,3,4,5) order by count desc";
     $r_archives = mysql_query($q_archives, $db->connection);
     $counting = 0;
 
@@ -81,7 +81,7 @@ while (TRUE)
         }
     
         // If type is user tracking fetch user tweets through timeline
-        if ($row_archives['type'] == 3 or $row_archives['type'] == 4)
+        if ($row_archives['type'] == 3 || $row_archives['type'] == 4 || $row_archives['type'] == 5)
         {
             $searchresult = $connection->get('statuses/user_timeline', array('screen_name' => $row_archives['keyword']));
 

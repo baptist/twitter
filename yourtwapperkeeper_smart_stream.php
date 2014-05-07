@@ -67,6 +67,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $orig_user['screen_name'];                // original_user          
             $values_array[] = (string) $status['id'];                   // id -> unique id of tweet  
             $values_array[] = $in_reply_to_status_id;                   // in reply to status id
+            //$values_array[] = $orig_id;                                 // original id
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url
@@ -74,8 +75,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $geo['coordinates'][0];                   // geo_coordinates_0
             $values_array[] = $geo['coordinates'][1];                   // geo_coordinates_1
             $values_array[] = $status['created_at'];                    // created_at
-            $values_array[] = strtotime($status['created_at']);         // time
-            //$values_array[] = $orig_id;                                 // original id
+            $values_array[] = strtotime($status['created_at']);         // time            
             $values_array[] = $orig_time;                               // original time
 
             $values = '';
