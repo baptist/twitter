@@ -9,3 +9,4 @@ config_withpasswords.php
 /log/crawl_process_log
 /config.php
 /log/process_log
+/log/

@@ -22,7 +22,7 @@ mysql_query("update processes set live = '1' where pid = '$pid'", $db->connectio
 while (TRUE)
 {
     // Query for archives 
-    $q_archives = "select * from archives where type in (1,2,3,4,5) order by count desc";
+    $q_archives = "select * from archives where type in (1,2,3,4) order by count desc";
     $r_archives = mysql_query($q_archives, $db->connection);
     $counting = 0;
 
@@ -68,7 +68,7 @@ while (TRUE)
                 if (mysql_numrows($result_check) == 0)
                 {
                     $num_inserted++;
-                    insertTweet($row_archives['id'], $row_archives['keyword'], $tweet, $row_archives['type'], "search");
+                    $tk->insertTweet($row_archives['id'], $tweet, $row_archives['type'], "search", $crawl_log_file);
                 }
                 $max_id = $tweet["id"]; // resetting to lowest tweet id
             }
@@ -97,7 +97,7 @@ while (TRUE)
 
                 if (mysql_numrows($result_check) == 0)
                 {                    
-                    insertTweet($row_archives['id'], $row_archives['keyword'], $tweet, $row_archives['type'], "timeline");
+                    $tk->insertTweet($row_archives['id'], $tweet, $row_archives['type'], "timeline", $crawl_log_file);
                 }
             }
         }
@@ -117,36 +117,4 @@ while (TRUE)
     }
 }
 
-    
-function insertTweet($id, $keyword, $tweet, $type, $reason = '')
-{
-    global $db;
-    global $tk;
-    global $crawl_log_file;
-    global $orig_time;
-    global $time_to_track_user;
-    global $page_counter;
-
-    $q = "insert into z_$id values ('twitter-$reason','" . $tk->sanitize($tweet["text"]) . "','" . $tweet["to_user_id"] . "','" . $tweet["to_user"] . "','" . $tweet["from_user_id"] . "','" . $tweet["from_user"] . "','" . $tweet["original_user_id"] . "','" . $tweet["original_user"] . "','" . $tweet["id"] . "','" . $tweet["in_reply_to_status_id"]  . "','" . $tweet["iso_language_code"] . "','" . $tweet["source"] . "','" . $tweet["profile_image_url"] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet["created_at"] . "','" . strtotime($tweet["created_at"]) . "', NULL, NULL, NULL)";
-    mysql_query($q, $db->connection);
-    if (mysql_error() != "")
-    {
-        $tk->log("insert from crawling: " . mysql_error(), "", $crawl_log_file);
-    }
-    else
-    {
-        $tk->log("$q -- from $reason", "", $crawl_log_file);
-    }
-    
-    mysql_query("insert into new_tweets values('" . $tweet["id"] . "', '" . $id . "', '" . strtotime($tweet["created_at"]) . "', UNIX_TIMESTAMP(), '-1' )", $db->connection);
-
-    // track conversation if not too old and dealing with hashtagged tweet               
-    if (time() - $orig_time < $time_to_track_user && $type == 2)
-    {
-        $tk->trackConversation($row_archives['id'], $tweet);
-        $tk->log("conversation tracking required", "", $crawl_log_file);
-    }
-
-    $tk->log("[" . $id . "-" . $keyword . "] $page_counter - " . $tweet["id"] . " - insert\n", "", $crawl_log_file);
-}
 ?>

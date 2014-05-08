@@ -375,7 +375,7 @@ class YourTwapperKeeper {
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, $limit, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
             $response = array_merge($response, $result);
         }
-        
+
         usort($response, array($this, "cmpTweets"));
 
         return $response;
@@ -489,29 +489,54 @@ class YourTwapperKeeper {
 
         $response = array();
         while ($row = mysql_fetch_assoc($r))
-        {            
+        {
             if ($type == 2)
-            {                
+            {
                 // get conversation related to this archive and tweet.
                 $subq = "select id from archives where keyword = '" . $row['from_user'] . "'";
                 $subr = mysql_query($subq, $db->connection);
-                
+
                 if (mysql_num_rows($subr) == 1)
                 {
                     $conversation_archive = mysql_fetch_assoc($subr)["id"];
                     $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "'";
                     $subsubr = mysql_query($subsubq, $db->connection);
-                                        
+
                     $row['conversation'] = array();
                     while ($subsubrow = mysql_fetch_assoc($subsubr))
                         $row['conversation'][] = $subsubrow;
-             
                 }
+            }
+
+            // Check original tweet if some fields are missing
+            if ($row['retweets'] == '' || $row['retweets'] == FALSE || $row['favorites'] == '' or $row['favorites'] == FALSE)
+            {
+                $temprow = $this->getOriginalTweet($row["id"]);
+                if ($temprow != FALSE)
+                    $row = $temprow;
             }
 
             $response[] = $row;
         }
         return $response;
+    }
+
+    function getOriginalTweet($tweetID)
+    {
+        global $db;
+
+        $r = mysql_query("SELECT original_archive, original_id FROM smart_tweets WHERE tweet_id = '" . $tweetID . "'", $db->connection);
+
+        if (mysql_num_rows($r) == 1)
+        {
+            $row = mysql_fetch_assoc($r);
+            $archiveID = $row['original_archive'];
+            $originalID = $row['original_id'];
+
+            $r2 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);       
+            return mysql_fetch_assoc($r2);
+        }
+        return FALSE;
     }
 
     function extractTweetData($jsonobject)
@@ -548,12 +573,16 @@ class YourTwapperKeeper {
         $tweet["from_user_id"] = (string) $value['user']->id;
         $tweet["id"] = $value['id_str'];
         $tweet["in_reply_to_status_id"] = $value['in_reply_to_status_id_str'];
+        $tweet["original_id"] = $orig_id;
         $tweet["original_user"] = $orig_user['id'];
         $tweet["original_user_id"] = $orig_user['screen_name'];
         $tweet["iso_language_code"] = $value['user']->lang;
         $tweet["source"] = $value['source'];
         $tweet["profile_image_url"] = $value['user']->profile_image_url;
         $tweet["created_at"] = $value['created_at'];
+        $tweet["time"] = strtotime($value['created_at']);
+        $tweet["original_time"] = $orig_time;
+
 
         // extract geo information               
         if ($value['geo'] != NULL)
@@ -571,11 +600,11 @@ class YourTwapperKeeper {
 
         return $tweet;
     }
-    
+
     function isReply($replyTweet, $origTweet)
     {
         global $time_to_track_user;
-        
+
         if ($replyTweet["in_reply_to_status_id"] == $origTweet["id"])
             return TRUE;
         else if ($replyTweet["in_reply_to_status_id"] == "")
@@ -584,11 +613,10 @@ class YourTwapperKeeper {
             {
                 //print "TIME DIFF: ". ((int)$replyTweet["time"] - (int)$origTweet["time"]) . " seconds. MAX($time_to_track_user) <br/>";
                 if ($replyTweet["time"] - $origTweet["time"] > 0 && $replyTweet["time"] - $origTweet["time"] < $time_to_track_user)
-                    return TRUE;                
+                    return TRUE;
             }
         }
         return FALSE;
-        
     }
 
 // delete archive
@@ -701,7 +729,7 @@ class YourTwapperKeeper {
         {
             // If archive type is 5 make it active again.
             if ($archive["type"] == 5)
-                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);    
+                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
         }
         else
         {
@@ -709,7 +737,6 @@ class YourTwapperKeeper {
             $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
         }
     }
-
 
 // kill archiving process
     function killProcess($pid)
@@ -732,30 +759,119 @@ class YourTwapperKeeper {
         file_put_contents($file, gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
         //echo "$message \n";
     }
-    
-    function expandShortUrl($url) 
+
+    function expandShortUrl($url)
     {
         global $db;
-        
-        $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);        
+
+        $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);
         if (mysql_num_rows($result) == 1)
-            return mysql_fetch_assoc ($result)["expanded_url"];
+            return mysql_fetch_assoc($result)["expanded_url"];
 
-        $headers = get_headers($url,1);        
+        $headers = get_headers($url, 1);
 
-        if (!empty($headers['Location']) || !empty($headers['location'])) 
-        {            
-            $headers['Location'] = (array) ((empty($headers['Location']))? $headers['location'] : $headers['Location']);
+        if (!empty($headers['Location']) || !empty($headers['location']))
+        {
+            $headers['Location'] = (array) ((empty($headers['Location'])) ? $headers['location'] : $headers['Location']);
             $new_url = array_pop($headers['Location']);
-            
+
             // insert in db
-            mysql_query("insert into urls values(0,'$url', '$new_url')",$db->connection);
-            
+            mysql_query("insert into urls values(0,'$url', '$new_url')", $db->connection);
+
             return $new_url;
-        }        
+        }
         return $url;
     }
-		
+
+    function insertTweet($table_id, $tweet, $type, $reason = '', $log_file = 'log/function_log')
+    {
+        global $db;
+        global $time_to_track_user;
+
+        $this->log('Inserting tweet', '', $log_file);
+        $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
+        mysql_query($q, $db->connection);
+
+        $this->log("$q", '', $log_file);
+        if (mysql_error() != "")
+            $this->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
+
+        if ($tweet['original_time'] > 0)
+            $time = $tweet['original_time'];
+        else
+            $time = $tweet['time'];
+        
+        // Insert into central tweets table
+        $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
+
+        // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
+        if (!$duplicate)
+        {
+            $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
+            mysql_query($q, $db->connection);
+
+            if (mysql_error() != '')
+                $this->log("Error when inserting into new tweets: " . mysql_error(), '', $log_file);
+        }
+
+        // Track conversation if not too old and dealing with hashtagged tweet               
+        if (time() - $time < $time_to_track_user && $type == 2)
+        {
+            $this->trackConversation($table_id, $tweet);
+            $this->log("conversation tracking required", "", $log_file);
+        }
+
+
+        return TRUE;
+    }
+
+    function addSmartTweet($tweet, $table_id, $log_file = 'log/function_log')
+    {
+        global $db;
+
+        $duplicate = FALSE;
+        $q = "select original_archive from smart_tweets where tweet_id = '" . $tweet['id'] . "'";
+        $r = mysql_query($q, $db->connection);
+        if (mysql_error() != '')
+            $tk->log("Error when checking duplicates: " . mysql_error(), '', $log_file);
+
+        if (mysql_num_rows($r) == 0)
+        {
+            if (isset($tweet['original_id']) && $tweet['original_id'] != '')
+            {
+                $q3 = "select original_archive from smart_tweets where tweet_id = '" . $tweet['original_id'] . "' or original_id = '" . $tweet['original_id'] . "'";
+                $r3 = mysql_query($q3, $db->connection);
+                if (mysql_error() != '')
+                    $this->log("Error when checking retweet info: " . mysql_error(), '', $log_file);
+
+                if (mysql_num_rows($r3) == 1)
+                {
+                    mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . mysql_fetch_assoc($r3)["original_archive"] . "', 1, 1)", $db->connection);
+
+                    if (mysql_error() != '')
+                        $this->log("Error when inserting retweet info (duplicate): " . mysql_error(), '', $log_file);
+
+                    $duplicate = TRUE;
+                } else
+                {
+                    mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
+
+                    if (mysql_error() != '')
+                        $this->log("Error when inserting retweet info (original): " . mysql_error(), '', $log_file);
+                }
+            } else
+            {
+                mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
+
+                if (mysql_error() != '')
+                    $this->log("Error when inserting duplicates info" . mysql_error(), '', $log_file);
+            }
+        }
+        else
+            $duplicate = TRUE;
+
+        return $duplicate;
+    }
 
 }
 

@@ -67,7 +67,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $orig_user['screen_name'];                // original_user          
             $values_array[] = (string) $status['id'];                   // id -> unique id of tweet  
             $values_array[] = $in_reply_to_status_id;                   // in reply to status id
-            //$values_array[] = $orig_id;                                 // original id
+            $values_array[] = $orig_id;                                 // original id
             $values_array[] = $user['lang'];                            // iso_language_code
             $values_array[] = $status['source'];                        // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url
@@ -86,7 +86,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
             // add to list of newly created tweets.
             $q1 = "insert into rawstream values($values)";
-            $tk->log($q1 . "-- from stream $stream_id \n");
+            $tk->log($q1 . "-- from stream $stream_id");
             $result = mysql_query($q1, $db->connection);
             
             if (mysql_error() != "")
@@ -125,10 +125,8 @@ class DynamicTrackConsumer extends OauthPhirehose {
                  if ($user["flag"] == 1)
                     $follow[] = $user['twitter_id'];                       
             }         
-        }
-        //$tk->log(implode(",", $track));          
+        }         
         $this->setTrack($track);
-        //$tk->log(implode(",", $follow));   
         $this->setFollow($follow);
 
         // update pid and last_ping in process table
