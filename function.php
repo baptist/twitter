@@ -513,7 +513,10 @@ class YourTwapperKeeper {
             {
                 $temprow = $this->getOriginalTweet($row["id"]);
                 if ($temprow != FALSE)
-                    $row = $temprow;
+                {
+                    $row["retweets"] = $temprow["retweets"];
+                    $row["favorites"] = $temprow["favorites"];
+                }
             }
 
             $response[] = $row;
@@ -533,7 +536,7 @@ class YourTwapperKeeper {
             $archiveID = $row['original_archive'];
             $originalID = $row['original_id'];
 
-            $r2 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);       
+            $r2 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
             return mysql_fetch_assoc($r2);
         }
         return FALSE;
@@ -800,7 +803,7 @@ class YourTwapperKeeper {
             $time = $tweet['original_time'];
         else
             $time = $tweet['time'];
-        
+
         // Insert into central tweets table
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
 

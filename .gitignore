@@ -10,3 +10,4 @@ config_withpasswords.php
 /config.php
 /log/process_log
 /log/
+/special

@@ -610,7 +610,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 echo "<span style='font-weight:bold'>@" . $row['from_user'] . "</span> <span>" . $text . "</span><br/>";
                 echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $row['created_at'] . " - tweet id <a name='tweetid-" . $row['id'] . "'>" . $row['id'] . "</a> - #$tw_count</span>";
 
-                if ($row['retweets'] || $row['favorites'])
+                if ($row['retweets']  != '' || $row['favorites']  != '')
                     echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $row['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
 
 
@@ -644,7 +644,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                             echo "<span style='font-weight:bold'>@" . $reply['from_user'] . "</span> <span>" . $text . "</span>";
                             echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $reply['created_at'] . " - tweet id <a name='tweetid-" . $reply['id'] . "'>" . $reply['id'] . "</a> - #$c</span>";
 
-                            if ($reply['retweets'] || $reply['favorites'])
+                            if ($reply['retweets'] != '' || $reply['favorites'] != '')
                                 echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $reply['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
 
 
