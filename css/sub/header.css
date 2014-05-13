@@ -26,9 +26,9 @@ header {
     display:block;
     float: right;
     font-size: 11px;
-    padding: 4px 0 6px;    
-    margin-right: 10px;
-
+    padding: 3px 0 4px;    
+    margin:0 10px 0 0;
+    
 }
 
 
@@ -63,13 +63,14 @@ header {
 /* MAIN HEADER */
 
 
-.header-panel {
+.header-panel {    
     background:url(../../resources/header-bg.gif) repeat top center;
     overflow:hidden;
     height:65px;
     display:block;
     padding: 0;
     margin: 0;
+    width:100%;
 }
 
 .header-main {

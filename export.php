@@ -37,6 +37,36 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $login_status = "Hi " . $_SESSION['access_token']['screen_name'] . ", are you ready to archive?<br><a href='./clearsessions.php'>logout</a>";
     $logged_in = TRUE;
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST")  
+{
+    $tags = false;
+    if (isset($_POST['tags']))
+    {
+        $tags_array = $_POST['tags'];
+        $tags = "";
+        foreach ( $tags_array as $selected )
+            $tags .= strtolower($selected) . "|";
+        $tags = substr($tags, 0, -1) . "";
+    }
+    
+    $rtfv = false;
+    if (isset($_POST["rtfv"]))
+        $rtfv = $_POST["rtfv"];
+        
+    $from = false;
+    if (isset($_POST["from"]))
+        $from = $_POST["from"];
+    
+    $to = false;
+    if (isset($_POST["$to"]))
+        $to = $_POST["to"];
+        
+    $archives = $tk->listArchivesWithCondition("tags regexp '$tags' AND type = 3 ORDER BY count DESC LIMIT 50");
+    //$tweets = $tk->getTweetsFromArchives($archives['results'], strtotime($from),strtotime($to),false,false,false/*nort*/,false,false,false,false,false,false,false,false,false,false, $rtfv, $rtfv);
+
+}
+
 ?>
 
 <?php include("templates/header.php"); ?>
@@ -47,120 +77,107 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $(document).ready(function() {
 
 
+        $('#descriptionSelect').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 250,
+            buttonWidth: 200
+        });
+        $('input[type=submit]').button();
+        
+        $("#to").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true});
+        $("#from").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true});
+
     });
 
 </script>
 
 <section id="overview-content">
 
+    <?php
+    if ($logged_in)
+    {
+        ?>
 
-    <!-- NOTIFICATION AREA -->
+        <div class="main-block" style="text-align: center; margin:100px 0; ">
 
+            <div style="padding:7px;">
 
-    <div class="container-bg left">
-        <div class="container-header">
-            <div style="padding:3px 10px;">
-                <img src="resources/icons/icons_0002_Calendar-today-small.png" height="15" alt="Info" /> <?php echo date("l d F Y"); ?> 
-                <span style="display:inline-block;padding-left:10px"></span> <img src="resources/icons/icons_0023_Clock-small.png" height="15" alt="Info" /> <?php echo date("H:i"); ?>
-            </div>
-        </div>
+                
+                <br/>
 
-        <div style="position:relative;">
-            <div style="float:left;  padding:15px 25px">
-                <ul class="status-list">
+                <div class="">
 
-                </ul>
-            </div>
+                    <form action='export.php' method='post' >
 
+                        <table>
+                            <tr>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>ID</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Retweets &amp; Favorites</td>
+                                <td></td>
+                            </tr>
 
-        </div>
-    </div>
+                            <tr style="height:60px">
+                                <td></td>
+                                <td><select name="description"></td>
+                                <td>
+                                    <select name="tags[]"  class="multiselect"  multiple="multiple" id="descriptionSelect">
 
+                                        <?php
+                                        $tags = $tk->getUniformTags(-1);
 
+                                        foreach ($tags as $tag)
+                                            echo "<option id=''>" . ucfirst($tag) . "</option>";
+                                        ?>
 
-    <!-- ARCHIVE CREATION AREA -->
-    <br/><br/>
-    <div class='main'>
+                                    </select>
+                                </td>             
+                                <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
+                                <td><input name='rtfv'/></td> 
+                                <td><input type='submit' class ="submit-button" value ='Filter' class="ui-state-default ui-corner-all"/></td>
+                            </tr>
+                            
+                        </table>
+                   
 
-<?php
-if ($logged_in)
-{
-    ?>
+                        <br/>
+                        <br/>
 
-            <div class="main-block">
-
-                <div style="padding:7px;">
-
-                    <span class="main-header" >Export </span>
-
-                    <br/>
-
-                    <div class="borderdot">
-
-                        <form action='create.php' method='post' >
-
-                            <table>
-                                <tr>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From Keyword</td>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width:250px"><input type="text" name="value" /></td>
-                                    <td style="width:125px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
-                                    <td style="width:250px"><input name='description'/></td> 
-                                    <td style="width:250px"><input name='tags'/></td> 
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all"/></td>
-                                </tr>
-                            </table>
-                            <br/>
-
-                        </form>
-
-                    </div>
-
-                    <div class="borderdot">
-
-                        <form action='createBulk.php' method='post' enctype='multipart/form-data'>
-
-                            <table>
-                                <tr>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From File</td>
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>  
-                                    <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
-                                    <td></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td style="width:250px"><input type="file" name='file' style="width:250px"/></td>
-                                    <td style="width:125px"><select name="type"><option value="1" >keyword</option><option value="2">#hashtag</option><option value="3" >@user</option></select></td>
-                                    <td style="width:250px"><input name='tags'/></td>
-                                    <td style="width:250px"><input type='submit' class ="submit-button" value ='Create Archive(s)' class="ui-state-default ui-corner-all" /></td> 
-                                </tr>
-
-                            </table>
-                            <br/>
-
-                        </form>
-
-                    </div>
+                    </form>
 
                 </div>
+
+
             </div>
 
-<?php } ?>
-
-
-
+        <?php } ?>
+            
+            </div>
+    
+    <div class="main">
+        <div class="main-block">
+            <span style="font-weight:bold">Number of archives: <?= $archives["count"] ?></span>
+            <!--<span class="header-main">Number of tweets: <?= count($tweets) ?></span>-->
+            <br/><br/>
+            
+            <div>
+                <?php include("get_archives.php"); ?>
+            </div>
+            
+        </div>
+        
+        
     </div>
+            
+            
+            
+
+
+
+    
 
 </section>
 

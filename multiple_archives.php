@@ -25,8 +25,6 @@ require_once('function.php');
 require_once('twitteroauth.php');
 
 $archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
-
-	
 // setup perm urls
 $permurl= $tk_your_url."archive.php?".htmlentities($_SERVER['QUERY_STRING']); 
 $permrss = $tk_your_url."rss.php?".htmlentities($_SERVER['QUERY_STRING']);

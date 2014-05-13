@@ -333,8 +333,8 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
         "zu" => "Zulu"
     );
     ?>
-    <div class='main-block' style="margin-bottom:80px; margin-top:80px">
-        <center>
+    <div class='main-block' style="margin-bottom:80px; margin-top:80px; text-align:center">
+        
             <form method='get' action='archive.php'>
                 <input type='hidden' name='id' value='<?php echo $id; ?>'>
                 <table>
@@ -537,7 +537,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             echo "JSON API = <a href='$permjson'>$permjson</a>";
             echo "</h5>";
             ?>
-        </center>
+       
     </div>
 
 

@@ -69,7 +69,7 @@ class YourTwapperKeeper {
 
         $tags = array();
 
-        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc limit $num";
+        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc" . (($num > 0)? " limit $num" : "");
         $result = mysql_query($q, $db->connection);
 
         while ($row = mysql_fetch_assoc($result))
@@ -453,7 +453,7 @@ class YourTwapperKeeper {
 
         if ($retweets || $favorites)
         {
-            $qparam .= " and (" . (($retweets) ? "retweets >= " . $retweets : "") . (($retweets && $favorites) ? " or " : "") . (($favorites) ? "favorites >= " . $favorites : "") . ")";
+            $qparam .= " and (" . (($retweets) ? "retweets >= " . $retweets : "") . (($retweets && $favorites) ? " and " : "") . (($favorites) ? "favorites >= " . $favorites : "") . ")";
         }
 
         if ($lat OR $long OR $rad)

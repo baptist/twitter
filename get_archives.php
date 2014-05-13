@@ -2,12 +2,13 @@
 require_once('config.php');
 require_once('function.php');
 
-$filter = $_POST['filter'];
 
 
 
-if (isset($filter) && $filter !== "" )
+
+if (isset($_POST['filter']) && $_POST['filter'] !== "" )
 {
+    $filter = $_POST['filter'];
     if ($filter == "Top 50")
         $archives = $tk->listArchive();
     else
@@ -16,9 +17,9 @@ if (isset($filter) && $filter !== "" )
         if (count($archives) == 1)
             $archives = $tk->listArchive(false, $filter);
     }    
-}
-    
-else
+} 
+
+else if ($archives == NULL)
     $archives = $tk->listArchive();
 
 // list table of archives
