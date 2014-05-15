@@ -369,17 +369,46 @@ class YourTwapperKeeper {
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         $response = array();
+        $tweets = array();
+        $pool = array();
 
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
             
             foreach ($result as $r)
             {
                 $r['description'] = $archive['description'];                
-                $response[] = $r;                
-            }
                 
+                if ($nort)
+                { 
+                    if (strpos(trim($r['text']), "RT @") === 0)
+                    {                        
+                        $key = substr(trim($r['text']), strpos($r['text'], ":"));
+                        
+                        if (!array_key_exists($key, $tweets) && !array_key_exists($key, $pool))                           
+                            $pool[$key] = $r;                                   
+                    }
+                    else
+                    {
+                        $tweets[$r["text"]] = 1;
+                        $response[] = $r;
+                    }
+                }
+                else
+                    $response[] = $r;          
+                
+            }
+            
+            if ($nort)
+            {
+                
+                foreach ($pool as $key => $tweet)
+                {
+                    if (!array_key_exists($key, $tweets))
+                        $response[] = $tweet;
+                }
+            }
         }
         
         usort($response, array($this, "cmpTweets"));

@@ -160,8 +160,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Retweets</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Favorites</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
                                 <td></td>
                             </tr>
@@ -192,6 +193,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                     </select>
                                 </td>             
                                 <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
+                                <td><input type="checkbox" name='no_rt' /></td> 
                                 <td><input name='rt' style="width:60px"/></td> 
                                 <td><input name='fv' style="width:60px"/></td> 
                                 <td><input name='limit' style="width:60px"/></td> 

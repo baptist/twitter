@@ -117,7 +117,6 @@ echo "<th>FROM_USER</th>";
 echo "<th>ORIGINAL_USER_ID</th>";
 echo "<th>ORIGINAL_USER</th>";
 echo "<th>ID</th>";
-echo "<th>ORIGINAL ID</th>";
 //echo "<th>IN_REPLY_TO_STATUS_ID</th>";
 echo "<th>ISO_LANGUAGE_CODE</th>";
 echo "<th>PROFILE_IMG_URL</th>";
@@ -140,7 +139,6 @@ $keys_to_print = array("text",
     "original_user_id",
     "original_user",
     "id",
-    "original_id",
     //"in_reply_to_status_id",
     "iso_language_code",
     "profile_image_url",
@@ -175,8 +173,8 @@ foreach ($archiveTweets as $key => $value)
             {
                 foreach ($urls[0] as $url)
                 {
-                    $expandedURL = $tk->expandShortUrl($url);
-                    echo "<td>$url</td><td>$expandedURL</td>";
+                    //$expandedURL = $tk->expandShortUrl($url);
+                    //echo "<td>$url</td><td>$expandedURL</td>";
                 }
             }
 
