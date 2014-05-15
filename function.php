@@ -542,11 +542,19 @@ class YourTwapperKeeper {
         if (mysql_num_rows($r) == 1)
         {
             $row = mysql_fetch_assoc($r);
-            $archiveID = $row['original_archive'];
+            
             $originalID = $row['original_id'];
+            
+            if (!empty($originalID))
+            {
+                 $r2 = mysql_query("SELECT original_archive FROM smart_tweets WHERE id = '$originalID'", $db->connection);
+                 $archiveID = (mysql_fetch_num($r2) == 1)? mysql_fetch_assoc($r2)['original_archive'] : $row['original_archive'];
+            }
+            else
+                $archiveID = $row['original_archive'];
 
-            $r2 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
-            return mysql_fetch_assoc($r2);
+            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
+            return mysql_fetch_assoc($r3);
         }
         return FALSE;
     }
