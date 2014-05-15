@@ -3,9 +3,6 @@ require_once('config.php');
 require_once('function.php');
 
 
-
-
-
 if (isset($_POST['filter']) && $_POST['filter'] !== "" )
 {
     $filter = $_POST['filter'];
@@ -18,25 +15,27 @@ if (isset($_POST['filter']) && $_POST['filter'] !== "" )
             $archives = $tk->listArchive(false, $filter);
     }    
 } 
-
-else if ($archives == NULL)
+else if (empty($archives))
     $archives = $tk->listArchive();
 
 // list table of archives
 
-echo "<table>";
-echo "<tr><th>Archive ID</th><th>Keyword / Hashtag</th><th>Description</th><th>Tags</th><th>Screen Name</th><th>Count</th><th>Create Time</th><th></th></tr>";
+echo "<table class='archive'>";
+echo "<tr><th style='text-align:left'>Type</th><th style='text-align:left'>Keyword</th><th>Description</th><th>Tags</th><th>Created By</th><th>Count</th><th>Create Time</th><th></th></tr>";
 
 if (array_key_exists("results", $archives))
 {
 
     foreach ($archives['results'] as $value)
     {
-        echo "<tr><td>" . $value['id'] . "</td><td>" . $value['keyword'] . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td>" .number_format ( $value['count']) . "</td><td>" . date(DATE_RFC2822, $value['create_time']) . "</td>";
+        $type = $value['type'];
+        $image_type_url = (($type == 1) ? "twitter-icon.png" : (($type == 2) ? "hashtag.png" : (($type == 3) ? "follow.png" : "mention.png")));
+        
+        echo "<tr><td style='text-align:left'> <img src='resources/$image_type_url' alt='' width='20px' style='border-radius:10px;position:relative;top:2px;margin-right:3px' /> </td><td style='text-align:left'>" . ucfirst(strtolower($value['keyword'])) . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td style='font-size:120%'>" .number_format ( $value['count']) . "</td><td>" . date("d M Y", $value['create_time']) . "</td>";
         echo "<td>";
-        echo "<a href='archive.php?id=" . $value['id'] . "' target='_blank' alt='View'><img src='./resources/binoculars_24.png' alt='View Archive' title='View Archive'/></a>";
-        if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name'])
-        {
+        echo "<a href='archive.php?id=" . $value['id'] . "' target='_blank' alt='View'><span class='ui-icon ui-icon-circle-zoomin'  style='display:inline-block'></span></a>";
+        //if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name'])
+        //{
             ?>
             <script type="text/javascript">
                 $(function() {
@@ -72,13 +71,13 @@ if (array_key_exists("results", $archives))
                 <br><br><center><form method='post' action='delete.php'><input type='hidden' name='id' value='<?php echo $value['id']; ?>'/><input type='submit' value='Yes'/></form></center>
             </div> 
 
-            <div id = 'updatedialog<?php echo $value['id']; ?>' title='Update <?php echo $value['keyword']; ?> archive'>
+            <div id = 'updatedialog<?php echo $value['id']; ?>' title='Update <?php echo ($value['keyword']); ?> archive'>
                 <br><br><center><form method='post' action='update.php'>Description<br><input name='description' value='<?php echo $value['description']; ?>'/><br><br>Tags<br><input name='tags' value='<?php echo $value['tags']; ?>'/><input type='hidden' name='id' value='<?php echo $value['id']; ?>'/><br><br><p><input type='submit' value='Update'/></p></form></center>
             </div> 
             <?php
-            echo "<a href='#' id='updatelink" . $value['id'] . "'><img src='./resources/pencil_24.png' alt='Edit Archive' title='Edit Archive'/></a>";
-            echo "  <a href='#' id='deletelink" . $value['id'] . "'><img src='./resources/close_2_24.png' alt='Delete Archive' title='Delete Archive'/></a>";
-        }
+            echo "<a href='#' id='updatelink" . $value['id'] . "'><span class='ui-icon ui-icon-info' style='display:inline-block'></span></a>";
+            echo "<a href='#' id='deletelink" . $value['id'] . "'><span class='ui-icon ui-icon-circle-close' style='display:inline-block'></span></a>";
+        //}
 
         echo "</td>";
         echo "</tr>";

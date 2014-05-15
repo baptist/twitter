@@ -79,6 +79,8 @@ $tags = $tk->getUniformTags(4);
                 getArchives($(this).val()); 
                    
         });
+
+        $("input[type=submit],button").button();
     });
 
 </script>

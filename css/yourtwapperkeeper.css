@@ -4,8 +4,8 @@
 body {
     /*background: #E4E4E4;*/
     background: url(../resources/body-tail.gif) repeat top center;
-    font-family:Helvetica, Verdana;
-    font-size:12px;
+    font-size: 110%;
+    font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif";
     height:100%;
     width:100%;
     padding:0;
@@ -62,7 +62,7 @@ body {
 }
 
 .main-block span {
-    display:block;
+   
     padding-left:7px;
 }
 
@@ -142,7 +142,7 @@ img
 
 .container-header img {
     position:relative;
-    top:3px;
+
 }
 
 
@@ -250,25 +250,6 @@ ul.status-list {
     margin-bottom: 10px;
 }
 
-table { background:white;
-        border:1px solid gray;
-        border-collapse:collapse;
-        color:#fff;
-        margin-left:auto;
-        margin-right:auto;
-        width:100%;
-}
-
-caption { border:1px solid #5C443A;
-          color:#5C443A;
-          font-weight:bold;
-          letter-spacing:20px;
-          padding:6px 4px 8px 0px;
-          text-align:center;
-          text-transform:uppercase;
-}
-
-
 
 
 #search {   
@@ -318,54 +299,25 @@ caption { border:1px solid #5C443A;
     border:none;
 }
 
-
-td, th { color:#363636;
-         padding:.4em;
-}
-tr { border:1px dotted gray;
-}
-thead th, tfoot th { 
-    color:#FFFFFF;
-    padding:3px 10px 3px 10px;
-    text-align:left;
-    text-transform:uppercase;
-}
-tbody td a { color:#363636;
-             text-decoration:none;
-}
-tbody td a:visited { color:gray;
-
-}
-tbody td a:hover { text-decoration:underline;
-}
-tbody th a { color:#363636;
-             font-weight:normal;
-             text-decoration:none;
-}
-tbody th a:hover { color:#363636;
-}
-tbody td+td+td+td a {
-    background-position:left center;
-    background-repeat:no-repeat;
-    color:#03476F;
-    padding-left:15px;
-}
-tbody td+td+td+td a:visited { 
-    background-position:left center;
-    background-repeat:no-repeat;
-}
-tbody th, tbody td { text-align:left;
-                     vertical-align:top;
-}
-tfoot td { 
-    color:#FFFFFF;
-    padding-top:3px;
-}
-.odd { background:#fff;
-}
 ol, ul {
     list-style: none;
 }
 
 none {
+}
+
+table.archive  {
+    width:100%;
+    
+}
+
+.archive th {
+    font-size:120%;
+    padding:10px;
+    text-align:center;
+}
+
+.archive td {
+    padding:5px;
+    text-align:center;
 }

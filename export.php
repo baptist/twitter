@@ -40,31 +40,60 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
 if($_SERVER['REQUEST_METHOD'] == "POST")  
 {
-    $tags = false;
-    if (isset($_POST['tags']))
-    {
+    $condition = "1";
+    if (!empty($_POST['tags']))
+    {       
         $tags_array = $_POST['tags'];
         $tags = "";
         foreach ( $tags_array as $selected )
             $tags .= strtolower($selected) . "|";
-        $tags = substr($tags, 0, -1) . "";
+        
+            $condition .= " and tags regexp '" . substr($tags, 0, -1) . "'";  
     }
     
-    $rtfv = false;
-    if (isset($_POST["rtfv"]))
-        $rtfv = $_POST["rtfv"];
+    if (!empty($_POST['type']))
+    {
+        $type_array = $_POST['type'];
+        $type = "";
+        foreach ( $type_array as $selected )
+            $type .= strtolower($selected) . "|";
+        
+        $condition .= " and type regexp '" . substr($type, 0, -1) . "'";        
+    }
+    
+    if (!empty($_POST["keyword"]) )
+        $condition .= " and keyword LIKE '" . $_POST["keyword"] . "'";     
+    
+    if (!empty($_POST["description"]))
+        $condition .= " and description LIKE '" . $_POST["description"] . "'";     
+    
+    $limit = false;
+    if (!empty($_POST["limit"]))
+        $limit = $_POST["limit"];
+    
+    $rt = false;
+    if (!empty($_POST["rt"]))
+        $rt = $_POST["rt"];
+    
+    $fv = false;
+    if (!empty($_POST["fv"]))
+        $fv = $_POST["fv"];
+    
+    $no_rt = false;
+    if (!empty($_POST["no_rt"]))
+        $no_rt = $_POST["no_rt"];
         
     $from = false;
-    if (isset($_POST["from"]))
-        $from = $_POST["from"];
+    if (!empty($_POST["from"]))
+        $from = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["from"] . " 00:00:00")->getTimestamp();
     
     $to = false;
-    if (isset($_POST["$to"]))
-        $to = $_POST["to"];
-        
-    $archives = $tk->listArchivesWithCondition("tags regexp '$tags' AND type = 3 ORDER BY count DESC LIMIT 50");
-    //$tweets = $tk->getTweetsFromArchives($archives['results'], strtotime($from),strtotime($to),false,false,false/*nort*/,false,false,false,false,false,false,false,false,false,false, $rtfv, $rtfv);
-
+    if (!empty($_POST["to"]))
+        $to = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["to"] . " 23:59:59")->getTimestamp();
+    
+    $archives = $tk->listArchivesWithCondition("$condition ORDER BY count DESC");
+    $tweets = $tk->getTweetsFromArchives($archives['results'], $from,$to,false,false,$no_rt,false,false,false,false,false,false,false,false,false,false, $rt, $fv);
+    $_SESSION['tweets'] = $tweets;
 }
 
 ?>
@@ -77,12 +106,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $(document).ready(function() {
 
 
-        $('#descriptionSelect').multiselect({
+        $('#tagsSelect').multiselect({
             includeSelectAllOption: true,
+            numberDisplayed: 1,
             enableFiltering: true,
             maxHeight: 250,
-            buttonWidth: 200
+            buttonWidth: 220
         });
+        
+        
+        $('#typesSelect').multiselect({       
+            includeSelectAllOption: true,
+            numberDisplayed:2,
+            maxHeight: 150,
+            buttonWidth: 150
+        });
+        
         $('input[type=submit]').button();
         
         $("#to").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true});
@@ -99,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
         ?>
 
-        <div class="main-block" style="text-align: center; margin:100px 0; ">
+        <div class="main-block" style=" margin:100px 0; ">
 
             <div style="padding:7px;">
 
@@ -110,33 +149,48 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
                     <form action='export.php' method='post' >
 
-                        <table>
+                        <table style="width:100%">
                             <tr>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>ID</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Keyword</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Retweets &amp; Favorites</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Retweets</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Favorites</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
                                 <td></td>
                             </tr>
 
                             <tr style="height:60px">
-                                <td></td>
-                                <td><select name="description"></td>
                                 <td>
-                                    <select name="tags[]"  class="multiselect"  multiple="multiple" id="descriptionSelect">
+                                    <select name="type[]"  class="multiselect"  multiple="multiple" id="typesSelect">
+                                        <?php
+                                        $types = array("keyword", "#hashtag", "@user");
+                                        $i = 1;
+                                        foreach ($types as $type)
+                                            echo "<option value='".$i++."'>" . $type . "</option>";
+                                        ?>
+                                    </select>
+                                </td>
+                                <td><input name='keyword'/></td>
+                                <td><input name='description'/></td>
+                                <td>
+                                    <select name="tags[]"  class="multiselect"  multiple="multiple" id="tagsSelect">
 
                                         <?php
                                         $tags = $tk->getUniformTags(-1);
 
                                         foreach ($tags as $tag)
-                                            echo "<option id=''>" . ucfirst($tag) . "</option>";
+                                            echo "<option value='$tag'>" . ucfirst($tag) . "</option>";
                                         ?>
 
                                     </select>
                                 </td>             
                                 <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
-                                <td><input name='rtfv'/></td> 
+                                <td><input name='rt' style="width:60px"/></td> 
+                                <td><input name='fv' style="width:60px"/></td> 
+                                <td><input name='limit' style="width:60px"/></td> 
                                 <td><input type='submit' class ="submit-button" value ='Filter' class="ui-state-default ui-corner-all"/></td>
                             </tr>
                             
@@ -157,20 +211,34 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             
             </div>
     
+    <?php
+        if (isset($archives)) {
+    ?>    
+        
+    
     <div class="main">
         <div class="main-block">
-            <span style="font-weight:bold">Number of archives: <?= $archives["count"] ?></span>
-            <!--<span class="header-main">Number of tweets: <?= count($tweets) ?></span>-->
+            <span class="main-header">Export archives</span> <br/>
+            <span style="font-weight:bold">Number of archives: <?= number_format ($archives["count"]) ?></span> <br/>
+            <span style="font-weight:bold">Number of tweets: <?= number_format (count($tweets)) ?></span> <br/>
+            
+            <form action="excel.php" method="GET">
+                
+                <input type="submit" value="Export" />
+            </form>
+                                 
             <br/><br/>
             
-            <div>
-                <?php include("get_archives.php"); ?>
-            </div>
+          
             
         </div>
         
         
     </div>
+    
+    <?php
+        }
+    ?> 
             
             
             

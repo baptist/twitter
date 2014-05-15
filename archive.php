@@ -337,7 +337,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
         
             <form method='get' action='archive.php'>
                 <input type='hidden' name='id' value='<?php echo $id; ?>'>
-                <table>
+                <table style="width:100%">
                     <tr>
                         <td><b>START DATE</b></td><td></td><td></td><td></td><td><b>END DATE</b></td><td></td><td></td><td><b>ORDER</b></td><td><b>VIEW LIMIT</b></td><td><b>FROM USER</b></td><td><b>TWEET TEXT</b></td><td><b>LANGUAGE</b></td>
 

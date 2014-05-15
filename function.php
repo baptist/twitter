@@ -373,7 +373,13 @@ class YourTwapperKeeper {
         foreach ($archives as $archive)
         {
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, $limit, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
-            $response = array_merge($response, $result);
+            
+            foreach ($result as $r)
+            {
+                $r['description'] = $archive['description'];                
+                $response[] = $r;                
+            }
+                
         }
 
         usort($response, array($this, "cmpTweets"));
@@ -413,12 +419,12 @@ class YourTwapperKeeper {
 
         if ($start > 0)
         {
-            $qparam .= " and time > $start";
+            $qparam .= " and time >= $start";
         }
 
         if ($end > 0)
         {
-            $qparam .= " and time < $end";
+            $qparam .= " and time <= $end";
         }
 
         if ($nort == 1)

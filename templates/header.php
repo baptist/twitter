@@ -5,19 +5,18 @@
         <title>Your Twapper Keeper 2.0</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />       
         
-        <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-multiselect.css"/>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
-        <link href="css/yourtwapperkeeper.css?v=2" rel="stylesheet" type="text/css" />
-        <script src="js/jquery-2.1.0.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-        <script src="js/bootstrap-3.1.1.min.js"></script>
-        <script src="js/bootstrap-multiselect.js"></script>
+        <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/pepper-grinder/jquery-ui.css" />-->
+        <link rel="stylesheet" href="css/jquery.ui.all.css"           type="text/css"  />       
+        <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css"     type="text/css"  />
+        <link rel="stylesheet" href="css/bootstrap-multiselect.css"   type="text/css" />        
+        <link rel="stylesheet" href="css/yourtwapperkeeper.css?v=2"   type="text/css" />                
+           
         <script src="js/Chart.js"></script>
-        <style>
-            canvas{
-            }
-        </style>
+        <script src="js/jquery-2.1.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="js/bootstrap-3.1.1.min.js"></script>
+        <script src="js/bootstrap-multiselect.js"></script>     
+       
     </head>
     <body>
 
