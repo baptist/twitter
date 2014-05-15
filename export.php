@@ -92,7 +92,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         $to = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["to"] . " 23:59:59")->getTimestamp();
     
     $archives = $tk->listArchivesWithCondition("$condition ORDER BY count DESC");
-    $tweets = $tk->getTweetsFromArchives($archives['results'], $from,$to,false,false,$no_rt,false,false,false,false,false,false,false,false,false,false, $rt, $fv);
+    $tweets = $tk->getTweetsFromArchives($archives['results'], $from,$to,$limit,false,$no_rt,false,false,false,false,false,false,false,false,false,false, $rt, $fv);
     $_SESSION['tweets'] = $tweets;
 }
 

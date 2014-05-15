@@ -372,7 +372,7 @@ class YourTwapperKeeper {
 
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, $limit, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, $nort, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
             
             foreach ($result as $r)
             {
@@ -381,8 +381,11 @@ class YourTwapperKeeper {
             }
                 
         }
-
+        
         usort($response, array($this, "cmpTweets"));
+        
+        if ($limit)
+            $response = array_slice($response, 0, $limit);
 
         return $response;
     }

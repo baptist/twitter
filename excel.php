@@ -175,8 +175,8 @@ foreach ($archiveTweets as $key => $value)
             {
                 foreach ($urls[0] as $url)
                 {
-                    $expandedURL = $tk->expandShortUrl($url);
-                    echo "<td>$url</td><td>$expandedURL</td>";
+                    //$expandedURL = $tk->expandShortUrl($url);
+                    //echo "<td>$url</td><td>$expandedURL</td>";
                 }
             }
 
