@@ -175,8 +175,8 @@ foreach ($archiveTweets as $key => $value)
             {
                 foreach ($urls[0] as $url)
                 {
-                    //$expandedURL = $tk->expandShortUrl($url);
-                    //echo "<td>$url</td><td>$expandedURL</td>";
+                    $expandedURL = $tk->expandShortUrl($url);
+                    echo "<td>$url</td><td>$expandedURL</td>";
                 }
             }
 
@@ -187,4 +187,8 @@ foreach ($archiveTweets as $key => $value)
     }
 
 echo "</table>";
+
+// clear memory
+unset($_SESSION["tweets"]);
+
 ?>
