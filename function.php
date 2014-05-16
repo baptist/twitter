@@ -372,11 +372,14 @@ class YourTwapperKeeper {
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         $response = array();
-        $tweets = array();
-        $pool = array();
+        
 
         foreach ($archives as $archive)
         {
+            
+            $tweets = array();
+            $pool = array();
+            
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
             
             foreach ($result as $r)
