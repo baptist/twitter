@@ -392,8 +392,13 @@ class YourTwapperKeeper {
                     {                        
                         $key = substr(trim($r['text']), strpos($r['text'], ":"));
                         
-                        if (!array_key_exists($key, $tweets) && !array_key_exists($key, $pool))                           
-                            $pool[$key] = $r;                                   
+                        if (!array_key_exists($key, $tweets))    
+                        {
+                            if (!array_key_exists($key, $pool))
+                                $pool[$key] = $r; 
+                            else if ($pool[$key]["time"] > $r["time"] )
+                                $pool[$key] = $r;                                 
+                        }
                     }
                     else
                     {
