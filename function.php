@@ -1,5 +1,8 @@
 <?php
 
+ini_set('memory_limit', '1024M');
+ini_set('max_execution_time', 30000);
+
 /*
   yourTwapperKeeper - Twitter Archiving Application - http://your.twapperkeeper.com
   Copyright (c) 2010 John O'Brien III - http://www.linkedin.com/in/jobrieniii
