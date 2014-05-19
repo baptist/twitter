@@ -928,7 +928,7 @@ class YourTwapperKeeper {
 
                 if (mysql_num_rows($r3) == 1)
                 {
-                    mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . mysql_fetch_assoc($r3)["original_archive"] . "', 1, 1)", $db->connection);
+                    mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . mysql_fetch_assoc($r3)["original_archive"] . "', 1, 1)", $db->connection);
 
                     if (mysql_error() != '')
                         $this->log("Error when inserting retweet info (duplicate): " . mysql_error(), '', $log_file);
@@ -936,14 +936,14 @@ class YourTwapperKeeper {
                     $duplicate = TRUE;
                 } else
                 {
-                    mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
+                    mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
 
                     if (mysql_error() != '')
                         $this->log("Error when inserting retweet info (original): " . mysql_error(), '', $log_file);
                 }
             } else
             {
-                mysql_query("insert into smart_tweets values ('" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
+                mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
 
                 if (mysql_error() != '')
                     $this->log("Error when inserting duplicates info" . mysql_error(), '', $log_file);
