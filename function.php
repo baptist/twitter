@@ -72,7 +72,7 @@ class YourTwapperKeeper {
 
         $tags = array();
 
-        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc" . (($num > 0)? " limit $num" : "");
+        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc" . (($num > 0) ? " limit $num" : "");
         $result = mysql_query($q, $db->connection);
 
         while ($row = mysql_fetch_assoc($result))
@@ -372,32 +372,32 @@ class YourTwapperKeeper {
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         $response = array();
-        
+
 
         foreach ($archives as $archive)
         {
-            
+
             $tweets = array();
             $pool = array();
-            
+
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
-            
+
             foreach ($result as $r)
             {
-                $r['description'] = $archive['description'];                
-                
+                $r['description'] = $archive['description'];
+
                 if ($nort)
-                { 
+                {
                     if (strpos(trim($r['text']), "RT @") === 0)
-                    {                        
+                    {
                         $key = substr(trim($r['text']), strpos($r['text'], ":"));
-                        
-                        if (!array_key_exists($key, $tweets))    
+
+                        if (!array_key_exists($key, $tweets))
                         {
                             if (!array_key_exists($key, $pool))
-                                $pool[$key] = $r; 
-                            else if ($pool[$key]["time"] > $r["time"] )
-                                $pool[$key] = $r;                                 
+                                $pool[$key] = $r;
+                            else if ($pool[$key]["time"] > $r["time"])
+                                $pool[$key] = $r;
                         }
                     }
                     else
@@ -407,13 +407,12 @@ class YourTwapperKeeper {
                     }
                 }
                 else
-                    $response[] = $r;          
-                
+                    $response[] = $r;
             }
-            
+
             if ($nort)
             {
-                
+
                 foreach ($pool as $key => $tweet)
                 {
                     if (!array_key_exists($key, $tweets))
@@ -421,9 +420,9 @@ class YourTwapperKeeper {
                 }
             }
         }
-        
+
         usort($response, array($this, "cmpTweets"));
-        
+
         if ($limit)
             $response = array_slice($response, 0, $limit);
 
@@ -582,13 +581,13 @@ class YourTwapperKeeper {
         if (mysql_num_rows($r) == 1)
         {
             $row = mysql_fetch_assoc($r);
-            
+
             $originalID = $row['original_id'];
-            
+
             if (!empty($originalID))
             {
-                 $r2 = mysql_query("SELECT original_archive FROM smart_tweets WHERE tweet_id = '$originalID'", $db->connection);
-                 $archiveID = (mysql_num_rows($r2) == 1)? mysql_fetch_assoc($r2)['original_archive'] : $row['original_archive'];
+                $r2 = mysql_query("SELECT original_archive FROM smart_tweets WHERE tweet_id = '$originalID'", $db->connection);
+                $archiveID = (mysql_num_rows($r2) == 1) ? mysql_fetch_assoc($r2)['original_archive'] : $row['original_archive'];
             }
             else
                 $archiveID = $row['original_archive'];
@@ -856,10 +855,10 @@ class YourTwapperKeeper {
         mysql_query($q, $db->connection);
         $t2 = microtime(true);
         echo "Time to insert query: " . ($t2 - $t1) . "\n";
-        
-        $t1 = microtime(true);       
+
+        $t1 = microtime(true);
         $this->log("$q", '', $log_file);
-        
+
         if (mysql_error() != "")
             $this->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
         $t2 = microtime(true);
@@ -871,16 +870,16 @@ class YourTwapperKeeper {
             $time = $tweet['time'];
 
         // Insert into central tweets table
-        $t1 = microtime(true);       
+        $t1 = microtime(true);
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
-        
+
         $t2 = microtime(true);
         echo "Time to insert smart tweet: " . ($t2 - $t1) . "\n";
 
-         $t1 = microtime(true);       
+        $t1 = microtime(true);
         // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
         if (!$duplicate)
-        {            
+        {
             $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
             mysql_query($q, $db->connection);
 
@@ -890,8 +889,8 @@ class YourTwapperKeeper {
         $t2 = microtime(true);
         echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
 
-        
-        $t1 = microtime(true);       
+
+        $t1 = microtime(true);
         // Track conversation if not too old and dealing with hashtagged tweet               
         if (time() - $time < $time_to_track_user && $type == 2)
         {
@@ -900,10 +899,10 @@ class YourTwapperKeeper {
         }
         $t2 = microtime(true);
         echo "Time to track conversation: " . ($t2 - $t1) . "\n";
-        
+
         echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
         echo "--> ENDING INSERTING <-- \n\n";
-        
+
         return TRUE;
     }
 
@@ -912,46 +911,21 @@ class YourTwapperKeeper {
         global $db;
 
         $duplicate = FALSE;
-        $q = "select original_archive from smart_tweets where tweet_id = '" . $tweet['id'] . "'";
-        $r = mysql_query($q, $db->connection);
-        if (mysql_error() != '')
-            $tk->log("Error when checking duplicates: " . mysql_error(), '', $log_file);
 
-        if (mysql_num_rows($r) == 0)
+        if (isset($tweet['original_id']) && $tweet['original_id'] != '')
         {
-            if (isset($tweet['original_id']) && $tweet['original_id'] != '')
-            {
-                $q3 = "select original_archive from smart_tweets where tweet_id = '" . $tweet['original_id'] . "' or original_id = '" . $tweet['original_id'] . "'";
-                $r3 = mysql_query($q3, $db->connection);
-                if (mysql_error() != '')
-                    $this->log("Error when checking retweet info: " . mysql_error(), '', $log_file);
-
-                if (mysql_num_rows($r3) == 1)
-                {
-                    mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . mysql_fetch_assoc($r3)["original_archive"] . "', 1, 1)", $db->connection);
-
-                    if (mysql_error() != '')
-                        $this->log("Error when inserting retweet info (duplicate): " . mysql_error(), '', $log_file);
-
-                    $duplicate = TRUE;
-                } else
-                {
-                    mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
-
-                    if (mysql_error() != '')
-                        $this->log("Error when inserting retweet info (original): " . mysql_error(), '', $log_file);
-                }
-            } else
-            {
-                mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
-
-                if (mysql_error() != '')
-                    $this->log("Error when inserting duplicates info" . mysql_error(), '', $log_file);
-            }
+            mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
+            
+            if (mysql_error() != '')
+                $duplicate = TRUE;
+        } else
+        {
+            mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
+            
+            if (mysql_error() != '')
+                $duplicate = TRUE;
         }
-        else
-            $duplicate = TRUE;
-
+        
         return $duplicate;
     }
 
