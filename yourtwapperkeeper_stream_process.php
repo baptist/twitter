@@ -87,23 +87,40 @@ while (TRUE)
     // for each tweet in memory, compare against predicates and insert
     foreach ($batch as $tweet)
     {
+        $t0 = microtime(true);
         $tk->log("Processing [" . $tweet['id'] . " - " . $tweet['text'] . "]", '', $process_log_file);
         $inserted = FALSE;
+        $inserted1 = FALSE; $inserted2 = FALSE; $inserted3 = FALSE;
        
-        if (array_key_exists(strtolower($tweet['from_user']), $follow))
-            $inserted = $tk->insertTweet($follow[strtolower($tweet['from_user'])], $tweet, -1, "stream-creator", $process_log_file);
+        $t1 = microtime(true);
+        if (isset($follow[strtolower($tweet['from_user'])]))
+            $inserted1 = $tk->insertTweet($follow[strtolower($tweet['from_user'])], $tweet, -1, "stream-creator", $process_log_file);
+        $t2 = microtime(true);
+        echo "Time to check from_user ($inserted1): " . ($t2 - $t1) . "\n";       
 
-        if (array_key_exists(strtolower($tweet['to_user']), $follow))
-            $inserted = $tk->insertTweet($follow[strtolower($tweet['to_user'])], $tweet, -1, "stream-reply", $process_log_file);
+        $t1 = microtime(true);
+        if (isset($follow[strtolower($tweet['to_user'])]))
+            $inserted2 = $tk->insertTweet($follow[strtolower($tweet['to_user'])], $tweet, -1, "stream-reply", $process_log_file);
+        
+        $t2 = microtime(true);
+        echo "Time to check to_user ($inserted2): " . ($t2 - $t1) . "\n";       
 
-        if (array_key_exists(strtolower($tweet['original_user']), $follow))
-            $inserted = $tk->insertTweet($follow[strtolower($tweet['original_user'])], $tweet, -1, "stream-retweet", $process_log_file);
-                  
+        $t1 = microtime(true);
+        if (isset($follow[strtolower($tweet['original_user'])]))
+            $inserted3 = $tk->insertTweet($follow[strtolower($tweet['original_user'])], $tweet, -1, "stream-retweet", $process_log_file);
+        $t2 = microtime(true);
+        echo "Time to check original_user ($inserted3): " . ($t2 - $t1) . "\n";    
+        
+        $inserted = $inserted1 || $inserted2 || $inserted3;
+               
+        $t1 = microtime(true);
         foreach ($track as $ztable => $keyword)
         {
             if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE)
                 $inserted = $tk->insertTweet($ztable, $tweet, ($keyword[0] == "#") ? 2 : -1, "stream-keyword", $process_log_file);
         }
+         $t2 = microtime(true);
+        echo "Time to track ($inserted): " . (($t2 - $t1)/1000) . "\n";    
 
         // If not found do not delete
         if (!$inserted)
@@ -112,6 +129,8 @@ while (TRUE)
             $tk->log("Tweet could not be inserted.", '', $process_log_file);
         }
         echo "---------------\n";
+        
+        echo "COMPLETE TIME FOR TWEET: " . (microtime(true) - $t0) . "\n\n\n";
     }
     // TODO find error that sets archives undefined
     // check if num of archives to track or follow differs from zero

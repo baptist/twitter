@@ -847,16 +847,23 @@ class YourTwapperKeeper {
     {
         global $db;
         global $time_to_track_user;
+        $t0 = microtime(true);
+        echo "--> INSERTING <-- \n\n";
 
         //$this->log('Inserting tweet', '', $log_file);
+        $t1 = microtime(true);
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
-
-               
+        $t2 = microtime(true);
+        echo "Time to insert query: " . ($t2 - $t1) . "\n";
+        
+        $t1 = microtime(true);       
         $this->log("$q", '', $log_file);
         
         if (mysql_error() != "")
             $this->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
+        $t2 = microtime(true);
+        echo "Time to log: " . ($t2 - $t1) . "\n";
 
         if ($tweet['original_time'] > 0)
             $time = $tweet['original_time'];
@@ -864,26 +871,39 @@ class YourTwapperKeeper {
             $time = $tweet['time'];
 
         // Insert into central tweets table
+        $t1 = microtime(true);       
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
+        
+        $t2 = microtime(true);
+        echo "Time to insert smart tweet: " . ($t2 - $t1) . "\n";
 
+         $t1 = microtime(true);       
         // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
         if (!$duplicate)
-        {
+        {            
             $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
             mysql_query($q, $db->connection);
 
             if (mysql_error() != '')
                 $this->log("Error when inserting into new tweets: " . mysql_error(), '', $log_file);
         }
+        $t2 = microtime(true);
+        echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
 
+        
+        $t1 = microtime(true);       
         // Track conversation if not too old and dealing with hashtagged tweet               
         if (time() - $time < $time_to_track_user && $type == 2)
         {
             $this->trackConversation($table_id, $tweet);
             //$this->log("conversation tracking required", "", $log_file);
         }
-
-
+        $t2 = microtime(true);
+        echo "Time to track conversation: " . ($t2 - $t1) . "\n";
+        
+        echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
+        echo "--> ENDING INSERTING <-- \n\n";
+        
         return TRUE;
     }
 
