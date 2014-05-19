@@ -68,9 +68,7 @@ while (TRUE)
     {
         $batch[] = $row;
     }
-    $tk->log('Processing ' . mysql_num_rows($r) . ' tweets. Check (' . count($batch) . ')', '', $process_log_file);
-
-
+    //$tk->log('Processing ' . mysql_num_rows($r) . ' tweets. Check (' . count($batch) . ')', '', $process_log_file);
     // for each tweet in memory, compare against predicates and insert
     foreach ($batch as $tweet)
     {
@@ -79,23 +77,23 @@ while (TRUE)
         foreach ($follow as $ztable => $user)
         {
             if (strcasecmp($user, $tweet['from_user']) == 0)
-                $inserted = $tk->insertTweet($ztable, $tweet, -1, "stream-creator", $process_log_file); 
+                $inserted = insertTweet($ztable, $tweet, -1, "stream-creator", $process_log_file);
 
             else if (strcasecmp($user, $tweet['to_user']) == 0)
-                $inserted = $tk->insertTweet($ztable, $tweet, -1, "stream-reply", $process_log_file );
+                $inserted = insertTweet($ztable, $tweet, -1, "stream-reply", $process_log_file);
 
             else if (strcasecmp($user, $tweet['original_user']) == 0)
-                $inserted = $tk->insertTweet($ztable, $tweet, -1, "stream-retweet", $process_log_file);
+                $inserted = insertTweet($ztable, $tweet, -1, "stream-retweet", $process_log_file);
 
             else if (strcasecmp($user, substr(explode(" ", $tweet['text'])[0], 1)) == 0)
-                $inserted = $tk->insertTweet($ztable, $tweet, -1, "stream-mention", $process_log_file);
+                $inserted = insertTweet($ztable, $tweet, -1, "stream-mention", $process_log_file);
         }
 
 
         foreach ($track as $ztable => $keyword)
         {
-            if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE)            
-                $inserted = $tk->insertTweet($ztable, $tweet, ($keyword[0] == "#")? 2 : -1, "stream-keyword", $process_log_file);                     
+            if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE)
+                $inserted = insertTweet($ztable, $tweet, ($keyword[0] == "#") ? 2 : -1, "stream-keyword", $process_log_file);
         }
 
 
@@ -113,8 +111,9 @@ while (TRUE)
     {
         // delete tweets in flag
         $q = "delete from rawstream where flag = '$script_key'";
-        //echo $q . "\n";
         mysql_query($q, $db->connection);
+
+        echo "deleting.. " . mysql_affected_rows() . "\n";
     } else
     {
         mysql_query("update rawstream set flag = '-1' where flag = '$script_key'");
@@ -130,7 +129,6 @@ while (TRUE)
         $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
         $r_count = mysql_fetch_assoc($r_count);
         $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
-        //echo $q_update . "\n";
         mysql_query($q_update, $db->connection);
     }
 
@@ -140,7 +138,6 @@ while (TRUE)
         $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
         $r_count = mysql_fetch_assoc($r_count);
         $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
-        //echo $q_update . "\n";
         mysql_query($q_update, $db->connection);
     }
 
@@ -148,6 +145,49 @@ while (TRUE)
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
     //echo "update pid\n";
     // sleep to prevent error?
-    sleep(2);
+    //sleep(2);
 }
+
+function insertTweet($table_id, $tweet, $type, $reason = '', $log_file = 'log/function_log')
+{
+    global $db;
+    global $time_to_track_user;
+
+    //$this->log('Inserting tweet', '', $log_file);
+    $q = "insert into z_$table_id values ('twitter-$reason','" . $tk->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
+    mysql_query($q, $db->connection);
+
+    //$this->log("$q", '', $log_file);
+    if (mysql_error() != "")
+        $tk->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
+
+    if ($tweet['original_time'] > 0)
+        $time = $tweet['original_time'];
+    else
+        $time = $tweet['time'];
+
+    // Insert into central tweets table
+    $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
+
+    // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
+    if (!$duplicate)
+    {
+        $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
+        mysql_query($q, $db->connection);
+
+        if (mysql_error() != '')
+            $tk->log("Error when inserting into new tweets: " . mysql_error(), '', $log_file);
+    }
+
+    // Track conversation if not too old and dealing with hashtagged tweet               
+    if (time() - $time < $time_to_track_user && $type == 2)
+    {
+        $tk->trackConversation($table_id, $tweet);
+        //$this->log("conversation tracking required", "", $log_file);
+    }
+
+
+    return TRUE;
+}
+
 ?>

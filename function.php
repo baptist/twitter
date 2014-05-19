@@ -848,11 +848,11 @@ class YourTwapperKeeper {
         global $db;
         global $time_to_track_user;
 
-        $this->log('Inserting tweet', '', $log_file);
+        //$this->log('Inserting tweet', '', $log_file);
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
 
-        $this->log("$q", '', $log_file);
+        //$this->log("$q", '', $log_file);
         if (mysql_error() != "")
             $this->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
 
@@ -878,7 +878,7 @@ class YourTwapperKeeper {
         if (time() - $time < $time_to_track_user && $type == 2)
         {
             $this->trackConversation($table_id, $tweet);
-            $this->log("conversation tracking required", "", $log_file);
+            //$this->log("conversation tracking required", "", $log_file);
         }
 
 
