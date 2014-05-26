@@ -236,8 +236,8 @@ class YourTwapperKeeper {
         {
             $response[0] = "Archive for '" . $keyword . "' already exists.";
             $result = mysql_fetch_assoc($r);
+           
             $oldTags = $result['tags'];
-
             if (strcasecmp($tags, $oldTags) != 0)
             {
                 if (strlen($oldTags) > 0)
@@ -256,7 +256,7 @@ class YourTwapperKeeper {
 
 
             // Modify tag so archive can be properly listed
-            $q = "update archives set tags = '$newTags', type = '$newType' where keyword = '$keyword'";
+            $q = "update archives set description = '$description', tags = '$newTags', type = '$newType' where keyword = '$keyword'";
             $r = mysql_query($q, $db->connection);
 
             return($response);
@@ -320,6 +320,8 @@ class YourTwapperKeeper {
 
         $r = mysql_query($create_table, $db->connection) or die(mysql_error());
 
+        $response['id'] = $lastid;
+        $response['type'] = $type;
         $response[0] = "Archive has been created.";
 
         return($response);
@@ -547,7 +549,7 @@ class YourTwapperKeeper {
                 if (mysql_num_rows($subr) == 1)
                 {
                     $conversation_archive = mysql_fetch_assoc($subr)["id"];
-                    $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "'";
+                    $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "' or from_user = '" . $row['from_user'] . "'";
                     $subsubr = mysql_query($subsubq, $db->connection);
 
                     $row['conversation'] = array();
@@ -780,21 +782,41 @@ class YourTwapperKeeper {
     function trackConversation($base_archive, $tweet)
     {
         global $db;
+        global $tk;
         global $tk_twitter_username;
         global $tk_twitter_user_id;
 
-        $archive = $this->archiveExists($tweet['from_user']);
+        $archive = $this->archiveExists($tweet['from_user']);       
         if ($archive !== FALSE)
-        {
+        {  
             // If archive type is 5 make it active again.
-            if ($archive["type"] == 5)
-                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
+            if ($archive["type"] == 5)            
+                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection); 
         }
-        else
-        {
+        else             
             // Create new 'conversation' archive
-            $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
-        }
+            $archive = $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
+                            
+        // check if conversation record exists      
+        if ($archive["type"] == 4 || $archive["type"] == 5)
+        {
+            $result = mysql_query("select * from conversations where archive = " . $archive["id"], $db->connection); 
+            if (mysql_num_rows($result) == 0)              
+                // Create conversation archive
+                mysql_query("insert into conversations (archive, tweet_id, created_at) values (" . $archive["id"] . ", '".$tweet['id']."', UNIX_TIMESTAMP())", $db->connection);                
+            else                
+                // Update conversation archive
+                mysql_query("update conversations set tweet_id = '".$tweet['id']."', created_at = UNIX_TIMESTAMP() where archive = '" . $archive["id"] . "'", $db->connection);             
+        }      
+    }
+    
+    function untrackConversation($archive)
+    {
+        $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id = '$archive'";
+        mysql_query($q_old_users, $db->connection);
+        
+        $q = "delete from conversations where archive = '$archive'";
+        mysql_query($q, $db->connection);
     }
 
 // kill archiving process

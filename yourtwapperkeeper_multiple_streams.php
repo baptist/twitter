@@ -47,33 +47,17 @@ $count = 0;
 $last_updated = 0;
 // TODO make this more efficient as a whole.
 while (TRUE)
-{    
+{
     $streams_shouldbe_live = array();
 
     // Check if some users should not be followed anymore for conversation purposes (only every 30 minutes!)
     if (time() - $last_updated >= 1800)
     {
-        // get archives that can be dropped
-        $subquery1 = "select archive from conversations where (UNIX_TIMESTAMP() - `created_at`) <= $time_to_track_user";
-        $archives_to_keep_temp = mysql_query($subquery1, $db->connection);
-        $keep_archives = "";
-        while ($r = mysql_fetch_assoc($archives_to_keep_temp))
-            $keep_archives .= "," . $r["archive"];
-        
-        print "KEEP: " .substr($keep_archives, 1) . "\n\n";
-        
-        $subquery2 = "select archive from conversations WHERE (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user AND id NOT IN (".substr($keep_archives, 1).")";        
-        $archives_to_drop_temp = mysql_query($subquery2, $db->connection);
-        $drop_archives = "";
+        $subquery = "select archive from conversations WHERE (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user";
+        $archives_to_drop_temp = mysql_query($subquery, $db->connection);
+
         while ($r = mysql_fetch_assoc($archives_to_drop_temp))
-            $drop_archives .=  "," . $r["archive"];
-        
-        print "DROP: " .substr($drop_archives, 1) . "\n\n";
-               
-        $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN (" . substr($drop_archives, 1) . ")";
-        mysql_query($q_old_users, $db->connection);
-        
-        print "AFFECTED: " . mysql_affected_rows() . "\n\n";
+            $tk->untrackConversation($archive);
 
         $last_updated = time();
     }
@@ -110,6 +94,27 @@ while (TRUE)
             mysql_query("update users set follow = follow + 1 where id = $stream_id", $db->connection);
 
             $streams_shouldbe_live[$stream_id] = 1;
+        } else
+        {
+            // Remove conversation based on certain criteria
+            switch ($track_remove_policy)
+            {
+                case "UNACTIVE" :
+                    break;
+
+                case "OLDEST":
+                    $result = mysql_fetch_assoc(mysql_query("select followed_by as stream_id, id from archives where id = (SELECT archive from conversations order by created_at ASC LIMIT 1)", $db->connection));
+                    $stream_id = $result['stream_id'];
+                    untrackConversation($result['id']);
+                    mysql_query("update archives set followed_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
+
+                    $streams_shouldbe_live[$stream_id] = 1;
+
+                    break;
+
+                default :
+                    break;
+            }
         }
     }
 

@@ -5,6 +5,46 @@
 require_once('config.php');
 require_once('function.php');
 
+
+$r = mysql_query("select id from archives where type=4", $db->connection);
+while ($rs = mysql_fetch_assoc($r))
+{
+    $r2 = mysql_query("select id from conversations where archive=".$rs['id'], $db->connection);
+    if (mysql_num_rows($r2) != 1)
+    {
+        echo "ALARN \n";
+    }
+}
+
+
+
+/*
+$vk14_id = mysql_fetch_assoc(mysql_query("select id from archives where keyword='vk14'", $db->connection))['id'];
+$vk2014_id = mysql_fetch_assoc(mysql_query("select id from archives where keyword='vk2014'", $db->connection))['id'];
+
+$users = array();
+$r = mysql_query("select from_user from z_$vk14_id where time > 1400952892", $db->connection);
+while ($rs = mysql_fetch_assoc($r))
+    $users[$rs['from_user']] = 1;
+
+$r = mysql_query("select from_user from z_$vk2014_id where time > 1400952892", $db->connection);
+while ($rs = mysql_fetch_assoc($r))
+    $users[$rs['from_user']] = 1;
+
+$count = 0;
+$result = mysql_query("select id, keyword from archives where type = 4", $db->connection);
+while ($row = mysql_fetch_assoc($result))
+{
+    if (empty(array_key_exists($row['keyword'], $users)))
+    {
+        // this archive can be put on non active!
+        print "USER " . $row['keyword'] . " HAS NOT TWEETED TO HASHTAG ARCHIVES LAST 24 HOURS --> DEACTIVATE \n";
+        //mysql_query("update archives set type = '5' where id = '" . $row['id'] . "'", $db->connection);
+        $count++;
+    }
+}
+print "$count archives put to non active! \n";
+
 mysql_query("update smart_tweets set is_retweet = 0 , original_id = NULL where original_id = 0 or original_id IS NULL", $db->connection);
 
 // get keyword into memory
@@ -101,7 +141,7 @@ while ($row = mysql_fetch_assoc($rs))
       if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE)
       $inserted = insert($ztable, $tweet, ($keyword[0] == "#") ? 2 : -1, "stream-keyword");
       }
-      } */
+      } 
 }
 
 function insert($table_id, $tweet, $type, $reason = '', $log_file = 'log/function_log')
@@ -118,6 +158,6 @@ function insert($table_id, $tweet, $type, $reason = '', $log_file = 'log/functio
     //    echo "Error when inserting into archive $table_id " . mysql_error() . " \n";
     // Insert into central tweets table
     $duplicate = $tk->addSmartTweet($tweet, $table_id, $log_file);
-}
+}*/
 ?>
 
