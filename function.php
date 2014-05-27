@@ -236,7 +236,7 @@ class YourTwapperKeeper {
         {
             $response[0] = "Archive for '" . $keyword . "' already exists.";
             $result = mysql_fetch_assoc($r);
-           
+
             $oldTags = $result['tags'];
             if (strcasecmp($tags, $oldTags) != 0)
             {
@@ -392,7 +392,7 @@ class YourTwapperKeeper {
                 {
                     if (strpos(trim($r['text']), "RT @") === 0)
                     {
-                        $key = substr(trim($r['text']), strpos($r['text'], ":"));
+                        $key = trim(substr(trim($r['text']), strpos($r['text'], ":")));
 
                         if (!array_key_exists($key, $tweets))
                         {
@@ -404,7 +404,7 @@ class YourTwapperKeeper {
                     }
                     else
                     {
-                        $tweets[$r["text"]] = 1;
+                        $tweets[trim($r["text"])] = 1;
                         $response[] = $r;
                     }
                 }
@@ -414,7 +414,6 @@ class YourTwapperKeeper {
 
             if ($nort)
             {
-
                 foreach ($pool as $key => $tweet)
                 {
                     if (!array_key_exists($key, $tweets))
@@ -540,24 +539,6 @@ class YourTwapperKeeper {
         $response = array();
         while ($row = mysql_fetch_assoc($r))
         {
-            if ($type == 2)
-            {
-                // get conversation related to this archive and tweet.
-                $subq = "select id from archives where keyword = '" . $row['from_user'] . "'";
-                $subr = mysql_query($subq, $db->connection);
-
-                if (mysql_num_rows($subr) == 1)
-                {
-                    $conversation_archive = mysql_fetch_assoc($subr)["id"];
-                    $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $row['from_user'] . "' or from_user = '" . $row['from_user'] . "'";
-                    $subsubr = mysql_query($subsubq, $db->connection);
-
-                    $row['conversation'] = array();
-                    while ($subsubrow = mysql_fetch_assoc($subsubr))
-                        $row['conversation'][] = $subsubrow;
-                }
-            }
-
             // Check original tweet if some fields are missing
             if ($row['retweets'] == '' || $row['retweets'] == FALSE || $row['favorites'] == '' or $row['favorites'] == FALSE)
             {
@@ -572,6 +553,117 @@ class YourTwapperKeeper {
             $response[] = $row;
         }
         return $response;
+    }
+    
+    /**
+     * Reconstruct conversation round given tweet.
+     * @global type $db
+     * @param type $tweetID
+     * @return boolean
+     */
+    function getConversation($tweetID)
+    {
+        global $db;
+        
+        // Get tweet data
+        $r = mysql_query("select original_archive from smart_tweets where tweet_id = '$tweetID'");
+        if (mysql_num_rows($r) != 0)
+        {
+            $archive = mysql_fetch_assoc($r)['original_archive'];
+            $tweet = mysql_fetch_assoc(mysql_query("select * from z_$archive where id = '$tweetID'"));
+        }
+        else
+            return FALSE;
+                
+        // Find root if tweet is a reply itself
+        if (!empty($tweet["in_reply_to_status_id"]))
+            $root_user = $this->findRootTweetUser($tweet['in_reply_to_status_id']);
+        else
+            $root_user = $tweet['from_user'];
+
+
+        // Get conversation related to this archive and tweet.
+        $subq = "select id from archives where keyword = '" . $root_user . "'";
+        $subr = mysql_query($subq, $db->connection);
+        
+        $temptweets = array();
+        if (mysql_num_rows($subr) == 1)
+        {
+            $conversation_archive = mysql_fetch_assoc($subr)["id"];
+            $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $root_user . "' or from_user = '" . $root_user . "' or 1 order by time asc";
+            print $subsubq;
+            $subsubr = mysql_query($subsubq, $db->connection);
+            
+            while ($subsubrow = mysql_fetch_assoc($subsubr))
+                $temptweets[$subsubrow['id']] = $subsubrow;
+        }
+         
+        return array_merge($this->findPath($tweet['in_reply_to_status_id'], $temptweets, false), array($tweet), $this->findPath($tweet['id'], $temptweets, true));
+        
+    }
+
+    /**
+     * Find all tweets that are linked to tweet with $id, either before or after tweet was posted.
+     * @param type $id Root tweet
+     * @param type $tweets Represents sorted (oldest tweet first) list of all possible replies
+     * @param type $down Defines which way should be searched: up or down
+     */
+    function findPath($id, $tweets, $down)
+    {
+        $path = array();
+        $pointer = $id;
+
+        if (!$down)
+        {
+            while ($pointer != "")
+            {
+                if (!array_key_exists($pointer, $tweets))
+                    return $path;
+
+                array_unshift($path, $tweets[$pointer]);
+                $pointer = $tweets[$pointer]['in_reply_to_status_id'];
+            }
+        }
+        else
+        {
+            if (empty($tweets))
+                return $path;
+
+            $pointers = array();
+            $pointers[$id] = 1;
+            foreach ($tweets as $reply)
+            {
+                if (array_key_exists($reply["in_reply_to_status_id"], $pointers))
+                {
+                    $path[] = $reply;
+                    $pointers[$reply['id']] = 1;
+                }
+            }
+        }
+        return $path;
+    }
+
+    function findRootTweetUser($tweetID)
+    {
+       
+        $in_reply_to = $tweetID;
+        while ($in_reply_to != "")
+        {
+            $rootID = $in_reply_to;
+
+            $r = mysql_query("select original_archive from smart_tweets where tweet_id = '$in_reply_to'");
+            if (mysql_num_rows($r) != 0)
+            {
+                $archive = mysql_fetch_assoc($r)['original_archive'];
+                $result = mysql_fetch_assoc(mysql_query("select in_reply_to_status_id, from_user from z_$archive where id = '$rootID'"));  
+                $rootUser = $result['from_user'];
+                $in_reply_to = $result['in_reply_to_status_id'];
+            }
+            else
+                $in_reply_to = "";
+        }
+                    
+        return $rootUser;
     }
 
     function getOriginalTweet($tweetID)
@@ -786,35 +878,35 @@ class YourTwapperKeeper {
         global $tk_twitter_username;
         global $tk_twitter_user_id;
 
-        $archive = $this->archiveExists($tweet['from_user']);       
+        $archive = $this->archiveExists($tweet['from_user']);
         if ($archive !== FALSE)
-        {  
+        {
             // If archive type is 5 make it active again.
-            if ($archive["type"] == 5)            
-                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection); 
+            if ($archive["type"] == 5)
+                mysql_query("update archives set type = '4' where id = '" . $archive["id"] . "'", $db->connection);
         }
-        else             
-            // Create new 'conversation' archive
+        else
+        // Create new 'conversation' archive
             $archive = $this->createArchive($tweet['from_user'], "conversation tracking", "", $tk_twitter_username, $tk_twitter_user_id, 4, $tweet['from_user_id']);
-                            
+
         // check if conversation record exists      
         if ($archive["type"] == 4 || $archive["type"] == 5)
         {
-            $result = mysql_query("select * from conversations where archive = " . $archive["id"], $db->connection); 
-            if (mysql_num_rows($result) == 0)              
-                // Create conversation archive
-                mysql_query("insert into conversations (archive, tweet_id, created_at) values (" . $archive["id"] . ", '".$tweet['id']."', UNIX_TIMESTAMP())", $db->connection);                
-            else                
-                // Update conversation archive
-                mysql_query("update conversations set tweet_id = '".$tweet['id']."', created_at = UNIX_TIMESTAMP() where archive = '" . $archive["id"] . "'", $db->connection);             
-        }      
+            $result = mysql_query("select * from conversations where archive = " . $archive["id"], $db->connection);
+            if (mysql_num_rows($result) == 0)
+            // Create conversation archive
+                mysql_query("insert into conversations (archive, tweet_id, created_at) values (" . $archive["id"] . ", '" . $tweet['id'] . "', UNIX_TIMESTAMP())", $db->connection);
+            else
+            // Update conversation archive
+                mysql_query("update conversations set tweet_id = '" . $tweet['id'] . "', created_at = UNIX_TIMESTAMP() where archive = '" . $archive["id"] . "'", $db->connection);
+        }
     }
-    
+
     function untrackConversation($archive)
     {
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id = '$archive'";
         mysql_query($q_old_users, $db->connection);
-        
+
         $q = "delete from conversations where archive = '$archive'";
         mysql_query($q, $db->connection);
     }
@@ -937,17 +1029,17 @@ class YourTwapperKeeper {
         if (isset($tweet['original_id']) && $tweet['original_id'] != '')
         {
             mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
-            
+
             if (mysql_error() != '')
                 $duplicate = TRUE;
         } else
         {
             mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
-            
+
             if (mysql_error() != '')
                 $duplicate = TRUE;
         }
-        
+
         return $duplicate;
     }
 

@@ -334,210 +334,210 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     );
     ?>
     <div class='main-block' style="margin-bottom:80px; margin-top:80px; text-align:center">
-        
-            <form method='get' action='archive.php'>
-                <input type='hidden' name='id' value='<?php echo $id; ?>'>
-                <table style="width:100%">
-                    <tr>
-                        <td><b>START DATE</b></td><td></td><td></td><td></td><td><b>END DATE</b></td><td></td><td></td><td><b>ORDER</b></td><td><b>VIEW LIMIT</b></td><td><b>FROM USER</b></td><td><b>TWEET TEXT</b></td><td><b>LANGUAGE</b></td>
 
-                        <td></td>
-                    </tr>
+        <form method='get' action='archive.php'>
+            <input type='hidden' name='id' value='<?php echo $id; ?>'>
+            <table style="width:100%">
+                <tr>
+                    <td><b>START DATE</b></td><td></td><td></td><td></td><td><b>END DATE</b></td><td></td><td></td><td><b>ORDER</b></td><td><b>VIEW LIMIT</b></td><td><b>FROM USER</b></td><td><b>TWEET TEXT</b></td><td><b>LANGUAGE</b></td>
 
-                    <tr>
-                        <td>
-                            <SELECT NAME="sm">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($month_num as $value)
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <SELECT NAME="sm">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($month_num as $value)
+                                {
+                                    echo "<OPTION value='$value'";
+                                    if (isset($_GET['sm']) && $value == $_GET['sm'])
                                     {
-                                        echo "<OPTION value='$value'";
-                                        if (isset($_GET['sm']) && $value == $_GET['sm'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">" . $month_verbose[$value - 1];
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>                                                  
-                        </td>
+                                    echo ">" . $month_verbose[$value - 1];
+                                }
+                                ?>
+                        </SELECT>                                                  
+                    </td>
 
-                        <td>
-                            <SELECT NAME="sd">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($day as $value)
+                    <td>
+                        <SELECT NAME="sd">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($day as $value)
+                                {
+                                    echo "<OPTION";
+                                    if (isset($_GET['sd']) && $value == $_GET['sd'])
                                     {
-                                        echo "<OPTION";
-                                        if (isset($_GET['sd']) && $value == $_GET['sd'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value";
+                                        echo " SELECTED";
                                     }
-                                    ?>
+                                    echo ">$value";
+                                }
+                                ?>
 
-                            </SELECT>
-                        </td>
+                        </SELECT>
+                    </td>
 
-                        <td>                                                                                                                
-                            <SELECT NAME="sy">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($year as $value)
+                    <td>                                                                                                                
+                        <SELECT NAME="sy">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($year as $value)
+                                {
+                                    echo "<OPTION";
+                                    if (isset($_GET['sy']) && $value == $_GET['sy'])
                                     {
-                                        echo "<OPTION";
-                                        if (isset($_GET['sy']) && $value == $_GET['sy'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value";
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>
-                        </td>
+                                    echo ">$value";
+                                }
+                                ?>
+                        </SELECT>
+                    </td>
 
-                        <td></td>
+                    <td></td>
 
-                        <td>
-                            <SELECT NAME="em">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($month_num as $value)
+                    <td>
+                        <SELECT NAME="em">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($month_num as $value)
+                                {
+                                    echo "<OPTION value='$value'";
+                                    if (isset($_GET['em']) && $value == $_GET['em'])
                                     {
-                                        echo "<OPTION value='$value'";
-                                        if (isset($_GET['em']) && $value == $_GET['em'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">" . $month_verbose[$value - 1];
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>
-                        </td>
+                                    echo ">" . $month_verbose[$value - 1];
+                                }
+                                ?>
+                        </SELECT>
+                    </td>
 
-                        <td>
-                            <SELECT NAME="ed">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($day as $value)
+                    <td>
+                        <SELECT NAME="ed">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($day as $value)
+                                {
+                                    echo "<OPTION";
+                                    if (isset($_GET['ed']) && $value == $_GET['ed'])
                                     {
-                                        echo "<OPTION";
-                                        if (isset($_GET['ed']) && $value == $_GET['ed'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value";
+                                        echo " SELECTED";
                                     }
-                                    ?>
+                                    echo ">$value";
+                                }
+                                ?>
 
-                            </SELECT>
-                        </td>
+                        </SELECT>
+                    </td>
 
-                        <td>
-                            <SELECT NAME="ey">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($year as $value)
+                    <td>
+                        <SELECT NAME="ey">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($year as $value)
+                                {
+                                    echo "<OPTION";
+                                    if (isset($_GET['ey']) && $value == $_GET['ey'])
                                     {
-                                        echo "<OPTION";
-                                        if (isset($_GET['ey']) && $value == $_GET['ey'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value";
+                                        echo " SELECTED";
                                     }
-                                    ?>
+                                    echo ">$value";
+                                }
+                                ?>
 
-                            </SELECT>
-                        </td>
+                        </SELECT>
+                    </td>
 
-                        <td>
-                            <SELECT NAME="o">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($order_values as $key => $value)
+                    <td>
+                        <SELECT NAME="o">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($order_values as $key => $value)
+                                {
+                                    echo "<OPTION value='$value'";
+                                    if (isset($_GET['o']) && $value == $_GET['o'])
                                     {
-                                        echo "<OPTION value='$value'";
-                                        if (isset($_GET['o']) && $value == $_GET['o'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$key";
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>
-                        </td>
+                                    echo ">$key";
+                                }
+                                ?>
+                        </SELECT>
+                    </td>
 
-                        <td>
-                            <SELECT NAME="l">
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($limit_values as $value)
+                    <td>
+                        <SELECT NAME="l">
+                            <OPTION value=''>
+                                <?php
+                                foreach ($limit_values as $value)
+                                {
+                                    echo "<OPTION value='$value'";
+                                    if ($value == $limit)
                                     {
-                                        echo "<OPTION value='$value'";
-                                        if ($value == $limit)
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value";
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>
-                        </td>
+                                    echo ">$value";
+                                }
+                                ?>
+                        </SELECT>
+                    </td>
 
-                        <?php
-                        echo "<td>";
-                        echo "<input name='from_user' value ='" . $_GET['from_user'] . "'/>";
-                        echo "</td>";
-                        ?>
+                    <?php
+                    echo "<td>";
+                    echo "<input name='from_user' value ='" . $_GET['from_user'] . "'/>";
+                    echo "</td>";
+                    ?>
 
-                        <td>
-                            <input name='text' value='<?php echo $_GET['text']; ?>'/>
-                        </td>
+                    <td>
+                        <input name='text' value='<?php echo $_GET['text']; ?>'/>
+                    </td>
 
-                        <td>
-                            <SELECT NAME='lang'>
-                                <OPTION value=''>
-                                    <?php
-                                    foreach ($languageCodes as $key => $value)
+                    <td>
+                        <SELECT NAME='lang'>
+                            <OPTION value=''>
+                                <?php
+                                foreach ($languageCodes as $key => $value)
+                                {
+                                    echo "<OPTION value='$key'";
+                                    if ($key == $_GET['lang'])
                                     {
-                                        echo "<OPTION value='$key'";
-                                        if ($key == $_GET['lang'])
-                                        {
-                                            echo " SELECTED";
-                                        }
-                                        echo ">$value ($key)";
+                                        echo " SELECTED";
                                     }
-                                    ?>
-                            </SELECT>
-                        </td>
+                                    echo ">$value ($key)";
+                                }
+                                ?>
+                        </SELECT>
+                    </td>
 
-                        <td>
-                            <input type="checkbox" name="nort" value="1" <?php
-                            if ($_GET['nort'] == 1)
-                            {
-                                echo " checked";
-                            }
-                            ?> />remove RTs
-                        </td>
+                    <td>
+                        <input type="checkbox" name="nort" value="1" <?php
+                        if ($_GET['nort'] == 1)
+                        {
+                            echo " checked";
+                        }
+                        ?> />remove RTs
+                    </td>
 
-                    </tr>
-                </table>
+                </tr>
+            </table>
 
-                <br><input type='submit' value='Filter'/>  
+            <br><input type='submit' value='Filter'/>  
 
-            </form>
-            <br/>
-            <?php
-            echo "HTML Permalink = <a href='$permurl'>$permurl</a><br>";
-            echo "RSS Permalink = <a href='$permrss'>$permrss</a><br>";
-            echo "Excel Permalink = <a href='$permexcel'>$permexcel</a><br>";
-            echo "Simple Table Permalink = <a href='$permtable'>$permtable</a><br>";
-            echo "JSON API = <a href='$permjson'>$permjson</a>";
-            echo "</h5>";
-            ?>
-       
+        </form>
+        <br/>
+        <?php
+        echo "HTML Permalink = <a href='$permurl'>$permurl</a><br>";
+        echo "RSS Permalink = <a href='$permrss'>$permrss</a><br>";
+        echo "Excel Permalink = <a href='$permexcel'>$permexcel</a><br>";
+        echo "Simple Table Permalink = <a href='$permtable'>$permtable</a><br>";
+        echo "JSON API = <a href='$permjson'>$permjson</a>";
+        echo "</h5>";
+        ?>
+
     </div>
 
 
@@ -559,7 +559,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 {
                     ?>
                     <span style='padding-left:15px;font-size:15px'>&laquo;<?php echo $archiveInfo['results'][0]['description']; ?>&raquo;</span>
-<?php } ?>
+                <?php } ?>
             </div>
             <div style='margin:5px 0px;font-size:15px;font-weight:bold'><?php echo number_format($archiveInfo['results'][0]['count']); ?> tweets in collection.</div> 
             <div style='margin:5px 0px;'><?php echo date(DATE_RFC2822, $archiveInfo['results'][0]['create_time']); ?></div> 
@@ -596,80 +596,23 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
             foreach ($archiveTweets as $row)
             {
+
+
                 $tw_count = $tw_count + 1;
-                echo "<div style='margin-bottom:5px'>";
-                echo "<div style='float:left; margin-right:5px'><img src='" . (($row['archivesource'] === "twitter-search") ? "resources/twitter-search.png" : $row['profile_image_url']) . "' height='40px'/></div>";
-                echo "<div style='float:left; width:950px'>";
-                $text = preg_replace('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $row['text']);
-                $matches = array();
-                preg_match('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', $row['text'], $matches);
-                $text = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
+                ?>
+                <div style='margin-bottom:5px'>
+                    <div style='width:950px'>
+                        <?php
+                            $tweet = $row;
+                            include("templates/tweet.php");
+                        ?>
+                    </div>
+                </div>
+                <div style='clear:both; margin-bottom:10px; margin-top:10px; border-bottom:1px dotted #333333'><br/></div>
+    <?php
+}
+?>
 
-
-                //preg_replace('#','<a href="http://search.twitter.com/q=$1">.$1."</a>');
-                echo "<span style='font-weight:bold'>@" . $row['from_user'] . "</span> <span>" . $text . "</span><br/>";
-                echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $row['created_at'] . " - tweet id <a name='tweetid-" . $row['id'] . "'>" . $row['id'] . "</a> - #$tw_count</span>";
-
-                if ($row['retweets']  != '' || $row['favorites']  != '')
-                    echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $row['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
-
-
-                if ($row['geo_type'] <> '')
-                {
-                    echo "<font style='font-weight:lighter; font-size:8px'><i>geo info: " . $row['geo_type'] . " - lat = " . $row['geo_coordinates_0'] . " - long = " . $row['geo_coordinates_1'] . "</i></font><br>";
-                }
-
-                if (array_key_exists('conversation', $row) && count($row['conversation']) > 0)
-                {
-                    $c = 1;
-                    $first = true;
-
-                    foreach ($row['conversation'] as $reply)
-                    {
-                        if ($tk->isReply($reply, $row))
-                        {
-                            if ($first)
-                                echo "<div style='margin-top:30px;margin-left:50px;'>";
-
-                            $text = preg_replace('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $reply['text']);
-                            $matches = array();
-                            preg_match('@(http://([\w-.]+)+(:\d+)?(/([\w/_.]*(\?\S+)?)?)?)@', $reply['text'], $matches);
-                            $text = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
-
-                            echo "<div style='margin:25px'>";
-
-                            echo "<div style='float:left; margin-right:5px'><img src='" . (($reply['archivesource'] === "twitter-search") ? "resources/twitter-search.png" : $reply['profile_image_url']) . "' height='40px'/></div>";
-
-                            //preg_replace('#','<a href="http://search.twitter.com/q=$1">.$1."</a>');
-                            echo "<span style='font-weight:bold'>@" . $reply['from_user'] . "</span> <span>" . $text . "</span>";
-                            echo "<span style='font-weight:lighter; font-size:8px; font-style:italic; display:inline-block'>" . $reply['created_at'] . " - tweet id <a name='tweetid-" . $reply['id'] . "'>" . $reply['id'] . "</a> - #$c</span>";
-
-                            if ($reply['retweets'] != '' || $reply['favorites'] != '')
-                                echo "<span style='font-size:80%; float:right; display:inline-block; margin-right:50px'>RETWEETS <span style='font-weight:bold; display:inline-block'>" . $reply['retweets'] . "</span>  |  FAVORITES <span style='font-weight:bold; display:inline-block'>" . $row['favorites'] . "</span></span>";
-
-
-                            if ($reply['geo_type'] <> '')
-                            {
-                                echo "<font style='font-weight:lighter; font-size:8px'><i>geo info: " . $reply['geo_type'] . " - lat = " . $reply['geo_coordinates_0'] . " - long = " . $reply['geo_coordinates_1'] . "</i></font><br>";
-                            }
-                            echo "</div>";
-
-
-                            $first = FALSE;
-                        }
-                        if ($c == count($row['conversation']) && !$first)
-                            echo "</div>";
-
-                        $c++;
-                    }
-                }
-
-
-                echo "</div>";
-                echo "</div>";
-                echo "<div style='clear:both; margin-bottom:10px; margin-top:10px; border-bottom:1px dotted #333333'><br></div>";
-            }
-            ?>
         </div>
     </div>
 

@@ -19,6 +19,7 @@ $last_updated = 0;
 // process loop
 while (TRUE)
 {
+    // TODO find error that sets archives undefined (reconnect every x days? to reset db query cache)
     // Update follow and track keywords
     if (time() - $last_updated >= 2)
     {
@@ -41,12 +42,11 @@ while (TRUE)
                     $track[$row['id']] = $row['keyword'];
                 else if ($row["type"] == 2)
                     $track[$row['id']] = "#" . $row['keyword'];
-                else if ($row["type"] == 3)
+                else if ($row["type"] == 3 || $row["type"] == 4)
                 {
                     $follow[$row['keyword']] = $row['id'];
                     $track[$row['id']] =  "@" . $row['keyword'];
-                } else if ($row["type"] == 4)
-                    $follow[$row['keyword']] = $row['id'];
+                } 
             }
             $tk->log("Loaded archives " . count($track) . " tracks and " . count($follow) . " follows.", '', $process_log_file);
         }
@@ -55,19 +55,15 @@ while (TRUE)
             $tk->log("Could not fetch old archives. Using old data to process tweets.", "", $process_log_file);
         }
 
-
         $last_updated = time();
     }
 
 
     // lock up some tweets
     $q = "update rawstream set flag = '$script_key' where flag = '-1' limit $stream_process_stack_size";
-    echo $q . "\n";
     mysql_query($q, $db->connection);
 
     $tk->log('Marking ' . mysql_affected_rows() . ' tweets.', '', $process_log_file);
-
-
 
     // grab the locked up tweets and load into memory
     $q = "select * from rawstream where flag = '$script_key'";
@@ -75,7 +71,6 @@ while (TRUE)
     if (mysql_error() != "")
         $tk->log("Error when selecting tweets: " . mysql_error(), '', $process_log_file);
 
-    echo $q . "\n";
     $batch = array();
     while ($row = mysql_fetch_assoc($r))
     {
@@ -86,53 +81,30 @@ while (TRUE)
 
     // for each tweet in memory, compare against predicates and insert
     foreach ($batch as $tweet)
-    {
-        $t0 = microtime(true);
-        $tk->log("Processing [" . $tweet['id'] . " - " . $tweet['text'] . "]", '', $process_log_file);
-        $inserted = FALSE;
-        $inserted1 = FALSE; $inserted2 = FALSE; $inserted3 = FALSE;
-       
-        $t1 = microtime(true);
+    {       
         if (isset($follow[strtolower($tweet['from_user'])]))
-            $inserted1 = $tk->insertTweet($follow[strtolower($tweet['from_user'])], $tweet, -1, "stream-creator", $process_log_file);
-        $t2 = microtime(true);
-        echo "Time to check from_user ($inserted1): " . ($t2 - $t1) . "\n";       
-
-        $t1 = microtime(true);
+            $inserted = $tk->insertTweet($follow[strtolower($tweet['from_user'])], $tweet, -1, "stream-creator", $process_log_file);      
+                   
         if (isset($follow[strtolower($tweet['to_user'])]))
-            $inserted2 = $tk->insertTweet($follow[strtolower($tweet['to_user'])], $tweet, -1, "stream-reply", $process_log_file);
-        
-        $t2 = microtime(true);
-        echo "Time to check to_user ($inserted2): " . ($t2 - $t1) . "\n";       
-
-        $t1 = microtime(true);
+            $inserted = $tk->insertTweet($follow[strtolower($tweet['to_user'])], $tweet, -1, "stream-reply", $process_log_file);
+            
         if (isset($follow[strtolower($tweet['original_user'])]))
-            $inserted3 = $tk->insertTweet($follow[strtolower($tweet['original_user'])], $tweet, -1, "stream-retweet", $process_log_file);
-        $t2 = microtime(true);
-        echo "Time to check original_user ($inserted3): " . ($t2 - $t1) . "\n";    
-        
-        $inserted = $inserted1 || $inserted2 || $inserted3;
-               
-        $t1 = microtime(true);
+            $inserted = $tk->insertTweet($follow[strtolower($tweet['original_user'])], $tweet, -1, "stream-retweet", $process_log_file);
+      
         foreach ($track as $ztable => $keyword)
         {
             if (stristr(strtolower($tweet['text']), strtolower($keyword)) == TRUE)
-                $inserted = $tk->insertTweet($ztable, $tweet, ($keyword[0] == "#") ? 2 : -1, "stream-keyword", $process_log_file);
+                $inserted = $tk->insertTweet($ztable, $tweet, ($keyword[0] == "#") ? 2 : -1, "stream-keyword", $process_log_file);            
         }
-         $t2 = microtime(true);
-        echo "Time to track ($inserted): " . (($t2 - $t1)/1000) . "\n";    
-
+       
         // If not found do not delete
         if (!$inserted)
         {
             mysql_query("insert into failed_tweets select * from rawstream where id = '" . $tweet['id'] . "'", $db->connection);
             $tk->log("Tweet could not be inserted.", '', $process_log_file);
-        }
-        echo "---------------\n";
-        
-        echo "COMPLETE TIME FOR TWEET: " . (microtime(true) - $t0) . "\n\n\n";
+        }     
     }
-    // TODO find error that sets archives undefined
+
     // check if num of archives to track or follow differs from zero
     if (count($track) != 0 || count($follow) != 0)
     {
@@ -148,7 +120,6 @@ while (TRUE)
     }
 
     // update counts
-
     foreach ($follow as $keyword => $ztable)
     {
         $q_count = "select count(id) from z_$ztable";
@@ -171,8 +142,6 @@ while (TRUE)
 
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
-    //echo "update pid\n";
-    // sleep to prevent error?
-    //sleep(2);
+
 }
 ?>
