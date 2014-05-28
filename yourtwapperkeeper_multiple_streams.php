@@ -57,7 +57,7 @@ while (TRUE)
         $archives_to_drop_temp = mysql_query($subquery, $db->connection);
 
         while ($r = mysql_fetch_assoc($archives_to_drop_temp))
-            $tk->untrackConversation($archive);
+            $tk->untrackConversation($r['archive']);
 
         $last_updated = time();
     }
@@ -105,7 +105,7 @@ while (TRUE)
                 case "OLDEST":
                     $result = mysql_fetch_assoc(mysql_query("select followed_by as stream_id, id from archives where id = (SELECT archive from conversations order by created_at ASC LIMIT 1)", $db->connection));
                     $stream_id = $result['stream_id'];
-                    untrackConversation($result['id']);
+                    $tk->untrackConversation($result['id']);
                     mysql_query("update archives set followed_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
 
                     $streams_shouldbe_live[$stream_id] = 1;

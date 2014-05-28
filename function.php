@@ -590,8 +590,7 @@ class YourTwapperKeeper {
         if (mysql_num_rows($subr) == 1)
         {
             $conversation_archive = mysql_fetch_assoc($subr)["id"];
-            $subsubq = "select * from z_" . $conversation_archive . " where to_user = '" . $root_user . "' or from_user = '" . $root_user . "' or 1 order by time asc";
-            print $subsubq;
+            $subsubq = "select * from z_" . $conversation_archive . " where 1 order by time asc";
             $subsubr = mysql_query($subsubq, $db->connection);
             
             while ($subsubrow = mysql_fetch_assoc($subsubr))
@@ -661,8 +660,7 @@ class YourTwapperKeeper {
             }
             else
                 $in_reply_to = "";
-        }
-                    
+        }                    
         return $rootUser;
     }
 
