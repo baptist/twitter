@@ -128,6 +128,7 @@ echo "<th>TIME</th>";
 echo "<th>FAVORITES</th>";
 echo "<th>RETWEETS</th>";
 echo "<th>DESCRIPTION</th>";
+echo "<th>TAGS</th>";
 echo "<th>EXPANDED URLS</th>";
 echo "</tr>";
 
@@ -149,7 +150,9 @@ $keys_to_print = array("text",
     "time",
     "favorites",
     "retweets",
-    "description");
+    "description",
+    "tags"
+    );
 
 $ids = array();
 

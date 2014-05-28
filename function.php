@@ -377,7 +377,6 @@ class YourTwapperKeeper {
         $tweets = array();
         $pool = array();
 
-
         foreach ($archives as $archive)
         {
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
@@ -385,13 +384,14 @@ class YourTwapperKeeper {
             foreach ($result as $r)
             {
                 $r['description'] = $archive['description'];
+                $r['tags'] = $archive['tags'];
 
                 if ($nort)
                 {
-                    $text = $this->sanitize(trim($r['text']));
-                    if (strpos($text, "RT @") === 0)
+                    $tweet_text = $this->sanitize(trim($r['text']));
+                    if (strpos($tweet_text, "RT @") === 0)
                     {
-                        $key = trim(substr($text, strpos($text, ":") + 1));
+                        $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
 
                         if (!array_key_exists($key, $tweets))
                         {
@@ -404,7 +404,7 @@ class YourTwapperKeeper {
                     }
                     else
                     {
-                        $tweets[$text] = 1;
+                        $tweets[$tweet_text] = 1;
                         $response[] = $r;
                     }
                 }
