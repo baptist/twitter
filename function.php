@@ -392,8 +392,8 @@ class YourTwapperKeeper {
                 {
                     if (strpos(trim($r['text']), "RT @") === 0)
                     {
-                        $key = trim(substr(trim($r['text']), strpos($r['text'], ":")));
-
+                        $key = trim(substr(trim($r['text']), strpos($r['text'], ":") + 1));                        
+                       
                         if (!array_key_exists($key, $tweets))
                         {
                             if (!array_key_exists($key, $pool))
@@ -403,7 +403,7 @@ class YourTwapperKeeper {
                         }
                     }
                     else
-                    {
+                    {                        
                         $tweets[trim($r["text"])] = 1;
                         $response[] = $r;
                     }
