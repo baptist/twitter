@@ -374,14 +374,12 @@ class YourTwapperKeeper {
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         $response = array();
+        $tweets = array();
+        $pool = array();
 
 
         foreach ($archives as $archive)
         {
-
-            $tweets = array();
-            $pool = array();
-
             $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
 
             foreach ($result as $r)
@@ -390,35 +388,37 @@ class YourTwapperKeeper {
 
                 if ($nort)
                 {
-                    if (strpos(trim($r['text']), "RT @") === 0)
+                    $text = $this->sanitize(trim($r['text']));
+                    if (strpos($text, "RT @") === 0)
                     {
-                        $key = trim(substr(trim($r['text']), strpos($r['text'], ":") + 1));                        
-                       
+                        $key = trim(substr($text, strpos($text, ":") + 1));
+
                         if (!array_key_exists($key, $tweets))
                         {
                             if (!array_key_exists($key, $pool))
+                            {
                                 $pool[$key] = $r;
-                            else if ($pool[$key]["time"] > $r["time"])
+                            } else if ($pool[$key]["time"] > $r["time"])
                                 $pool[$key] = $r;
                         }
                     }
                     else
-                    {                        
-                        $tweets[trim($r["text"])] = 1;
+                    {
+                        $tweets[$text] = 1;
                         $response[] = $r;
                     }
                 }
                 else
                     $response[] = $r;
             }
+        }
 
-            if ($nort)
+        if ($nort)
+        {
+            foreach ($pool as $key => $tweet)
             {
-                foreach ($pool as $key => $tweet)
-                {
-                    if (!array_key_exists($key, $tweets))
-                        $response[] = $tweet;
-                }
+                if (!array_key_exists($key, $tweets))
+                    $response[] = $tweet;
             }
         }
 
@@ -554,7 +554,7 @@ class YourTwapperKeeper {
         }
         return $response;
     }
-    
+
     /**
      * Reconstruct conversation round given tweet.
      * @global type $db
@@ -564,7 +564,7 @@ class YourTwapperKeeper {
     function getConversation($tweetID)
     {
         global $db;
-        
+
         // Get tweet data
         $r = mysql_query("select original_archive from smart_tweets where tweet_id = '$tweetID'");
         if (mysql_num_rows($r) != 0)
@@ -574,7 +574,7 @@ class YourTwapperKeeper {
         }
         else
             return FALSE;
-                
+
         // Find root if tweet is a reply itself
         if (!empty($tweet["in_reply_to_status_id"]))
             $root_user = $this->findRootTweetUser($tweet['in_reply_to_status_id']);
@@ -585,20 +585,19 @@ class YourTwapperKeeper {
         // Get conversation related to this archive and tweet.
         $subq = "select id from archives where keyword = '" . $root_user . "'";
         $subr = mysql_query($subq, $db->connection);
-        
+
         $temptweets = array();
         if (mysql_num_rows($subr) == 1)
         {
             $conversation_archive = mysql_fetch_assoc($subr)["id"];
             $subsubq = "select * from z_" . $conversation_archive . " where 1 order by time asc";
             $subsubr = mysql_query($subsubq, $db->connection);
-            
+
             while ($subsubrow = mysql_fetch_assoc($subsubr))
                 $temptweets[$subsubrow['id']] = $subsubrow;
         }
-         
+
         return array_merge($this->findPath($tweet['in_reply_to_status_id'], $temptweets, false), array($tweet), $this->findPath($tweet['id'], $temptweets, true));
-        
     }
 
     /**
@@ -644,7 +643,7 @@ class YourTwapperKeeper {
 
     function findRootTweetUser($tweetID)
     {
-       
+
         $in_reply_to = $tweetID;
         while ($in_reply_to != "")
         {
@@ -654,13 +653,13 @@ class YourTwapperKeeper {
             if (mysql_num_rows($r) != 0)
             {
                 $archive = mysql_fetch_assoc($r)['original_archive'];
-                $result = mysql_fetch_assoc(mysql_query("select in_reply_to_status_id, from_user from z_$archive where id = '$rootID'"));  
+                $result = mysql_fetch_assoc(mysql_query("select in_reply_to_status_id, from_user from z_$archive where id = '$rootID'"));
                 $rootUser = $result['from_user'];
                 $in_reply_to = $result['in_reply_to_status_id'];
             }
             else
                 $in_reply_to = "";
-        }                    
+        }
         return $rootUser;
     }
 
