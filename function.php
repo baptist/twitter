@@ -899,6 +899,17 @@ class YourTwapperKeeper {
                 mysql_query("update conversations set tweet_id = '" . $tweet['id'] . "', created_at = UNIX_TIMESTAMP() where archive = '" . $archive["id"] . "'", $db->connection);
         }
     }
+    
+    function untrackConversations($archives)
+    {
+        global $db;
+        
+        $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN ($archives)";
+        mysql_query($q_old_users, $db->connection);
+
+        $q = "delete from conversations where archive IN ($archives)";
+        mysql_query($q, $db->connection);
+    }
 
     function untrackConversation($archive)
     {

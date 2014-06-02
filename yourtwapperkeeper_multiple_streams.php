@@ -55,10 +55,12 @@ while (TRUE)
     {
         $subquery = "select archive from conversations WHERE (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user";
         $archives_to_drop_temp = mysql_query($subquery, $db->connection);
-
+        $archives = '';
         while ($r = mysql_fetch_assoc($archives_to_drop_temp))
-            $tk->untrackConversation($r['archive']);
-
+            $archives .= ",". $r['archive'];
+         
+        $tk->untrackConversations(substr($archives, 1));
+        
         $last_updated = time();
     }
 
