@@ -1,7 +1,8 @@
 <?php
 
 ini_set('memory_limit', '1024M');
-ini_set('max_execution_time', 30000);
+
+set_time_limit(300000);
 
 /*
   yourTwapperKeeper - Twitter Archiving Application - http://your.twapperkeeper.com
@@ -901,6 +902,8 @@ class YourTwapperKeeper {
 
     function untrackConversation($archive)
     {
+        global $db;
+        
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id = '$archive'";
         mysql_query($q_old_users, $db->connection);
 
@@ -935,7 +938,7 @@ class YourTwapperKeeper {
         global $db;
 
         $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);
-        if (mysql_num_rows($result) == 1)
+        if ($result != false && mysql_num_rows($result) == 1)
             return mysql_fetch_assoc($result)["expanded_url"];
 
         $headers = get_headers($url, 1);
