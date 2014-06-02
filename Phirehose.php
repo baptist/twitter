@@ -427,8 +427,7 @@ abstract class Phirehose
          * against this.
          */
         if ((time() - $lastStreamActivity) > $this->idleReconnectTimeout) {
-          $this->log('Idle timeout: No stream activity for > ' . $this->idleReconnectTimeout . ' seconds. ' . 
-           ' Reconnecting.','info');
+          $this->log('Idle timeout: No stream activity for > ' . $this->idleReconnectTimeout . ' seconds. ' . ' Reconnecting.','info');
           $this->reconnect();
           $lastStreamActivity = time();
           continue;
@@ -621,8 +620,7 @@ abstract class Phirehose
       }
   
       // Debugging is useful
-      $this->log('Connecting to twitter stream: ' . $url . ' with params: ' . str_replace("\n", '',
-        var_export($requestParams, TRUE)));
+      //$this->log('Connecting to twitter stream: ' . $url . ' with params: ' . str_replace("\n", '', var_export($requestParams, TRUE)));
       
       /**
        * Open socket connection to make POST request. It'd be nice to use stream_context_create with the native
@@ -642,9 +640,9 @@ abstract class Phirehose
       }
       
       // Choose one randomly (if more than one)
-      $this->log('Resolved host ' . $urlParts['host'] . ' to ' . implode(', ', $streamIPs));
+     //$this->log('Resolved host ' . $urlParts['host'] . ' to ' . implode(', ', $streamIPs));
       $streamIP = $streamIPs[rand(0, (count($streamIPs) - 1))];
-      $this->log("Connecting to {$scheme}{$streamIP}, port={$port}, connectTimeout={$this->connectTimeout}");
+      //$this->log("Connecting to {$scheme}{$streamIP}, port={$port}, connectTimeout={$this->connectTimeout}");
       
       @$this->conn = fsockopen($scheme . $streamIP, $port, $errNo, $errStr, $this->connectTimeout);
   
@@ -695,7 +693,7 @@ abstract class Phirehose
       $s.= "\r\n";
       
       fwrite($this->conn, $s);
-      $this->log($s);
+      //$this->log($s);
       
       // First line is response
       list($httpVer, $httpCode, $httpMessage) = preg_split('/\s+/', trim(fgets($this->conn, 1024)), 3);
@@ -817,7 +815,7 @@ abstract class Phirehose
   protected function disconnect()
   {
     if (is_resource($this->conn)) {
-      $this->log('Closing Phirehose connection.');
+      //$this->log('Closing Phirehose connection.');
       fclose($this->conn);
     }
     $this->conn = NULL;

@@ -6,11 +6,14 @@ require_once('config.php');
 require_once('function.php');
 
 
+date_default_timezone_set("Europe/Brussels");
+
 if (isset($argv[1]))
     $stream_id = $argv[1];
 
-if ($stream_id == NULL) {
-    $tk->log("[ERROR] No ID given to track keywords with.");
+if ($stream_id == NULL)
+{
+    $tk->log("[ERROR] No ID given to track keywords with.", 'error', 'log/main_error_log');
     exit(2);
 }
 
@@ -22,41 +25,52 @@ define('TWITTER_CONSUMER_SECRET', $user["consumer_secret"]);
 
 class DynamicTrackConsumer extends OauthPhirehose {
 
-    public function enqueueStatus($status) {
+    public function enqueueStatus($status)
+    {
         global $db;
         global $tk;
         global $stream_id;
-        
+
         $status = json_decode($status);
         $status = get_object_vars($status);
-    
-        // TODO check if error message is send back!
-        if ($status['id'] <> null) {
+
+        // TODO check if error message is sent back!
+        if ($status['id'] <> null)
+        {
 
             $values_array = array();
 
-            $geo = get_object_vars($status['geo']);
+            if (isset($status['geo']))
+                $geo = get_object_vars($status['geo']);
+            else
+            {
+                $geo = array();
+                $geo['type'] = '';
+                $geo['coordinates'] = array();
+                $geo['coordinates'][0] = '';
+                $geo['coordinates'][1] = '';
+            }
+            
             $user = get_object_vars($status['user']);
-            
-            $in_reply_to_status_id = (string) (array_key_exists('in_reply_to_status_id_str', $status))? $status['in_reply_to_status_id_str'] : "";
-            
+            $in_reply_to_status_id = (string) (array_key_exists('in_reply_to_status_id_str', $status)) ? $status['in_reply_to_status_id_str'] : "";
+
             if (array_key_exists('retweeted_status', $status))
             {
                 $orig = get_object_vars($status['retweeted_status']);
-                $orig_user = get_object_vars($orig["user"]);                
-                $orig_time = strtotime($orig["created_at"]); 
-                
-                $text = "RT @" . $orig_user['screen_name'] . ": " . $tk->sanitize($orig['text']);              
+                $orig_user = get_object_vars($orig["user"]);
+                $orig_time = strtotime($orig["created_at"]);
+
+                $text = "RT @" . $orig_user['screen_name'] . ": " . $tk->sanitize($orig['text']);
                 $orig_id = $orig["id"];
-            }
-            else {
+            } else
+            {
                 $orig_user["id"] = "";
                 $orig_user["screen_name"] = "";
                 $orig_time = 0;
                 $orig_id = 0;
-                $text = $tk->sanitize($status['text']);                
+                $text = $tk->sanitize($status['text']);
             }
-        
+
             $values_array[] = "-1";                                     // processed_flag [-1 = waiting to be processed]
             $values_array[] = $text;                                    // text
             $values_array[] = (string) $status['in_reply_to_user_id'];  // to_user_id
@@ -79,35 +93,35 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $orig_time;                               // original time
 
             $values = '';
-            foreach ($values_array as $insert_value) {
+            foreach ($values_array as $insert_value)
+            {
                 $values .= "'$insert_value',";
             }
             $values = substr($values, 0, -1);
 
             // add to list of newly created tweets.
             $q1 = "insert into rawstream values($values)";
-            $tk->log($q1 . "-- from stream $stream_id");
             $result = mysql_query($q1, $db->connection);
-            
-            if (mysql_error() != "")
-                $tk->log("Error: " . mysql_error() . " \n");
-            
+            $tk->log(mysql_error($db->connection), 'mysql-enqueueStatus-insert', "log/stream_" . $stream_id . "_log");
         }
     }
 
-    public function checkFilterPredicates() {
+    public function checkFilterPredicates()
+    {
         global $db;
         global $stream_id;
         global $tk;
 
         $q = "select id,keyword,type,track_id,tracked_by,followed_by from archives where tracked_by =  '$stream_id' OR followed_by = '$stream_id'";
         $r = mysql_query($q, $db->connection);
+        $tk->log(mysql_error($db->connection), 'mysql-checkFilterPredicates-selectarchives', "log/stream_" . $stream_id . "_log");
 
         $track = array();
         $follow = array();
-        while ($row = mysql_fetch_assoc($r)) {
+        while ($row = mysql_fetch_assoc($r))
+        {
 
-            if ($row["tracked_by"] == $stream_id) 
+            if ($row["tracked_by"] == $stream_id)
             {
                 if ($row["type"] == 1)
                     $track[] = $row['keyword'];
@@ -116,23 +130,31 @@ class DynamicTrackConsumer extends OauthPhirehose {
                 else if ($row["type"] == 3)
                     $track[] = "@" . $row['keyword'];
             }
-            
-            if ($row["followed_by"] == $stream_id) 
+
+            if ($row["followed_by"] == $stream_id)
             {
                 $user_r = mysql_query("select * from twitter_users where id = '" . $row['track_id'] . "'", $db->connection);
+                $tk->log(mysql_error(), 'mysql-checkFilterPredicates-selectusers', "log/stream_" . $stream_id . "_log");
                 $user = mysql_fetch_assoc($user_r);
-                
-                 if ($user["flag"] == 1)
-                    $follow[] = $user['twitter_id'];                       
-            }         
-        }         
+
+                if ($user["flag"] == 1)
+                    $follow[] = $user['twitter_id'];
+            }
+        }
         $this->setTrack($track);
         $this->setFollow($follow);
 
         // update pid and last_ping in process table
         $pid = getmypid();
         mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
-        echo "update pid\n";
+    }
+
+    public function log($message, $level = 'notice')
+    {
+        global $tk;
+        global $stream_id;
+        
+        $tk->log($message, $level, "log/stream_" . $stream_id . "_log");
     }
 
 }

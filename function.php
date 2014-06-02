@@ -4,24 +4,7 @@ ini_set('memory_limit', '1024M');
 
 set_time_limit(300000);
 
-/*
-  yourTwapperKeeper - Twitter Archiving Application - http://your.twapperkeeper.com
-  Copyright (c) 2010 John O'Brien III - http://www.linkedin.com/in/jobrieniii
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  as published by the Free Software Foundation; either version 2
-  of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+$function_log = 'log/function_log';
 
 class YourTwapperKeeper {
 
@@ -903,36 +886,42 @@ class YourTwapperKeeper {
     function untrackConversations($archives)
     {
         global $db;
+        global $function_log;
         
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN ($archives)";
         mysql_query($q_old_users, $db->connection);
+        $this->log(mysql_error($db->connection), 'mysql-untrackConversations-update', $function_log);
 
         $q = "delete from conversations where archive IN ($archives)";
         mysql_query($q, $db->connection);
+        $this->log(mysql_error($db->connection), 'mysql-untrackConversations-delete', $function_log);
     }
 
     function untrackConversation($archive)
     {
         global $db;
+        global $function_log;
         
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id = '$archive'";
         mysql_query($q_old_users, $db->connection);
+        $this->log(mysql_error($db->connection), 'mysql-untrackConversation-update', $function_log);
 
         $q = "delete from conversations where archive = '$archive'";
         mysql_query($q, $db->connection);
+        $this->log(mysql_error($db->connection), 'mysql-untrackConversation-delete', $function_log);
     }
 
-// kill archiving process
+    // kill archiving process
     function killProcess($pid)
     {
         $command = 'kill -9 ' . $pid;
         exec($command);
     }
 
-// start archiving process
+    // start archiving process
     function startProcess($cmd)
     {
-        $command = "$cmd > /dev/null 2>&1 & echo $!";
+        $command = "$cmd > log/processes_error_log 2>log/processes_error_log & echo $!";
         exec($command, $op);
         $pid = (int) $op[0];
         return ($pid);
@@ -940,8 +929,8 @@ class YourTwapperKeeper {
 
     function log($message, $level = 'notice', $file = 'tk_log')
     {
-        file_put_contents($file, gmdate("d-M-Y H:i:s") . "\t" . $message . "\n", FILE_APPEND);
-        //echo "$message \n";
+        if ($message != "")
+            file_put_contents($file, gmdate("d-M-Y H:i:s") . "\t[$level]\t" . $message . "\n", FILE_APPEND);
     }
 
     function expandShortUrl($url)
@@ -971,23 +960,19 @@ class YourTwapperKeeper {
     {
         global $db;
         global $time_to_track_user;
-        $t0 = microtime(true);
-        echo "--> INSERTING <-- \n\n";
-
-        //$this->log('Inserting tweet', '', $log_file);
-        $t1 = microtime(true);
+        global $function_log;
+        
+        //$t0 = microtime(true);
+        //$t1 = microtime(true);
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
-        $t2 = microtime(true);
-        echo "Time to insert query: " . ($t2 - $t1) . "\n";
-
-        $t1 = microtime(true);
-        $this->log("$q", '', $log_file);
-
-        if (mysql_error() != "")
-            $this->log("Error when inserting into archive $table_id" . mysql_error(), '', $log_file);
-        $t2 = microtime(true);
-        echo "Time to log: " . ($t2 - $t1) . "\n";
+        $this->log(mysql_error($db->connection), 'mysql-insertTweet-insert', $log_file);
+        
+        //$t2 = microtime(true);
+        //echo "Time to insert query: " . ($t2 - $t1) . "\n";
+        //$t1 = microtime(true); 
+        //$t2 = microtime(true);
+        //echo "Time to log: " . ($t2 - $t1) . "\n";
 
         if ($tweet['original_time'] > 0)
             $time = $tweet['original_time'];
@@ -995,65 +980,62 @@ class YourTwapperKeeper {
             $time = $tweet['time'];
 
         // Insert into central tweets table
-        $t1 = microtime(true);
+        //$t1 = microtime(true);
+        
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
 
-        $t2 = microtime(true);
-        echo "Time to insert smart tweet: " . ($t2 - $t1) . "\n";
-
-        $t1 = microtime(true);
+        //$t2 = microtime(true);
+        //echo "Time to insert smart tweet: " . ($t2 - $t1) . "\n";
+        //$t1 = microtime(true);
+        //
         // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
         if (!$duplicate)
         {
             $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
-            mysql_query($q, $db->connection);
-
-            if (mysql_error() != '')
-                $this->log("Error when inserting into new tweets: " . mysql_error(), '', $log_file);
+            mysql_query($q, $db->connection);           
+            $this->log(mysql_error($db->connection), 'mysql-insertTweet-newtweets', $log_file);
         }
-        $t2 = microtime(true);
-        echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
+        //$t2 = microtime(true);
+        //echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
 
 
-        $t1 = microtime(true);
+        //$t1 = microtime(true);
         // Track conversation if not too old and dealing with hashtagged tweet               
-        if (time() - $time < $time_to_track_user && $type == 2)
-        {
+        if (time() - $time < $time_to_track_user && $type == 2)        
             $this->trackConversation($table_id, $tweet);
-            //$this->log("conversation tracking required", "", $log_file);
-        }
-        $t2 = microtime(true);
-        echo "Time to track conversation: " . ($t2 - $t1) . "\n";
-
-        echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
-        echo "--> ENDING INSERTING <-- \n\n";
-
+            
+        
+        //$t2 = microtime(true);
+        //echo "Time to track conversation: " . ($t2 - $t1) . "\n";
+        //echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
+        
         return TRUE;
     }
 
     function addSmartTweet($tweet, $table_id, $log_file = 'log/function_log')
     {
         global $db;
+        global $function_log;
 
         $duplicate = FALSE;
 
         if (isset($tweet['original_id']) && $tweet['original_id'] != '')
         {
             mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "','" . $tweet['original_id'] . "','" . $table_id . "', 0, 1)", $db->connection);
+            $this->log(mysql_error($db->connection), 'mysql-addSmartTweet-insert-retweet', $log_file);
 
-            if (mysql_error() != '')
+            if (mysql_error($db->connection) != '')
                 $duplicate = TRUE;
         } else
         {
             mysql_query("insert into smart_tweets values (0,'" . $tweet['id'] . "',NULL,'" . $table_id . "', 0, 0)", $db->connection);
+            $this->log(mysql_error($db->connection), 'mysql-addSmartTweet-insert', $log_file);
 
-            if (mysql_error() != '')
+            if (mysql_error($db->connection) != '')
                 $duplicate = TRUE;
         }
-
         return $duplicate;
     }
-
 }
 
 $tk = new YourTwapperKeeper;

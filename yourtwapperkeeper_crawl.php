@@ -40,17 +40,14 @@ while (TRUE)
 
             // sleep for rate limiting
             sleep($sleep);
-
-            //echo "****TIME AROUND = " . $page_counter . "****\n";                
+              
 
             if ($max_id == NULL)
             {
                 $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'result_type' => 'recent'));
-                //echo "NO - no max_id is not set\n";
             } else
             {
                 $search = $connection->get('search/tweets', array('q' => $type . $row_archives['keyword'], 'count' => 100, 'max_id' => $max_id, 'result_type' => 'recent'));
-                //echo "YES - max_id is set\n";
             }
 
             $searchresult = get_object_vars($search);

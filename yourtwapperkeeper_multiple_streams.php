@@ -5,7 +5,7 @@ require_once('OauthPhirehose.php');
 require_once('config.php');
 require_once('function.php');
 
-$log = "multiple_stream_log";
+$log = "log/multiple_stream_log";
 $pid = getmypid();
 
 // Update liveness of process
@@ -28,7 +28,7 @@ $num_streams = mysql_num_rows($r_streams);
 // Validity check
 if ($num_streams > $max_user_streams)
 {
-    $k->log("[NOTICE] Application will only use allowed number of users to perform streaming operations.");
+    $k->log("[NOTICE] Application will only use allowed number of users to perform streaming operations.", '', $log);
     $num_streams = $max_user_streams;
 }
 // Get all streams
@@ -55,12 +55,17 @@ while (TRUE)
     {
         $subquery = "select archive from conversations WHERE (UNIX_TIMESTAMP() - `created_at`) > $time_to_track_user";
         $archives_to_drop_temp = mysql_query($subquery, $db->connection);
-        $archives = '';
-        while ($r = mysql_fetch_assoc($archives_to_drop_temp))
-            $archives .= ",". $r['archive'];
-         
-        $tk->untrackConversations(substr($archives, 1));
-        
+        $tk->log(mysql_error($db->connection), 'mysql-select-archives', $log);
+
+        if (mysql_num_rows($archives_to_drop_temp) > 0)
+        {
+            $archives = '';
+            while ($r = mysql_fetch_assoc($archives_to_drop_temp))
+                $archives .= "," . $r['archive'];
+
+            $tk->untrackConversations(substr($archives, 1));
+        }
+
         $last_updated = time();
     }
 
@@ -85,6 +90,7 @@ while (TRUE)
     // Assign floating archives of type 3 and 4 to open and usable streams
     $q_floating_archives = "select id from archives where followed_by = '0' and type IN (3,4)";
     $r = mysql_query($q_floating_archives, $db->connection);
+    $tk->log(mysql_error($db->connection), 'mysql-assign-3,4', $log);
 
     while ($row = mysql_fetch_assoc($r))
     {
@@ -106,6 +112,8 @@ while (TRUE)
 
                 case "OLDEST":
                     $result = mysql_fetch_assoc(mysql_query("select followed_by as stream_id, id from archives where id = (SELECT archive from conversations order by created_at ASC LIMIT 1)", $db->connection));
+                    $tk->log(mysql_error($db->connection), 'mysql-removepolicy-oldest', $log);
+
                     $stream_id = $result['stream_id'];
                     $tk->untrackConversation($result['id']);
                     mysql_query("update archives set followed_by = '$stream_id' where id = '" . $row["id"] . "'", $db->connection);
@@ -123,6 +131,7 @@ while (TRUE)
     // assign floating archives of type 1,2,3 to open and usable streams
     $q_floating_archives = "select id from archives where tracked_by = '0' and type IN (1,2,3)";
     $r = mysql_query($q_floating_archives, $db->connection);
+    $tk->log(mysql_error($db->connection), 'mysql-assign-1,2,3', $log);
 
     while ($row = mysql_fetch_assoc($r))
     {
@@ -160,8 +169,6 @@ while (TRUE)
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
 
-    // sleep x second(s)
-    echo "sleep.";
     sleep(3);
 
     $count++;
@@ -179,7 +186,7 @@ function getUsableStreamId($track_limit, $follow_limit)
     if ($num == 0)
     {
         // TODO replace oldest followed user with this new user?
-        $tk->log("[ERROR] Unable to follow or track user. No space left!");
+        $tk->log("[ERROR] Unable to follow or track user. No space left!", 'error', $log);
         $stream_id = NULL;
     }
     else

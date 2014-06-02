@@ -8,6 +8,7 @@ require_once('twitteroauth_search.php');
 // setup values
 $pid = getmypid();
 $script_key = uniqid();
+$log = 'log/update_log';
 
 // update liveness of process
 mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
@@ -15,7 +16,6 @@ mysql_query("update processes set live = '1' where pid = '$pid'", $db->connectio
 // process loop
 // TODO limit updating to max possible amount
 // TODO log whenever too many tweets enter so not all tweets can be updated in time.
-// TODO Do not check retweets and favorites of tweet that was retweeted and already updated?
 while (TRUE) {
 
     $start = microtime(true);
@@ -25,20 +25,18 @@ while (TRUE) {
 
     $num_tweets = mysql_affected_rows();
 
-    $tk->log("Started updating " . $num_tweets . " tweets. \n");
+    $tk->log("Started updating " . $num_tweets . " tweets." , '', $log);
 
     if ($num_tweets > 0) 
     {
         // run java application
-        $command = "java -jar library/updateTweets.jar '$script_key'";
-        echo "$command \n";
-        exec($command, $op);
-        
+        $command = "java -jar library/updateTweets.jar '$script_key' >> $log 2>> $log";
+        exec($command, $op);        
         foreach ($op as $line)        
-             $tk->log($line);        
+             $tk->log($line , '', $log);        
 
         $time_run = (microtime(true) - $start);
-        $tk->log("Application ran for $time_run seconds.\n");
+        $tk->log("Application ran for $time_run seconds" , '', $log);
 
         // delete tweets from update table 'new_tweets'
         mysql_query("DELETE FROM `new_tweets` WHERE flag = '$script_key'", $db->connection);
@@ -48,14 +46,13 @@ while (TRUE) {
     
     if ($time_left > 0)
     {
-        $tk->log("Updating finished. Sleeping for $time_left seconds. \n");    
+        $tk->log("Updating finished. Sleeping for $time_left seconds.", '', $log);  
         sleep($time_left);
     } else
-        $tk->log("Application has run too long! \n"); 
+        $tk->log("Application has run too long!", '', $log); 
        
 
     // update pid and last_ping in process table
     mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
-    //echo "update pid\n";    
 }
 ?>
