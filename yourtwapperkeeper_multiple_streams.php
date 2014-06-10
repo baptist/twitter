@@ -65,7 +65,8 @@ while (TRUE)
 
             $tk->untrackConversations(substr($archives, 1));
         }
-
+        
+        mysql_free_result($archives_to_drop_temp);
         $last_updated = time();
     }
 
@@ -126,7 +127,8 @@ while (TRUE)
                     break;
             }
         }
-    }
+    }    
+    mysql_free_result($r);
 
     // assign floating archives of type 1,2,3 to open and usable streams
     $q_floating_archives = "select id from archives where tracked_by = '0' and type IN (1,2,3)";
@@ -145,6 +147,7 @@ while (TRUE)
             $streams_shouldbe_live[$stream_id] = 1;
         }
     }
+    mysql_free_result($r);
 
     // start or stop streams based on the necessity
     for ($i = 0; $i < count($streams); $i++)
@@ -191,6 +194,8 @@ function getUsableStreamId($track_limit, $follow_limit)
     }
     else
         $stream_id = mysql_fetch_assoc($r)["id"];
+    
+    mysql_free_result($r);
 
     return $stream_id;
 }

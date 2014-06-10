@@ -56,6 +56,7 @@ while (TRUE)
         }
         $count++;
     }
+    mysql_free_result($r_users);
 }
 
 function performLookup($screen_names) {

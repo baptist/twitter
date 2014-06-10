@@ -24,7 +24,7 @@ while (TRUE)
     // TODO find error that sets archives undefined (reconnect every x days? to reset db query cache)
     // Update follow and track keywords
     $time_passed_by = time() - $last_updated;
-    if ($time_passed_by >= 0)
+    if ($time_passed_by >= 2)
     {
         // update counts
         foreach ($follow as $keyword => $ztable)
@@ -34,6 +34,8 @@ while (TRUE)
             $r_count = mysql_fetch_assoc($r_count);
             $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
             mysql_query($q_update, $db->connection);
+            
+            unset($r_count);
         }
 
         foreach ($track as $ztable => $keyword)
@@ -43,6 +45,8 @@ while (TRUE)
             $r_count = mysql_fetch_assoc($r_count);
             $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
             mysql_query($q_update, $db->connection);
+            
+            unset($r_count);
         }
 
         // get keyword into memory
@@ -86,6 +90,9 @@ while (TRUE)
 
         $processed = 0;
         $last_updated = time();
+        
+        mysql_free_result($r);
+        unset($r);
     }
 
 
@@ -103,6 +110,8 @@ while (TRUE)
         $batch[] = $row;    
     $processed += mysql_num_rows($r);
     
+    mysql_free_result($r);
+    unset($r);    
 
     // for each tweet in memory, compare against predicates and insert
     foreach ($batch as $tweet)

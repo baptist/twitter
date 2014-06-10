@@ -62,11 +62,13 @@ while (TRUE)
                 $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
                 $result_check = mysql_query($q_check, $db->connection);
 
-                if (mysql_numrows($result_check) == 0)
+                if (mysql_num_rows($result_check) == 0)
                 {
                     $num_inserted++;
                     $tk->insertTweet($row_archives['id'], $tweet, $row_archives['type'], "search", $crawl_log_file);
                 }
+                mysql_free_result($result_check);
+                
                 $max_id = $tweet["id"]; // resetting to lowest tweet id
             }
 
@@ -92,19 +94,22 @@ while (TRUE)
                 $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
                 $result_check = mysql_query($q_check, $db->connection);
 
-                if (mysql_numrows($result_check) == 0)
+                if (mysql_num_rows($result_check) == 0)
                 {                    
                     $tk->insertTweet($row_archives['id'], $tweet, $row_archives['type'], "timeline", $crawl_log_file);
                 }
+                mysql_free_result($result_check);
             }
         }
 
         // update counts
         $q_count_total = "select count(id) from z_" . $row_archives['id'];
         $r_count_total = mysql_query($q_count_total, $db->connection);
-        $r_count_total = mysql_fetch_assoc($r_count_total);
-        $q_update_count_total = "update archives set count = '" . $r_count_total['count(id)'] . "' where id = '" . $row_archives['id'] . "'";
+        $r_count = mysql_fetch_assoc($r_count_total);
+        $q_update_count_total = "update archives set count = '" . $r_count['count(id)'] . "' where id = '" . $row_archives['id'] . "'";
         mysql_query($q_update_count_total, $db->connection);
+        mysql_free_result($r_count_total);
+        
 
 
         // update pid and last_ping in process table
@@ -112,6 +117,8 @@ while (TRUE)
 
         $tk->log("inserted " . $num_inserted, "", $crawl_log_file);
     }
+    
+    mysql_free_result($r_archives);
 }
 
 ?>

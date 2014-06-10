@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         foreach ( $tags_array as $selected )
             $tags .= strtolower($selected) . "|";
         
-            $condition .= " and tags regexp '" . substr($tags, 0, -1) . "'";  
+        $condition .= " and tags regexp '" . substr($tags, 0, -1) . "'";  
     }
     
     if (!empty($_POST['type']))
@@ -65,15 +65,31 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         $condition .= " and type regexp '" . substr($type, 0, -1) . "'";        
     }
     
-    if (!empty($_POST["keyword"]) )
-        $condition .= " and keyword LIKE '" . $_POST["keyword"] . "'";     
-    
+    if (!empty($_POST["keywords"]) )
+    {
+        $array = $_POST['keywords'];
+        $keywords = "";        
+        foreach ( $array as $selected )
+            $keywords .= "'" . strtolower($selected) . "',";
+        
+        $keywords = ""; 
+        $f = fopen("export.csv", "r");
+        while ($line = fgets ($f, 4096))
+            $keywords .= "'" . strtolower(trim($line)) . "',";       
+        
+        $condition .= " and keyword in (" . substr($keywords, 0, -1) . ")";  
+    }
+        
     if (!empty($_POST["description"]))
         $condition .= " and description LIKE '" . $_POST["description"] . "'";     
     
     $limit = false;
     if (!empty($_POST["limit"]))
         $limit = $_POST["limit"];
+    
+    $no_mentions = false;
+    if (!empty($_POST["no_mentions"]))
+        $no_mentions = $_POST["no_mentions"];
     
     $rt = false;
     if (!empty($_POST["rt"]))
@@ -96,7 +112,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         $to = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["to"] . " 23:59:59")->getTimestamp();
     
     $archives = $tk->listArchivesWithCondition("$condition ORDER BY count DESC");
-    $tweets = $tk->getTweetsFromArchives($archives['results'], $from,$to,$limit,false,$no_rt,false,false,false,false,false,false,false,false,false,false, $rt, $fv);
+    $tweets = $tk->getTweetsFromArchives($archives['results'], $from,$to,$limit,false,$no_rt,$no_mentions,false,false,false,false,false,false,false,false,false, $rt, $fv);
     $_SESSION['tweets'] = $tweets;
 }
 
@@ -111,6 +127,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
 
         $('#tagsSelect').multiselect({
+            includeSelectAllOption: true,
+            numberDisplayed: 1,
+            enableFiltering: true,
+            maxHeight: 250,
+            buttonWidth: 220
+        });
+        
+        $('#keywordsSelect').multiselect({
             includeSelectAllOption: true,
             numberDisplayed: 1,
             enableFiltering: true,
@@ -161,6 +185,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
@@ -178,7 +203,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                         ?>
                                     </select>
                                 </td>
-                                <td><input name='keyword'/></td>
+                                <td>
+                                    <select name="keywords[]"  class="multiselect"  multiple="multiple" id="keywordsSelect">
+
+                                        <?php
+                                        $keys = $tk->getKeywords(-1);
+
+                                        foreach ($keys as $key)
+                                            echo "<option value='$key'>" . ucfirst($key) . "</option>";
+                                        ?>
+
+                                    </select>                                    
+                                </td>
                                 <td><input name='description'/></td>
                                 <td>
                                     <select name="tags[]"  class="multiselect"  multiple="multiple" id="tagsSelect">
@@ -194,6 +230,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                 </td>             
                                 <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
                                 <td><input type="checkbox" name='no_rt' /></td> 
+                                <td><input type="checkbox" name='no_mentions' /></td> 
                                 <td><input name='rt' style="width:60px"/></td> 
                                 <td><input name='fv' style="width:60px"/></td> 
                                 <td><input name='limit' style="width:60px"/></td> 

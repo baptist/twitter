@@ -114,7 +114,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
         $q = "select id,keyword,type,track_id,tracked_by,followed_by from archives where tracked_by =  '$stream_id' OR followed_by = '$stream_id'";
         $r = mysql_query($q, $db->connection);
-        $tk->log(mysql_error($db->connection), 'mysql-checkFilterPredicates-selectarchives', "log/stream_" . $stream_id . "_log");
+        $tk->log(mysql_error($db->connection), 'mysql-checkFilterPredicates-selectarchives', "log/stream_" . $stream_id . "_log");               
 
         $track = array();
         $follow = array();
@@ -139,6 +139,9 @@ class DynamicTrackConsumer extends OauthPhirehose {
 
                 if ($user["flag"] == 1)
                     $follow[] = $user['twitter_id'];
+                
+                mysql_free_result($user_r);
+                unset($user_r);
             }
         }
         $this->setTrack($track);
@@ -147,6 +150,9 @@ class DynamicTrackConsumer extends OauthPhirehose {
         // update pid and last_ping in process table
         $pid = getmypid();
         mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
+        
+        mysql_free_result($r);
+        unset($r);
     }
 
     public function log($message, $level = 'notice')

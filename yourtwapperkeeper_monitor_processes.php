@@ -77,6 +77,8 @@ while (TRUE)
     $s = mysql_fetch_assoc($r);
     $time = $s["created_at"];
     $id = $s["id"];
+    
+    mysql_free_result($r);
 
     if ((time() - $time) > 3600)    
         mysql_query("insert into statistics values (0, '$total_num_tweets', $avg_tweets_per_minute, $track_load, $follow_load, '$num_hashtags', '$num_follows', '$num_conversations', UNIX_TIMESTAMP())", $db->connection);

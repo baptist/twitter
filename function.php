@@ -46,8 +46,27 @@ class YourTwapperKeeper {
 
         if (mysql_num_rows($r) == 1)
             return mysql_fetch_assoc($r);
+        
+        mysql_free_result($r);
 
         return FALSE;
+    }
+    
+    function getKeywords($num = 100)
+    {
+        global $db;
+
+        $keywords = array();
+
+        $q = "select LOWER(keyword) as keyword from archives order by keyword asc" . (($num > 0) ? " limit $num" : "");
+        $result = mysql_query($q, $db->connection);
+
+        while ($row = mysql_fetch_assoc($result))
+            $keywords[] = strtolower($row["keyword"]);
+        
+        mysql_free_result($result);
+
+        return $keywords;
     }
 
     function getUniformTags($num = 3)
@@ -73,6 +92,8 @@ class YourTwapperKeeper {
             else if (!in_array(strtolower($part), $tags))
                 $tags[] = strtolower($row["tags"]);
         }
+        
+        mysql_free_result($result);
 
         return $tags;
     }
@@ -93,7 +114,9 @@ class YourTwapperKeeper {
         }
 
         $response['count'] = $count;
-
+        
+        mysql_free_result($r);
+        
         return $response;
     }
 
@@ -143,6 +166,8 @@ class YourTwapperKeeper {
         }
 
         $response['count'] = $count;
+        
+        mysql_free_result($r);
 
         return $response;
     }
@@ -163,6 +188,9 @@ class YourTwapperKeeper {
             $stats[] = "<span style='font-weight:bold'>Track load: " . $s["track_load"] . " % -- " . "Follow load: " . $s["follow_load"] . " % </span>";
             $stats[] = "Tracking <span style='font-weight:bold'>" . $s["num_hashtags"] . " hashtags, " . $s["num_follows"] . " users, and " . $s["num_conversations"] . " conversations.</span>";
         }
+        
+        mysql_free_result($r);
+        
         return $s;
     }
 
@@ -192,6 +220,9 @@ class YourTwapperKeeper {
                 $index--;
             }
         }
+        
+        mysql_free_result($r);
+        
         return [$labels, $values];
     }
 
@@ -237,14 +268,14 @@ class YourTwapperKeeper {
                 $newType = 3;
             else
                 $newType = $result['type'];
-
-
             // Modify tag so archive can be properly listed
             $q = "update archives set description = '$description', tags = '$newTags', type = '$newType' where keyword = '$keyword'";
-            $r = mysql_query($q, $db->connection);
+            mysql_query($q, $db->connection);
 
             return($response);
         }
+        
+        mysql_free_result($r);
 
         if (strlen($keyword) < 1 || strlen($keyword) > 30)
         {
@@ -267,7 +298,7 @@ class YourTwapperKeeper {
             $user = 'NULL';
 
         $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0, 0)";
-        $r = mysql_query($q, $db->connection);
+        mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
         //        `in_reply_to_status_id` varchar(100) NOT NULL,
         $create_table = "CREATE TABLE IF NOT EXISTS `z_$lastid` (
@@ -302,7 +333,7 @@ class YourTwapperKeeper {
         INDEX `time` (`time`)
         ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 
-        $r = mysql_query($create_table, $db->connection) or die(mysql_error());
+        mysql_query($create_table, $db->connection) or die(mysql_error());
 
         $response['id'] = $lastid;
         $response['type'] = $type;
@@ -325,10 +356,11 @@ class YourTwapperKeeper {
         {
             // insert user into database
             $q = "insert into twitter_users (screen_name) values ('" . $screen_name . "')";
-            $r = mysql_query($q, $db->connection);
+            mysql_query($q, $db->connection);
 
             return mysql_insert_id();
-        }
+        }        
+        mysql_free_result($r);
     }
 
     function addHollowUser($screen_name, $user_id)
@@ -344,10 +376,11 @@ class YourTwapperKeeper {
         {
             // insert user into database
             $q = "insert into twitter_users (screen_name, twitter_id, flag) values ('$screen_name', '$user_id', 1)";
-            $r = mysql_query($q, $db->connection);
+            mysql_query($q, $db->connection);
 
             return mysql_insert_id();
         }
+        mysql_free_result($r);
     }
 
     function cmpTweets($a, $b)
@@ -363,7 +396,7 @@ class YourTwapperKeeper {
 
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, $from_user, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user)? $archive['keyword'] : false , $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
 
             foreach ($result as $r)
             {
@@ -960,7 +993,6 @@ class YourTwapperKeeper {
     {
         global $db;
         global $time_to_track_user;
-        global $function_log;
         
         //$t0 = microtime(true);
         //$t1 = microtime(true);
