@@ -81,23 +81,29 @@ require_once('function.php');
  */
 
 
-$q = "select id,LOWER(keyword) AS keyword,track_id,type from archives where type=4";
+$q = "select tweet_id, original_archive from smart_tweets";
 $r = mysql_query($q, $db->connection);
-
-
-$track = array();
-$follow = array();
-
-
+$c = 0;
+$affected = 0;
+echo "Checking " . mysql_num_rows($r) . " tweets.. \n";
 while ($row = mysql_fetch_assoc($r))
 {
-    if ($row["type"] == 4)
-    {
-        $follow[$row['keyword']] = $row['id'];
-        $track[$row['id']] = "@" . $row['keyword'];
-    }
+    // check tweet
+    $q = "select id from z_" . $row['original_archive'] . " where id = '" . $row['tweet_id'] . "' and UNIX_TIMESTAMP() - `time` > 12*3600 and updated_at IS NULL";
+    $r_sub = mysql_query($q, $db->connection);
+
+    if (mysql_num_rows($r_sub) != 0)
+        $affected++;
+    
+    mysql_free_result($r_sub);
+    $c++;
+    
+    if($c % 10000 == 0)
+        print "Completed " . $c . " tweets. Affected: $affected \n";
 }
 
+mysql_free_result($r);
+/*
 $q_floating_archives = "select id from archives";
 $rs = mysql_query($q_floating_archives, $db->connection);
 $count = 0;
@@ -142,6 +148,6 @@ function insert($table_id, $tweet, $type, $reason = '', $log_file = 'log/functio
 
     $q = "insert into z_$table_id values ('twitter-$reason','" . $tk->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
     mysql_query($q, $db->connection);
-}
+}*/
 ?>
 
