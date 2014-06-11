@@ -92,8 +92,12 @@ while ($row = mysql_fetch_assoc($r))
     $q = "select id from z_" . $row['original_archive'] . " where id = '" . $row['tweet_id'] . "' and UNIX_TIMESTAMP() - `time` > 12*3600 and updated_at IS NULL";
     $r_sub = mysql_query($q, $db->connection);
 
-    if (mysql_num_rows($r_sub) != 0)
-        $affected++;
+    if (mysql_num_rows($r_sub) != 0)     
+    {
+        $affected++;    
+        $q = "insert into new_tweets values('" . ((string) $row['tweet_id']) . "', " . $row['original_archive'] . ", 0, 0, -1)";
+        mysql_query($q, $db->connection);           
+    }
     
     mysql_free_result($r_sub);
     $c++;
