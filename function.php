@@ -446,6 +446,24 @@ class YourTwapperKeeper {
 
         return $response;
     }
+    
+    function getUser($screen_name)
+    {
+        global $db;
+        
+        // check if user does not exist in db        
+        $q = "select * from twitter_users where screen_name like '$screen_name' LIMIT 1";
+        $r = mysql_query($q, $db->connection);
+        if (mysql_num_rows($r) > 0)
+        {
+            $result = mysql_fetch_assoc($r);
+            mysql_free_result($r);  
+            return $result;
+        }
+        else 
+            return NULL;
+                     
+    }
 
 // get tweets
     function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
@@ -587,10 +605,14 @@ class YourTwapperKeeper {
         if (mysql_num_rows($r) != 0)
         {
             $archive = mysql_fetch_assoc($r)['original_archive'];
-            $tweet = mysql_fetch_assoc(mysql_query("select * from z_$archive where id = '$tweetID'"));
+            $r_sub = mysql_query("select * from z_$archive where id = '$tweetID'");
+            $tweet = mysql_fetch_assoc($r_sub);
+            mysql_free_result($r_sub);
         }
         else
             return FALSE;
+        
+        mysql_free_result($r);
 
         // Find root if tweet is a reply itself
         if (!empty($tweet["in_reply_to_status_id"]))
@@ -613,7 +635,7 @@ class YourTwapperKeeper {
             while ($subsubrow = mysql_fetch_assoc($subsubr))
                 $temptweets[$subsubrow['id']] = $subsubrow;
         }
-
+        mysql_free_result($subr);
         return array_merge($this->findPath($tweet['in_reply_to_status_id'], $temptweets, false), array($tweet), $this->findPath($tweet['id'], $temptweets, true));
     }
 
@@ -670,12 +692,17 @@ class YourTwapperKeeper {
             if (mysql_num_rows($r) != 0)
             {
                 $archive = mysql_fetch_assoc($r)['original_archive'];
-                $result = mysql_fetch_assoc(mysql_query("select in_reply_to_status_id, from_user from z_$archive where id = '$rootID'"));
+                $subr = mysql_query("select in_reply_to_status_id, from_user from z_$archive where id = '$rootID'");
+                $result = mysql_fetch_assoc($subr);
                 $rootUser = $result['from_user'];
                 $in_reply_to = $result['in_reply_to_status_id'];
+                
+                mysql_free_result($subr);
             }
             else
                 $in_reply_to = "";
+            
+            mysql_free_result($r);
         }
         return $rootUser;
     }
@@ -696,13 +723,25 @@ class YourTwapperKeeper {
             {
                 $r2 = mysql_query("SELECT original_archive FROM smart_tweets WHERE tweet_id = '$originalID'", $db->connection);
                 $archiveID = (mysql_num_rows($r2) == 1) ? mysql_fetch_assoc($r2)['original_archive'] : $row['original_archive'];
+                mysql_free_result($r2);               
+                
             }
             else
                 $archiveID = $row['original_archive'];
 
+            
             $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
-            return mysql_fetch_assoc($r3);
+            $result = mysql_fetch_assoc($r3);
+            
+            
+            mysql_free_result($r3);
+            mysql_free_result($r);
+            
+            return $result;
         }
+        
+        mysql_free_result($r);
+        
         return FALSE;
     }
 
@@ -882,6 +921,8 @@ class YourTwapperKeeper {
         while ($a = mysql_fetch_assoc($r))
             $processes[] = $a["process"];
 
+        mysql_free_result($r);
+        
         return $this->statusArchiving($processes);
     }
 
@@ -913,6 +954,7 @@ class YourTwapperKeeper {
             else
             // Update conversation archive
                 mysql_query("update conversations set tweet_id = '" . $tweet['id'] . "', created_at = UNIX_TIMESTAMP() where archive = '" . $archive["id"] . "'", $db->connection);
+            mysql_free_result($result);
         }
     }
     
@@ -973,6 +1015,8 @@ class YourTwapperKeeper {
         $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);
         if ($result != false && mysql_num_rows($result) == 1)
             return mysql_fetch_assoc($result)["expanded_url"];
+        
+        mysql_free_result($result);
 
         $headers = get_headers($url, 1);
 

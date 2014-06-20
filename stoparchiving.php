@@ -20,13 +20,18 @@ $r = mysql_query("select process from processes where live = 1", $db->connection
 while ($a = mysql_fetch_assoc($r))
     $cmd[] = $a["process"];
 
+mysql_free_result($r);
+
 // Query PIDS and kill jobs
 foreach ($cmd as $key => $value) {
-    $pid = mysql_fetch_assoc(mysql_query("select pid from processes where process = '$value'", $db->connection));
+    $subr = mysql_query("select pid from processes where process = '$value'", $db->connection);
+    $pid = mysql_fetch_assoc($subr);
     $pid = $pid['pid'];
     $tk->killProcess($pid);
     $pids .= $pid . ",";
     mysql_query("update processes set pid = '0', live = '0' where process = '$value'", $db->connection);
+    
+    mysql_free_result($subr);
 }
 $pids = substr($pids, 0, -1);
 

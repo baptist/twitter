@@ -28,60 +28,90 @@ require_once('config.php');
 require_once('function.php');
 require_once('twitteroauth.php');
 
-if (!isset($_SESSION['tweets']))
+if (isset($_SESSION['stats']))
 {
-    if (isset($_GET['id']))
+    $data = $_SESSION['stats'];
+    $keys_to_print = array_keys(current($data));
+} else
+{
+    $keys_to_print = array("text",
+        "to_user_id",
+        "to_user",
+        "from_user_id",
+        "from_user",
+        "original_user_id",
+        "original_user",
+        "id",
+        //"in_reply_to_status_id",
+        "iso_language_code",
+        "profile_image_url",
+        "geo_type",
+        "geo_coordinates_0",
+        "geo_coordinates_1",
+        "created_at",
+        "time",
+        "favorites",
+        "retweets",
+        "description",
+        "tags"
+    );
+
+
+    if (!isset($_SESSION['tweets']))
     {
-        $id = $_GET['id'];
-        $archiveInfo = $tk->listArchive($id);
-
-
-        if ($archiveInfo['count'] <> 1 && isset($_GET['id']))
+        if (isset($_GET['id']))
         {
-            $_SESSION['notice'] = "Archive does not exist.";
-            header('Location: index.php');
+            $id = $_GET['id'];
+            $archiveInfo = $tk->listArchive($id);
+
+
+            if ($archiveInfo['count'] <> 1 && isset($_GET['id']))
+            {
+                $_SESSION['notice'] = "Archive does not exist.";
+                header('Location: index.php');
+            }
+        }
+        else
+            $archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
+
+        // set default limit
+        if ($_GET['l'] == '')
+        {
+            $limit = 10;
+        } else
+        {
+            $limit = $_GET['l'];
+        }
+        if ($_GET['o'] == '')
+        {
+            $orderby = 'd';
+        } else
+        {
+            $orderby = $_GET['o'];
+        }
+
+// set times
+        if ($_GET['sm'] <> '' && $_GET['sd'] <> '' && $_GET['sy'] <> '')
+        {
+            $start_time = strtotime($_GET['sm'] . "/" . $_GET['sd'] . "/" . $_GET['sy']);
+        }
+        if ($_GET['em'] <> '' && $_GET['ed'] <> '' && $_GET['ey'] <> '')
+        {
+            $end_time = strtotime($_GET['em'] . "/" . $_GET['ed'] . "/" . $_GET['ey']);
+        }
+
+// Get tweets
+        if ($start_time <> '' || $end_time <> '')
+        {
+            $data = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time, $end_time, $limit, $orderby, $_GET['nort'], $_GET['from_user'], $_GET['text'], $_GET['lang'], $_GET['max_id'], $_GET['since_id'], $_GET['offset'], $_GET['lat'], $_GET['long'], $_GET['rad'], $_GET['debug'], 1, 1);
+        } else
+        {
+            $data = $tk->getTweetsFromArchives($archiveInfo['results'], null, null, $limit, $orderby, $_GET['nort'], $_GET['from_user'], $_GET['text'], $_GET['lang'], $_GET['max_id'], $_GET['since_id'], $_GET['offset'], $_GET['lat'], $_GET['long'], $_GET['rad'], $_GET['debug'], 1, 1);
         }
     }
     else
-        $archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
-
-    // set default limit
-    if ($_GET['l'] == '')
-    {
-        $limit = 10;
-    } else
-    {
-        $limit = $_GET['l'];
-    }
-    if ($_GET['o'] == '')
-    {
-        $orderby = 'd';
-    } else
-    {
-        $orderby = $_GET['o'];
-    }
-
-// set times
-    if ($_GET['sm'] <> '' && $_GET['sd'] <> '' && $_GET['sy'] <> '')
-    {
-        $start_time = strtotime($_GET['sm'] . "/" . $_GET['sd'] . "/" . $_GET['sy']);
-    }
-    if ($_GET['em'] <> '' && $_GET['ed'] <> '' && $_GET['ey'] <> '')
-    {
-        $end_time = strtotime($_GET['em'] . "/" . $_GET['ed'] . "/" . $_GET['ey']);
-    }
-
-// Get tweets
-    if ($start_time <> '' || $end_time <> '')
-    {
-        $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time, $end_time, $limit, $orderby, $_GET['nort'], $_GET['from_user'], $_GET['text'], $_GET['lang'], $_GET['max_id'], $_GET['since_id'], $_GET['offset'], $_GET['lat'], $_GET['long'], $_GET['rad'], $_GET['debug'], 1, 1);
-    } else
-    {
-        $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], null, null, $limit, $orderby, $_GET['nort'], $_GET['from_user'], $_GET['text'], $_GET['lang'], $_GET['max_id'], $_GET['since_id'], $_GET['offset'], $_GET['lat'], $_GET['long'], $_GET['rad'], $_GET['debug'], 1, 1);
-    }
-} else 
-    $archiveTweets = $_SESSION['tweets'];
-
+        $data = $_SESSION['tweets'];
+}
 
 // set link
 $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -105,70 +135,32 @@ header('Content-Disposition: attachment; filename="' . basename($export_file) . 
 /*
   echo "<head>";
   echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\" />";
-  echo "</head>"; */
-
+  echo "</head>"; 
+*/
 echo "<table>";
 echo "<tr>";
-echo "<th>TEXT</th>";
-echo "<th>TO_USER_ID</th>";
-echo "<th>TO_USER</th>";
-echo "<th>FROM_USER_ID</th>";
-echo "<th>FROM_USER</th>";
-echo "<th>ORIGINAL_USER_ID</th>";
-echo "<th>ORIGINAL_USER</th>";
-echo "<th>ID</th>";
-//echo "<th>IN_REPLY_TO_STATUS_ID</th>";
-echo "<th>ISO_LANGUAGE_CODE</th>";
-echo "<th>PROFILE_IMG_URL</th>";
-echo "<th>GEO_TYPE</th>";
-echo "<th>GEO_COORDINATES_0</th>";
-echo "<th>GEO_COORDINATES_1</th>";
-echo "<th>CREATED_AT</th>";
-echo "<th>TIME</th>";
-echo "<th>FAVORITES</th>";
-echo "<th>RETWEETS</th>";
-echo "<th>DESCRIPTION</th>";
-echo "<th>TAGS</th>";
-echo "<th>EXPANDED URLS</th>";
+foreach ($keys_to_print as $key)
+    echo "<th>" . strtoupper($key) . "</th>";
 echo "</tr>";
-
-$keys_to_print = array("text",
-    "to_user_id",
-    "to_user",
-    "from_user_id",
-    "from_user",
-    "original_user_id",
-    "original_user",
-    "id",
-    //"in_reply_to_status_id",
-    "iso_language_code",
-    "profile_image_url",
-    "geo_type",
-    "geo_coordinates_0",
-    "geo_coordinates_1",
-    "created_at",
-    "time",
-    "favorites",
-    "retweets",
-    "description",
-    "tags"
-    );
 
 $ids = array();
 
-foreach ($archiveTweets as $key => $value)
-    if (!in_array($value['id'], $ids))
-    { {
-            echo "<tr>";
-            foreach ($keys_to_print as $index => $print)
-            {
-                if ($print == "id" || $print == "original_id")
-                    echo "<td>'" . $value['id'] . "'</td>";
-                else
-                    echo "<td>" . $value[$print] . "</td>";
-            }
+foreach ($data as $key => $value)
+{
+    if (!array_key_exists('id', $value) || (array_key_exists('id', $value) && !in_array($value['id'], $ids)))
+    {
+        echo "<tr>";
+        foreach ($keys_to_print as $print)
+        {
+            if ($print == "id" || $print == "original_id")
+                echo "<td>'" . $value['id'] . "'</td>";
+            else
+                echo "<td>" . $value[$print] . "</td>";
+        }
 
-            // TODO check if tweets contain multiple urls
+
+        if (array_key_exists('text', $value))
+        {
             // Check if tweet contains url
             preg_match_all('/https?:\/\/[^\s`!()\[\]{};:\'\",<>?«»“”‘’]+/', $value["text"], $urls);
 
@@ -176,20 +168,21 @@ foreach ($archiveTweets as $key => $value)
             {
                 foreach ($urls[0] as $url)
                 {
-                    //$expandedURL = $tk->expandShortUrl($url);
-                    //echo "<td>$url</td><td>$expandedURL</td>";
+                    $expandedURL = $tk->expandShortUrl($url);
+                    echo "<td>$url</td><td>$expandedURL</td>";
                 }
             }
-
-            echo "</tr>";
-
-            $ids[] = $value['id'];
         }
+        echo "</tr>";
+        
+        if (array_key_exists('id', $value))
+            $ids[] = $value['id'];
     }
+}
 
 echo "</table>";
 
 // clear memory
 unset($_SESSION["tweets"]);
-
+unset($_SESSION["stats"]);
 ?>

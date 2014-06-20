@@ -112,7 +112,9 @@ while (TRUE)
                     break;
 
                 case "OLDEST":
-                    $result = mysql_fetch_assoc(mysql_query("select followed_by as stream_id, id from archives where id = (SELECT archive from conversations order by created_at ASC LIMIT 1)", $db->connection));
+                    $subr = mysql_query("select followed_by as stream_id, id from archives where id = (SELECT archive from conversations order by created_at ASC LIMIT 1)", $db->connection);
+                    $result = mysql_fetch_assoc($subr);
+                    mysql_free_result($subr);
                     $tk->log(mysql_error($db->connection), 'mysql-removepolicy-oldest', $log);
 
                     $stream_id = $result['stream_id'];
@@ -162,7 +164,9 @@ while (TRUE)
         } else if ((!array_key_exists($streams[$i]["id"], $streams_shouldbe_live) || !$streams_shouldbe_live[$streams[$i]["id"]]) && $streams_live[$streams[$i]["id"]])
         {
             // stop stream
-            $tpid = mysql_fetch_assoc(mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection));
+            $subr = mysql_query("select pid from processes where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
+            $tpid = mysql_fetch_assoc($subr);
+            mysql_free_result($subr);
             $tk->killProcess($tpid['pid']);
             mysql_query("update processes set pid = '0', live = '0', parameters = '' where process = 'yourtwapperkeeper_smart_stream_$i.php'", $db->connection);
             $streams_live[$streams[$i]["id"]] = 0;

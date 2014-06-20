@@ -18,43 +18,21 @@ $process_log_file = "log/process_log";
 $process_error_log_file = "log/process_error_log";
 $last_updated = 0;
 $processed = 0;
-// process loop
+
 while (TRUE)
 {
-    // TODO find error that sets archives undefined (reconnect every x days? to reset db query cache)
     // Update follow and track keywords
     $time_passed_by = time() - $last_updated;
-    if ($time_passed_by >= 2)
+    if ($time_passed_by >= 0)
     {
-        // update counts
-        foreach ($follow as $keyword => $ztable)
-        {
-            $q_count = "select count(id) from z_$ztable";
-            $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
-            $r_count = mysql_fetch_assoc($r_count);
-            $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
-            mysql_query($q_update, $db->connection);
-            
-            unset($r_count);
-        }
-
-        foreach ($track as $ztable => $keyword)
-        {
-            $q_count = "select count(id) from z_$ztable";
-            $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
-            $r_count = mysql_fetch_assoc($r_count);
-            $q_update = "update archives set count = '" . $r_count['count(id)'] . "' where id = '$ztable'";
-            mysql_query($q_update, $db->connection);
-            
-            unset($r_count);
-        }
-
         // get keyword into memory
         $q = "select id,LOWER(keyword) AS keyword,track_id,type from archives";
         $r = mysql_query($q, $db->connection);
         $tk->log(mysql_error($db->connection), 'mysql-select-archives', 'log/special');
-        if ($r === FALSE)
-        {
+        
+        //echo "COUNTER VALUE: " . counter_get_value($r) . "\n";
+        if (!is_resource($r))
+        {            
             $tk->log("ERROR WHEN SELECTING ARCHIVES!", 'mysql-select-archives', 'log/special');
             $status_query = mysql_query("SHOW STATUS", $db->connection);
             while ($row = mysql_fetch_assoc($status_query))
@@ -85,14 +63,39 @@ while (TRUE)
         {
             $tk->log("Could not fetch old archives. Using old data to process tweets.", "", $process_error_log_file);
         }
-        
-        $tk->log('Processing ' . ($processed/($time_passed_by == 0)? 1 : $time_passed_by ) . ' tweets per second. (Total:'.$processed.' in '.$time_passed_by.'s)', '', $process_log_file);
+      
+        $tk->log('Processing ' . ($processed/(($time_passed_by == 0)? 1 : $time_passed_by )) . ' tweets per second. (Total:'.$processed.' in '.$time_passed_by.'s)', '', $process_log_file);
 
         $processed = 0;
         $last_updated = time();
-        
+        echo "(2) VALUE: " . intval($r) . "\n";
         mysql_free_result($r);
         unset($r);
+        
+        // update counts
+        foreach ($follow as $keyword => $ztable)
+        {
+            $q_count = "select count(id) from z_$ztable";
+            $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());
+            $obj = mysql_fetch_assoc($r_count);
+            $q_update = "update archives set count = '" . $obj['count(id)'] . "' where id = '$ztable'";
+            mysql_query($q_update, $db->connection);
+            
+            mysql_free_result($r_count);
+            unset($r_count);
+        }
+
+        foreach ($track as $ztable => $keyword)
+        {
+            $q_count = "select count(id) from z_$ztable";
+            $r_count = mysql_query($q_count, $db->connection) or die(mysql_error());            
+            $obj = mysql_fetch_assoc($r_count);
+            $q_update = "update archives set count = '" . $obj['count(id)'] . "' where id = '$ztable'";
+            mysql_query($q_update, $db->connection);
+            
+            mysql_free_result($r_count);
+            unset($r_count);
+        }
     }
 
 
@@ -111,7 +114,6 @@ while (TRUE)
     $processed += mysql_num_rows($r);
     
     mysql_free_result($r);
-    unset($r);    
 
     // for each tweet in memory, compare against predicates and insert
     foreach ($batch as $tweet)
