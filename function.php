@@ -387,12 +387,32 @@ class YourTwapperKeeper {
     {
         return $a["time"] - $b["time"];
     }
+    
+    
+    function getUser($screen_name)
+    {
+        global $db;
+        
+        // check if user does not exist in db        
+        $q = "select * from twitter_users where screen_name like '$screen_name' LIMIT 1";
+        $r = mysql_query($q, $db->connection);
+        if (mysql_num_rows($r) > 0)
+        {
+            $result = mysql_fetch_assoc($r);
+            mysql_free_result($r);  
+            return $result;
+        }
+        else 
+            return NULL;
+                     
+    }
 
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         $response = array();
         $tweets = array();
         $pool = array();
+        $ids = array();
 
         foreach ($archives as $archive)
         {
@@ -402,31 +422,36 @@ class YourTwapperKeeper {
             {
                 $r['description'] = $archive['description'];
                 $r['tags'] = $archive['tags'];
-
-                if ($nort)
+                
+                if (!array_key_exists($r['id'], $ids))
                 {
-                    $tweet_text = $this->sanitize(trim($r['text']));
-                    if (strpos($tweet_text, "RT @") === 0)
+                    if ($nort)
                     {
-                        $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
-
-                        if (!array_key_exists($key, $tweets))
+                        $tweet_text = $this->sanitize(trim($r['text']));
+                        if (strpos($tweet_text, "RT @") === 0)
                         {
-                            if (!array_key_exists($key, $pool))
+                            $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
+
+                            if (!array_key_exists($key, $tweets))
                             {
-                                $pool[$key] = $r;
-                            } else if ($pool[$key]["time"] > $r["time"])
-                                $pool[$key] = $r;
+                                if (!array_key_exists($key, $pool))
+                                {
+                                    $pool[$key] = $r;
+                                } else if ($pool[$key]["time"] > $r["time"])
+                                    $pool[$key] = $r;
+                            }
+                        }
+                        else
+                        {
+                            $tweets[$tweet_text] = 1;
+                            $response[] = $r;
                         }
                     }
                     else
-                    {
-                        $tweets[$tweet_text] = 1;
                         $response[] = $r;
-                    }
+                    
+                    $ids[$r['id']] = 1;
                 }
-                else
-                    $response[] = $r;
             }
         }
 
@@ -447,23 +472,7 @@ class YourTwapperKeeper {
         return $response;
     }
     
-    function getUser($screen_name)
-    {
-        global $db;
-        
-        // check if user does not exist in db        
-        $q = "select * from twitter_users where screen_name like '$screen_name' LIMIT 1";
-        $r = mysql_query($q, $db->connection);
-        if (mysql_num_rows($r) > 0)
-        {
-            $result = mysql_fetch_assoc($r);
-            mysql_free_result($r);  
-            return $result;
-        }
-        else 
-            return NULL;
-                     
-    }
+    
 
 // get tweets
     function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)

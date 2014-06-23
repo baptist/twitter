@@ -322,9 +322,14 @@ table.archive  {
     text-align:center;
 }
 
-p.title {
+div.top-title {
+    display:inline-block;
+    width:70px;
     padding:10px;
-    display:block;
+    
+
+    background:#FFF;
+
     color:#111;
-    font-size:27px;
+    font-size:17px;
 }

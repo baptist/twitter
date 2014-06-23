@@ -172,7 +172,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         }
         $_SESSION['stats'] = $stats;
     }
-    $_SESSION['tweets'] = $tweets;
+    else
+        $_SESSION['tweets'] = $tweets;
 }
 ?>
 
@@ -233,9 +234,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
         <form action='export.php' method='post' >
 
-            <p class ="title" style="margin:100px 0 10px 0;">
+            <div class ="top-title" style="margin:70px 0 0 0; ">
                 Select
-            </p>
+            </div>
+            
+            <div class ="top-title" style="margin:70px 0 0 68%; ">
+                Filter
+            </div>
+            
+            
 
             <div class="main-block" style="">
 
@@ -255,7 +262,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>             
-                                <td></td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
                             </tr>
 
                             <tr style="height:60px">
@@ -295,57 +306,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
                                     </select>
                                 </td>             
                                 <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
-
-                            </tr>
-
-                        </table>
-
-
-                        <br/>
-                        <br/>
-
-
-
-                    </div>
-
-
-                </div>
-
-
-
-            </div>
-
-            <p class ="title" style="margin:100px 0 10px 0;">
-                Filter
-            </p>
-
-
-            <div class="main-block" >
-
-                <div style="padding:7px;">
-
-
-                    <br/>
-
-                    <div class="">
-
-
-
-                        <table style="width:100%">
-                            <tr>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
-                            </tr>
-
-                            <tr style="height:60px">
                                 <td><input type="checkbox" name='no_rt' /></td> 
                                 <td><input type="checkbox" name='no_mentions' /></td> 
                                 <td><input name='rt' style="width:60px"/></td> 
                                 <td><input name='fv' style="width:60px"/></td> 
-                                <td><input name='limit' style="width:60px"/></td>                                 
+                                <td><input name='limit' style="width:60px"/></td>                        
                             </tr>
 
                         </table>
@@ -365,6 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
             </div>
 
+        
 
             <p class ="title"  style="margin:50px 0 10px 0;">
                 Process
