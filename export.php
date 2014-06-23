@@ -154,15 +154,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
                     $key = strtolower($tweet['from_user']);                 
                     if (array_key_exists($key, $stats))
                     { // tweet from user
-                        $stats[$key]['num_tweets_sent']++;
+                        $stats[$key]['num_tweets_sent']++;                       
 
-                        if ($tweet['to_user'] !== '' && $tweet['to_user'] != NULL)
+                        if (strpos(trim($tweet['text']), '@') === 0)
                             $stats[$key]['num_replies_sent']++;
-                        else if ($tweet['original_user'] !== '' && $tweet['original_user'] != NULL)
+                        else if (($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
+                                (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key))
                             $stats[$key]['num_retweets_sent']++;
                         
-                        $stats[$key]['num_favorites_rec'] += $tweet['favorites'];
-                        $stats[$key]['num_retweets_rec'] += $tweet['retweets'];
+                        $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0)? $tweet['favorites'] : 0;
+                        $stats[$key]['num_retweets_rec'] += ($tweet['retweets'] >= 0)? $tweet['retweets'] : 0;
                     } else if (array_key_exists(strtolower($tweet['to_user']), $stats))
                     {
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
