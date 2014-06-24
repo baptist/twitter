@@ -405,7 +405,7 @@ class YourTwapperKeeper {
             return NULL;
     }
 
-    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false, $output = true)
     {
         $response = array();
         $tweets = array();
@@ -455,10 +455,13 @@ class YourTwapperKeeper {
 
                     $ids[$r['id']] = 1;
                 }
-            }
-            $total += count($result);
-            echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100), 1) . ');</script>';
-            flush();
+                
+                $total++;
+                
+                if ($total % 1000 === 0 && $output)
+                    echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100), 1) . ');</script>';
+            }           
+
         }
 
         if ($nort)
