@@ -46,12 +46,12 @@ class YourTwapperKeeper {
 
         if (mysql_num_rows($r) == 1)
             return mysql_fetch_assoc($r);
-        
+
         mysql_free_result($r);
 
         return FALSE;
     }
-    
+
     function getKeywords($num = 100)
     {
         global $db;
@@ -63,7 +63,7 @@ class YourTwapperKeeper {
 
         while ($row = mysql_fetch_assoc($result))
             $keywords[] = strtolower($row["keyword"]);
-        
+
         mysql_free_result($result);
 
         return $keywords;
@@ -92,7 +92,7 @@ class YourTwapperKeeper {
             else if (!in_array(strtolower($part), $tags))
                 $tags[] = strtolower($row["tags"]);
         }
-        
+
         mysql_free_result($result);
 
         return $tags;
@@ -114,9 +114,9 @@ class YourTwapperKeeper {
         }
 
         $response['count'] = $count;
-        
+
         mysql_free_result($r);
-        
+
         return $response;
     }
 
@@ -166,7 +166,7 @@ class YourTwapperKeeper {
         }
 
         $response['count'] = $count;
-        
+
         mysql_free_result($r);
 
         return $response;
@@ -188,9 +188,9 @@ class YourTwapperKeeper {
             $stats[] = "<span style='font-weight:bold'>Track load: " . $s["track_load"] . " % -- " . "Follow load: " . $s["follow_load"] . " % </span>";
             $stats[] = "Tracking <span style='font-weight:bold'>" . $s["num_hashtags"] . " hashtags, " . $s["num_follows"] . " users, and " . $s["num_conversations"] . " conversations.</span>";
         }
-        
+
         mysql_free_result($r);
-        
+
         return $s;
     }
 
@@ -220,9 +220,9 @@ class YourTwapperKeeper {
                 $index--;
             }
         }
-        
+
         mysql_free_result($r);
-        
+
         return [$labels, $values];
     }
 
@@ -274,7 +274,7 @@ class YourTwapperKeeper {
 
             return($response);
         }
-        
+
         mysql_free_result($r);
 
         if (strlen($keyword) < 1 || strlen($keyword) > 30)
@@ -359,7 +359,7 @@ class YourTwapperKeeper {
             mysql_query($q, $db->connection);
 
             return mysql_insert_id();
-        }        
+        }
         mysql_free_result($r);
     }
 
@@ -387,24 +387,22 @@ class YourTwapperKeeper {
     {
         return $a["time"] - $b["time"];
     }
-    
-    
+
     function getUser($screen_name)
     {
         global $db;
-        
+
         // check if user does not exist in db        
         $q = "select * from twitter_users where screen_name like '$screen_name' LIMIT 1";
         $r = mysql_query($q, $db->connection);
         if (mysql_num_rows($r) > 0)
         {
             $result = mysql_fetch_assoc($r);
-            mysql_free_result($r);  
+            mysql_free_result($r);
             return $result;
         }
-        else 
+        else
             return NULL;
-                     
     }
 
     function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
@@ -414,15 +412,20 @@ class YourTwapperKeeper {
         $pool = array();
         $ids = array();
 
+        $total_num_to_process = 0.0;
+        foreach ($archives as $archive)
+            $total_num_to_process += $archive['count'];
+        $total = 0.0;
+
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user)? $archive['keyword'] : false , $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user) ? $archive['keyword'] : false, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
 
             foreach ($result as $r)
             {
                 $r['description'] = $archive['description'];
                 $r['tags'] = $archive['tags'];
-                
+
                 if (!array_key_exists($r['id'], $ids))
                 {
                     if ($nort)
@@ -449,10 +452,13 @@ class YourTwapperKeeper {
                     }
                     else
                         $response[] = $r;
-                    
+
                     $ids[$r['id']] = 1;
                 }
             }
+            $total += count($result);
+            echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100), 1) . ');</script>';
+            flush();
         }
 
         if ($nort)
@@ -471,8 +477,6 @@ class YourTwapperKeeper {
 
         return $response;
     }
-    
-    
 
 // get tweets
     function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
@@ -620,7 +624,7 @@ class YourTwapperKeeper {
         }
         else
             return FALSE;
-        
+
         mysql_free_result($r);
 
         // Find root if tweet is a reply itself
@@ -705,12 +709,12 @@ class YourTwapperKeeper {
                 $result = mysql_fetch_assoc($subr);
                 $rootUser = $result['from_user'];
                 $in_reply_to = $result['in_reply_to_status_id'];
-                
+
                 mysql_free_result($subr);
             }
             else
                 $in_reply_to = "";
-            
+
             mysql_free_result($r);
         }
         return $rootUser;
@@ -732,25 +736,24 @@ class YourTwapperKeeper {
             {
                 $r2 = mysql_query("SELECT original_archive FROM smart_tweets WHERE tweet_id = '$originalID'", $db->connection);
                 $archiveID = (mysql_num_rows($r2) == 1) ? mysql_fetch_assoc($r2)['original_archive'] : $row['original_archive'];
-                mysql_free_result($r2);               
-                
+                mysql_free_result($r2);
             }
             else
                 $archiveID = $row['original_archive'];
 
-            
+
             $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
             $result = mysql_fetch_assoc($r3);
-            
-            
+
+
             mysql_free_result($r3);
             mysql_free_result($r);
-            
+
             return $result;
         }
-        
+
         mysql_free_result($r);
-        
+
         return FALSE;
     }
 
@@ -931,7 +934,7 @@ class YourTwapperKeeper {
             $processes[] = $a["process"];
 
         mysql_free_result($r);
-        
+
         return $this->statusArchiving($processes);
     }
 
@@ -966,12 +969,12 @@ class YourTwapperKeeper {
             mysql_free_result($result);
         }
     }
-    
+
     function untrackConversations($archives)
     {
         global $db;
         global $function_log;
-        
+
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id IN ($archives)";
         mysql_query($q_old_users, $db->connection);
         $this->log(mysql_error($db->connection), 'mysql-untrackConversations-update', $function_log);
@@ -985,7 +988,7 @@ class YourTwapperKeeper {
     {
         global $db;
         global $function_log;
-        
+
         $q_old_users = "update archives set type = 5, tracked_by = 0, followed_by = 0 where type = 4 AND id = '$archive'";
         mysql_query($q_old_users, $db->connection);
         $this->log(mysql_error($db->connection), 'mysql-untrackConversation-update', $function_log);
@@ -1024,7 +1027,7 @@ class YourTwapperKeeper {
         $result = mysql_query("select expanded_url from urls where shortened_url = '$url'", $db->connection);
         if ($result != false && mysql_num_rows($result) == 1)
             return mysql_fetch_assoc($result)["expanded_url"];
-        
+
         mysql_free_result($result);
 
         $headers = get_headers($url, 1);
@@ -1046,13 +1049,13 @@ class YourTwapperKeeper {
     {
         global $db;
         global $time_to_track_user;
-        
+
         //$t0 = microtime(true);
         //$t1 = microtime(true);
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
         $this->log(mysql_error($db->connection), 'mysql-insertTweet-insert', $log_file);
-        
+
         //$t2 = microtime(true);
         //echo "Time to insert query: " . ($t2 - $t1) . "\n";
         //$t1 = microtime(true); 
@@ -1066,7 +1069,7 @@ class YourTwapperKeeper {
 
         // Insert into central tweets table
         //$t1 = microtime(true);
-        
+
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
 
         //$t2 = microtime(true);
@@ -1077,23 +1080,21 @@ class YourTwapperKeeper {
         if (!$duplicate)
         {
             $q = "insert into new_tweets values('" . ((string) $tweet['id']) . "', $table_id, '" . $time . "', UNIX_TIMESTAMP(), -1)";
-            mysql_query($q, $db->connection);           
+            mysql_query($q, $db->connection);
             $this->log(mysql_error($db->connection), 'mysql-insertTweet-newtweets', $log_file);
         }
         //$t2 = microtime(true);
         //echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
-
-
         //$t1 = microtime(true);
         // Track conversation if not too old and dealing with hashtagged tweet               
-        if (time() - $time < $time_to_track_user && $type == 2)        
+        if (time() - $time < $time_to_track_user && $type == 2)
             $this->trackConversation($table_id, $tweet);
-            
-        
+
+
         //$t2 = microtime(true);
         //echo "Time to track conversation: " . ($t2 - $t1) . "\n";
         //echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
-        
+
         return TRUE;
     }
 
@@ -1121,6 +1122,7 @@ class YourTwapperKeeper {
         }
         return $duplicate;
     }
+
 }
 
 $tk = new YourTwapperKeeper;

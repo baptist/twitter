@@ -1,6 +1,8 @@
 @import url("sub/header.css");
 
 
+
+
 body {
     /*background: #E4E4E4;*/
     background: url(../resources/body-tail.gif) repeat top center;
@@ -333,3 +335,8 @@ div.top-title {
     color:#111;
     font-size:17px;
 }
+
+/***********************/
+/* Ajax Loader styles */
+.ajax_loader {background: url("../resources/spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
+.blue-loader .ajax_loader {background: url("../resources/ajax-loader_blue.gif") no-repeat center center transparent;}
