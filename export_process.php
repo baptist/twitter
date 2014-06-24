@@ -1,5 +1,10 @@
 <?php
 
+set_time_limit(0);                   // ignore php timeout
+ignore_user_abort(true);             // keep on going even if user pulls the plug*
+while(ob_get_level())ob_end_clean(); // remove output buffers
+ob_implicit_flush(true);
+
 echo "<script type='text/javascript'>parent.displayExport();</script>";
 flush();
 

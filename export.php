@@ -287,15 +287,13 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
         <iframe name="export_process" frameborder="0" scrolling="no" width="1" height="1"></iframe>
 
-        <div class="main" id="export" style="display: none">
-            <div class="main-block">                    
+        <div class="main" id="export" style="display:none">
+            <div class="main-block">
                 <span class="main-header">Export archives</span> <br/>
 
 
-                <div class="loader" style="position:relative">   
-                </div> 
-                <div id="done">                        
-                </div>
+                <div class="loader" style="position:relative"></div>
+                <div id="done"></div>
 
 
                 <div id="information">
