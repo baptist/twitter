@@ -455,13 +455,10 @@ class YourTwapperKeeper {
 
                     $ids[$r['id']] = 1;
                 }
-                
-                $total++;
-                
-                if ($total % 1000 === 0 && $output)
-                    echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100), 1) . ');</script>';
-            }           
 
+                $total++;                
+            }
+            echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100)) . ');</script>';
         }
 
         if ($nort)

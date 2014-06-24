@@ -51,7 +51,6 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 <?php include("templates/header.php"); ?>
 
 
-<script src="js/loader.js" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
 
@@ -93,13 +92,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
         $("#from").datepicker({dateFormat: 'dd/mm/yy', changeYear: true});
 
 
-        var loader;
-        $(".loader").ready(function() {
-            loader = new ajaxLoader(this);
-        });
-
-
-
+       
 
     });
 
@@ -109,6 +102,15 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
     function progress(percent) {
         document.getElementById('done').innerHTML = percent + '%';
+    }
+
+    function setInformation(num_tweets, num_archives) {
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('information').innerHTML = "<span style='font-weight:bold'>Number of archives: " + num_archives + "</span> <br/>" +
+                "<span style='font-weight:bold'>Number of tweets: " + num_tweets + "</span> <br/>";
+
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('export_btn').style.display = 'block';
     }
 
 </script>
@@ -172,7 +174,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                     <select name="keywords[]"  class="multiselect"  multiple="multiple" id="keywordsSelect">
 
                                         <?php
-                                        $keys = $tk->getKeywords(-1);
+                                        $keys = $tk->getKeywords(1);
 
                                         foreach ($keys as $key)
                                             echo "<option value='$key'>" . ucfirst($key) . "</option>";
@@ -291,18 +293,18 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             <div class="main-block">
                 <span class="main-header">Export archives</span> <br/>
 
+                <div id="loader" style='font-size:120%'>
 
-                <div class="loader" style="position:relative"></div>
-                <div id="done"></div>
-
-
-                <div id="information">
+                    <div style="position:relative; top:-1px;display:inline-block;width:50px; height:50px; margin:10px"><img src='resources/ajax-loader_blue.gif' /></div>
+                    <div id="done" style="position:relative;display:inline-block">0% </div>
                 </div>
 
-                                <!--<span style="font-weight:bold">Number of archives: <?= number_format($archives["count"]) ?></span> <br/>
-                                <span style="font-weight:bold">Number of tweets: <?= number_format(count($tweets)) ?></span> <br/>-->
+                <div id="information"  style="display:none">                  
+                </div>
 
-                <div id="export">
+                <div id="export_btn"  style="display:none; margin-top:25px;">               
+                    <span>Export tweets.</span><br/>
+
                     <form action="excel.php" method="GET">
                         <input type="submit" value="Export" />
                     </form>

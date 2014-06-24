@@ -149,5 +149,7 @@ else
     }
     else
         $_SESSION['tweets'] = $tweets;
+    
+    echo "<script type='text/javascript'>parent.setInformation('".count($tweets)."','".$archives['count']."');</script>";
 }
 ?>
