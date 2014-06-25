@@ -1122,6 +1122,38 @@ class YourTwapperKeeper {
         }
         return $duplicate;
     }
+    
+    function saveExport($data)
+    {
+        global $db;
+        
+        // clear export table
+        mysql_query("truncate table export", $db->connection);
+        
+        foreach ($data as $key => $element)
+        {
+            $value = json_encode($element);            
+            mysql_query("insert into export values ('$key', '$value')", $db->connection);            
+        }
+        
+        return TRUE;        
+    }
+    
+    function getExportData()
+    {
+        global $db;
+        
+        $data = array();
+        
+        $result = mysql_query("select * from export");
+        
+        while ($record = mysql_fetch_assoc($result))        
+            $data[$record['key']] = json_decode($record['value'], true);
+        
+        mysql_free_result($result);
+        
+        return $data;
+    }
 
 }
 

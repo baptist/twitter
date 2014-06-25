@@ -28,9 +28,9 @@ require_once('config.php');
 require_once('function.php');
 require_once('twitteroauth.php');
 
-if (isset($_SESSION['stats']))
+if (isset($_SESSION['export_from_table']) || isset($_GET['from_table']))
 {
-    $data = $_SESSION['stats'];
+    $data = $tk->getExportData();
     $keys_to_print = array_keys(current($data));
 } else
 {
@@ -72,7 +72,7 @@ if (isset($_SESSION['stats']))
             }
         }
         else
-            $archiveInfo = $tk->listArchivesWithCondition("NOT tags IN ('EU politiekers', '', 'Verkiezingen 2014', 'Thomas en Sven') AND type = 3");
+            $archiveInfo = $tk->listArchivesWithCondition("1");
 
         // set default limit
         if ($_GET['l'] == '')
@@ -182,7 +182,5 @@ foreach ($data as $key => $value)
 
 echo "</table>";
 
-// clear memory
-unset($_SESSION["tweets"]);
-unset($_SESSION["stats"]);
+
 ?>

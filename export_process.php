@@ -112,7 +112,8 @@ else
                 {
                     $key = strtolower($archive['keyword']);
                     $stats[$key] = array();
-                    $user = $tk->getUser($key);
+                    $user = $tk->getUser($key); 
+                    $stats[$key]['screen_name'] = $key;
                     $stats[$key]['name'] = $user['full_name'];
                     $stats[$key]['followers'] = $user['followers'];
                     $stats[$key]['num_tweets_sent'] = 0;
@@ -145,10 +146,24 @@ else
                 }
             }
         }
-        $_SESSION['stats'] = $stats;
+        $tk->saveExport($stats);
     }
     else
-        $_SESSION['tweets'] = $tweets;
+    {
+        $keys = array("text","to_user_id","to_user","from_user_id","from_user","original_user_id",
+                      "original_user","id",/*"in_reply_to_status_id",*/"iso_language_code","profile_image_url",
+                      "geo_type","geo_coordinates_0","geo_coordinates_1","created_at","time","favorites","retweets","description","tags");
+        $data = array();
+        foreach ($tweets as $tweet)
+        {
+            $data[$tweet['id']] = array();
+            foreach ($keys as $key)
+                $data[$tweet['id']][$key] =  $tweet[$key];            
+        }        
+        $tk->saveExport($data);
+    }
+    
+    $_SESSION['export_from_table'] = 1;
     
     echo "<script type='text/javascript'>parent.setInformation('".count($tweets)."','".$archives['count']."');</script>";
 }

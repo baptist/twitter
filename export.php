@@ -302,12 +302,9 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 <div id="information"  style="display:none">                  
                 </div>
 
-                <div id="export_btn"  style="display:none; margin-top:25px;">               
-                    <span>Export tweets.</span><br/>
-
-                    <form action="excel.php" method="GET">
-                        <input type="submit" value="Export" />
-                    </form>
+                <div id="export_btn"  style="display:none; margin-top:25px; padding:10px">               
+                   <a href="excel.php?from_table=1" >Export to Excel</a>
+                      
                 </div>
 
 
