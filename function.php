@@ -104,7 +104,7 @@ class YourTwapperKeeper {
         global $db;
 
         $q = "select * from archives where $condition";
-
+        
         $r = mysql_query($q, $db->connection);
         $count = 0;
         while ($row = mysql_fetch_assoc($r))

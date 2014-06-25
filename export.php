@@ -63,12 +63,51 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             buttonWidth: 220
         });
 
-        $('#keywordsSelect').multiselect({
-            includeSelectAllOption: true,
-            numberDisplayed: 1,
-            enableFiltering: true,
-            maxHeight: 250,
-            buttonWidth: 220
+
+        var availableKeywords = [
+<?php
+$keys = $tk->getKeywords(-1);
+foreach ($keys as $key)
+    echo "'$key',"
+    ?>
+        ];
+
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+        $("#keywordsAuto")
+// don't navigate away from the field on tab when selecting an item
+                .bind("keydown", function(event) {
+            if (event.keyCode === $.ui.keyCode.TAB &&
+                    $(this).data("ui-autocomplete").menu.active) {
+                event.preventDefault();
+            }
+        })
+                .autocomplete({
+            minLength: 0,
+            source: function(request, response) {
+// delegate back to autocomplete, but extract the last term
+                response($.ui.autocomplete.filter(
+                        availableKeywords, extractLast(request.term)));
+            },
+            focus: function() {
+// prevent value inserted on focus
+                return false;
+            },
+            select: function(event, ui) {
+                var terms = split(this.value);
+// remove the current input
+                terms.pop();
+// add the selected item
+                terms.push(ui.item.value);
+// add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(", ");
+                return false;
+            }
         });
 
 
@@ -92,7 +131,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
         $("#from").datepicker({dateFormat: 'dd/mm/yy', changeYear: true});
 
 
-       
+
 
     });
 
@@ -137,14 +176,8 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             <div class="main-block" style="">
 
                 <div style="padding:7px;">
-
-
                     <br/>
-
                     <div class="">
-
-
-
                         <table style="width:100%">
                             <tr>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
@@ -170,18 +203,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                         ?>
                                     </select>
                                 </td>
-                                <td>
-                                    <select name="keywords[]"  class="multiselect"  multiple="multiple" id="keywordsSelect">
-
-                                        <?php
-                                        $keys = $tk->getKeywords(1);
-
-                                        foreach ($keys as $key)
-                                            echo "<option value='$key'>" . ucfirst($key) . "</option>";
-                                        ?>
-
-                                    </select>                                    
-                                </td>
+                                <td><input name='keywords' id='keywordsAuto'/></td>
                                 <td><input name='description'/></td>
                                 <td>
                                     <select name="tags[]"  class="multiselect"  multiple="multiple" id="tagsSelect">
@@ -202,22 +224,13 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                                 <td><input name='fv' style="width:60px"/></td> 
                                 <td><input name='limit' style="width:60px"/></td>                        
                             </tr>
-
                         </table>
 
-
                         <br/>
                         <br/>
-
-
 
                     </div>
-
-
                 </div>
-
-
-
             </div>
 
 
@@ -229,14 +242,8 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             <div class="main-block">
 
                 <div style="padding:7px;">
-
-
                     <br/>
-
                     <div class="">
-
-
-
                         <table style="width:100%">
                             <tr>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Aggregate per</td>
@@ -265,19 +272,10 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
                         </table>
 
-
                         <br/>
                         <br/>
-
-
-
                     </div>
-
-
                 </div>
-
-
-
             </div>
 
             <input type='submit' class ="submit-button" value ='Filter' class="ui-state-default ui-corner-all"/>
@@ -303,8 +301,8 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                 </div>
 
                 <div id="export_btn"  style="display:none; margin-top:25px; padding:10px">               
-                   <a href="excel.php?from_table=1" >Export to Excel</a>
-                      
+                    <a href="excel.php?from_table=1" >Export to Excel</a>
+
                 </div>
 
 

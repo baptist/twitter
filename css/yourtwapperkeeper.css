@@ -64,7 +64,7 @@ body {
 }
 
 .main-block span {
-   
+
     padding-left:7px;
 }
 
@@ -310,7 +310,7 @@ none {
 
 table.archive  {
     width:100%;
-    
+
 }
 
 .archive th {
@@ -328,7 +328,7 @@ div.top-title {
     display:inline-block;
     width:70px;
     padding:10px;
-    
+
 
     background:#FFF;
 
@@ -336,7 +336,15 @@ div.top-title {
     font-size:17px;
 }
 
-/***********************/
-/* Ajax Loader styles */
-.ajax_loader {background: url("../resources/spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
-.blue-loader .ajax_loader {background: url("../resources/ajax-loader_blue.gif") no-repeat center center transparent;}
+.ui-autocomplete {
+    max-height: 320px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+    height: 100px;ckground: url("../resources/ajax-loader_blue.gif") no-repeat center center transparent;
+}

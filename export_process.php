@@ -35,10 +35,10 @@ if (!empty($_POST['type']))
 
 if (!empty($_POST["keywords"]))
 {
-    $array = $_POST['keywords'];
+    $array = explode(",", $_POST['keywords']);
     $keywords = "";
     foreach ($array as $selected)
-        $keywords .= "'" . strtolower($selected) . "',";
+        $keywords .= "'" . strtolower(trim($selected)) . "',";
 
     /* $keywords = ""; 
       $f = fopen("export.csv", "r");
