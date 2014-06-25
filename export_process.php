@@ -5,7 +5,7 @@ ignore_user_abort(true);             // keep on going even if user pulls the plu
 ob_implicit_flush(true);
 ob_end_flush();
 
-header( 'Content-type: text/html; charset=utf-8' );
+header('Content-type: text/html; charset=utf-8');
 
 echo "<script type='text/javascript'>parent.displayExport();</script>";
 
@@ -112,7 +112,7 @@ else
                 {
                     $key = strtolower($archive['keyword']);
                     $stats[$key] = array();
-                    $user = $tk->getUser($key); 
+                    $user = $tk->getUser($key);
                     $stats[$key]['screen_name'] = $key;
                     $stats[$key]['name'] = $user['full_name'];
                     $stats[$key]['followers'] = $user['followers'];
@@ -126,6 +126,8 @@ else
 
                 foreach ($tweets as $tweet)
                 {
+                    $is_retweet = false;
+
                     $key = strtolower($tweet['from_user']);
                     if (array_key_exists($key, $stats))
                     { // tweet from user
@@ -135,10 +137,15 @@ else
                             $stats[$key]['num_replies_sent']++;
                         else if (($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
                                 (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key))
+                        {
+                            $is_retweet = true;
                             $stats[$key]['num_retweets_sent']++;
-
-                        $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0) ? $tweet['favorites'] : 0;
-                        $stats[$key]['num_retweets_rec'] += ($tweet['retweets'] >= 0) ? $tweet['retweets'] : 0;
+                        }
+                        if (!$is_retweet)
+                        {
+                            $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0) ? $tweet['favorites'] : 0;
+                            $stats[$key]['num_retweets_rec'] += ($tweet['retweets'] >= 0) ? $tweet['retweets'] : 0;
+                        }
                     } else if (array_key_exists(strtolower($tweet['to_user']), $stats))
                     {
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
@@ -147,24 +154,23 @@ else
             }
         }
         $tk->saveExport($stats);
-    }
-    else
+    } else
     {
-        $keys = array("text","to_user_id","to_user","from_user_id","from_user","original_user_id",
-                      "original_user","id",/*"in_reply_to_status_id",*/"iso_language_code","profile_image_url",
-                      "geo_type","geo_coordinates_0","geo_coordinates_1","created_at","time","favorites","retweets","description","tags");
+        $keys = array("text", "to_user_id", "to_user", "from_user_id", "from_user", "original_user_id",
+            "original_user", "id", /* "in_reply_to_status_id", */ "iso_language_code", "profile_image_url",
+            "geo_type", "geo_coordinates_0", "geo_coordinates_1", "created_at", "time", "favorites", "retweets", "description", "tags");
         $data = array();
         foreach ($tweets as $tweet)
         {
             $data[$tweet['id']] = array();
             foreach ($keys as $key)
-                $data[$tweet['id']][$key] =  $tweet[$key];            
-        }        
+                $data[$tweet['id']][$key] = $tweet[$key];
+        }
         $tk->saveExport($data);
     }
-    
+
     $_SESSION['export_from_table'] = 1;
-    
-    echo "<script type='text/javascript'>parent.setInformation('".count($tweets)."','".$archives['count']."');</script>";
+
+    echo "<script type='text/javascript'>parent.setInformation('" . count($tweets) . "','" . $archives['count'] . "');</script>";
 }
 ?>
