@@ -119,9 +119,9 @@ else
                     $stats[$key]['num_tweets_sent'] = 0;
                     $stats[$key]['num_retweets_sent'] = 0;
                     $stats[$key]['num_replies_sent'] = 0;
-                    $stats[$key]['num_retweets_rec'] = 0;
-                    $stats[$key]['num_replies_rec'] = 0;
+                    $stats[$key]['num_retweets_rec'] = 0;                    
                     $stats[$key]['num_favorites_rec'] = 0;
+                    $stats[$key]['num_replies_rec'] = 0;
                 }
 
                 foreach ($tweets as $tweet)
