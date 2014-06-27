@@ -19,16 +19,37 @@ date_default_timezone_set("Europe/Brussels");
 // update liveness of process
 mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
 
+// get last crawled
+$f = fopen('last_crawled', 'r');
+$line = trim(fgets($f));
+fclose($f);
+
+$last_crawled = (empty($line))? -1 : $line;
+
+
+
 while (TRUE)
 {
     // Query for archives 
     $q_archives = "select * from archives where type in (1,2,3,4) order by count desc";
     $r_archives = mysql_query($q_archives, $db->connection);
     $counting = 0;
-
+    
+    // Shift to last crawled
+    if ($last_crawled !== -1)
+    {
+        while ($row_archives = mysql_fetch_assoc($r_archives))
+        {
+            if ($row_archives['keyword'] != $last_crawled)
+                continue;
+            else
+                break;
+        }
+    }
+        
     while ($row_archives = mysql_fetch_assoc($r_archives))
     {
-        $tk->log($counting++ . ".   crawling: " . $row_archives['id'] . " - " . $row_archives['keyword'], "", $crawl_log_file);
+        $tk->log($counting++ . ".   crawling: " . $row_archives['id'] . " - " . $row_archives['keyword'], '', $crawl_log_file);
         $num_inserted = 0;
         // Loop for 15 pages
         $max_id = NULL;
@@ -37,10 +58,8 @@ while (TRUE)
 
         for ($page_counter = 1; $page_counter <= 15; $page_counter = $page_counter + 1)
         {
-
             // sleep for rate limiting
-            sleep($sleep);
-              
+            sleep($sleep);              
 
             if ($max_id == NULL)
             {
@@ -116,6 +135,8 @@ while (TRUE)
         mysql_query("update processes set last_ping = '" . time() . "' where pid = '$pid'", $db->connection);
 
         $tk->log("inserted " . $num_inserted, "", $crawl_log_file);
+        
+        file_put_contents ( 'last_crawled' , $row_archives['keyword'] );
     }
     
     mysql_free_result($r_archives);

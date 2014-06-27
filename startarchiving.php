@@ -24,12 +24,12 @@ require_once('config.php');
 require_once('function.php');
 require_once('twitteroauth.php');
 
-// Ensure user is an administrator
+/*// Ensure user is an administrator
 if (!(in_array($_SESSION['access_token']['screen_name'],$admin_screen_name))) {
 $_SESSION['notice'] = "Only administrators are allowed to stop / start archiving processes";
 header('Location:index.php');
 die;
-}
+}*/
  
 // List of archiving scripts
 $cmd = $archive_process_array;

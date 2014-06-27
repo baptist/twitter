@@ -181,6 +181,4 @@ foreach ($data as $key => $value)
 }
 
 echo "</table>";
-
-
 ?>

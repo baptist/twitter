@@ -19,6 +19,9 @@ $process_error_log_file = "log/process_error_log";
 $last_updated = 0;
 $processed = 0;
 
+// reset tweets
+mysql_query("update rawstream set flag = -1", $db->connection);
+
 while (TRUE)
 {
     // Update follow and track keywords

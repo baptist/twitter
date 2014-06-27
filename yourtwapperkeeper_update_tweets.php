@@ -13,6 +13,9 @@ $log = 'log/update_log';
 // update liveness of process
 mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
 
+// reset tweets
+mysql_query("update new_tweets set flag = -1", $db->connection);
+
 // process loop
 // TODO limit updating to max possible amount
 // TODO log whenever too many tweets enter so not all tweets can be updated in time.
