@@ -119,7 +119,7 @@ else
                     $stats[$key]['num_tweets_sent'] = 0;
                     $stats[$key]['num_retweets_sent'] = 0;
                     $stats[$key]['num_replies_sent'] = 0;
-                    $stats[$key]['num_retweets_rec'] = 0;                    
+                    $stats[$key]['num_retweets_rec'] = 0;
                     $stats[$key]['num_favorites_rec'] = 0;
                     $stats[$key]['num_replies_rec'] = 0;
                 }
@@ -150,6 +150,34 @@ else
                     {
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
                     }
+                }
+            } else
+            {
+                                
+                foreach ($tweets as $tweet)
+                {
+                    $user = $tweet['from_user'];
+
+                    switch ($grouping)
+                    {
+                        case "year":
+                            $timing = date('Y', $tweet['time']);
+                            break;
+                        case "month":
+                            $timing = date('m/Y', $tweet['time']);
+                            break;
+                        case "week":
+                            $timing = date('W/Y', $tweet['time']);
+                            break;
+                        case "day":
+                            $timing = date('d/m/Y', $tweet['time']);
+                            break;
+                        case "hour":
+                            $timing = date('H/d/m/Y', $tweet['time']);
+                            break;
+                    }
+                    
+                    
                 }
             }
         }

@@ -32,6 +32,7 @@ if (isset($_SESSION['export_from_table']) || isset($_GET['from_table']))
 {
     $data = $tk->getExportData();
     $keys_to_print = array_keys(current($data));
+
 } else
 {
     $keys_to_print = array("text",
@@ -139,14 +140,17 @@ header('Content-Disposition: attachment; filename="' . basename($export_file) . 
 */
 echo "<table>";
 echo "<tr>";
+
 foreach ($keys_to_print as $key)
     echo "<th>" . strtoupper($key) . "</th>";
 echo "</tr>";
 
 $ids = array();
-
 foreach ($data as $key => $value)
-{
+{   
+    if ($value == NULL || empty($value))
+        continue;
+        
     if (!array_key_exists('id', $value) || (array_key_exists('id', $value) && !in_array($value['id'], $ids)))
     {
         echo "<tr>";
