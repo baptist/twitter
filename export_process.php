@@ -151,9 +151,21 @@ else
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
                     }
                 }
-            } else
+            } else if (strcasecmp($grouping, "total") === 0)
             {
-                                
+                $users = array();
+                $stats['total'] = array();
+                $stats['total']['type'] = 'total';
+                $stats['total']['num_tweets'] = 0;
+                foreach ($tweets as $tweet)
+                {
+                    $stats['total_num_tweets']++;
+                    $users[$tweet['from_user']] = 1;                    
+                }
+                $stats['total']['num_users'] = count(array_keys($users));                
+            }
+            else
+            {                
                 foreach ($tweets as $tweet)
                 {
                     $user = $tweet['from_user'];
@@ -161,24 +173,46 @@ else
                     switch ($grouping)
                     {
                         case "year":
-                            $timing = date('Y', $tweet['time']);
+                            $timing = mktime ( 0, 0, 0, 0, 0, strtotime(date('Y', $tweet['time']) ));
+                            $formatted_timing = date('Y', $tweet['time']);
                             break;
                         case "month":
-                            $timing = date('m/Y', $tweet['time']);
-                            break;
-                        case "week":
-                            $timing = date('W/Y', $tweet['time']);
-                            break;
+                            $timing = mktime ( 0, 0, 0, 0, date('m', $tweet['time']), strtotime(date('Y', $tweet['time']) ));
+                            $formatted_timing = date('m-Y', $tweet['time']);
+                            break;                        
                         case "day":
-                            $timing = date('d/m/Y', $tweet['time']);
+                            $timing = mktime ( 0, 0, 0, date('d', $tweet['time']), date('m', $tweet['time']), strtotime(date('Y', $tweet['time']) ));
+                            $formatted_timing = date('d-m-Y', $tweet['time']);
                             break;
                         case "hour":
-                            $timing = date('H/d/m/Y', $tweet['time']);
+                            $timing = mktime ( 0, 0, date('H', $tweet['time']), date('d', $tweet['time']), date('m', $tweet['time']), strtotime(date('Y', $tweet['time']) ));
+                            $formatted_timing = date('H:00 d-m-Y', $tweet['time']);
                             break;
                     }
                     
+                    if (!isset($stats[$timing]))
+                    {
+                        $stats[$timing] = array();
+                        $stats[$timing]['type'] = $formatted_timing;
+                        $stats[$timing]['num_tweets'] = 0;
+                        $stats[$timing]['users'] = array();
+                    }
+                    
+                    $stats[$timing]['num_tweets']++;
+                    $stats[$timing]['users'][$tweet['from_user']] = 1;   
                     
                 }
+                
+                foreach ($stats as $stat)
+                {
+                    if (array_key_exists("users", $stat))
+                    {
+                        $stat['num_users'] = count($stat['users']);
+                        unset($stat['users']);
+                    }
+                }
+                
+                ksort($stats);
             }
         }
         $tk->saveExport($stats);
@@ -201,4 +235,6 @@ else
 
     echo "<script type='text/javascript'>parent.setInformation('" . count($tweets) . "','" . $archives['count'] . "');</script>";
 }
+
+
 ?>

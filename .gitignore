@@ -1,13 +1,14 @@
 config_withpasswords.php
 
-/nbproject/private/
-/library/updateTweets/nbproject/private/
-/library/updateTweets/build/
-/library/updateTweets/dist/
-/stream_log
-/tk_log
-/log/crawl_process_log
-/config.php
-/log/process_log
-/log/
-/special
+nbproject/private/
+library/updateTweets/nbproject/private/
+library/updateTweets/build/
+library/updateTweets/dist/
+stream_log
+tk_log
+log/crawl_process_log
+config.php
+log/process_log
+log/
+special
+last_crawled

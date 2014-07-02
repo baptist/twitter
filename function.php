@@ -1147,14 +1147,8 @@ class YourTwapperKeeper {
         
         $result = mysql_query("select * from export");
         
-        while ($record = mysql_fetch_assoc($result))    
-        {
+        while ($record = mysql_fetch_assoc($result))            
             $data[$record['key']] = json_decode($record['value'], true);  
-            
-            if($data[$record['key']] == NULL || empty($data[$record['key']]))
-                echo " RARE BOEL: " . $record['value'] . "<BR>";
-            
-        }
           
         mysql_free_result($result);
         
