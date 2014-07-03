@@ -203,11 +203,11 @@ else
                     
                 }
                 
-                foreach ($stats as $stat)
+                foreach ($stats as $key => $value)
                 {
-                    if (array_key_exists("users", $stat))
+                    if (array_key_exists("users", $stats[$key]))
                     {
-                        $stat['num_users'] = count($stat['users']);
+                        $stats[$key]['num_users'] = count($stats[$key]['users']);
                         unset($stat['users']);
                     }
                 }
@@ -218,7 +218,7 @@ else
         $tk->saveExport($stats);
     } else
     {
-        $keys = array("text", "to_user_id", "to_user", "from_user_id", "from_user", "original_user_id",
+        $keys = array("text", "from_user_id", "from_user", "to_user_id", "to_user", "original_user_id",
             "original_user", "id", /* "in_reply_to_status_id", */ "iso_language_code", "profile_image_url",
             "geo_type", "geo_coordinates_0", "geo_coordinates_1", "created_at", "time", "favorites", "retweets", "description", "tags");
         $data = array();

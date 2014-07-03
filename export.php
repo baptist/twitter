@@ -187,6 +187,7 @@ foreach ($keys as $key)
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>             
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Include Reactions</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
                                 <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
@@ -220,6 +221,7 @@ foreach ($keys as $key)
                                 <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
                                 <td><input type="checkbox" name='no_rt' /></td> 
                                 <td><input type="checkbox" name='no_mentions' /></td> 
+                                <td><input type="checkbox" name='include_reactions' /></td> 
                                 <td><input name='rt' style="width:60px"/></td> 
                                 <td><input name='fv' style="width:60px"/></td> 
                                 <td><input name='limit' style="width:60px"/></td>                        

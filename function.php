@@ -27,6 +27,34 @@ class YourTwapperKeeper {
         }
         return $output;
     }
+    
+    function utf8_encode_deep($input)
+    {
+        if (is_array($input))
+        {
+            foreach ($input as $k => $i)
+            {
+                $output[$k] = $this->utf8_encode_deep($i);
+            }
+        } else
+            $output = utf8_encode($input);
+        
+        return $output;
+    }
+    
+    function utf8_decode_deep($input)
+    {
+        if (is_array($input))
+        {
+            foreach ($input as $k => $i)
+            {
+                $output[$k] = $this->utf8_encode_deep($i);
+            }
+        } else
+            $output = utf8_decode($input);
+        
+        return $output;
+    }
 
     function archiveExists($keyword, $type = -1)
     {
@@ -1131,8 +1159,8 @@ class YourTwapperKeeper {
         mysql_query("truncate table export", $db->connection);
         
         foreach ($data as $key => $element)
-        {
-            $value = json_encode($this->sanitize($element));            
+        {            
+            $value = json_encode($this->utf8_encode_deep($this->sanitize($element)));                         
             mysql_query("insert into export values ('$key', '$value')", $db->connection);            
         }
         
@@ -1148,13 +1176,12 @@ class YourTwapperKeeper {
         $result = mysql_query("select * from export");
         
         while ($record = mysql_fetch_assoc($result))            
-            $data[$record['key']] = json_decode($record['value'], true);  
+            $data[$record['key']] = $this->utf8_decode_deep(json_decode($record['value'], true));  
           
         mysql_free_result($result);
         
         return $data;
     }
-
 }
 
 $tk = new YourTwapperKeeper;
