@@ -2,25 +2,7 @@
 
 ini_set('memory_limit', '1024M');
 ini_set('max_execution_time', 30000);
-
-/*
-  yourTwapperKeeper - Twitter Archiving Application - http://your.twapperkeeper.com
-  Copyright (c) 2010 John O'Brien III - http://www.linkedin.com/in/jobrieniii
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  as published by the Free Software Foundation; either version 2
-  of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+error_reporting(E_ERROR | E_PARSE);
 
 // Load important files
 session_start();
@@ -133,11 +115,14 @@ header('Content-Transfer-Encoding: none');
 header('Content-Type: application/vnd.ms-excel; charset=utf-8');                 // This should work for IE & Opera
 header("Content-type: application/x-msexcel; charset=utf-8");                    // This should work for the rest
 header('Content-Disposition: attachment; filename="' . basename($export_file) . '"');
+header('Content-Encoding: UTF-8');
+
 /*
   echo "<head>";
   echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\" />";
   echo "</head>"; 
 */
+echo "\xEF\xBB\xBF";
 echo "<table>";
 echo "<tr>";
 
