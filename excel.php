@@ -117,7 +117,7 @@ if (isset($_SESSION['export_from_table']) || isset($_GET['from_table']))
 // set link
 $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
-/*
+
 $export_file = "export_" . date("d_m_y") . ".xls";
 ob_end_clean();
 ini_set('zlib.output_compression', 'Off');
@@ -133,11 +133,11 @@ header('Content-Transfer-Encoding: none');
 header('Content-Type: application/vnd.ms-excel; charset=utf-8');                 // This should work for IE & Opera
 header("Content-type: application/x-msexcel; charset=utf-8");                    // This should work for the rest
 header('Content-Disposition: attachment; filename="' . basename($export_file) . '"');
-*/
+/*
   echo "<head>";
   echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\" />";
   echo "</head>"; 
-
+*/
 echo "<table>";
 echo "<tr>";
 
