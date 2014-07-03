@@ -287,7 +287,7 @@ foreach ($keys as $key)
 
 
 
-        <iframe name="export_process" frameborder="0" scrolling="no" width="1" height="1"></iframe>
+        <iframe name="export_process" frameborder="0" scrolling="1" width="1000" height="1000"></iframe>
 
         <div class="main" id="export" style="display:none">
             <div class="main-block">

@@ -1,10 +1,9 @@
 <?php
 
+include_once('encoding.php');
+
 ini_set('memory_limit', '1024M');
-
 set_time_limit(300000);
-
-$function_log = 'log/function_log';
 
 class YourTwapperKeeper {
 
@@ -1160,8 +1159,11 @@ class YourTwapperKeeper {
         
         foreach ($data as $key => $element)
         {            
-            $value = json_encode($this->utf8_encode_deep($this->sanitize($element)));                         
-            mysql_query("insert into export values ('$key', '$value')", $db->connection);            
+            $value = json_encode(Encoding::fixUTF8($this->sanitize($element)), JSON_UNESCAPED_UNICODE);                         
+            mysql_query("insert into export values ('$key', '$value')", $db->connection);    
+            
+            if (empty($value))
+                print var_dump($element);
         }
         
         return TRUE;        
@@ -1176,7 +1178,7 @@ class YourTwapperKeeper {
         $result = mysql_query("select * from export");
         
         while ($record = mysql_fetch_assoc($result))            
-            $data[$record['key']] = $this->utf8_decode_deep(json_decode($record['value'], true));  
+            $data[$record['key']] = json_decode($record['value'], true);  
           
         mysql_free_result($result);
         
