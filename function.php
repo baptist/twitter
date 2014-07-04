@@ -419,7 +419,15 @@ class YourTwapperKeeper {
 
     function cmpConversations($a, $b)
     {
-        return $a[0]["time"] - $b[0]["time"];
+        if (count($a) > 0 && count($b) > 0)
+            return $a[0]["time"] - $b[0]["time"];
+        else if (count($a) > 0)
+            return 1;
+        else   if (count($b) > 0)
+            return -1;
+        else 
+            0;
+            
     }
 
     function getUser($screen_name)
@@ -474,7 +482,7 @@ class YourTwapperKeeper {
                         $related_conversations = array();
                         foreach ($conversation as $conv_tweet)
                         {
-                            if (array_key_exists($conv_tweet['id'], $ids))                            
+                            if (array_key_exists($conv_tweet['id'], $ids) && !in_array($ids[$conv_tweet['id']], $related_conversations))                            
                                 $related_conversations[] = $ids[$conv_tweet['id']];                            
                         }
 
@@ -578,12 +586,9 @@ class YourTwapperKeeper {
 
             // flatten 2d array
             $response = array();
-            foreach ($conversations as $conversation)
-            {
-                echo "<BR><BR>CONVERSATION:";var_dump($conversation);
-
+            foreach ($conversations as $conversation)            
                 $response = array_merge($response, $conversation);
-            }
+           
         }
 
         if ($limit)
@@ -1226,8 +1231,8 @@ class YourTwapperKeeper {
 
         foreach ($data as $key => $element)
         {
-            $value = json_encode(Encoding::fixUTF8($this->sanitize($element)), JSON_UNESCAPED_UNICODE);
-            mysql_query("insert into export values ('$key', '$value')", $db->connection);
+            $value = $this->sanitize(json_encode(Encoding::fixUTF8($element), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            mysql_query("insert into export values (0, '$key', '$value')", $db->connection);
 
             if (empty($value))
                 print var_dump($element);
