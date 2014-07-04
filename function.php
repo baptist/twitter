@@ -467,32 +467,56 @@ class YourTwapperKeeper {
                 if ($include_reactions)
                 {
                     if (strpos($tweet_text, "RT @") !== 0)
-                    {
+                    {                        
                         $conversation = $this->getConversation($r['id']);
+                        
+                        // find all related other conversations
+                        $related_conversations = array();
+                        foreach ($conversation as $conv_tweet)
+                        {
+                            if (array_key_exists($conv_tweet['id'], $ids))                            
+                                $related_conversations[] = $ids[$conv_tweet['id']];                            
+                        }
 
-                        if (!array_key_exists($r['id'], $ids))
+                        if (count($related_conversations) === 0)
                         {
                             // add new conversation
                             $conversations[] = $conversation;
-                            $ids[$r['id']] = count($conversations) - 1; // set to id of conversation it belongs to 
+                            $conversation_id = count($conversations) - 1;
+                            $ids[$r['id']] = $conversation_id; // set to id of conversation it belongs to 
                             // list tweet ids in conversation
                             $list_tweets = array();
                             foreach ($conversation as $conv_tweet)
+                            {
                                 $list_tweets[$conv_tweet['id']] = 1;
+                                $ids[$conv_tweet['id']] = $conversation_id;
+                            }
 
                             $conversations_list_tweets[] = $list_tweets;
                         } else
                         {
                             // merge conversations
-                            $conversation_id = $ids[$r['id']];
-                            foreach ($conversation as $conv_tweet)
+                            $conversation_id = array_shift($related_conversations);
+                            $all_tweets = $conversation;
+                            foreach ($related_conversations as $related)
+                                $all_tweets = array_merge($all_tweets, $conversations[$related]);                            
+                           
+                            foreach ($all_tweets as $conv_tweet)
                             {
                                 if (!array_key_exists($conv_tweet['id'], $conversations_list_tweets[$conversation_id]))
                                 {
                                     // add tweet to conversation
                                     $conversations_list_tweets[$conversation_id][$conv_tweet['id']] = 1;
+                                    $ids[$conv_tweet['id']] = $conversation_id; 
                                     $conversations[$conversation_id][] = $conv_tweet;
                                 }
+                            }
+                            
+                            // remove merged conversations
+                            foreach ($related_conversations as $related)
+                            {
+                                $conversations[$related] = array();
+                                $conversations_list_tweets[$related] = array();
                             }
                         }
                     }
@@ -555,7 +579,11 @@ class YourTwapperKeeper {
             // flatten 2d array
             $response = array();
             foreach ($conversations as $conversation)
+            {
+                echo "<BR><BR>CONVERSATION:";var_dump($conversation);
+
                 $response = array_merge($response, $conversation);
+            }
         }
 
         if ($limit)
