@@ -26,7 +26,7 @@ class YourTwapperKeeper {
         }
         return $output;
     }
-    
+
     function utf8_encode_deep($input)
     {
         if (is_array($input))
@@ -35,12 +35,13 @@ class YourTwapperKeeper {
             {
                 $output[$k] = $this->utf8_encode_deep($i);
             }
-        } else
+        }
+        else
             $output = utf8_encode($input);
-        
+
         return $output;
     }
-    
+
     function utf8_decode_deep($input)
     {
         if (is_array($input))
@@ -49,9 +50,10 @@ class YourTwapperKeeper {
             {
                 $output[$k] = $this->utf8_encode_deep($i);
             }
-        } else
+        }
+        else
             $output = utf8_decode($input);
-        
+
         return $output;
     }
 
@@ -131,7 +133,7 @@ class YourTwapperKeeper {
         global $db;
 
         $q = "select * from archives where $condition";
-        
+
         $r = mysql_query($q, $db->connection);
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
@@ -432,12 +434,13 @@ class YourTwapperKeeper {
             return NULL;
     }
 
-    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false, $output = true)
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false, $include_reactions = false)
     {
         $response = array();
         $tweets = array();
         $pool = array();
         $ids = array();
+        $conversations = array();
 
         $total_num_to_process = 0.0;
         foreach ($archives as $archive)
@@ -453,37 +456,56 @@ class YourTwapperKeeper {
                 $r['description'] = $archive['description'];
                 $r['tags'] = $archive['tags'];
 
-                if (!array_key_exists($r['id'], $ids))
-                {
-                    if ($nort)
-                    {
-                        $tweet_text = $this->sanitize(trim($r['text']));
-                        if (strpos($tweet_text, "RT @") === 0)
-                        {
-                            $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
 
-                            if (!array_key_exists($key, $tweets))
+                if ($include_reactions)
+                {
+                    $conversation = $this->getConversation($r['id']);
+                    
+                    if (!array_key_exists($r['id'], $ids))
+                    {
+                        // add new conversation
+                        $conversations[] = $conversation;
+                        $ids[$r['id']] = count($conversations) - 1; // set to id of conversation it belongs to 
+                    }
+                    else
+                    {
+                        // merge conversations
+                        
+                    }                    
+                    
+                } else
+                {
+                    if (!array_key_exists($r['id'], $ids))
+                    {
+                        if ($nort)
+                        {
+                            $tweet_text = $this->sanitize(trim($r['text']));
+                            if (strpos($tweet_text, "RT @") === 0)
                             {
-                                if (!array_key_exists($key, $pool))
+                                $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
+
+                                if (!array_key_exists($key, $tweets))
                                 {
-                                    $pool[$key] = $r;
-                                } else if ($pool[$key]["time"] > $r["time"])
-                                    $pool[$key] = $r;
+                                    if (!array_key_exists($key, $pool))
+                                    {
+                                        $pool[$key] = $r;
+                                    } else if ($pool[$key]["time"] > $r["time"])
+                                        $pool[$key] = $r;
+                                }
+                            }
+                            else
+                            {
+                                $tweets[$tweet_text] = 1;
+                                $response[] = $r;
                             }
                         }
                         else
-                        {
-                            $tweets[$tweet_text] = 1;
                             $response[] = $r;
-                        }
+
+                        $ids[$r['id']] = 1;
                     }
-                    else
-                        $response[] = $r;
-
-                    $ids[$r['id']] = 1;
                 }
-
-                $total++;                
+                $total++;
             }
             echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100)) . ');</script>';
         }
@@ -497,7 +519,8 @@ class YourTwapperKeeper {
             }
         }
 
-        usort($response, array($this, "cmpTweets"));
+        if (!$include_reactions)
+            usort($response, array($this, "cmpTweets"));
 
         if ($limit)
             $response = array_slice($response, 0, $limit);
@@ -505,14 +528,11 @@ class YourTwapperKeeper {
         return $response;
     }
 
-// get tweets
     function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
     {
         global $db;
 
         $response = array();
-        //$type = $this->sanitize($type);
-        //$name = $this->sanitize($name);
         $start = $this->sanitize($start);
         $end = $this->sanitize($end);
         $limit = $this->sanitize($limit);
@@ -536,49 +556,32 @@ class YourTwapperKeeper {
         $qparam = '';
 
         if ($start > 0)
-        {
             $qparam .= " and time >= $start";
-        }
 
         if ($end > 0)
-        {
             $qparam .= " and time <= $end";
-        }
 
         if ($nort == 1)
-        {
             $qparam .= " and text not like 'RT%'";
-        }
 
         if ($from_user)
-        {
             $qparam .= " and from_user = '$from_user'";
-        }
 
         if ($text)
-        {
             $qparam .= " and text like '%$text%'";
-        }
 
         if ($lang)
-        {
             $qparam .= " and iso_language_code='$lang'";
-        }
 
         if ($since_id)
-        {
             $qparam .= " and id >= $since_id";
-        }
 
         if ($max_id)
-        {
             $qparam .= " and id <= $max_id";
-        }
 
         if ($retweets || $favorites)
-        {
             $qparam .= " and (" . (($retweets) ? "retweets >= " . $retweets : "") . (($retweets && $favorites) ? " and " : "") . (($favorites) ? "favorites >= " . $favorites : "") . ")";
-        }
+
 
         if ($lat OR $long OR $rad)
         {
@@ -615,7 +618,7 @@ class YourTwapperKeeper {
         while ($row = mysql_fetch_assoc($r))
         {
             // Check original tweet if some fields are missing
-            if ($row['retweets'] == '' || $row['retweets'] == FALSE || $row['favorites'] == '' or $row['favorites'] == FALSE)
+            if ($row['retweets'] == '' || $row['retweets'] === FALSE || $row['favorites'] == '' or $row['favorites'] === FALSE)
             {
                 $temprow = $this->getOriginalTweet($row["id"]);
                 if ($temprow != FALSE)
@@ -631,10 +634,10 @@ class YourTwapperKeeper {
     }
 
     /**
-     * Reconstruct conversation round given tweet.
+     * Reconstruct conversation linked to given tweet.
      * @global type $db
      * @param type $tweetID
-     * @return boolean
+     * @return set of tweets
      */
     function getConversation($tweetID)
     {
@@ -769,7 +772,7 @@ class YourTwapperKeeper {
                 $archiveID = $row['original_archive'];
 
 
-            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR id = '$originalID'", $db->connection);
+            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);
             $result = mysql_fetch_assoc($r3);
 
 
@@ -1149,41 +1152,42 @@ class YourTwapperKeeper {
         }
         return $duplicate;
     }
-    
+
     function saveExport($data)
     {
         global $db;
-        
+
         // clear export table
         mysql_query("truncate table export", $db->connection);
-        
+
         foreach ($data as $key => $element)
-        {            
-            $value = json_encode(Encoding::fixUTF8($this->sanitize($element)), JSON_UNESCAPED_UNICODE);                         
-            mysql_query("insert into export values ('$key', '$value')", $db->connection);    
-            
+        {
+            $value = json_encode(Encoding::fixUTF8($this->sanitize($element)), JSON_UNESCAPED_UNICODE);
+            mysql_query("insert into export values ('$key', '$value')", $db->connection);
+
             if (empty($value))
                 print var_dump($element);
         }
-        
-        return TRUE;        
+
+        return TRUE;
     }
-    
+
     function getExportData()
     {
         global $db;
-        
+
         $data = array();
-        
+
         $result = mysql_query("select * from export");
-        
-        while ($record = mysql_fetch_assoc($result))            
-            $data[$record['key']] = json_decode($record['value'], true);  
-          
+
+        while ($record = mysql_fetch_assoc($result))
+            $data[$record['key']] = json_decode($record['value'], true);
+
         mysql_free_result($result);
-        
+
         return $data;
     }
+
 }
 
 $tk = new YourTwapperKeeper;

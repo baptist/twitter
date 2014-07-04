@@ -259,7 +259,7 @@ foreach ($keys as $key)
                                     <select name="groupings[]"  class="multiselect"  multiple="multiple" id="groupingSelect">
 
                                         <?php
-                                        $groupings = array("total", "user", "year", "week", "day", "hour");
+                                        $groupings = array("total", "year", "month", "day", "hour", "user");
 
                                         foreach ($groupings as $grouping)
                                             echo "<option value='$grouping'>" . ucfirst($grouping) . "</option>";
