@@ -423,11 +423,10 @@ class YourTwapperKeeper {
             return $a[0]["time"] - $b[0]["time"];
         else if (count($a) > 0)
             return 1;
-        else   if (count($b) > 0)
+        else if (count($b) > 0)
             return -1;
-        else 
+        else
             0;
-            
     }
 
     function getUser($screen_name)
@@ -469,21 +468,21 @@ class YourTwapperKeeper {
             {
                 $r['description'] = $archive['description'];
                 $r['tags'] = $archive['tags'];
-                
+
                 $tweet_text = $this->sanitize(trim($r['text']));
 
                 if ($include_reactions)
                 {
                     if (strpos($tweet_text, "RT @") !== 0)
-                    {                        
+                    {
                         $conversation = $this->getConversation($r['id']);
-                        
+
                         // find all related other conversations
                         $related_conversations = array();
                         foreach ($conversation as $conv_tweet)
                         {
-                            if (array_key_exists($conv_tweet['id'], $ids) && !in_array($ids[$conv_tweet['id']], $related_conversations))                            
-                                $related_conversations[] = $ids[$conv_tweet['id']];                            
+                            if (array_key_exists($conv_tweet['id'], $ids) && !in_array($ids[$conv_tweet['id']], $related_conversations))
+                                $related_conversations[] = $ids[$conv_tweet['id']];
                         }
 
                         if (count($related_conversations) === 0)
@@ -507,19 +506,19 @@ class YourTwapperKeeper {
                             $conversation_id = array_shift($related_conversations);
                             $all_tweets = $conversation;
                             foreach ($related_conversations as $related)
-                                $all_tweets = array_merge($all_tweets, $conversations[$related]);                            
-                           
+                                $all_tweets = array_merge($all_tweets, $conversations[$related]);
+
                             foreach ($all_tweets as $conv_tweet)
                             {
                                 if (!array_key_exists($conv_tweet['id'], $conversations_list_tweets[$conversation_id]))
                                 {
                                     // add tweet to conversation
                                     $conversations_list_tweets[$conversation_id][$conv_tweet['id']] = 1;
-                                    $ids[$conv_tweet['id']] = $conversation_id; 
+                                    $ids[$conv_tweet['id']] = $conversation_id;
                                     $conversations[$conversation_id][] = $conv_tweet;
                                 }
                             }
-                            
+
                             // remove merged conversations
                             foreach ($related_conversations as $related)
                             {
@@ -533,7 +532,7 @@ class YourTwapperKeeper {
                     if (!array_key_exists($r['id'], $ids))
                     {
                         if ($nort)
-                        {                            
+                        {
                             if (strpos($tweet_text, "RT @") === 0)
                             {
                                 $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
@@ -578,17 +577,16 @@ class YourTwapperKeeper {
         else
         {
             // sort tweets in conversation
-            foreach ($conversations as $conversation)
-                usort($conversation, array($this, "cmpTweets"));
+            foreach ($conversations as $key => $conversation)
+                usort($conversations[$key], array($this, "cmpTweets"));
 
             // sort conversations based on root tweet
             usort($conversations, array($this, "cmpConversations"));
 
             // flatten 2d array
             $response = array();
-            foreach ($conversations as $conversation)            
+            foreach ($conversations as $conversation)
                 $response = array_merge($response, $conversation);
-           
         }
 
         if ($limit)
@@ -745,7 +743,19 @@ class YourTwapperKeeper {
             $subsubr = mysql_query($subsubq, $db->connection);
 
             while ($subsubrow = mysql_fetch_assoc($subsubr))
+            {
+                // Check original tweet if some fields are missing
+                if ($subsubrow['retweets'] == '' || $subsubrow['retweets'] === FALSE || $subsubrow['favorites'] == '' or $subsubrow['favorites'] === FALSE)
+                {
+                    $temprow = $this->getOriginalTweet($subsubrow["id"]);
+                    if ($temprow != FALSE)
+                    {
+                        $subsubrow["retweets"] = $temprow["retweets"];
+                        $subsubrow["favorites"] = $temprow["favorites"];
+                    }
+                }
                 $temptweets[$subsubrow['id']] = $subsubrow;
+            }
         }
         mysql_free_result($subr);
         return array_merge($this->findPath($tweet['in_reply_to_status_id'], $temptweets, false), array($tweet), $this->findPath($tweet['id'], $temptweets, true));
@@ -841,7 +851,7 @@ class YourTwapperKeeper {
                 $archiveID = $row['original_archive'];
 
 
-            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);
+            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);            
             $result = mysql_fetch_assoc($r3);
 
 
@@ -1149,32 +1159,17 @@ class YourTwapperKeeper {
         global $db;
         global $time_to_track_user;
 
-        //$t0 = microtime(true);
-        //$t1 = microtime(true);
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
         $this->log(mysql_error($db->connection), 'mysql-insertTweet-insert', $log_file);
-
-        //$t2 = microtime(true);
-        //echo "Time to insert query: " . ($t2 - $t1) . "\n";
-        //$t1 = microtime(true); 
-        //$t2 = microtime(true);
-        //echo "Time to log: " . ($t2 - $t1) . "\n";
 
         if ($tweet['original_time'] > 0)
             $time = $tweet['original_time'];
         else
             $time = $tweet['time'];
 
-        // Insert into central tweets table
-        //$t1 = microtime(true);
-
         $duplicate = $this->addSmartTweet($tweet, $table_id, $log_file);
 
-        //$t2 = microtime(true);
-        //echo "Time to insert smart tweet: " . ($t2 - $t1) . "\n";
-        //$t1 = microtime(true);
-        //
         // Update is only required when tweet is not older than threshold and not registered already (duplicates)    
         if (!$duplicate)
         {
@@ -1182,17 +1177,10 @@ class YourTwapperKeeper {
             mysql_query($q, $db->connection);
             $this->log(mysql_error($db->connection), 'mysql-insertTweet-newtweets', $log_file);
         }
-        //$t2 = microtime(true);
-        //echo "Time to insert into net tweets: " . ($t2 - $t1) . "\n";
-        //$t1 = microtime(true);
+
         // Track conversation if not too old and dealing with hashtagged tweet               
         if (time() - $time < $time_to_track_user && $type == 2)
             $this->trackConversation($table_id, $tweet);
-
-
-        //$t2 = microtime(true);
-        //echo "Time to track conversation: " . ($t2 - $t1) . "\n";
-        //echo "Complete time to insert: " . (microtime(true) - $t0) . "\n";
 
         return TRUE;
     }
