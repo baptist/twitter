@@ -461,7 +461,8 @@ class YourTwapperKeeper {
             {
                 $r['description'] = $archive['description'];
                 $r['tags'] = $archive['tags'];
-
+                
+                $tweet_text = $this->sanitize(trim($r['text']));
 
                 if ($include_reactions)
                 {
@@ -500,8 +501,7 @@ class YourTwapperKeeper {
                     if (!array_key_exists($r['id'], $ids))
                     {
                         if ($nort)
-                        {
-                            $tweet_text = $this->sanitize(trim($r['text']));
+                        {                            
                             if (strpos($tweet_text, "RT @") === 0)
                             {
                                 $key = trim(substr($tweet_text, strpos($tweet_text, ":") + 1));
