@@ -416,6 +416,11 @@ class YourTwapperKeeper {
     {
         return $a["time"] - $b["time"];
     }
+    
+    function cmpConversations($a, $b)
+    {
+        return $a[0]["time"] - $b[0]["time"];
+    }
 
     function getUser($screen_name)
     {
@@ -441,6 +446,7 @@ class YourTwapperKeeper {
         $pool = array();
         $ids = array();
         $conversations = array();
+        $conversations_list_tweets = array();
 
         $total_num_to_process = 0.0;
         foreach ($archives as $archive)
@@ -460,19 +466,32 @@ class YourTwapperKeeper {
                 if ($include_reactions)
                 {
                     $conversation = $this->getConversation($r['id']);
-                    
+
                     if (!array_key_exists($r['id'], $ids))
                     {
                         // add new conversation
                         $conversations[] = $conversation;
                         $ids[$r['id']] = count($conversations) - 1; // set to id of conversation it belongs to 
-                    }
-                    else
+                        // list tweet ids in conversation
+                        $list_tweets = array();
+                        foreach ($conversation as $conv_tweet)
+                            $list_tweets[$conv_tweet['id']] = 1;
+
+                        $conversations_list_tweets[] = $list_tweets;
+                    } else
                     {
                         // merge conversations
-                        
-                    }                    
-                    
+                        $conversation_id = $ids[$r['id']];
+                        foreach ($conversation as $conv_tweet)
+                        {
+                            if (!array_key_exists($conv_tweet['id'], $conversations_list_tweets[$conversation_id]))
+                            {
+                                // add tweet to conversation
+                                $conversations_list_tweets[$conversation_id][$conv_tweet['id']] = 1;
+                                $conversations[$conversation_id][] = $conv_tweet;
+                            }
+                        }
+                    }
                 } else
                 {
                     if (!array_key_exists($r['id'], $ids))
@@ -519,12 +538,26 @@ class YourTwapperKeeper {
             }
         }
 
-        if (!$include_reactions)
-            usort($response, array($this, "cmpTweets"));
-
-        if ($limit)
-            $response = array_slice($response, 0, $limit);
-
+        if (!$include_reactions)        
+            usort($response, array($this, "cmpTweets"));   
+        else
+        {
+            // sort tweets in conversation
+            foreach ($conversations as $conversation)
+                usort($conversation, array($this, "cmpTweets"));                
+            
+            // sort conversations based on root tweet
+            usort($conversations, array($this, "cmpConversations"));
+            
+            // flatten 2d array
+            $response = array();
+            foreach ($conversations as $conversation)
+                $response = array_merge($response, $conversation);
+        }
+        
+         if ($limit)
+                $response = array_slice($response, 0, $limit);
+        
         return $response;
     }
 
@@ -635,7 +668,7 @@ class YourTwapperKeeper {
 
     /**
      * Reconstruct conversation linked to given tweet.
-     * @global type $db
+     * @global type $dbc
      * @param type $tweetID
      * @return set of tweets
      */
