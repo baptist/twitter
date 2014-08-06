@@ -172,9 +172,9 @@ else
                             $mentioned[] = $user_name;
                             $lastPos = $lastPos + strlen($user_name);
                         }
-                        print $tweet['text'];
+                        print $tweet['text'] . "<BR><BR>";
                         var_dump($mentioned);
-                        print ("\n\n");
+                        print ("<BR><BR>");
                         foreach ($mentioned as $mention)
                         {
                             if (array_key_exists(strtolower($mention), $stats))
