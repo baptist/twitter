@@ -166,15 +166,16 @@ else
                     {
                         $mentioned = array();
                         $lastPos = 1;
+                        print $tweet['text'] . "<BR><BR>";
                         while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
                         {
-                            $user_name = substr($tweet['text'], $lastPos + 1, strpos($tweet['text'], " ", $lastPos + 1) - ($lastPos + 1));
+                            $user_name = substr($tweet['text'], $lastPos + 1, strpos($tweet['text'], " ", $lastPos + 1) - ($lastPos + 1));                            
                             $mentioned[] = $user_name;
                             $lastPos = $lastPos + strlen($user_name);
+                            print $user_name . "  " . $lastPos . "<BR>";
                         }
-                        print $tweet['text'] . "<BR><BR>";
-                        var_dump($mentioned);
-                        print ("<BR><BR>");
+                        
+                        
                         foreach ($mentioned as $mention)
                         {
                             if (array_key_exists(strtolower($mention), $stats))
