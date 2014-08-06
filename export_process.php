@@ -171,9 +171,9 @@ else
                         {
                             $next_pos = strpos($tweet['text'], " ", $lastPos + 1);
                             $mentioned_name = substr($tweet['text'], $lastPos + 1, ($next_pos !== false)? $next_pos - ($lastPos + 1): null);                            
-                            $mentioned[] = $user_name;
-                            $lastPos = $lastPos + strlen($user_name);
-                            print $user_name . "  " . $lastPos . "<BR>";
+                            $mentioned[] = $mentioned_name;
+                            $lastPos = $lastPos + strlen($mentioned_name);
+                            print $mentioned_name . "  " . $lastPos . "<BR>";
                         }
                         
                         
