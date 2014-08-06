@@ -159,26 +159,28 @@ else
                     {
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
                     }
-
-                    $mentioned = array();
-                    $lastPos = 1;
-                    while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
-                    {
-                        print $tweet['text']."<BR>";
-                        print $lastPos . " <BR"; 
-                        $user_name = substr($tweet['text'], $lastPos + 1, strpos($tweet['text'], "\w", $lastPos));
-                        $mentioned[] = $user_name;
-                        $lastPos = $lastPos + strlen($user_name);
-                    }
-                    print $tweet['text'];
-                    var_dump($mentioned);
-                    print ("\n\n");
-                    foreach ($mentioned as $mention)
-                    {
-                        if (array_key_exists(strtolower($mention), $stats))                    
-                            $stats[strtolower($mention)]['num_mentions_rec']++;                    
-                    }
                     
+                    // If tweet is no retweet check which users are mentioned.
+                    if (!(($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
+                            (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key)))
+                    {
+                        $mentioned = array();
+                        $lastPos = 1;
+                        while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
+                        {
+                            $user_name = substr($tweet['text'], $lastPos + 1, strpos($tweet['text'], " ", $lastPos));
+                            $mentioned[] = $user_name;
+                            $lastPos = $lastPos + strlen($user_name);
+                        }
+                        print $tweet['text'];
+                        var_dump($mentioned);
+                        print ("\n\n");
+                        foreach ($mentioned as $mention)
+                        {
+                            if (array_key_exists(strtolower($mention), $stats))
+                                $stats[strtolower($mention)]['num_mentions_rec']++;
+                        }
+                    }
                 }
             } else if (strcasecmp($grouping, "total") === 0)
             {
