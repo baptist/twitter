@@ -123,9 +123,11 @@ else
                     $stats[$key]['num_tweets_sent'] = 0;
                     $stats[$key]['num_retweets_sent'] = 0;
                     $stats[$key]['num_replies_sent'] = 0;
+                    $stats[$key]['num_mentions_sent'] = 0;
                     $stats[$key]['num_retweets_rec'] = 0;
                     $stats[$key]['num_favorites_rec'] = 0;
                     $stats[$key]['num_replies_rec'] = 0;
+                    $stats[$key]['num_mentions_rec'] = 0;
                 }
 
                 foreach ($tweets as $tweet)
@@ -144,7 +146,10 @@ else
                         {
                             $is_retweet = true;
                             $stats[$key]['num_retweets_sent']++;
-                        }
+                        } else if (strpos(trim($tweet['text']), '@') > 0)
+                            $stats[$key]['num_mentions_sent']++;
+                        
+                        
                         if (!$is_retweet)
                         {
                             $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0) ? $tweet['favorites'] : 0;
@@ -153,7 +158,8 @@ else
                     } else if (array_key_exists(strtolower($tweet['to_user']), $stats))
                     {
                         $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
-                    }
+                    } else if (strpos(trim($tweet['text']), '@' + $key) > 0)
+                        $stats[$key]['num_mentions_rec']++;
                 }
             } else if (strcasecmp($grouping, "total") === 0)
             {
