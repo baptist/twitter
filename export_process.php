@@ -164,7 +164,8 @@ else
                     $lastPos = 1;
                     while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
                     {
-                        print $lastPos . " \n"; 
+                        print $tweet['text']."<BR>";
+                        print $lastPos . " <BR"; 
                         $user_name = substr($tweet['text'], $lastPos + 1, strpos($tweet['text'], "\w", $lastPos));
                         $mentioned[] = $user_name;
                         $lastPos = $lastPos + strlen($user_name);
