@@ -170,7 +170,7 @@ else
                         while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
                         {
                             $next_pos = strpos($tweet['text'], " ", $lastPos + 1);
-                            $mentioned_name = ($next_pos !== false)? substr($tweet['text'], $lastPos + 1, $next_pos - ($lastPos + 1)) : null;                            
+                            $mentioned_name = ($next_pos !== false)? substr($tweet['text'], $lastPos + 1, $next_pos - ($lastPos + 1)) : substr($tweet['text'], $lastPos + 1);                            
                             $mentioned[] = $mentioned_name;
                             $lastPos = $lastPos + strlen($mentioned_name);
                             print $mentioned_name . "  " . $lastPos . "<BR>";
