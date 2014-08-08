@@ -171,7 +171,7 @@ else
                             $next_pos = strpos($tweet['text'], " ", $lastPos + 1);
                             $mentioned_name = ($next_pos !== false)? substr($tweet['text'], $lastPos + 1, $next_pos - ($lastPos + 1)) : substr($tweet['text'], $lastPos + 1);                            
                             $mentioned[] = $mentioned_name;
-                            $lastPos = $lastPos + strlen($mentioned_name);                            
+                            $lastPos = $next_pos;                            
                         }
                                                 
                         foreach ($mentioned as $mention)
