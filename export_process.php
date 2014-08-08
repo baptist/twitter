@@ -165,18 +165,15 @@ else
                             (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key)))
                     {
                         $mentioned = array();
-                        $lastPos = 1;
-                        print $tweet['text'] . "<BR><BR>";
+                        $lastPos = 1;                        
                         while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
                         {
                             $next_pos = strpos($tweet['text'], " ", $lastPos + 1);
                             $mentioned_name = ($next_pos !== false)? substr($tweet['text'], $lastPos + 1, $next_pos - ($lastPos + 1)) : substr($tweet['text'], $lastPos + 1);                            
                             $mentioned[] = $mentioned_name;
-                            $lastPos = $lastPos + strlen($mentioned_name);
-                            print $mentioned_name . "  " . $lastPos . "<BR>";
+                            $lastPos = $lastPos + strlen($mentioned_name);                            
                         }
-                        
-                        
+                                                
                         foreach ($mentioned as $mention)
                         {
                             if (array_key_exists(strtolower($mention), $stats))
