@@ -1165,6 +1165,7 @@ class YourTwapperKeeper {
     {
         global $db;
         global $time_to_track_user;
+        global $track_conversations;
 
         $q = "insert into z_$table_id values ('twitter-$reason','" . $this->sanitize($tweet['text']) . "','" . ((string) $tweet['to_user_id']) . "','" . $tweet['to_user'] . "','" . ((string) $tweet['from_user_id']) . "','" . $tweet['from_user'] . "','" . ((string) $tweet['original_user_id']) . "','" . $tweet['original_user'] . "','" . ((string) $tweet['id']) . "','" . ((string) $tweet['in_reply_to_status_id']) . "','" . $tweet['iso_language_code'] . "','" . $tweet['source'] . "','" . $tweet['profile_image_url'] . "','" . $tweet['geo_type'] . "','" . $tweet['geo_coordinates_0'] . "','" . $tweet['geo_coordinates_1'] . "','" . $tweet['created_at'] . "','" . $tweet['time'] . "', NULL, NULL, NULL)";
         mysql_query($q, $db->connection);
@@ -1186,7 +1187,7 @@ class YourTwapperKeeper {
         }
 
         // Track conversation if not too old and dealing with hashtagged tweet               
-        if (time() - $time < $time_to_track_user && $type == 2)
+        if (time() - $time < $time_to_track_user && $type == 2 && $track_conversations)
             $this->trackConversation($table_id, $tweet);
 
         return TRUE;
