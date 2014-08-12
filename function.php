@@ -263,6 +263,11 @@ class YourTwapperKeeper {
         global $db;
 
         $response = array();
+        
+        // Remove whitespaces and quotes
+        $keyword = trim(trim($keyword), '"');
+        $description = trim(trim($description), '"');
+        $tags = trim(trim($tags), '"');
 
         // Ignore '/' (used as indication of 'unknown')
         if (trim($keyword) === "/")
@@ -270,13 +275,10 @@ class YourTwapperKeeper {
             $response[0] = "Ignore '/'.";
             return $response;
         }
-        // Remove keyword's first character if it equals '@' or '#'.
-        $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
         
-        // Remove whitespaces and quotes
-        $keyword = trim(trim($keyword), '"');
-        $description = trim(trim($description), '"');
-        $tags = trim(trim($tags), '"');
+        // Remove keyword's first character if it equals '@' or '#'.
+        $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);       
+        
 
         $q = "select * from archives where keyword = '$keyword' and (type='$type' or (type IN (4,5) and $type=3))";
 
