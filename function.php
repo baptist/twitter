@@ -272,6 +272,11 @@ class YourTwapperKeeper {
         }
         // Remove keyword's first character if it equals '@' or '#'.
         $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
+        
+        // Remove whitespaces and quotes
+        $keyword = trim(trim($keyword), '"');
+        $description = trim(trim($description), '"');
+        $tags = trim(trim($tags), '"');
 
         $q = "select * from archives where keyword = '$keyword' and (type='$type' or (type IN (4,5) and $type=3))";
 
