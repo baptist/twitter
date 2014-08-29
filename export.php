@@ -8,24 +8,6 @@ while (ob_get_level())
     ob_end_clean(); // remove output buffers
 ob_implicit_flush(true);
 
-/*
-  yourTwapperKeeper - Twitter Archiving Application - http://your.twapperkeeper.com
-  Copyright (c) 2010 John O'Brien III - http://www.linkedin.com/in/jobrieniii
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  as published by the Free Software Foundation; either version 2
-  of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
 
 // Set Important / Load important
 session_start();
@@ -55,102 +37,140 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $(document).ready(function() {
 
 
-        $('#tagsSelect').multiselect({
-            includeSelectAllOption: true,
-            numberDisplayed: 1,
-            enableFiltering: true,
-            maxHeight: 250,
-            buttonWidth: 220
-        });
+        window.select_statements = {};
+        window.filter_statements = {};
+        window.analyze_statements = {};
 
+        window.deleteFromSelectList = function(key)
+        {
 
-        var availableKeywords = [
-<?php
-$keys = $tk->getKeywords(-1);
-foreach ($keys as $key)
-    echo "'$key',"
-    ?>
-        ];
-
-        function split(val) {
-            return val.split(/,\s*/);
+            delete window.select_statements[key];
+            window.refreshSelectList();
         }
-        function extractLast(term) {
-            return split(term).pop();
+
+        window.deleteFromFilterList = function(key)
+        {
+
+            delete window.filter_statements[key];
+            window.refreshFilterList();
         }
-        $("#keywordsAuto")
-// don't navigate away from the field on tab when selecting an item
-                .bind("keydown", function(event) {
-            if (event.keyCode === $.ui.keyCode.TAB &&
-                    $(this).data("ui-autocomplete").menu.active) {
-                event.preventDefault();
+        
+        window.deleteFromAnalyzeList = function(key)
+        {
+
+            delete window.analyze_statements[key];
+            window.refreshAnalyzeList();
+        }
+
+        window.refreshSelectList = function() {
+            // display list with select statements
+            $("#select_list").empty();
+
+            var list = "";
+            var count = 0;
+            for (var field in window.select_statements) {
+                count++;
+                list += "<li class='query-item'>Based on<span style='text-decoration:underline'>" + field + "</span>: " + window.select_statements[field] + " &nbsp;&nbsp;<a href='javascript:deleteFromSelectList(\"" + field + "\");'>delete</a></li>";
             }
-        })
-                .autocomplete({
-            minLength: 0,
-            source: function(request, response) {
-// delegate back to autocomplete, but extract the last term
-                response($.ui.autocomplete.filter(
-                        availableKeywords, extractLast(request.term)));
-            },
-            focus: function() {
-// prevent value inserted on focus
-                return false;
-            },
-            select: function(event, ui) {
-                var terms = split(this.value);
-// remove the current input
-                terms.pop();
-// add the selected item
-                terms.push(ui.item.value);
-// add placeholder to get the comma-and-space at the end
-                terms.push("");
-                this.value = terms.join(", ");
-                return false;
+            $("#select_list").append(list);
+
+            if (count > 0)
+                $(".submit").css("display", "inline-block");
+            else
+                $(".submit").css("display", "none");
+        };
+
+        window.refreshFilterList = function() {
+            // display list with select statements
+            $("#filter_list").empty();
+
+            var list = "";
+            for (var field in window.filter_statements) {
+                list += "<li class='filter-item'>Filter on<span style='text-decoration:underline'>" + field + "</span>: " + window.filter_statements[field] + " &nbsp;&nbsp;<a href='javascript:deleteFromFilterList(\"" + field + "\");'>delete</a></li>";
             }
-        });
+            $("#filter_list").append(list);
+        };
+        
+        window.refreshAnalyzeList = function() {
+            // display list with select statements
+            $("#analyze_list").empty();
 
+            var list = "";
+            for (var field in window.analyze_statements) {
+                list += "<li class='analyze-item'>Analyze on<span style='text-decoration:underline'>" + field + "</span>: " + window.analyze_statements[field] + " &nbsp;&nbsp;<a href='javascript:deleteFromAnalyzeList(\"" + field + "\");'>delete</a></li>";
+            }
+            $("#analyze_list").append(list);
+        };
+        
 
-        $('#typesSelect').multiselect({
-            includeSelectAllOption: true,
-            numberDisplayed: 2,
-            maxHeight: 150,
-            buttonWidth: 150
-        });
-
-        $('#groupingSelect').multiselect({
-            includeSelectAllOption: true,
-            numberDisplayed: 2,
-            maxHeight: 150,
-            buttonWidth: 150
-        });
-
+        $('button').button();
         $('input[type=submit]').button();
 
-        $("#to").datepicker({dateFormat: 'dd/mm/yy', changeYear: true});
-        $("#from").datepicker({dateFormat: 'dd/mm/yy', changeYear: true});
+        $(".submit").click(function() {
+            var combined = {};
+            combined["select"] = window.select_statements;
+            combined["filter"] = window.filter_statements;
+            combined["analyze"] = window.analyze_statements;
+
+            var check_progress = setInterval(function() {
+                $.ajax({method: 'get', url: 'functions/get_progress.php', success: function(data) {
+                        if (data !== "")
+                            $("#done").text(data);
+                    }});
+            }, 100);
+            $("#result").find("div.top-title").text("Retrieving");
+            $("#result").css("display", "block");
+            $("#information").parent().css("display", "none");
+            $("#done").text("0%");
+            $("#loader").css("display", "block");
+            $(this).find("button").attr("disabled", "disabled");
+
+            $.ajax({
+                method: 'POST',
+                url: 'export_process.php',
+                data: {data: JSON.stringify(combined)},
+                success: function(data) {                    
+                    clearInterval(check_progress);
+                    $("#result").find("div.top-title").text("Result");
+                    $("#loader").css("display", "none");
+                    $(".submit").find("button").removeAttr("disabled");
+                    $("#information").parent().css("display", "block");
+                    $("#information").html(data);
+
+                },
+                error: function(xhr, err) {
+                    //alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                    //alert("responseText: " + xhr.responseText);
+                    $("#result").find("div.top-title").text("Error");
+                },
+            });
+        });
+
+
+        $('#select_show').on("click", function() {
+            $('#select_widget').bPopup({onOpen: function() {
+                    $("#select-widget-combo").trigger("change");
+                }});
+        });
+
+        $('#filter_show').on("click", function() {
+            $('#filter_widget').bPopup({onOpen: function() {
+                    $("#filter-widget-combo").trigger("change");
+                }});
+        });
+        
+        $('#analyze_show').on("click", function() {
+            $('#analyze_widget').bPopup({onOpen: function() {
+                    $("#analyze-widget-combo").trigger("change");
+                }});
+        });
 
 
 
 
     });
 
-    function displayExport() {
-        document.getElementById('export').style.display = 'block';
-    }
 
-    function progress(percent) {
-        document.getElementById('done').innerHTML = percent + '%';
-    }
-
-    function setInformation(num_tweets, num_archives) {
-        document.getElementById('information').style.display = 'block';
-        document.getElementById('information').innerHTML = "<span style='font-weight:bold'>Number of archives: " + num_archives + "</span> <br/>" +
-                "<span style='font-weight:bold'>Number of tweets: " + num_tweets + "</span> <br/>";
-
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('export_btn').style.display = 'block';
-    }
 
 </script>
 
@@ -161,170 +181,151 @@ foreach ($keys as $key)
     {
         ?>
 
-        <form action='export_process.php' target='export_process' method='post'  >
-
-            <div class ="top-title" style="margin:70px 0 0 0; ">
-                Select
-            </div>
-
-            <div class ="top-title" style="margin:70px 0 0 68%; ">
-                Filter
-            </div>
-
-
-
-            <div class="main-block" style="">
+        <div class="main" style="margin-top:70px; ">
+            <div class="main-block" style="min-height: 150px">
 
                 <div style="padding:7px;">
-                    <br/>
-                    <div class="">
-                        <table style="width:100%">
-                            <tr>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Keyword</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>             
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Include Reactions</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
-                            </tr>
 
-                            <tr style="height:60px">
-                                <td>
-                                    <select name="type[]"  class="multiselect"  multiple="multiple" id="typesSelect">
-                                        <?php
-                                        $types = array("keyword", "#hashtag", "@user");
-                                        $i = 1;
-                                        foreach ($types as $type)
-                                            echo "<option value='" . $i++ . "'>" . $type . "</option>";
-                                        ?>
-                                    </select>
-                                </td>
-                                <td><input name='keywords' id='keywordsAuto'/></td>
-                                <td><input name='description'/></td>
-                                <td>
-                                    <select name="tags[]"  class="multiselect"  multiple="multiple" id="tagsSelect">
+                    <div class="top-title" style="width:250px">Export Archives</div>
 
-                                        <?php
-                                        $tags = $tk->getUniformTags(-1);
 
-                                        foreach ($tags as $tag)
-                                            echo "<option value='$tag'>" . ucfirst($tag) . "</option>";
-                                        ?>
 
-                                    </select>
-                                </td>             
-                                <td>From <input type="text" name="from" id="from" value="" style="width:100px;"/> to <input type="text" name="to" id="to" value="" style="width:100px"/> </td> 
-                                <td><input type="checkbox" name='no_rt' /></td> 
-                                <td><input type="checkbox" name='no_mentions' /></td> 
-                                <td><input type="checkbox" name='include_reactions' /></td> 
-                                <td><input name='rt' style="width:60px"/></td> 
-                                <td><input name='fv' style="width:60px"/></td> 
-                                <td><input name='limit' style="width:60px"/></td>                        
-                            </tr>
-                        </table>
-
-                        <br/>
-                        <br/>
-
+                    <a href="#" id="select_show" class='export-btn'>select</a>
+                    <a href="#" id="" class='export-btn' style="color:#000">|</a>
+                    <a href="#" id="filter_show" class='export-btn'>filter</a>
+                    <a href="#" id="" class='export-btn' style="color:#000">|</a>
+                    <a href="#" id="analyze_show" class='export-btn'>analyze</a>
+                    <!--<a href="#" id="" class='export-btn' style="color:#000">|</a>
+                    <a href="#" id="process_show" class='export-btn'>process</a>-->
+                    <div style="float:right; margin:10px 10px; display:none" class="submit">
+                        <button name="submit" class="ui-button-primary" style="padding-left:5px" value="" >Retrieve</button> 
                     </div>
+
                 </div>
+
+                <div>
+                    <ul id="select_list"></ul>
+                </div>
+
+                <div>
+                    <ul id="filter_list"></ul>
+                </div>
+                
+                <div>
+                    <ul id="analyze_list"></ul>
+                </div>
+
+
+
             </div>
 
 
-
-            <p class ="title"  style="margin:50px 0 10px 0;">
-                Process
-            </p>
-
-            <div class="main-block">
+            <div class="main-block" style="display:none" id ="result">
 
                 <div style="padding:7px;">
-                    <br/>
-                    <div class="">
-                        <table style="width:100%">
-                            <tr>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Aggregate per</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count Tweets Stats</td>
-                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count User Stats</td>
 
-                            </tr>
+                    <div class="top-title" style="width:250px"></div>
 
-                            <tr style="height:60px">
-                                <td>
-                                    <select name="groupings[]"  class="multiselect"  multiple="multiple" id="groupingSelect">
 
-                                        <?php
-                                        $groupings = array("total", "year", "month", "day", "hour", "user");
+                    <div id="loader" style='font-size:120%'>
 
-                                        foreach ($groupings as $grouping)
-                                            echo "<option value='$grouping'>" . ucfirst($grouping) . "</option>";
-                                        ?>
-
-                                    </select>
-                                </td>      
-                                <td><input type="checkbox" name='tweets_stats'/></td> 
-                                <td><input type="checkbox" name='user_stats' /></td> 
-
-                            </tr>
-
-                        </table>
-
-                        <br/>
-                        <br/>
+                        <div style="position:relative; top:-1px;display:inline-block;width:50px; height:50px; margin:10px"><img src='resources/ajax-loader2.gif' /></div>
+                        <div style="position:relative;display:inline-block"><span id="done">0%</span> </div>
                     </div>
+
+                    <div  style="display:none;">
+                        <div id="information" style="font-size:125%; padding:10px"></div>
+                        <div id="export_btn"  style="margin-top:25px; padding:10px">               
+                            <a href="excel.php?from_table=1" >Export to Excel</a>
+
+                        </div>
+                    </div>
+
+
+                    <br/><br/>
                 </div>
-            </div>
-
-            <input type='submit' class ="submit-button" value ='Filter' class="ui-state-default ui-corner-all"/>
-
-        </form>
-
-
-
-
-        <iframe name="export_process" frameborder="0" scrolling="0" width="1" height="1"></iframe>
-
-        <div class="main" id="export" style="display:none">
-            <div class="main-block">
-                <span class="main-header">Export archives</span> <br/>
-
-                <div id="loader" style='font-size:120%'>
-
-                    <div style="position:relative; top:-1px;display:inline-block;width:50px; height:50px; margin:10px"><img src='resources/ajax-loader_blue.gif' /></div>
-                    <div id="done" style="position:relative;display:inline-block">0% </div>
-                </div>
-
-                <div id="information"  style="display:none">                  
-                </div>
-
-                <div id="export_btn"  style="display:none; margin-top:25px; padding:10px">               
-                    <a href="excel.php?from_table=1" >Export to Excel</a>
-
-                </div>
-
-
-
-                <br/><br/>
-
 
 
             </div>
+
 
 
         </div>
 
 
 
-    <?php } ?>
+        <!--
+                    <p class ="title"  style="margin:50px 0 10px 0;">
+                        Process
+                    </p>
+        
+                    <div class="main-block">
+        
+                        <div style="padding:7px;">
+                            <br/>
+                            <div class="">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Aggregate per</td>
+                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count Tweets Stats</td>
+                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count User Stats</td>
+        
+                                    </tr>
+        
+                                    <tr style="height:60px">
+                                        <td>
+                                            <select name="groupings[]"  class="multiselect"  multiple="multiple" id="groupingSelect">
+        
+        <?php
+        $groupings = array("total", "year", "month", "day", "hour", "user");
+
+        foreach ($groupings as $grouping)
+            echo "<option value='$grouping'>" . ucfirst($grouping) . "</option>";
+        ?>
+        
+                                            </select>
+                                        </td>      
+                                        <td></td> 
+                                        <td><input type="checkbox" name='user_stats' /></td> 
+        
+                                    </tr>
+        
+                                </table>
+        
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+        -->
+
+
+
+
+
+
+<?php } ?>
 
 
 
 </section>
+<div id="select_widget" style="display: none">
+    <?php
+    include("templates/export_select_widget.php");
+    ?>
+</div>
+
+<div id="filter_widget" style="display: none">
+    <?php
+    include("templates/export_filter_widget.php");
+    ?>
+</div>
+
+<div id="analyze_widget" style="display: none">
+    <?php
+    include("templates/export_analyze_widget.php");
+    ?>
+</div>
 
 <br/>
 

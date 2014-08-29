@@ -1,0 +1,425 @@
+
+
+<html>
+<head>
+        <link rel="stylesheet" href="css/jquery-ui.css"               type="text/css"  />     
+        <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css"     type="text/css"  />
+        <link rel="stylesheet" href="css/bootstrap-multiselect.css"   type="text/css" />   
+        <link rel="stylesheet" href="css/avgrund.css"/>
+        <link rel="stylesheet" href="css/yourtwapperkeeper.css?v=2"   type="text/css" /> 
+
+        
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/Chart.js"></script>
+
+   
+        <script src="js/jquery.bpopup.min.js"></script> 
+
+<script>
+
+
+
+    $(document).ready(function() {
+
+        
+        
+        $("#radioset").buttonset();
+
+
+    });
+</script>
+
+
+</head>
+
+<body>
+
+<section>
+
+            <div class="header-panel-top">
+
+
+
+
+                <div class="header-inner">
+                    <?php
+                    if (!$logged_in)
+                    {
+                        ?>
+                        <div class="info">
+                            <a href='./oauthlogin.php'>Login</a>
+                        </div>
+                        <?php
+                    } else
+                    {
+                        ?>
+                        <div class="info">
+                            Logged in as <span class="special"><?php echo $_SESSION['access_token']['screen_name'] ?></span> &nbsp; / &nbsp; <a href="clearsessions.php"> Logout</a>
+                        </div>
+                    <?php } ?>
+                </div>
+
+
+            </div>
+
+
+            <div class="header-panel">               
+                <div class="header-main">
+
+                    <div class="header-title">
+                        <div class ="title"></div>                        
+                    </div>
+
+                    <?php
+                    if ($logged_in)
+                    {
+                        ?>
+
+                        <div class="buttons-pos">
+                            <ul class="sf-menu sf-js-enabled">
+
+                                <?php
+                                if (basename($_SERVER['PHP_SELF']) === "index.php")
+                                {
+                                    ?>
+                                    <li class=""><a class="current" href="#">Overview</a></li>
+                                    <?php
+                                } else
+                                {
+                                    ?>
+                                    <li><a href="index.php">Overview</a></li>  
+                                <?php } ?>
+
+                                <?php
+                                if (basename($_SERVER['PHP_SELF']) === "multiple_archives.php")
+                                {
+                                    ?>
+                                    <li class=""><a class="current" href="#">Archives</a></li>
+                                    <?php
+                                } else
+                                {
+                                    ?>
+                                    <li><a href="multiple_archives.php">Archives</a></li>  
+                                <?php } ?>
+
+
+                                <?php
+                                if (basename($_SERVER['PHP_SELF']) === "export.php")
+                                {
+                                    ?>
+                                    <li class=""><a class="current" href="#">Export</a></li>
+                                    <?php
+                                } else
+                                {
+                                    ?>
+                                    <li><a href="export.php">Export</a></li>  
+                                <?php } ?>
+
+                                <?php
+                                if (basename($_SERVER['PHP_SELF']) === "settings.php")
+                                {
+                                    ?>
+                                    <li class=""><a class="current" href="#">Settings</a></li>
+                                    <?php
+                                } else
+                                {
+                                    ?>
+                                    <li><a href="settings.php">Settings</a></li>  
+                                <?php } ?>
+
+
+                            </ul>
+                        </div>
+
+                    <?php } ?>
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+        <div class="clear"></div>
+
+        <div id="test"></div>
+
+
+
+
+<div id="radioset">
+                    <input type="radio" id="radio1" name="radio" /><label for="radio1">And</label>
+                    <input type="radio" id="radio2" name="radio" checked="checked"/><label for="radio2">Or</label>
+                    <input type="radio" id="radio3" name="radio" /><label for="radio3">And251</label>
+                </div>
+
+<script>
+    $(document).ready(function() {
+
+
+        window.select_statements = {};
+        window.filter_statements = {};
+    
+
+        window.deleteFromSelectList = function(key)
+        {
+                        
+            delete window.select_statements[key];
+            window.refreshSelectList();
+        }
+        
+        window.deleteFromFilterList = function(key)
+        {
+                        
+            delete window.filter_statements[key];
+            window.refreshFilterList();
+        }
+
+        window.refreshSelectList = function() {
+            // display list with select statements
+            $("#select_list").empty();
+
+            var list = "";
+            for (var field in window.select_statements) {
+                list += "<li class='query-item'>Based on<span style='text-decoration:underline'>" + field + "</span>: " + window.select_statements[field] + " &nbsp;&nbsp;<a href='javascript:deleteFromSelectList(\""+field+"\");'>delete</a></li>";
+            }
+            $("#select_list").append(list);
+        };
+        
+        window.refreshFilterList = function() {
+            // display list with select statements
+            $("#filter_list").empty();
+
+            var list = "";
+            for (var field in window.filter_statements) {
+                list += "<li class='filter-item'>Filter on<span style='text-decoration:underline'>" + field + "</span>: " + window.filter_statements[field] + " &nbsp;&nbsp;<a href='javascript:deleteFromFilterList(\""+field+"\");'>delete</a></li>";
+            }
+            $("#filter_list").append(list);
+        };
+        
+
+
+
+        $('#groupingSelect').multiselect({
+            includeSelectAllOption: true,
+            numberDisplayed: 2,
+            maxHeight: 150,
+            buttonWidth: 150
+        });
+
+        $('input[type=submit]').button();
+
+       
+       $("#radioset").buttonset();
+
+        $('#select_show').on("click", function() {
+            $('#select_widget').bPopup({onOpen: function() { $("#select-widget-combo").trigger("change"); }});
+        });
+        
+        $('#filter_show').on("click", function() {
+            $('#filter_widget').bPopup({onOpen: function() { $("#filter-widget-combo").trigger("change"); }});
+        });
+    });
+
+
+
+    function displayExport() {
+        document.getElementById('export').style.display = 'block';
+    }
+
+    function progress(percent) {
+        document.getElementById('done').innerHTML = percent + '%';
+    }
+
+    function setInformation(num_tweets, num_archives) {
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('information').innerHTML = "<span style='font-weight:bold'>Number of archives: " + num_archives + "</span> <br/>" +
+                "<span style='font-weight:bold'>Number of tweets: " + num_tweets + "</span> <br/>";
+
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('export_btn').style.display = 'block';
+    }
+
+</script>
+
+<section id="overview-content">
+
+    <?php
+    if ($logged_in)
+    {
+        ?>
+
+        <div class="main" style="margin-top:70px">
+            <div class="main-block">
+
+                <div style="padding:7px;">
+
+                    <div class="top-title" style="width:250px">Export Archives</div>
+
+                    <a href="#" id="select_show" class='export-btn'>select</a>
+                    <a href="#" id="" class='export-btn' style="color:#000">|</a>
+                    <a href="#" id="filter_show" class='export-btn'>filter</a>
+                </div>
+
+                <div>
+                    <ul id="select_list"></ul>
+                </div>
+                
+                <div>
+                    <ul id="filter_list"></ul>
+                </div>
+
+                
+                <div id="radioset">
+                    <input type="radio" id="radio1" name="radio" /><label for="radio1">And</label>
+                    <input type="radio" id="radio2" name="radio" checked="checked"/><label for="radio2">Or</label>
+                </div>
+            </div>
+
+        </div>
+
+
+        <form action='export_process.php' target='export_process' method='post'  >
+
+            <div class ="top-title" style="margin:70px 0 0 0; ">
+                Select
+            </div>
+
+            <div class ="top-title" style="margin:70px 0 0 68%; ">
+                Filter
+            </div>
+
+
+
+            <div class="main-block" style="">
+
+                <div style="padding:7px;">
+                    <br/>
+                    <div class="">
+                        <table style="width:100%">
+                            <tr>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Type</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Keyword</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Description</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Tags</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Dates</td>             
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No RT</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>No Mentions</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Include Reactions</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Retweets</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Min Favorites</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Limit</td>
+                            </tr>
+
+                            <tr style="height:60px">
+                                <td>
+
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+
+                                </td>             
+                                <td></td> 
+                                <td></td> 
+                                
+                                <td><input name='rt' style="width:60px"/></td> 
+                                <td><input name='fv' style="width:60px"/></td> 
+                                <td><input name='limit' style="width:60px"/></td>                        
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <p class ="title"  style="margin:50px 0 10px 0;">
+                Process
+            </p>
+
+            <div class="main-block">
+
+                <div style="padding:7px;">
+                    <br/>
+                    <div class="">
+                        <table style="width:100%">
+                            <tr>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Aggregate per</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count Tweets Stats</td>
+                                <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count User Stats</td>
+
+                            </tr>
+
+                            <tr style="height:60px">
+                                <td>
+                                    <select name="groupings[]"  class="multiselect"  multiple="multiple" id="groupingSelect">
+
+                                        <?php
+                                        $groupings = array("total", "year", "month", "day", "hour", "user");
+
+                                        foreach ($groupings as $grouping)
+                                            echo "<option value='$grouping'>" . ucfirst($grouping) . "</option>";
+                                        ?>
+
+                                    </select>
+                                </td>      
+                                <td></td> 
+                                <td><input type="checkbox" name='user_stats' /></td> 
+
+                            </tr>
+
+                        </table>
+
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+
+            <input type='submit' class ="submit-button" value ='Filter' class="ui-state-default ui-corner-all"/>
+
+        </form>
+
+
+
+
+        <iframe name="export_process" frameborder="0" scrolling="0" width="1" height="1"></iframe>
+
+        <div class="main" id="export" style="display:none">
+            <div class="main-block">
+                <span class="main-header">Export archives</span> <br/>
+
+                <div id="loader" style='font-size:120%'>
+
+                    <div style="position:relative; top:-1px;display:inline-block;width:50px; height:50px; margin:10px"><img src='resources/ajax-loader_blue.gif' /></div>
+                    <div id="done" style="position:relative;display:inline-block">0% </div>
+                </div>
+
+                <div id="information"  style="display:none">                  
+                </div>
+
+                <div id="export_btn"  style="display:none; margin-top:25px; padding:10px">               
+                    <a href="excel.php?from_table=1" >Export to Excel</a>
+
+                </div>
+
+
+
+                <br/><br/>
+
+
+
+            </div>
+
+
+        </div>
+
+
+</body>
+</html>

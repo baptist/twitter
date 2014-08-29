@@ -7,35 +7,38 @@ ob_end_flush();
 
 header('Content-type: text/html; charset=utf-8');
 
-echo "<script type='text/javascript'>parent.displayExport();</script>";
-
 include_once('config.php');
 include_once('function.php');
 
-$condition = "1";
-if (!empty($_POST['tags']))
+$tk->reportProgress("Loading");
+
+$data = json_decode($_POST['data'], true);
+
+$conjunction = "or";
+$condition = ($conjunction === "and")? "1" : "0";
+if (!empty($data["select"]['tags']))
 {
-    $tags_array = $_POST['tags'];
+    $tags_array = $data["select"]['tags'];
     $tags = "";
     foreach ($tags_array as $selected)
         $tags .= strtolower($selected) . "|";
 
-    $condition .= " and tags regexp '" . substr($tags, 0, -1) . "'";
+    $condition .= " $conjunction tags regexp '" . substr($tags, 0, -1) . "'";
 }
 
-if (!empty($_POST['type']))
+if (!empty($data["select"]['type']))
 {
-    $type_array = $_POST['type'];
+    $type_array = $data["select"]['type'];
     $type = "";
     foreach ($type_array as $selected)
         $type .= strtolower($selected) . "|";
 
-    $condition .= " and type regexp '" . substr($type, 0, -1) . "'";
+    $condition .= " $conjunction type regexp '" . substr($type, 0, -1) . "'";
 }
 
-if (!empty($_POST["keywords"]))
+if (!empty($data["select"]["keywords"]))
 {
-    $array = explode(",", $_POST['keywords']);
+    $array = $data["select"]['keywords'];
     $keywords = "";
     foreach ($array as $selected)
         $keywords .= "'" . strtolower(trim($selected)) . "',";
@@ -45,228 +48,122 @@ if (!empty($_POST["keywords"]))
       while ($line = fgets ($f, 4096))
       $keywords .= "'" . strtolower(trim($line)) . "',"; */
 
-    $condition .= " and keyword in (" . substr($keywords, 0, -1) . ")";
+    $condition .= " $conjunction keyword in (" . substr($keywords, 0, -1) . ")";
 }
 
-if (!empty($_POST["description"]))
-    $condition .= " and description LIKE '" . $_POST["description"] . "'";
-
-$limit = false;
-if (!empty($_POST["limit"]))
-    $limit = $_POST["limit"];
-
-$no_mentions = false;
-if (!empty($_POST["no_mentions"]))
-    $no_mentions = $_POST["no_mentions"];
-
-$rt = false;
-if (!empty($_POST["rt"]))
-    $rt = $_POST["rt"];
-
-$fv = false;
-if (!empty($_POST["fv"]))
-    $fv = $_POST["fv"];
-
-$no_rt = false;
-if (!empty($_POST["no_rt"]))
-    $no_rt = $_POST["no_rt"];
-
-$include_reactions = false;
-if (!empty($_POST["include_reactions"]))
-    $include_reactions = $_POST["include_reactions"];
-
-$from = false;
-if (!empty($_POST["from"]))
-    $from = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["from"] . " 00:00:00")->getTimestamp();
-
-$to = false;
-if (!empty($_POST["to"]))
-    $to = DateTime::createFromFormat('d/m/Y H:i:s', $_POST["to"] . " 23:59:59")->getTimestamp();
+if (!empty($data["select"]["description"]))
+    $condition .= " $conjunction description LIKE '" . $data["select"]["description"] . "'";
 
 $archives = $tk->listArchivesWithCondition("$condition ORDER BY count DESC");
 
+
 if ($archives['count'] === 0)
-    $_SESSION['tweets'] = array();
+    echo "No matching archive(s) found.";
 else
 {
-    $tweets = $tk->getTweetsFromArchives($archives['results'], $from, $to, $limit, false, $no_rt, $no_mentions, false, false, false, false, false, false, false, false, false, $rt, $fv, $include_reactions);
+    $limit = false;
+    if (!empty($data["filter"]["limit"]))
+        $limit = $data["filter"]["limit"];
+
+    $no_mentions = false;
+    if (!empty($data["filter"]["no mentions"]))
+        $no_mentions = $data["filter"]["no mentions"]  === "Yes";
+
+    $no_rt = false;
+    if (!empty($data["filter"]["no retweets"]))
+        $no_rt = $data["filter"]["no retweets"]  === "Yes";
+
+    $include_reactions = false;
+    if (!empty($data["filter"]["include_reactions"]))
+        $include_reactions = $data["filter"]["include_reactions"] === "Yes";
+
+    $rt_fv = false;
+    if (!empty($data["filter"]["num retweets/favorites"]))
+    {        
+        if (!$tk->isEmpty($data["filter"]["num retweets/favorites"][1]))        
+            $rt_fv = "retweets " . $data["filter"]["num retweets/favorites"][0] . " " . $data["filter"]["num retweets/favorites"][1];
+        
+        if (!$tk->isEmpty($data["filter"]["num retweets/favorites"][1]) && !$tk->isEmpty($data["filter"]["num retweets/favorites"][4])) 
+            $rt_fv .= " " . $data["filter"]["num retweets/favorites"][2] . " ";
+                
+        if (!$tk->isEmpty($data["filter"]["num retweets/favorites"][4]))        
+            $rt_fv .= "favorites " . $data["filter"]["num retweets/favorites"][3] . " " . $data["filter"]["num retweets/favorites"][4];          
+    }
+            
+    $fields = false;
+    if (!empty($data["filter"]["fields"]))
+        $fields = $data["filter"]["fields"];
 
 
-    $groupings = false;
-    $process = false;
-    if (!empty($_POST["groupings"]))
+    $from = false;$to = false;
+    if (!empty($data["filter"]["dates"]))
     {
-        $stats = array();
-
-        $user_stats = false;
-        if (!empty($_POST["user_stats"]))
-            $user_stats = $_POST["user_stats"];
-
-        $tweet_stats = false;
-        if (!empty($_POST["tweets_stats"]))
-            $tweet_stats = $_POST["tweets_stats"];
-
-        $process = true;
-
-        foreach ($_POST["groupings"] as $grouping)
-        {
-            if (strcasecmp($grouping, "user") === 0)
-            {
-                foreach ($archives['results'] as $archive)
-                {
-                    $key = strtolower($archive['keyword']);
-                    $stats[$key] = array();
-                    $user = $tk->getUser($key);
-                    $stats[$key]['screen_name'] = $key;
-                    $stats[$key]['name'] = $user['full_name'];
-                    $stats[$key]['followers'] = $user['followers'];
-                    $stats[$key]['num_tweets_sent'] = 0;
-                    $stats[$key]['num_retweets_sent'] = 0;
-                    $stats[$key]['num_replies_sent'] = 0;
-                    $stats[$key]['num_mentions_sent'] = 0;
-                    $stats[$key]['num_retweets_rec'] = 0;
-                    $stats[$key]['num_favorites_rec'] = 0;
-                    $stats[$key]['num_replies_rec'] = 0;
-                    $stats[$key]['num_mentions_rec'] = 0;
-                }
-
-                foreach ($tweets as $tweet)
-                {
-                    $is_retweet = false;
-
-                    $key = strtolower($tweet['from_user']);
-                    if (array_key_exists($key, $stats))
-                    { // tweet from user
-                        $stats[$key]['num_tweets_sent']++;
-
-                        if (strpos(trim($tweet['text']), '@') === 0)
-                            $stats[$key]['num_replies_sent']++;
-                        else if (($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
-                                (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key))
-                        {
-                            $is_retweet = true;
-                            $stats[$key]['num_retweets_sent']++;
-                        } else if (strpos(trim($tweet['text']), '@') > 0)
-                            $stats[$key]['num_mentions_sent']++;
-
-
-                        if (!$is_retweet)
-                        {
-                            $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0) ? $tweet['favorites'] : 0;
-                            $stats[$key]['num_retweets_rec'] += ($tweet['retweets'] >= 0) ? $tweet['retweets'] : 0;
-                        }
-                    } else if (array_key_exists(strtolower($tweet['to_user']), $stats))
-                    {
-                        $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
-                    }
-
-                    // If tweet is no retweet check which users are mentioned.
-                    if (!(($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
-                            (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key)))
-                    {
-                        $mentioned = array();
-                        $lastPos = 1;
-                        while (($lastPos = strpos($tweet['text'], "@", $lastPos)) !== false)
-                        {
-                            $next_pos = strpos($tweet['text'], " ", $lastPos + 1);
-                            $mentioned_name = ($next_pos !== false) ? substr($tweet['text'], $lastPos + 1, $next_pos - ($lastPos + 1)) : substr($tweet['text'], $lastPos + 1);
-
-                            if (!empty($mentioned_name))
-                            {
-                                $mentioned[] = $mentioned_name;
-                                $lastPos = $lastPos + strlen($mentioned_name);
-                            }
-                            else
-                                $lastPos += 1; 
-                        }
-
-                        foreach ($mentioned as $mention)
-                        {
-                            if (array_key_exists(strtolower($mention), $stats))
-                                $stats[strtolower($mention)]['num_mentions_rec']++;
-                        }
-                    }
-                }
-            } else if (strcasecmp($grouping, "total") === 0)
-            {
-                $users = array();
-                $stats['total'] = array();
-                $stats['total']['type'] = 'total';
-                $stats['total']['num_tweets'] = 0;
-                foreach ($tweets as $tweet)
-                {
-                    $stats['total'] ['num_tweets']++;
-                    $users[$tweet['from_user']] = 1;
-                }
-                $stats['total']['num_users'] = count(array_keys($users));
-            } else
-            {
-                foreach ($tweets as $tweet)
-                {
-                    $user = $tweet['from_user'];
-
-                    switch ($grouping)
-                    {
-                        case "year":
-                            $timing = mktime(0, 0, 0, 0, 0, date('Y', $tweet['time']));
-                            $formatted_timing = date('Y', $tweet['time']);
-                            break;
-                        case "month":
-                            $timing = mktime(0, 0, 0, date('m', $tweet['time']), 0, date('Y', $tweet['time']));
-                            $formatted_timing = date('m-Y', $tweet['time']);
-                            break;
-                        case "day":
-                            $timing = mktime(0, 0, 0, date('n', $tweet['time']), date('j', $tweet['time']), date('Y', $tweet['time']));
-                            $formatted_timing = date('d-m-Y', $tweet['time']);
-                            break;
-                        case "hour":
-                            $timing = mktime(date('H', $tweet['time']), 0, 0, date('n', $tweet['time']), date('j', $tweet['time']), date('Y', $tweet['time']));
-                            $formatted_timing = date('H:00 d-m-Y', $tweet['time']);
-                            break;
-                    }
-
-                    if (!isset($stats[$timing]))
-                    {
-                        $stats[$timing] = array();
-                        $stats[$timing]['type'] = $formatted_timing;
-                        $stats[$timing]['num_tweets'] = 0;
-                        $stats[$timing]['users'] = array();
-                    }
-
-                    $stats[$timing]['num_tweets']++;
-                    $stats[$timing]['users'][$tweet['from_user']] = 1;
-                }
-
-                foreach ($stats as $key => $value)
-                {
-                    if (array_key_exists("users", $stats[$key]))
-                    {
-                        $stats[$key]['num_users'] = count($stats[$key]['users']);
-                        unset($stats[$key]['users']);
-                    }
-                }
-                var_dump($stats);
-                ksort($stats);
-            }
-        }
-        $tk->saveExport($stats);
-    } else
-    {
-        $keys = array("text", "from_user_id", "from_user", "to_user_id", "to_user", "original_user_id",
-            "original_user", "id", /* "in_reply_to_status_id", */ "iso_language_code", "profile_image_url",
-            "geo_type", "geo_coordinates_0", "geo_coordinates_1", "created_at", "time", "favorites", "retweets", "description", "tags");
-        $data = array();
-        foreach ($tweets as $tweet)
-        {
-            $data[$tweet['id']] = array();
-            foreach ($keys as $key)
-                $data[$tweet['id']][$key] = $tweet[$key];
-        }
-        $tk->saveExport($data);
+        if (!empty($data["filter"]["dates"][0]))
+            $from = DateTime::createFromFormat('d/m/Y H:i:s', $data["filter"]["dates"][0] . " 00:00:00")->getTimestamp();
+        if (!empty($data["filter"]["dates"][1]))
+            $to = DateTime::createFromFormat('d/m/Y H:i:s', $data["filter"]["dates"][1] . " 23:59:59")->getTimestamp();
     }
 
-    $_SESSION['export_from_table'] = 1;
+    $tweets = $tk->getTweetsFromArchives($archives['results'], $from, $to, $limit, false, $no_rt, $no_mentions, false, false, false, false, false, false, false, false, false, $rt_fv, $include_reactions);
 
-    echo "<script type='text/javascript'>parent.setInformation('" . count($tweets) . "','" . $archives['count'] . "');</script>";
+    if (!empty($data["analyze"]))
+    {
+        $tk->reportProgress("Analyzing"); 
+        
+        $stats = array(); 
+           
+        if (!empty($data["analyze"]["tweet statistics"]))
+            $stats = array_merge($stats, $tk->extractTweetStatistics($tweets, $data["analyze"]["tweet statistics"][0], $data["analyze"]["tweet statistics"][1]));
+        
+        if (!empty($data["analyze"]["user statistics"]))
+            $stats = array_merge($stats, $tk->extractUserStatistics($archives, $tweets, $data["analyze"]["user statistics"][0], $data["analyze"]["user statistics"][1]));
+        
+        if (!empty($data["analyze"]["from-to relations"]) && $data["analyze"]["from-to relations"] === "Yes")
+            $stats = array_merge($stats, $tk->extractFromToRelations($tweets));
+        
+        if (!empty($data["analyze"]["unique users"]) && $data["analyze"]["unique users"] === "Yes")
+            $stats = array_merge($stats, $tk->extractUniqueUsers($tweets));
+            
+        
+        $keys = array_keys(array_values($stats)[0]);
+        $data = $stats;
+    }
+    else
+    {
+        $keys = ($fields) ? $fields : array_merge($tweet_fields, $optional_tweet_fields);
+        $data = $tweets;
+    }
+    
+    $tk->reportProgress("Saving");    
+    
+    $data_tosave = array();
+    foreach ($data as $element)
+    {         
+        $data_tosave[$element['id']] = array();
+        foreach ($keys as $key)
+        {
+            if (array_key_exists($key, $element))
+                $data_tosave[$element['id']][$key] = $element[$key];
+            else
+                $data_tosave[$element['id']][$key] = "";
+        }
+    }
+    // General stats
+    $num_tweets = count($tweets);
+    $num_archives = $archives['count'];
+    
+    // Reset var
+    unset($archives);
+    unset($tweets);
+    unset($data);
+
+    $tk->saveExport($data_tosave);
+    
+    unset($data_tosave);
+    
+    echo "Loaded " . $num_tweets . " tweet(s) from " . $num_archives . " archive(s).";
+    
+    // TODO best way to transfer progress information to root?
+    $tk->reportProgress("", true);   
 }
 ?>

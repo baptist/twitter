@@ -1,6 +1,23 @@
 @import url("sub/header.css");
 
-
+@font-face {
+    font-family: 'Headland One';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Headland One'), local('HeadlandOne-Regular'), url(http://fonts.gstatic.com/s/headlandone/v3/iGmBeOvQGfq9DSbjJ8jDV3hCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v9/DXI1ORHCpsQm3Vp6mXoaTYraN7vELC11_xip9Rz-hMs.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v9/RjgO7rYTmqiVp7vzi-Q5UT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
 
 
 body {
@@ -279,7 +296,7 @@ ul.status-list {
     min-width:70px;
     min-height:20px; 
     text-align:center;
-    padding:7px 10px;
+    padding:5px 10px;
     cursor:pointer;
     z-index:1;
     border-right:1px #DDD solid;
@@ -299,6 +316,8 @@ ul.status-list {
     margin-right:10px;
     float:right;
     border:none;
+    position:relative;
+    top:-2px;
 }
 
 ol, ul {
@@ -329,7 +348,6 @@ div.top-title {
     width:70px;
     padding:10px;
 
-
     background:#FFF;
 
     color:#111;
@@ -346,5 +364,62 @@ div.top-title {
 * we use height instead, but this forces the menu to always be this tall
 */
 * html .ui-autocomplete {
-    height: 100px;ckground: url("../resources/ajax-loader_blue.gif") no-repeat center center transparent;
+    height: 100px;background: url("../resources/ajax-loader_blue.gif") no-repeat center center transparent;
+}
+
+.widget-main {
+    padding:25px 15px 15px 15px;
+}
+
+.widget-input{
+    display:inline-block;
+    padding:4px;
+}
+
+
+.widget-text
+{
+    display:block;
+    width:40%;
+    padding:0px 5px 8px 5px;
+    font-size:115%
+}
+
+.export-btn{
+    font-size:110%;
+
+    text-transform: uppercase
+}
+
+
+.widget-title {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    padding:5px;
+    display:block;
+    width:100%;
+    height:33px;
+    background:#F0F0F0;
+}
+.query-item {
+    padding:5px 5px 5px 25px;
+    font-size:120%;
+    background: url(../resources/icons/icons_0048_Favorite-small_grey.png) no-repeat 0px 7px;
+}
+
+
+.filter-item {
+    padding:5px 5px 5px 25px;
+    font-size:120%;
+    background: url(../resources/icons/icons_0010_Settings-small_grey.png) no-repeat 3px 10px;
+}
+
+.analyze-item {
+    padding:5px 5px 5px 25px;
+    font-size:120%;
+    background: url(../resources/icons/icons_0020_Looking-Glass-small_grey.png) no-repeat 3px 10px;
 }

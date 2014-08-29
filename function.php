@@ -263,7 +263,7 @@ class YourTwapperKeeper {
         global $db;
 
         $response = array();
-        
+
         // Remove whitespaces and quotes
         $keyword = trim(trim($keyword), '"');
         $description = trim(trim($description), '"');
@@ -275,10 +275,10 @@ class YourTwapperKeeper {
             $response[0] = "Ignore '/'.";
             return $response;
         }
-        
+
         // Remove keyword's first character if it equals '@' or '#'.
-        $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);       
-        
+        $keyword = trim(($keyword[0] == "@" || $keyword[0] == "#") ? substr($keyword, 1) : $keyword);
+
 
         $q = "select * from archives where keyword = '$keyword' and (type='$type' or (type IN (4,5) and $type=3))";
 
@@ -423,7 +423,8 @@ class YourTwapperKeeper {
     {
         return $a["time"] - $b["time"];
     }
-
+    
+    
     function cmpConversations($a, $b)
     {
         if (count($a) > 0 && count($b) > 0)
@@ -453,7 +454,42 @@ class YourTwapperKeeper {
             return NULL;
     }
 
-    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false, $include_reactions = false)
+    function getProgress()
+    {
+        global $db;
+
+        // check if user does not exist in db        
+        $q = "select `value` from `export` where `key` = 'progress'";
+        $r = mysql_query($q, $db->connection);
+        if ($r && mysql_num_rows($r) == 1)
+        {
+            $result = mysql_fetch_assoc($r);
+            mysql_free_result($r);
+            return $result["value"];
+        }
+        else
+            return "";
+    }
+
+    function reportProgress($progress, $delete = false)
+    {
+        global $db;
+
+        if ($delete)
+            $q = "delete from export where `key`='progress' LIMIT 1";
+        else
+        {
+            $q = "select `value` from export where `key` = 'progress'";
+            $r = mysql_query($q, $db->connection);
+            if (mysql_num_rows($r) == 1)
+                $q = "update export set `value`='$progress' where `key` = 'progress'";
+            else
+                $q = "insert into export (`key`,`value`) values ('progress', '$progress')";
+        }
+        mysql_query($q, $db->connection);
+    }
+
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false, $include_reactions = false)
     {
         $response = array();
         $tweets = array();
@@ -469,7 +505,7 @@ class YourTwapperKeeper {
 
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user) ? $archive['keyword'] : false, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $retweets, $favorites);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user) ? $archive['keyword'] : false, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $rt_fv);
 
             foreach ($result as $r)
             {
@@ -567,7 +603,8 @@ class YourTwapperKeeper {
                 }
                 $total++;
             }
-            echo '<script type="text/javascript">parent.progress(' . round(($total / $total_num_to_process * 100)) . ');</script>';
+
+            $this->reportProgress(round(($total / ($total_num_to_process + 1) * 100), 2) . "%");
         }
 
         if ($nort)
@@ -596,13 +633,15 @@ class YourTwapperKeeper {
                 $response = array_merge($response, $conversation);
         }
 
+
+
         if ($limit)
             $response = array_slice($response, 0, $limit);
 
         return $response;
     }
 
-    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $retweets = false, $favorites = false)
+    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false)
     {
         global $db;
 
@@ -621,8 +660,7 @@ class YourTwapperKeeper {
         $lat = $this->sanitize($lat);
         $long = $this->sanitize($long);
         $rad = $this->sanitize($rad);
-        $retweets = $this->sanitize($retweets);
-        $favorites = $this->sanitize($favorites);
+        $rt_fv = $this->sanitize($rt_fv);
 
         $q = "select * from z_" . $id . " where 1";
 
@@ -653,8 +691,8 @@ class YourTwapperKeeper {
         if ($max_id)
             $qparam .= " and id <= $max_id";
 
-        if ($retweets || $favorites)
-            $qparam .= " and (" . (($retweets) ? "retweets >= " . $retweets : "") . (($retweets && $favorites) ? " and " : "") . (($favorites) ? "favorites >= " . $favorites : "") . ")";
+        if ($rt_fv)
+            $qparam .= " and " . $rt_fv;
 
 
         if ($lat OR $long OR $rad)
@@ -858,7 +896,7 @@ class YourTwapperKeeper {
                 $archiveID = $row['original_archive'];
 
 
-            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);            
+            $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);
             $result = mysql_fetch_assoc($r3);
 
 
@@ -935,7 +973,7 @@ class YourTwapperKeeper {
         return $tweet;
     }
 
-    function isReply($replyTweet, $origTweet)
+    function isReplyOnTweet($replyTweet, $origTweet)
     {
         global $time_to_track_user;
 
@@ -1224,17 +1262,230 @@ class YourTwapperKeeper {
 
         // clear export table
         mysql_query("truncate table export", $db->connection);
-
+        $insert_query = "insert into export values ";
         foreach ($data as $key => $element)
         {
             $value = $this->sanitize(json_encode(Encoding::fixUTF8($element), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-            mysql_query("insert into export values (0, '$key', '$value')", $db->connection);
-
-            if (empty($value))
-                print var_dump($element);
-        }
+            $insert_query .= "(0, '$key', '$value'),";
+        }        
+        mysql_query(substr($insert_query, 0, -1), $db->connection);
 
         return TRUE;
+    }
+
+    function extractUserStatistics($archives, $tweets, $grouping=0, $properties=array())
+    {
+        $stats = array();
+
+        foreach ($archives['results'] as $archive)
+        {
+            $key = strtolower($archive['keyword']);
+            $stats[$key] = array();
+            $user = $this->getUser($key);
+            $stats[$key]['id'] = $key;
+            $stats[$key]['name'] = $user['full_name'];
+            $stats[$key]['followers'] = $user['followers'];
+            $stats[$key]['num_tweets_sent'] = 0;
+            $stats[$key]['num_retweets_sent'] = 0;
+            $stats[$key]['num_replies_sent'] = 0;
+            $stats[$key]['num_mentions_sent'] = 0;
+            $stats[$key]['num_retweets_rec'] = 0;
+            $stats[$key]['num_favorites_rec'] = 0;
+            $stats[$key]['num_replies_rec'] = 0;
+            $stats[$key]['num_mentions_rec'] = 0;
+        }
+
+        foreach ($tweets as $tweet)
+        {
+            $is_retweet = false;
+
+            $key = strtolower($tweet['from_user']);
+            if (array_key_exists($key, $stats))
+            { // tweet from user
+                $stats[$key]['num_tweets_sent']++;
+
+                if (strpos(trim($tweet['text']), '@') === 0)
+                    $stats[$key]['num_replies_sent']++;
+                else if ($this->isRetweet($tweet, $key))
+                {
+                    $is_retweet = true;
+                    $stats[$key]['num_retweets_sent']++;
+                } else if (strpos(trim($tweet['text']), '@') > 0)
+                    $stats[$key]['num_mentions_sent']++;
+
+
+                if (!$is_retweet)
+                {
+                    $stats[$key]['num_favorites_rec'] += ($tweet['favorites'] >= 0) ? $tweet['favorites'] : 0;
+                    $stats[$key]['num_retweets_rec'] += ($tweet['retweets'] >= 0) ? $tweet['retweets'] : 0;
+                }
+            } else if (array_key_exists(strtolower($tweet['to_user']), $stats))
+            {
+                $stats[strtolower($tweet['to_user'])]['num_replies_rec']++;
+            }
+
+            // If tweet is no retweet check which users are mentioned.
+            if (!(($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
+                    (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $key)))
+            {
+                $mentioned = $this->getMentionedUsers($tweet);
+                foreach ($mentioned as $mention)
+                {
+                    if (array_key_exists(strtolower($mention), $stats))
+                        $stats[strtolower($mention)]['num_mentions_rec']++;
+                }
+            }
+        }
+        return $stats;
+    }
+    
+    function isRetweet($tweet, $original_user)
+    {
+        return  ($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) || 
+                (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $original_user);
+    }
+
+    function getMentionedUsers($tweet, $lastPos = 1)
+    {
+        $mentioned = array();
+        $matches = null;
+        preg_match_all("/@[a-zA-Z0-9_]{1,15}/", $tweet['text'], $matches, 0, $lastPos); 
+        
+        if (empty($matches))
+            return array();
+        
+        foreach ($matches[0] as $match)
+            $mentioned[] = substr($match, 1);
+        
+        return $mentioned;
+    }
+
+    function extractTweetCharacteristics($tweet)
+    {
+        $characteristics = array();
+    }
+
+    function extractFromToRelations($tweets)
+    {
+        $stats = array();
+        $index = -1;
+        foreach ($tweets as $tweet)
+        {
+            // Check if tweet is either mention or reply
+            if (strpos(trim($tweet['text']), '@') >= 0 && !$this->isRetweet($tweet, $tweet['from_user']))
+            {
+                // Extract all from - to relations
+                foreach ($this->getMentionedUsers($tweet, 0) as $mention)
+                {
+                    $stats[++$index] = array();
+                    $stats[$index]["id"] = $index;
+                    $stats[$index]["tweet"] = $tweet["text"];
+                    $stats[$index]["from"] = $tweet["from_user"];
+                    $stats[$index]["to"] = $mention;
+                }
+            }
+        }
+        return $stats;
+    }
+    
+    
+    function extractUniqueUsers($tweets)
+    {
+        $stats = array();        
+        $users = array();
+        foreach ($tweets as $tweet)
+        {
+            // Check if tweet is either mention or reply
+            if (strpos(trim($tweet['text']), '@') >= 0 && !$this->isRetweet($tweet, $tweet['from_user']) )
+            {
+                $users[$tweet["from_user"]] = 1;
+                // Extract all from - to relations
+                foreach ($this->getMentionedUsers($tweet, 0) as $mention)
+                    $users[$mention] = 1;      
+            }
+        }
+        
+        $index = -1;
+        $keys = array_keys($users);       
+        sort($keys, SORT_STRING | SORT_FLAG_CASE);
+
+        foreach($keys as $key)
+        {            
+            $stats[++$index] = array();
+            $stats[$index]["id"] = $index;
+            $stats[$index]["user"] = $key;
+        }
+        
+        return $stats;
+    }
+
+    function extractTweetStatistics($tweets, $grouping, $properties)
+    {
+        $stats = array();
+
+        if (strcasecmp($grouping, "total") === 0)
+        {
+            $users = array();
+            $stats['total'] = array();
+            $stats['total']['id'] = 'total';
+            $stats['total']['num_tweets'] = 0;
+            foreach ($tweets as $tweet)
+            {
+                $stats['total'] ['num_tweets']++;
+                $users[$tweet['from_user']] = 1;
+            }
+            $stats['total']['num_users'] = count(array_keys($users));
+        } else
+        {
+
+            foreach ($tweets as $tweet)
+            {
+                $user = $tweet['from_user'];
+
+                switch (strtolower($grouping))
+                {
+                    case "year":
+                        $timing = mktime(0, 0, 0, 0, 0, date('Y', $tweet['time']));
+                        $formatted_timing = date('Y', $tweet['time']);
+                        break;
+                    case "month":
+                        $timing = mktime(0, 0, 0, date('m', $tweet['time']), 0, date('Y', $tweet['time']));
+                        $formatted_timing = date('m-Y', $tweet['time']);
+                        break;
+                    case "day":
+                        $timing = mktime(0, 0, 0, date('n', $tweet['time']), date('j', $tweet['time']), date('Y', $tweet['time']));
+                        $formatted_timing = date('d-m-Y', $tweet['time']);
+                        break;
+                    case "hour":
+                        $timing = mktime(date('H', $tweet['time']), 0, 0, date('n', $tweet['time']), date('j', $tweet['time']), date('Y', $tweet['time']));
+                        $formatted_timing = date('H:00 d-m-Y', $tweet['time']);
+                        break;
+                }
+
+                if (!isset($stats[$timing]))
+                {
+                    $stats[$timing] = array();
+                    $stats[$timing]['id'] = $formatted_timing;
+                    $stats[$timing]['num_tweets'] = 0;
+                    $stats[$timing]['users'] = array();
+                }
+
+                $stats[$timing]['num_tweets']++;
+                $stats[$timing]['users'][$tweet['from_user']] = 1;
+            }
+
+            foreach ($stats as $key => $value)
+            {
+                if (array_key_exists("users", $stats[$key]))
+                {
+                    $stats[$key]['num_users'] = count($stats[$key]['users']);
+                    unset($stats[$key]['users']);
+                }
+            }
+            ksort($stats);
+        }
+
+        return $stats;
     }
 
     function getExportData()
@@ -1251,6 +1502,11 @@ class YourTwapperKeeper {
         mysql_free_result($result);
 
         return $data;
+    }
+
+    function isEmpty($value)
+    {
+        return empty($value) && !($value === 0 || $value === "0");
     }
 
 }

@@ -290,7 +290,7 @@ $tags = $tk->getUniformTags(4);
                 <li class="last">
                     <img src="resources/icons/icons_0020_Looking-Glass-small_grey.png"
                          alt=""
-                         style="margin-right:6px;position:relative; top:-3px"/>
+                         style="margin-top:0px;margin-right:6px;"/>
                     <input type="text" name="focus" id="focus" value="" style="position:relative;top:-3px;width:150px;height:25px" />
                 </li>
 
