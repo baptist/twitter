@@ -489,7 +489,7 @@ class YourTwapperKeeper {
         mysql_query($q, $db->connection);
     }
 
-    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false, $include_reactions = false)
+    function getTweetsFromArchives($archives, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false, $include_reactions = false, $performance = false)
     {
         $response = array();
         $tweets = array();
@@ -505,7 +505,7 @@ class YourTwapperKeeper {
 
         foreach ($archives as $archive)
         {
-            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user) ? $archive['keyword'] : false, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $rt_fv);
+            $result = $this->getTweets($archive['id'], $archive['type'], $start, $end, false, $orderby, false, ($from_user) ? $archive['keyword'] : false, $text, $lang, $max_id, $since_id, $offset, $lat, $long, $rad, $debug, $rt_fv, $performance);
 
             foreach ($result as $r)
             {
@@ -641,7 +641,7 @@ class YourTwapperKeeper {
         return $response;
     }
 
-    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false)
+    function getTweets($id, $type, $start = false, $end = false, $limit = false, $orderby = false, $nort = false, $from_user = false, $text = false, $lang = false, $max_id = false, $since_id = false, $offset = false, $lat = false, $long = false, $rad = false, $debug = false, $rt_fv = false, $performance = false)
     {
         global $db;
 
@@ -730,7 +730,7 @@ class YourTwapperKeeper {
         while ($row = mysql_fetch_assoc($r))
         {
             // Check original tweet if some fields are missing
-            if ($row['retweets'] == '' || $row['retweets'] === FALSE || $row['favorites'] == '' or $row['favorites'] === FALSE)
+            if (!$performance && ($row['retweets'] == '' || $row['retweets'] === FALSE || $row['favorites'] == '' or $row['favorites'] === FALSE))
             {
                 $temprow = $this->getOriginalTweet($row["id"]);
                 if ($temprow != FALSE)
@@ -1379,7 +1379,6 @@ class YourTwapperKeeper {
                 {
                     $stats[++$index] = array();
                     $stats[$index]["id"] = $index;
-                    $stats[$index]["tweet"] = $tweet["text"];
                     $stats[$index]["from"] = $tweet["from_user"];
                     $stats[$index]["to"] = $mention;
                 }
