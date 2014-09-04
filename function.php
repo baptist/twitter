@@ -1372,7 +1372,7 @@ class YourTwapperKeeper {
         foreach ($tweets as $tweet)
         {
             // Check if tweet is either mention or reply
-            if (strpos(trim($tweet['text']), '@') >= 0 && !$this->isRetweet($tweet, $tweet['from_user']))
+            if (strpos(trim($tweet['text']), '@') !== FALSE && !$this->isRetweet($tweet, $tweet['from_user']))
             {
                 // Extract all from - to relations
                 foreach ($this->getMentionedUsers($tweet, 0) as $mention)
@@ -1395,7 +1395,7 @@ class YourTwapperKeeper {
         foreach ($tweets as $tweet)
         {
             // Check if tweet is either mention or reply
-            if (strpos(trim($tweet['text']), '@') >= 0 && !$this->isRetweet($tweet, $tweet['from_user']) )
+            if (strpos(trim($tweet['text']), '@') !== FALSE && !$this->isRetweet($tweet, $tweet['from_user']) )
             {
                 $users[$tweet["from_user"]] = $tweet["text"];
                 // Extract all from - to relations
