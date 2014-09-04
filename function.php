@@ -187,6 +187,7 @@ class YourTwapperKeeper {
             $limit = "";
 
         $r = mysql_query($q . " order by count desc $limit", $db->connection);
+               
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
         {
@@ -1413,6 +1414,14 @@ class YourTwapperKeeper {
             $stats[++$index] = array();
             $stats[$index]["id"] = $index;
             $stats[$index]["user"] = $key;
+            
+            // Find extra information of user if possible
+            $archive = $this->listArchive(FALSE, $key);
+            if ($archive["count"] == 0)
+                $stats[$index]["information"] = "unknown";
+            else
+                $stats[$index]["information"] = $archive["results"][0]["tags"];
+            
         }
         
         return $stats;
