@@ -187,7 +187,7 @@ class YourTwapperKeeper {
             $limit = "";
 
         $r = mysql_query($q . " order by count desc $limit", $db->connection);
-               
+
         $count = 0;
         while ($row = mysql_fetch_assoc($r))
         {
@@ -424,8 +424,7 @@ class YourTwapperKeeper {
     {
         return $a["time"] - $b["time"];
     }
-    
-    
+
     function cmpConversations($a, $b)
     {
         if (count($a) > 0 && count($b) > 0)
@@ -1261,20 +1260,28 @@ class YourTwapperKeeper {
     {
         global $db;
 
+        $chunk_size = 10000;
+
         // clear export table
         mysql_query("truncate table export", $db->connection);
-        $insert_query = "insert into export values ";
-        foreach ($data as $key => $element)
+
+        for ($i = 0; $i < count($data); $i += $chunk_size)
         {
-            $value = $this->sanitize(json_encode(Encoding::fixUTF8($element), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-            $insert_query .= "(0, '$key', '$value'),";
-        }        
-        mysql_query(substr($insert_query, 0, -1), $db->connection);
+            $chunk = array_slice($data, $i, $chunk_size);
+            
+            $insert_query = "insert into export values ";
+            foreach ($chunk as $key => $element)
+            {
+                $value = $this->sanitize(json_encode(Encoding::fixUTF8($element), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+                $insert_query .= "(0, '$key', '$value'),";
+            }
+            mysql_query(substr($insert_query, 0, -1), $db->connection);
+        }
 
         return TRUE;
     }
 
-    function extractUserStatistics($archives, $tweets, $grouping=0, $properties=array())
+    function extractUserStatistics($archives, $tweets, $grouping = 0, $properties = array())
     {
         $stats = array();
 
@@ -1339,10 +1346,10 @@ class YourTwapperKeeper {
         }
         return $stats;
     }
-    
+
     function isRetweet($tweet, $original_user)
     {
-        return  ($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) || 
+        return ($tweet['original_user'] !== '' && $tweet['original_user'] != NULL) ||
                 (strpos($tweet['text'], 'RT @') === 0 && strtolower($tweet['original_user']) !== $original_user);
     }
 
@@ -1350,14 +1357,14 @@ class YourTwapperKeeper {
     {
         $mentioned = array();
         $matches = null;
-        preg_match_all("/@[a-zA-Z0-9_]{1,15}/", $tweet['text'], $matches, 0, $lastPos); 
-        
+        preg_match_all("/@[a-zA-Z0-9_]{1,15}/", $tweet['text'], $matches, 0, $lastPos);
+
         if (empty($matches))
             return array();
-        
+
         foreach ($matches[0] as $match)
             $mentioned[] = substr($match, 1);
-        
+
         return $mentioned;
     }
 
@@ -1387,43 +1394,41 @@ class YourTwapperKeeper {
         }
         return $stats;
     }
-    
-    
+
     function extractUniqueUsers($tweets)
     {
-        $stats = array();        
+        $stats = array();
         $users = array();
         foreach ($tweets as $tweet)
         {
             // Check if tweet is either mention or reply
-            if (strpos(trim($tweet['text']), '@') !== FALSE && !$this->isRetweet($tweet, $tweet['from_user']) )
+            if (strpos(trim($tweet['text']), '@') !== FALSE && !$this->isRetweet($tweet, $tweet['from_user']))
             {
                 $users[$tweet["from_user"]] = $tweet["text"];
                 // Extract all from - to relations
                 foreach ($this->getMentionedUsers($tweet, 0) as $mention)
-                    $users[$mention] = $tweet["text"];      
+                    $users[$mention] = $tweet["text"];
             }
         }
-        
+
         $index = -1;
-        $keys = array_keys($users);       
+        $keys = array_keys($users);
         sort($keys, SORT_STRING | SORT_FLAG_CASE);
 
-        foreach($keys as $key)
-        {            
+        foreach ($keys as $key)
+        {
             $stats[++$index] = array();
             $stats[$index]["id"] = $index;
             $stats[$index]["user"] = $key;
-            
+
             // Find extra information of user if possible
             $archive = $this->listArchive(FALSE, $key);
             if ($archive["count"] == 0)
                 $stats[$index]["information"] = "unknown";
             else
                 $stats[$index]["information"] = $archive["results"][0]["tags"];
-            
         }
-        
+
         return $stats;
     }
 
