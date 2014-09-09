@@ -1267,7 +1267,7 @@ class YourTwapperKeeper {
 
         for ($i = 0; $i < count($data); $i += $chunk_size)
         {
-            $chunk = array_slice($data, $i, $chunk_size);
+            $chunk = array_slice($data, $i, $chunk_size, TRUE);
             
             $insert_query = "insert into export values ";
             foreach ($chunk as $key => $element)
@@ -1276,6 +1276,7 @@ class YourTwapperKeeper {
                 $insert_query .= "(0, '$key', '$value'),";
             }
             mysql_query(substr($insert_query, 0, -1), $db->connection);
+            
         }
 
         return TRUE;
