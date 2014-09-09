@@ -134,6 +134,14 @@ else
         $data = $tweets;
     }
     
+    // General stats
+    $num_tweets = count($tweets);
+    $num_archives = $archives['count'];
+    
+    // Reset var
+    unset($archives);
+    unset($tweets);
+    
     $tk->reportProgress("Saving");    
     
     $data_tosave = array();
@@ -147,14 +155,9 @@ else
             else
                 $data_tosave[$element['id']][$key] = "";
         }
+        unset($element);
     }
-    // General stats
-    $num_tweets = count($tweets);
-    $num_archives = $archives['count'];
-    
     // Reset var
-    unset($archives);
-    unset($tweets);
     unset($data);
 
     $tk->saveExport($data_tosave);
