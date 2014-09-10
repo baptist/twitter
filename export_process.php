@@ -147,7 +147,7 @@ else
     $tk->reportProgress("Saving");    
     
     $data_tosave = array();
-    foreach ($data as $key => $element)
+    foreach ($data as $datakey => $element)
     {         
         $data_tosave[$element['id']] = array();
         foreach ($keys as $key)
@@ -157,8 +157,8 @@ else
             else
                 $data_tosave[$element['id']][$key] = "";
         }
-        $data[$key] = NULL;
-        unset($data[$key]);
+        $data[$datakey] = NULL;
+        unset($data[$datakey]);
     }
     // Reset var
     $data = NULL;
