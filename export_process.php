@@ -139,13 +139,15 @@ else
     $num_archives = $archives['count'];
     
     // Reset var
+    $archives = NULL;
+    $tweets = NULL;
     unset($archives);
     unset($tweets);
     
     $tk->reportProgress("Saving");    
     
     $data_tosave = array();
-    foreach ($data as $element)
+    foreach ($data as $key => $element)
     {         
         $data_tosave[$element['id']] = array();
         foreach ($keys as $key)
@@ -155,13 +157,16 @@ else
             else
                 $data_tosave[$element['id']][$key] = "";
         }
-        unset($element);
+        $data[$key] = NULL;
+        unset($data[$key]);
     }
     // Reset var
+    $data = NULL;
     unset($data);
 
     $tk->saveExport($data_tosave);
     
+    $data_tosave = NULL;
     unset($data_tosave);
     
     echo "Loaded " . $num_tweets . " tweet(s) from " . $num_archives . " archive(s).";

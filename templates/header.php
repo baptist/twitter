@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <title>Your Twapper Keeper 2.0</title>
+        <title>Open TwapperKeeper </title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />       
 
         <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/pepper-grinder/jquery-ui.css" />-->
@@ -23,6 +23,8 @@
 
     </head>
     <body>
+        
+        <div class="wrapper">
 
         <section>
 
@@ -81,7 +83,7 @@
                                 <?php } ?>
 
                                 <?php
-                                if (basename($_SERVER['PHP_SELF']) === "multiple_archives.php")
+                                if (basename($_SERVER['PHP_SELF']) === "archives.php")
                                 {
                                     ?>
                                     <li class=""><a class="current" href="#">Archives</a></li>
@@ -89,7 +91,7 @@
                                 } else
                                 {
                                     ?>
-                                    <li><a href="multiple_archives.php">Archives</a></li>  
+                                    <li><a href="archives.php">Archives</a></li>  
                                 <?php } ?>
 
 

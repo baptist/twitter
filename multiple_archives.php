@@ -32,7 +32,7 @@ $permexcel = $tk_your_url."excel.php?".htmlentities($_SERVER['QUERY_STRING']);
 $permtable = $tk_your_url."table.php?".htmlentities($_SERVER['QUERY_STRING']);
 $permjson = $tk_your_url."apiGetTweets.php?".htmlentities($_SERVER['QUERY_STRING']);
 
-
+/*
 // initalize $_GET
 if (!isset($_GET['nort'])) $_GET['nort'] = false;
 if (!isset($_GET['from_user'])) $_GET['from_user'] = false;
@@ -64,7 +64,7 @@ if ($start_time <> '' || $end_time <> '') {
 $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time,$end_time,$limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
 } else {
 $archiveTweets = $tk->getTweetsFromArchives($archiveInfo['results'],null,null,             $limit,$orderby,$_GET['nort'],$_GET['from_user'],$_GET['text'],$_GET['lang'],$_GET['max_id'],$_GET['since_id'],$_GET['offset'],$_GET['lat'],$_GET['long'],$_GET['rad'],$_GET['debug'], 1, 1);
-}
+}*/
 
 // OAuth login check
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {

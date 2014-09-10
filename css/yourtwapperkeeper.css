@@ -19,6 +19,13 @@
     src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v9/RjgO7rYTmqiVp7vzi-Q5UT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 
+* {
+    margin: 0;
+}
+
+html {
+    height:100%
+}
 
 body {
     /*background: #E4E4E4;*/
@@ -49,7 +56,10 @@ body {
     position:relative;
 
 }
-
+canvas{
+        width: 100% !important;        
+        height: auto !important;
+    }
 .main-block {
     margin:0;
     padding:10px;
@@ -422,4 +432,43 @@ div.top-title {
     padding:5px 5px 5px 25px;
     font-size:120%;
     background: url(../resources/icons/icons_0020_Looking-Glass-small_grey.png) no-repeat 3px 10px;
+}
+
+
+footer {
+    width: 100%;
+
+    font-size:11px;
+    text-transform: uppercase;
+
+    line-height: 16px;
+    letter-spacing: 0;
+    color:  #333;
+    background: url(../resources/header-pannel-tail.png) top center repeat;
+    z-index:100;
+    display:block;
+
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+footer, .push {
+    height: 60px;
+}
+
+
+.text-bot a {
+    color: #383838;
+    text-decoration: none;
+}
+.text-bot a:hover {    
+    color: #989898;
+}
+
+.text-bot {
+    padding:23px 0px;
 }

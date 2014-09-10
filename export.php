@@ -241,8 +241,6 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
                         </div>
                     </div>
 
-
-                    <br/><br/>
                 </div>
 
 
@@ -252,63 +250,8 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
         </div>
 
-
-
-        <!--
-                    <p class ="title"  style="margin:50px 0 10px 0;">
-                        Process
-                    </p>
-        
-                    <div class="main-block">
-        
-                        <div style="padding:7px;">
-                            <br/>
-                            <div class="">
-                                <table style="width:100%">
-                                    <tr>
-                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Aggregate per</td>
-                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count Tweets Stats</td>
-                                        <td class="main-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>Count User Stats</td>
-        
-                                    </tr>
-        
-                                    <tr style="height:60px">
-                                        <td>
-                                            <select name="groupings[]"  class="multiselect"  multiple="multiple" id="groupingSelect">
-        
-        <?php
-        $groupings = array("total", "year", "month", "day", "hour", "user");
-
-        foreach ($groupings as $grouping)
-            echo "<option value='$grouping'>" . ucfirst($grouping) . "</option>";
-        ?>
-        
-                                            </select>
-                                        </td>      
-                                        <td></td> 
-                                        <td><input type="checkbox" name='user_stats' /></td> 
-        
-                                    </tr>
-        
-                                </table>
-        
-                                <br/>
-                                <br/>
-                            </div>
-                        </div>
-                    </div>
-        -->
-
-
-
-
-
-
 <?php } ?>
 
-
-
-</section>
 <div id="select_widget" style="display: none">
     <?php
     include("templates/export_select_widget.php");
@@ -327,6 +270,6 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     ?>
 </div>
 
-<br/>
+</section>
 
 <?php include("templates/footer.php"); ?>
