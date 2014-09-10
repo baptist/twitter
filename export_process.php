@@ -144,6 +144,8 @@ else
     unset($archives);
     unset($tweets);
     
+    time_nanosleep(0, 10000000);
+    
     $tk->reportProgress("Saving");    
     
     $data_tosave = array();
@@ -157,12 +159,17 @@ else
             else
                 $data_tosave[$element['id']][$key] = "";
         }
+        
         $data[$datakey] = NULL;
         unset($data[$datakey]);
+        
+        time_nanosleep(0, 10000000);
     }
     // Reset var
     $data = NULL;
     unset($data);
+    
+    time_nanosleep(0, 10000000);
 
     $tk->saveExport($data_tosave);
     
