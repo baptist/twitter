@@ -126,26 +126,18 @@ else
             
         
         $keys = array_keys(array_values($stats)[0]);
-        $data = $stats;
+        $data = &$stats;
     }
     else
     {
         $keys = ($fields) ? $fields : array_merge($tweet_fields, $optional_tweet_fields);
-        $data = $tweets;
+        $data = &$tweets;
     }
     
     // General stats
     $num_tweets = count($tweets);
     $num_archives = $archives['count'];
-    
-    // Reset var
-    $archives = NULL;
-    $tweets = NULL;
-    unset($archives);
-    unset($tweets);
-    
-    time_nanosleep(0, 10000000);
-    
+               
     $tk->reportProgress("Saving");    
     
     $data_tosave = array();
@@ -155,21 +147,24 @@ else
         foreach ($keys as $key)
         {
             if (array_key_exists($key, $element))
-                $data_tosave[$element['id']][$key] = $element[$key];
+                $data_tosave[$element['id']][$key] = &$element[$key];
             else
                 $data_tosave[$element['id']][$key] = "";
         }
         
         $data[$datakey] = NULL;
         unset($data[$datakey]);        
-    }
+    }  
+    $tk->saveExport($data_tosave);
+    
     // Reset var
+    $archives = NULL;
+    $tweets = NULL;
+    unset($archives);
+    unset($tweets);
+    
     $data = NULL;
     unset($data);
-    
-    time_nanosleep(0, 10000000);
-
-    $tk->saveExport($data_tosave);
     
     $data_tosave = NULL;
     unset($data_tosave);
