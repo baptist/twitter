@@ -161,9 +161,7 @@ else
         }
         
         $data[$datakey] = NULL;
-        unset($data[$datakey]);
-        
-        time_nanosleep(0, 10000000);
+        unset($data[$datakey]);        
     }
     // Reset var
     $data = NULL;
