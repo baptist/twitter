@@ -518,3 +518,10 @@ footer, .push {
     font-size:150%;
     
 }
+
+.stat > .small
+{
+    font-weight:bold;
+    font-size:75%;
+    
+}

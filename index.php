@@ -339,29 +339,71 @@ $stats = $tk->getStats();
 
                 </div>
 
+                <div style='margin:25px 30px 25px 20px;display:inline-block; position:relative;top:0px'>
+                    <div class="col-md-6" style="display:inline-block; width:170px; position:relative; top:15px; left:-7px">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Count</th>
 
-                <canvas id="canvas_doughnut1" height="200" width="200" style='margin:25px 40px 25px 90px;'></canvas>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Keywords</th>
+                                    <td><?php echo $stats["num_keywords"]; ?></td>
 
-                <canvas id="canvas_doughnut2" height="200" width="200" style='margin:25px 40px;'></canvas>
+                                </tr>
+                                <tr>
+                                    <th>Hashtags</th>
+                                    <td><?php echo $stats["num_hashtags"]; ?></td>
 
-                <canvas id="canvas_doughnut3" height="200" width="200" style='margin:25px 40px;'></canvas>
+                                </tr>
+                                <tr>
+                                    <th>Users</th>
+                                    <td><?php echo $stats["num_follows"]; ?></td>
+
+                                </tr>
+                                <tr>
+                                    <th>Conversations</th>
+                                    <td><?php echo $stats["num_conversations"]; ?></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style='display:inline-block'><canvas id="canvas_doughnut1" height="200" width="200" ></canvas></div>  
+                    <div class='stat' style='position:relative; top:15px; left: 190px'><span class='small'>Archive Count: <?php echo ($stats["num_keywords"] + $stats["num_hashtags"] + $stats["num_follows"] + $stats["num_conversations"]); ?></span></div>
+                </div>
 
 
+                <div style='margin:25px 30px;display:inline-block'>
+                    <canvas id="canvas_doughnut2" height="200" width="200" ></canvas><br/>
+                    <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Track Load: <?php echo $stats["track_load"]; ?>%</span></div>
+                </div>
 
-
-
+                <div style='margin:25px 30px;display:inline-block'>
+                    <canvas id="canvas_doughnut3" height="200" width="200" ></canvas><br/>
+                    <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Follow Load: <?php echo $stats["follow_load"]; ?>%</span></div>
+                </div>
             </div>
+
+
 
 
         </div>
 
 
+    </div>
 
 
 
 
 
-    <?php } ?>
+
+
+<?php } ?>
 
 
 </section>
