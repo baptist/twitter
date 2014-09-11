@@ -98,9 +98,9 @@ $stats = $tk->getStats();
 
         var data2 = [
             {
-                value: <?php echo $stats["num_hashtags"]; ?>,
-                color: "#F7464A",
-                highlight: "#FF5A5E",
+                value: <?php echo $stats["num_hashtags"]; ?>,                
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
                 label: "Hashtags"
             },
             {
@@ -122,12 +122,12 @@ $stats = $tk->getStats();
                 label: "Conversations"
             }
         ]
-        
+
         var data3 = [
             {
                 value: <?php echo $stats["track_load"]; ?>,
-                color: "rgba(150,150,150,.8)",
-                highlight: "rgba(150,150,150,.4)",
+                color: "#FDB45C",
+                highlight: "#FFC870",
                 label: "Track Load"
             },
             {
@@ -137,12 +137,12 @@ $stats = $tk->getStats();
                 label: "Free"
             }
         ]
-        
+
         var data4 = [
             {
                 value: <?php echo round($stats["follow_load"]); ?>,
-                color: "#F7464A",
-                highlight: "#FF5A5E",
+                color: "#FDB45C",
+                highlight: "#FFC870",
                 label: "Follow Load"
             },
             {
@@ -245,7 +245,7 @@ $stats = $tk->getStats();
                     barDatasetSpacing: 1
                 };
 
-     
+
         new Chart(document.getElementById("canvas_line").getContext("2d")).Bar(data, options);
         new Chart(document.getElementById("canvas_doughnut1").getContext("2d")).Doughnut(data2, options);
         new Chart(document.getElementById("canvas_doughnut2").getContext("2d")).Doughnut(data3, options);
@@ -301,9 +301,9 @@ $stats = $tk->getStats();
                 <div class='stat'><span class='big'><?php echo number_format($stats["num_tweets"]); ?></span> tweets in total.</div>
 
 
-                     
+
                 <canvas id="canvas_line" height="150" width="950"></canvas>
-                
+
 
                 <?php
                 if ($archiving_status[0] !== FALSE)
@@ -316,7 +316,7 @@ $stats = $tk->getStats();
 
             </div>
 
-            
+
 
 
             <div class="main-block" style="min-height: 150px; margin:30px 0 0 0">
@@ -338,15 +338,15 @@ $stats = $tk->getStats();
                     <br/>
 
                 </div>
-                
-                
+
+
                 <canvas id="canvas_doughnut1" height="200" width="200" style='margin:25px 40px 25px 90px;'></canvas>
-                
+
                 <canvas id="canvas_doughnut2" height="200" width="200" style='margin:25px 40px;'></canvas>
-                
+
                 <canvas id="canvas_doughnut3" height="200" width="200" style='margin:25px 40px;'></canvas>
 
-               
+
 
 
 
