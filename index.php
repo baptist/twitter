@@ -98,15 +98,15 @@ $stats = $tk->getStats();
 
         var data2 = [
             {
-                value: <?php echo $stats["num_hashtags"]; ?>,                
+                value: <?php echo $stats["num_hashtags"]; ?>,
                 color: "#46BFBD",
                 highlight: "#5AD3D1",
                 label: "Hashtags"
             },
             {
                 value: <?php echo $stats["num_follows"]; ?>,
-                color: "#46BFBD",
-                highlight: "#5AD3D1",
+                color: "#F7464A",
+                highlight: "#FF5A5E",
                 label: "Users"
             },
             {
@@ -126,8 +126,8 @@ $stats = $tk->getStats();
         var data3 = [
             {
                 value: <?php echo $stats["track_load"]; ?>,
-                color: "#FDB45C",
-                highlight: "#FFC870",
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
                 label: "Track Load"
             },
             {
@@ -141,8 +141,8 @@ $stats = $tk->getStats();
         var data4 = [
             {
                 value: <?php echo round($stats["follow_load"]); ?>,
-                color: "#FDB45C",
-                highlight: "#FFC870",
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
                 label: "Follow Load"
             },
             {
