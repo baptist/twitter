@@ -80,7 +80,179 @@ $stats = $tk->getStats();
         });
 
         $("input[type=submit],button").button();
+
+
+        var data = {
+            labels: [<?php echo implode(",", $historyFetchStats[0]); ?>],
+            datasets: [
+                {
+                    fillColor: "rgba(142, 193, 218,0.3)",
+                    strokeColor: "rgba(0,0,0,.7)",
+                    pointColor: "rgba(0,0,0,.7)",
+                    pointStrokeColor: "#000",
+                    data: [<?php echo implode(",", $historyFetchStats[1]); ?>]
+                }
+            ]
+
+        }
+
+        var data2 = [
+            {
+                value: <?php echo $stats["num_hashtags"]; ?>,
+                color: "#F7464A",
+                highlight: "#FF5A5E",
+                label: "Hashtags"
+            },
+            {
+                value: <?php echo $stats["num_follows"]; ?>,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Users"
+            },
+            {
+                value: <?php echo $stats["num_keywords"]; ?>,
+                color: "#46BFBD",
+                highlight: "#535966",
+                label: "Keywords"
+            },
+            {
+                value: <?php echo $stats["num_conversations"]; ?>,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Conversations"
+            }
+        ]
+        
+        var data3 = [
+            {
+                value: <?php echo $stats["track_load"]; ?>,
+                color: "rgba(150,150,150,.8)",
+                highlight: "rgba(150,150,150,.4)",
+                label: "Track Load"
+            },
+            {
+                value: <?php echo (100 - $stats["track_load"]); ?>,
+                color: "rgba(230,230,230,.4)",
+                highlight: "rgba(230,230,230,.2)",
+                label: "Free"
+            }
+        ]
+        
+        var data4 = [
+            {
+                value: <?php echo round($stats["follow_load"]); ?>,
+                color: "#F7464A",
+                highlight: "#FF5A5E",
+                label: "Follow Load"
+            },
+            {
+                value: <?php echo (100 - $stats["follow_load"]); ?>,
+                color: "rgba(230,230,230,.4)",
+                highlight: "rgba(230,230,230,.2)",
+                label: "Free"
+            }
+        ]
+
+
+
+        Chart.defaults.global = {
+            // Boolean - Whether to animate the chart
+            animation: true,
+            // Number - Number of animation steps
+            animationSteps: 60,
+            // String - Animation easing effect
+            animationEasing: "easeOutQuart",
+            // Boolean - If we should show the scale at all
+            showScale: false,
+            // Boolean - If we want to override with a hard coded scale
+            scaleOverride: false,
+            // String - Colour of the scale line
+            scaleLineColor: "rgba(0,0,0,.05)",
+            // Number - Pixel width of the scale line
+            scaleLineWidth: 1,
+            // Boolean - Whether to show labels on the scale
+            scaleShowLabels: false,
+            // Interpolated JS string - can access value
+            scaleLabel: "<%=value%>",
+            // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+            scaleIntegersOnly: true,
+            // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            // String - Scale label font declaration for the scale label
+            scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            // Number - Scale label font size in pixels
+            scaleFontSize: 12,
+            // String - Scale label font weight style
+            scaleFontStyle: "normal",
+            // String - Scale label font colour
+            scaleFontColor: "#666",
+            // Boolean - whether or not the chart should be responsive and resize when the browser does.
+            responsive: false,
+            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+            maintainAspectRatio: true,
+            // Boolean - Determines whether to draw tooltips on the canvas or not
+            showTooltips: true,
+            // Array - Array of string names to attach tooltip events
+            tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+            // String - Tooltip background colour
+            tooltipFillColor: "rgba(0,0,0,0.8)",
+            // String - Tooltip label font declaration for the scale label
+            tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            // Number - Tooltip label font size in pixels
+            tooltipFontSize: 14,
+            // String - Tooltip font weight style
+            tooltipFontStyle: "normal",
+            // String - Tooltip label font colour
+            tooltipFontColor: "#fff",
+            // String - Tooltip title font declaration for the scale label
+            tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            // Number - Tooltip title font size in pixels
+            tooltipTitleFontSize: 14,
+            // String - Tooltip title font weight style
+            tooltipTitleFontStyle: "bold",
+            // String - Tooltip title font colour
+            tooltipTitleFontColor: "#fff",
+            // Number - pixel width of padding around tooltip text
+            tooltipYPadding: 6,
+            // Number - pixel width of padding around tooltip text
+            tooltipXPadding: 6,
+            // Number - Size of the caret on the tooltip
+            tooltipCaretSize: 8,
+            // Number - Pixel radius of the tooltip border
+            tooltipCornerRadius: 6,
+            // Number - Pixel offset from point x to tooltip edge
+            tooltipXOffset: 10,
+            // String - Template string for single tooltips
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+            // String - Template string for single tooltips
+            multiTooltipTemplate: "<%= value %>",
+            // Function - Will fire on animation progression.
+            onAnimationProgress: function() {
+            },
+            // Function - Will fire on animation completion.
+            onAnimationComplete: function() {
+            }
+        }
+
+
+        var options =
+                {
+                    //Boolean - If there is a stroke on each bar
+                    barShowStroke: false,
+                    //Number - Spacing between each of the X value sets
+                    barValueSpacing: 0,
+                    //Number - Spacing between data sets within X values
+                    barDatasetSpacing: 1
+                };
+
+     
+        new Chart(document.getElementById("canvas_line").getContext("2d")).Bar(data, options);
+        new Chart(document.getElementById("canvas_doughnut1").getContext("2d")).Doughnut(data2, options);
+        new Chart(document.getElementById("canvas_doughnut2").getContext("2d")).Doughnut(data3, options);
+        new Chart(document.getElementById("canvas_doughnut3").getContext("2d")).Doughnut(data4, options);
+
     });
+
 
 </script>
 
@@ -93,130 +265,106 @@ $stats = $tk->getStats();
     if ($logged_in)
     {
         ?>
-        <div width="100%" >
-            <canvas id="canvas_line" height="150" width="1800"></canvas>
+
+        <div style="padding:6px 10px; width:100%; height:30px;background: rgba(0,0,0,.3); color:#FFF;text-shadow: 1px 1px 3px #666; ">
+
+            <img src="resources/icons/icons_0002_Calendar-today-small.png" height="15" alt="Info" /> <?php echo date("l d F Y"); ?> 
+            <span style="display:inline-block;padding-left:10px"></span> <img src="resources/icons/icons_0023_Clock-small.png" height="15" alt="Info" /> <?php echo date("H:i"); ?>
         </div>
 
         <div class="main" style="margin-top:70px; ">
 
+            <div class="status-bar">
 
-
-
-            <div class="main-block" style="min-height: 150px">
-
-
-
-
-                <div class="container-bg left">
-                    <div class="container-header">
-                        <div style="padding:3px 10px;">
-                            <img src="resources/icons/icons_0002_Calendar-today-small.png" height="15" alt="Info" /> <?php echo date("l d F Y"); ?> 
-                            <span style="display:inline-block;padding-left:10px"></span> <img src="resources/icons/icons_0023_Clock-small.png" height="15" alt="Info" /> <?php echo date("H:i"); ?>
-                        </div>
-                    </div>
-
-                    <div style="position:relative;">
-                        <div style="float:left;  padding:15px 25px">
-                            <ul class="status-list">
-                                <?php
-                                if (in_array($_SESSION['access_token']['screen_name'], $admin_screen_name))
-                                {
-                                    $archiving_status = $tk->statusLiveArchiving();
-                                    if ($archiving_status[0] == FALSE)
-                                    {
-                                        echo "<li class='" . (($archiving_status[2] == 1) ? "danger" : "caution") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></li>";
-                                    } else
-                                    {
-                                        echo "<li class='correct'>$archiving_status[1] <a href='stoparchiving.php'>Stop</a></li>";
-                                        echo "<li class=''></li>";
-                                        echo "<li class='infor'>" . "Fetched <span style='font-weight:bold'>" . number_format($stats["num_tweets"]) . " tweets </span> in total." . "</li>";
-                                        echo "<li class='infor'>" . "Fetching <span style='font-weight:bold'>" . $stats["avg_tweets"] . " tweets per minute.</span>" . "</li>";
-                                        echo "<li class='infor'>" . "<span style='font-weight:bold'>Track load: " . $stats["track_load"] . " % -- " . "Follow load: " . $stats["follow_load"] . " % </span>" . "</li>";
-                                        echo "<li class='infor'>" . "Tracking <span style='font-weight:bold'>" . number_format($stats["num_hashtags"]) . " hashtags, " . number_format($stats["num_follows"]) . " users, and " . number_format($stats["num_conversations"]) . " conversations.</span>" . "</li>";
-                                    }
-                                }
-                                /* if (isset($_SESSION['notice'])) {
-                                  echo "<li class='infor'>" . $_SESSION['notice'] . "</li>";
-                                  } */
-                                ?>
-                            </ul>
-                        </div>
-
-                        <?php
-                        $archiving_status = $tk->statusLiveArchiving();
-                        if ($archiving_status[0] == TRUE)
-                        {
-                            ?>
-                            <div style="float:left; margin-left:250px; margin-top:30px">
-                                <span style='font-weight:bold; padding-left:20px;'><img src="resources/icons/icons_0054_Bar-Graph-small.png" style='position:relative;top:2px' /> Tweet Fetch Count</span>
-                                <br/>
-
-                            </div>
-
-                            <script>
-                                var data = {
-                                    labels: [<?php echo implode(",", $historyFetchStats[0]); ?>],
-                                    datasets: [
-                                        {
-                                            fillColor: "rgba(255,255,255,0.3)",
-                                            strokeColor: "rgba(0,0,0,.7)",
-                                            pointColor: "rgba(0,0,0,.7)",
-                                            pointStrokeColor: "#000",
-                                            data: [<?php echo implode(",", $historyFetchStats[1]); ?>]
-                                        }
-                                    ]
-
-                                }
-
-                                var options = {
-                                    //String - Colour of the scale line	
-                                    scaleLineColor: "rgba(0,0,0,.1)",
-                                    //Boolean - Whether to show labels on the scale	
-                                    scaleShowLabels: false,
-                                    ///Boolean - Whether grid lines are shown across the chart
-                                    scaleShowGridLines: true,
-                                    //String - Colour of the grid lines
-                                    scaleGridLineColor: "rgba(1,1,1,.05)",
-                                    //Number - Width of the grid lines
-                                    scaleGridLineWidth: 1,
-                                    //Boolean - Whether to show a dot for each point
-                                    pointDot: true,
-                                    //Number - Radius of each point dot in pixels
-                                    pointDotRadius: 3,
-                                    //Number - Pixel width of point dot stroke
-                                    pointDotStrokeWidth: 1,
-                                    //Boolean - Whether to show a stroke for datasets
-                                    datasetStroke: true,
-                                    //Number - Pixel width of dataset stroke
-                                    datasetStrokeWidth: 2,
-                                    //Boolean - Whether to fill the dataset with a colour
-                                    datasetFill: true                
-                                }
-
-                                new Chart(document.getElementById("canvas_line").getContext("2d")).Line(data, options);
-
-
-                            </script>
-                            <?php
-                        }
-                        ?>
-
-
-
-                    </div>
-                </div>
+                <?php
+                $archiving_status = $tk->statusLiveArchiving();
+                if ($archiving_status[0] == FALSE)
+                {
+                    echo '<h4 style="display:inline-block"><span class="label label-' . (($archiving_status[2] == 1) ? "danger" : "warning") . '"><img src="resources/icons/icons_0021_Off-small.png" /> Stopped</span></h4>';
+                    echo "<div style='display:inline-block' class='" . (($archiving_status[2] == 1) ? "danger" : "warning") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></div>";
+                } else
+                {
+                    echo '<h4 style="display:inline-block"><span class="label label-success"><img src="resources/icons/icons_0045_Check-small.png" /> OK</span></h4>';
+                    echo "<div style='display:inline-block' class='correct'>$archiving_status[1] </div>";
+                }
+                ?>
             </div>
+
+
+
+
+            <div class="main-block" style="min-height: 150px;  ">
+                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0054_Bar-Graph-small_grey.png" style='position:relative;top:-1px; left:-1px' /> Statistics</span>                   
+                </div>
+
+                <div class='stat'><span class='big'><?php echo number_format($stats["num_tweets"]); ?></span> tweets in total.</div>
+
+
+                     
+                <canvas id="canvas_line" height="150" width="950"></canvas>
+                
+
+                <?php
+                if ($archiving_status[0] !== FALSE)
+                {
+                    ?>
+                    <div class='stat'>Currently fetching <span class='big'><?php echo $stats["avg_tweets"]; ?> </span> tweets <span class='big'>per minute</span>.</div>
+                    <?php
+                }
+                ?>
+
+            </div>
+
+            
+
+
+            <div class="main-block" style="min-height: 150px; margin:30px 0 0 0">
+                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> Performance &amp; Health</span>
+                    <br/>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="main-block" style="min-height: 150px; margin:0 0 50px 0">
+                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> System Load</span>
+                    <br/>
+
+                </div>
+                
+                
+                <canvas id="canvas_doughnut1" height="200" width="200" style='margin:25px 40px 25px 90px;'></canvas>
+                
+                <canvas id="canvas_doughnut2" height="200" width="200" style='margin:25px 40px;'></canvas>
+                
+                <canvas id="canvas_doughnut3" height="200" width="200" style='margin:25px 40px;'></canvas>
+
+               
+
+
+
+            </div>
+
+
         </div>
+
+
+
+
+
+
+
     <?php } ?>
-
-
-
-
-
 
 
 </section>
 
-<br/>
 
 <?php include("templates/footer.php"); ?>

@@ -210,15 +210,6 @@ class YourTwapperKeeper {
         $r = mysql_query("select * from statistics ORDER BY id DESC LIMIT 1", $db->connection);
         $s = mysql_fetch_assoc($r);
 
-        $stats = array();
-        if (mysql_num_rows($r) == 1)
-        {
-            $stats[] = "Fetched <span style='font-weight:bold'>" . $s["num_tweets"] . " tweets </span> in total.";
-            $stats[] = "Fetching <span style='font-weight:bold'>" . $s["avg_tweets"] . " tweets per minute.</span>";
-            $stats[] = "<span style='font-weight:bold'>Track load: " . $s["track_load"] . " % -- " . "Follow load: " . $s["follow_load"] . " % </span>";
-            $stats[] = "Tracking <span style='font-weight:bold'>" . $s["num_hashtags"] . " hashtags, " . $s["num_follows"] . " users, and " . $s["num_conversations"] . " conversations.</span>";
-        }
-
         mysql_free_result($r);
 
         return $s;
@@ -244,7 +235,7 @@ class YourTwapperKeeper {
 
             while ($record = mysql_fetch_assoc($r))
             {
-                $labels[$index] = date("'ga'", $record["created_at"]);
+                $labels[$index] = date("'l ga'", $record["created_at"]);
                 $values[$index] = $record["avg_tweets"];
 
                 $index--;
@@ -1072,7 +1063,7 @@ class YourTwapperKeeper {
         } else
         {
             $result[0] = TRUE;
-            $result[1] = "Archiving processes are running. (PIDS = $pids)";
+            $result[1] = "Archiving processes are running.  (PIDS = $pids)";
         }
 
         return($result);

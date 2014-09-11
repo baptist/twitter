@@ -90,6 +90,10 @@ while (TRUE)
     $num_conversations = mysql_fetch_assoc($r)["count"];
     mysql_free_result($r);
     
+    $r = mysql_query("select COUNT(*) as count from archives where type = 1", $db->connection);
+    $num_keywords = mysql_fetch_assoc($r)["count"];
+    mysql_free_result($r);
+    
     if ($num_tweets_last_10minutes == 0)
     {
         //mail($admin_mail_address, "No tweets fetched last 10 minutes!", "Check TwapperKeeper!!!");
@@ -104,9 +108,9 @@ while (TRUE)
     mysql_free_result($r);
 
     if ((time() - $time) > 3600)    
-        mysql_query("insert into statistics values (0, '$total_num_tweets', $avg_tweets_per_minute, $track_load, $follow_load, '$num_hashtags', '$num_follows', '$num_conversations', UNIX_TIMESTAMP())", $db->connection);
+        mysql_query("insert into statistics values (0, '$total_num_tweets', $avg_tweets_per_minute, $track_load, $follow_load, '$num_hashtags', '$num_follows', '$num_keywords', '$num_conversations', UNIX_TIMESTAMP())", $db->connection);
     else
-        mysql_query("update statistics set num_tweets = '$total_num_tweets', avg_tweets =$avg_tweets_per_minute, track_load=$track_load, follow_load=$follow_load, num_hashtags='$num_hashtags', num_follows='$num_follows', num_conversations='$num_conversations' where id='$id'", $db->connection);
+        mysql_query("update statistics set num_tweets = '$total_num_tweets', avg_tweets =$avg_tweets_per_minute, track_load=$track_load, follow_load=$follow_load, num_keywords='$num_keywords', num_hashtags='$num_hashtags', num_follows='$num_follows', num_conversations='$num_conversations' where id='$id'", $db->connection);
     
     // sleep x seconds
     sleep(5);

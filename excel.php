@@ -102,7 +102,7 @@ $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 $export_file = "export_" . date("d_m_y") . ".xls";
 ob_end_clean();
-ini_set('zlib.output_compression', 'Off');
+ini_set('zlib.output_compression', 'On');
 
 header('Pragma: public');
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");                  // Date in the past
