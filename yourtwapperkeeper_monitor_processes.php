@@ -12,6 +12,9 @@ $script_key = uniqid();
 // update liveness of process
 mysql_query("update processes set live = '1' where pid = '$pid'", $db->connection);
 
+// datastructures to save live stats
+$total_count = array();
+
 // process loop
 while (TRUE)
 {
@@ -56,7 +59,18 @@ while (TRUE)
     
     
     // calculate statistics
-    $r = mysql_query("select sum(count) as total from archives", $db->connection);
+    //$s = date("s") % $update_live_stats;
+    /*$total_count[$s] = array();
+    $r = mysql_query("select keyword,count from archives where not type = 5", $db->connection);
+    while($c = mysql_fetch_assoc($r))
+    {
+            $total_count[$s][$c["keyword"]] = $c["count"];
+     
+    }*/
+    
+    
+    
+    $r = mysql_query("select count(*) as total from smart_tweets", $db->connection);
     $total_num_tweets = mysql_fetch_assoc($r)["total"];
     mysql_free_result($r);
     
@@ -113,6 +127,6 @@ while (TRUE)
         mysql_query("update statistics set num_tweets = '$total_num_tweets', avg_tweets =$avg_tweets_per_minute, track_load=$track_load, follow_load=$follow_load, num_keywords='$num_keywords', num_hashtags='$num_hashtags', num_follows='$num_follows', num_conversations='$num_conversations' where id='$id'", $db->connection);
     
     // sleep x seconds
-    sleep(5);
+    sleep($update_live_stats);
 }
 ?>

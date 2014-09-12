@@ -547,7 +547,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
             <img src='resources/<?php echo $image_type_url; ?>' 
                  alt='' 
                  width='25px' 
-                 style='-webkit-border-radius:15px;-moz-border-radius:15px; border-radius:15px;position:relative;top:2px;margin-right:3px' />
+                 style='-webkit-border-radius:15px;-moz-border-radius:15px; border-radius:15px;position:relative;top:6px;margin-right:3px' />
 
         </div>
         <div style='padding-left:35px'>

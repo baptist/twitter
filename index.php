@@ -111,8 +111,8 @@ $stats = $tk->getStats();
             },
             {
                 value: <?php echo $stats["num_keywords"]; ?>,
-                color: "#46BFBD",
-                highlight: "#535966",
+                color: "rgb(83, 89, 102)",
+                highlight: "rgba(83, 89, 102, .7)",
                 label: "Keywords"
             },
             {
@@ -262,8 +262,7 @@ $stats = $tk->getStats();
     <!-- NOTIFICATION AREA -->
 
     <?php
-    if ($logged_in)
-    {
+   
         ?>
 
         <div style="padding:6px 10px; width:100%; height:30px;background: rgba(0,0,0,.3); color:#FFF;text-shadow: 1px 1px 3px #666; ">
@@ -403,7 +402,7 @@ $stats = $tk->getStats();
 
 
 
-<?php } ?>
+<?php  ?>
 
 
 </section>
