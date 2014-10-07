@@ -20,7 +20,7 @@ if ($stream_id == NULL)
 // Get user information
 $subr = mysql_query("SELECT * FROM users WHERE id = " . $stream_id, $db->connection);
 $user = mysql_fetch_assoc($subr);
-mysql_free_result($user);
+mysql_free_result($subr);
 
 define('TWITTER_CONSUMER_KEY', $user["consumer_key"]);
 define('TWITTER_CONSUMER_SECRET', $user["consumer_secret"]);

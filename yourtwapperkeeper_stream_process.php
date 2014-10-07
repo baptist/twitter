@@ -71,7 +71,7 @@ while (TRUE)
 
         $processed = 0;
         $last_updated = time();
-        echo "(2) VALUE: " . intval($r) . "\n";
+
         mysql_free_result($r);
         unset($r);
         

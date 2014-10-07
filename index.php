@@ -38,7 +38,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
     $logged_in = TRUE;
 }
 
-$historyFetchStats = $tk->getHistoryStats(2 * 24);
+$historyFetchStats = $tk->getHistoryStats(7 * 24);
 $stats = $tk->getStats();
 ?>
 
@@ -262,147 +262,163 @@ $stats = $tk->getStats();
     <!-- NOTIFICATION AREA -->
 
     <?php
-   
+    ?>
+
+    <div style="padding:6px 10px; width:100%; height:30px;background: rgba(0,0,0,.3); color:#FFF;text-shadow: 1px 1px 3px #666; ">
+
+        <img src="resources/icons/icons_0002_Calendar-today-small.png" height="15" alt="Info" /> <?php echo date("l d F Y"); ?> 
+        <span style="display:inline-block;padding-left:10px"></span> <img src="resources/icons/icons_0023_Clock-small.png" height="15" alt="Info" /> <?php echo date("H:i"); ?>
+    </div>
+
+    <div class="main" style="margin-top:70px; ">
+
+        <div class="status-bar">
+
+            <?php
+            $archiving_status = $tk->statusLiveArchiving();
+            if ($archiving_status[0] == FALSE)
+            {
+                echo '<h4 style="display:inline-block"><span class="label label-' . (($archiving_status[2] == 1) ? "danger" : "warning") . '"><img src="resources/icons/icons_0021_Off-small.png" /> Stopped</span></h4>';
+                echo "<div style='display:inline-block' class='" . (($archiving_status[2] == 1) ? "danger" : "warning") . "'>$archiving_status[1]</div>";
+                echo "<div class='correct' style='float:right;margin:10px 30px'><a href='startarchiving.php'>Start</a></div>";
+            } else
+            {
+                echo '<h4 style="display:inline-block"><span class="label label-success"><img src="resources/icons/icons_0045_Check-small.png" /> OK</span></h4>';
+                echo "<div style='display:inline-block' class='correct'>$archiving_status[1] </div>";
+                echo "<div class='correct' style='float:right;margin:10px 30px'><a href='stoparchiving.php' style='color:#F7464A;'>Stop</a></div>";
+            }
+            ?>
+        </div>
+
+
+
+
+        <div class="main-block" style="min-height: 150px;  ">
+            <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0054_Bar-Graph-small_grey.png" style='position:relative;top:-1px; left:-1px' /> Statistics</span>                   
+            </div>
+
+            <div class='stat'><span class='big'><?php echo number_format($stats["num_tweets"]); ?></span> tweets in total.</div>
+
+
+
+            <canvas id="canvas_line" height="150" width="950"></canvas>
+
+
+            <?php
+            if ($archiving_status[0] !== FALSE)
+            {
+                ?>
+                <div class='stat'>Currently fetching <span class='big'><?php echo $stats["avg_tweets"]; ?> </span> tweets <span class='big'>per minute</span>.</div>
+
+                <?php
+            }
+            ?>
+
+        </div>
+        <?php
+        if ($archiving_status[0] !== FALSE)
+        {
+            ?>
+            <div class="main-block" style="min-height: 50px; margin:0 0 0 0">
+                <div class='stat'><span class='small'>Current active archives:</span> 
+                    <span class='smalll' style="display:inline-block; width:auto;">
+                    <?php 
+                    $active_archives = split(",", $stats["active_archives"]);
+                    echo "<ul>";
+                    for ($i = 0; $i < count($active_archives); $i+=2)
+                        echo "<li>" . $active_archives[$i] . "</li>"; 
+                    echo "</ul>";
+                    ?>
+                        
+                    </span>
+                </div>
+            </div>
+
+            <?php
+        }
         ?>
 
-        <div style="padding:6px 10px; width:100%; height:30px;background: rgba(0,0,0,.3); color:#FFF;text-shadow: 1px 1px 3px #666; ">
 
-            <img src="resources/icons/icons_0002_Calendar-today-small.png" height="15" alt="Info" /> <?php echo date("l d F Y"); ?> 
-            <span style="display:inline-block;padding-left:10px"></span> <img src="resources/icons/icons_0023_Clock-small.png" height="15" alt="Info" /> <?php echo date("H:i"); ?>
+
+
+
+        <div class="main-block" style="min-height: 150px; margin:30px 0 0 0">
+            <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> Performance &amp; Health</span>
+                <br/>
+            </div>
+        </div>
+        <div class="main-block" style="min-height: 150px; margin:0 0 50px 0">
+            <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
+                <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> System Load</span>
+                <br/>
+            </div>
+            <div style='margin:25px 30px 25px 20px;display:inline-block; position:relative;top:0px'>
+                <div class="col-md-6" style="display:inline-block; width:170px; position:relative; top:15px; left:-7px">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Count</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Keywords</th>
+                                <td><?php echo $stats["num_keywords"]; ?></td>
+
+                            </tr>
+                            <tr>
+                                <th>Hashtags</th>
+                                <td><?php echo $stats["num_hashtags"]; ?></td>
+
+                            </tr>
+                            <tr>
+                                <th>Users</th>
+                                <td><?php echo $stats["num_follows"]; ?></td>
+
+                            </tr>
+                            <tr>
+                                <th>Conversations</th>
+                                <td><?php echo $stats["num_conversations"]; ?></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style='display:inline-block'><canvas id="canvas_doughnut1" height="200" width="200" ></canvas></div>  
+                <div class='stat' style='position:relative; top:15px; left: 190px'><span class='small'>Archive Count: <?php echo ($stats["num_keywords"] + $stats["num_hashtags"] + $stats["num_follows"] + $stats["num_conversations"]); ?></span></div>
+            </div>
+
+
+            <div style='margin:25px 30px;display:inline-block'>
+                <canvas id="canvas_doughnut2" height="200" width="200" ></canvas><br/>
+                <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Track Load: <?php echo $stats["track_load"]; ?>%</span></div>
+            </div>
+
+            <div style='margin:25px 30px;display:inline-block'>
+                <canvas id="canvas_doughnut3" height="200" width="200" ></canvas><br/>
+                <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Follow Load: <?php echo $stats["follow_load"]; ?>%</span></div>
+            </div>
         </div>
 
-        <div class="main" style="margin-top:70px; ">
 
-            <div class="status-bar">
-
-                <?php
-                $archiving_status = $tk->statusLiveArchiving();
-                if ($archiving_status[0] == FALSE)
-                {
-                    echo '<h4 style="display:inline-block"><span class="label label-' . (($archiving_status[2] == 1) ? "danger" : "warning") . '"><img src="resources/icons/icons_0021_Off-small.png" /> Stopped</span></h4>';
-                    echo "<div style='display:inline-block' class='" . (($archiving_status[2] == 1) ? "danger" : "warning") . "'>$archiving_status[1] <a href='startarchiving.php'>Start</a></div>";
-                } else
-                {
-                    echo '<h4 style="display:inline-block"><span class="label label-success"><img src="resources/icons/icons_0045_Check-small.png" /> OK</span></h4>';
-                    echo "<div style='display:inline-block' class='correct'>$archiving_status[1] </div>";
-                }
-                ?>
-            </div>
-
-
-
-
-            <div class="main-block" style="min-height: 150px;  ">
-                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
-                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0054_Bar-Graph-small_grey.png" style='position:relative;top:-1px; left:-1px' /> Statistics</span>                   
-                </div>
-
-                <div class='stat'><span class='big'><?php echo number_format($stats["num_tweets"]); ?></span> tweets in total.</div>
-
-
-
-                <canvas id="canvas_line" height="150" width="950"></canvas>
-
-
-                <?php
-                if ($archiving_status[0] !== FALSE)
-                {
-                    ?>
-                    <div class='stat'>Currently fetching <span class='big'><?php echo $stats["avg_tweets"]; ?> </span> tweets <span class='big'>per minute</span>.</div>
-                    <?php
-                }
-                ?>
-
-            </div>
-
-
-
-
-            <div class="main-block" style="min-height: 150px; margin:30px 0 0 0">
-                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
-                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> Performance &amp; Health</span>
-                    <br/>
-
-                </div>
-
-
-
-
-
-
-            </div>
-            <div class="main-block" style="min-height: 150px; margin:0 0 50px 0">
-                <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
-                    <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> System Load</span>
-                    <br/>
-
-                </div>
-
-                <div style='margin:25px 30px 25px 20px;display:inline-block; position:relative;top:0px'>
-                    <div class="col-md-6" style="display:inline-block; width:170px; position:relative; top:15px; left:-7px">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Count</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>Keywords</th>
-                                    <td><?php echo $stats["num_keywords"]; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Hashtags</th>
-                                    <td><?php echo $stats["num_hashtags"]; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Users</th>
-                                    <td><?php echo $stats["num_follows"]; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Conversations</th>
-                                    <td><?php echo $stats["num_conversations"]; ?></td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style='display:inline-block'><canvas id="canvas_doughnut1" height="200" width="200" ></canvas></div>  
-                    <div class='stat' style='position:relative; top:15px; left: 190px'><span class='small'>Archive Count: <?php echo ($stats["num_keywords"] + $stats["num_hashtags"] + $stats["num_follows"] + $stats["num_conversations"]); ?></span></div>
-                </div>
-
-
-                <div style='margin:25px 30px;display:inline-block'>
-                    <canvas id="canvas_doughnut2" height="200" width="200" ></canvas><br/>
-                    <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Track Load: <?php echo $stats["track_load"]; ?>%</span></div>
-                </div>
-
-                <div style='margin:25px 30px;display:inline-block'>
-                    <canvas id="canvas_doughnut3" height="200" width="200" ></canvas><br/>
-                    <div class='stat' style='position:relative; top:15px; left: 30px'><span class='small'>Follow Load: <?php echo $stats["follow_load"]; ?>%</span></div>
-                </div>
-            </div>
-
-
-
-
-        </div>
 
 
     </div>
 
 
+</div>
 
 
 
 
 
-<?php  ?>
+
+
+<?php ?>
 
 
 </section>
