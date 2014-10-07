@@ -729,6 +729,8 @@ class YourTwapperKeeper {
                     $row["retweets"] = $temprow["retweets"];
                     $row["favorites"] = $temprow["favorites"];
                 }
+                unset($temprow);
+                $temprow = NULL;
             }
 
             $response[] = $row;
@@ -889,7 +891,6 @@ class YourTwapperKeeper {
 
             $r3 = mysql_query("SELECT * FROM z_$archiveID WHERE id = '$tweetID' OR (NOT '$originalID' = '' AND id = '$originalID')", $db->connection);
             $result = mysql_fetch_assoc($r3);
-
 
             mysql_free_result($r3);
             mysql_free_result($r);
@@ -1259,7 +1260,7 @@ class YourTwapperKeeper {
         for ($i = 0; $i < count($data); $i += $chunk_size)
         {
             $chunk = array_slice($data, $i, $chunk_size, TRUE);
-            
+
             $insert_query = "insert into export values ";
             foreach ($chunk as $key => $element)
             {
@@ -1267,7 +1268,6 @@ class YourTwapperKeeper {
                 $insert_query .= "(0, '$key', '$value'),";
             }
             mysql_query(substr($insert_query, 0, -1), $db->connection);
-            
         }
 
         return TRUE;
@@ -1396,10 +1396,15 @@ class YourTwapperKeeper {
             // Check if tweet is either mention or reply
             if (strpos(trim($tweet['text']), '@') !== FALSE && !$this->isRetweet($tweet, $tweet['from_user']))
             {
-                $users[$tweet["from_user"]] = $tweet["text"];
-                // Extract all from - to relations
-                foreach ($this->getMentionedUsers($tweet, 0) as $mention)
-                    $users[$mention] = $tweet["text"];
+                $mentions = $this->getMentionedUsers($tweet, 0);
+
+                if (count($mentions) > 0)
+                {
+                    $users[$tweet["from_user"]] = $tweet["text"];
+                    // Extract all from - to relations
+                    foreach ($mentions as $mention)
+                        $users[$mention] = $tweet["text"];
+                }
             }
         }
 
@@ -1428,7 +1433,7 @@ class YourTwapperKeeper {
     {
         $stats = array();
 
-        if (strcasecmp($grouping, "total") === 0)
+        if (strcasecmp($grouping, "overall") === 0)
         {
             $users = array();
             $stats['total'] = array();
@@ -1437,7 +1442,7 @@ class YourTwapperKeeper {
             foreach ($tweets as $tweet)
             {
                 $stats['total'] ['num_tweets']++;
-                $users[$tweet['from_user']] = 1;
+                $users[trim(strtolower($tweet['from_user']))] = 1;
             }
             $stats['total']['num_users'] = count(array_keys($users));
         } else
@@ -1445,7 +1450,7 @@ class YourTwapperKeeper {
 
             foreach ($tweets as $tweet)
             {
-                $user = $tweet['from_user'];
+                $user = trim(strtolower($tweet['from_user']));
 
                 switch (strtolower($grouping))
                 {
@@ -1476,7 +1481,7 @@ class YourTwapperKeeper {
                 }
 
                 $stats[$timing]['num_tweets']++;
-                $stats[$timing]['users'][$tweet['from_user']] = 1;
+                $stats[$timing]['users'][$user] = 1;
             }
 
             foreach ($stats as $key => $value)

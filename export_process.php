@@ -97,7 +97,7 @@ else
 
     $from = false;$to = false;
     if (!empty($data["filter"]["dates"]))
-    {
+    {        
         if (!empty($data["filter"]["dates"][0]))
             $from = DateTime::createFromFormat('d/m/Y H:i:s', $data["filter"]["dates"][0] . " 00:00:00")->getTimestamp();
         if (!empty($data["filter"]["dates"][1]))
@@ -123,8 +123,7 @@ else
         
         if (!empty($data["analyze"]["unique users"]) && $data["analyze"]["unique users"] === "Yes")
             $stats = array_merge($stats, $tk->extractUniqueUsers($tweets));
-            
-        
+                    
         $keys = array_keys(array_values($stats)[0]);
         $data = &$stats;
     }
