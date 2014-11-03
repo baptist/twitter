@@ -351,7 +351,7 @@ $stats = $tk->getStats();
         </div>
         <div class="main-block" style="min-height: 150px; margin:0 0 50px 0">
             <div style="background:url(resources/header-pannel-tail.png) repeat-x; height:30px; padding:5px" >
-                <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> System Load</span>
+                <span style='font-weight:bold; color:#111;'><img src="resources/icons/icons_0020_Looking-Glass-small_grey.png" style='position:relative;top:1px; left:-1px' /> Twitter Load</span>
                 <br/>
             </div>
             <div style='margin:25px 30px 25px 20px;display:inline-block; position:relative;top:0px'>

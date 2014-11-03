@@ -104,7 +104,7 @@ class YourTwapperKeeper {
 
         $tags = array();
 
-        $q = "select tags, count(tags) as num from archives where not tags = '' group by tags order by num desc" . (($num > 0) ? " limit $num" : "");
+        $q = "select LOWER(tags) tags, count(tags) as num from archives where not tags = '' group by LOWER(tags) order by num desc" . (($num > 0) ? " limit $num" : "");
         $result = mysql_query($q, $db->connection);
 
         while ($row = mysql_fetch_assoc($result))
@@ -328,7 +328,7 @@ class YourTwapperKeeper {
         $q = "insert into archives values ('','$keyword', '$user', '$type', '$description','$tags','$screen_name','$user_id','','" . time() . "', 0, 0)";
         mysql_query($q, $db->connection);
         $lastid = mysql_insert_id();
-        //        `in_reply_to_status_id` varchar(100) NOT NULL,
+
         $create_table = "CREATE TABLE IF NOT EXISTS `z_$lastid` (
         `archivesource` varchar(100) NOT NULL,
         `text` varchar(1000) NOT NULL,
@@ -352,12 +352,8 @@ class YourTwapperKeeper {
         `favorites` int(11) NULL,
         `retweets` int(11) NULL,
         FULLTEXT `full` (`text`),
-        INDEX `source` (`from_user`),
-        INDEX `from_user` (`from_user`),
-        INDEX `iso_language_code` (`iso_language_code`),
-        INDEX `geo_type` (`geo_type`),
-        INDEX `id` (`id`),
-        UNIQUE KEY (`id`),
+        INDEX `from_user` (`from_user`),       
+        PRIMARY KEY (`id`),
         INDEX `time` (`time`)
         ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 
@@ -994,6 +990,17 @@ class YourTwapperKeeper {
         $r = mysql_query($q, $db->connection);
 
         $response[0] = "Archive has been deleted.";
+        return($response);
+    }
+    
+    // deactivate archive
+    function deactivateArchive($id)
+    {
+        global $db;
+        $q = "update archives set type = 6 where id = '$id'";
+        $r = mysql_query($q, $db->connection);
+
+        $response[0] = "Archive has been deactivated.";
         return($response);
     }
 

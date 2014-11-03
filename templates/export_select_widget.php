@@ -171,7 +171,7 @@ foreach ($keys as $key)
 
 
 
-<div style="width:310px;height:170px; background:#FFF; border-radius: 5px; box-shadow: 0px 0px 25px 5px #999">
+<div style="width:400px;height:170px; background:#FFF; border-radius: 5px; box-shadow: 0px 0px 25px 5px #999">
 
     <div>
         <div class="widget-title" style="border-top-left-radius: 5px;border-top-right-radius: 5px;">

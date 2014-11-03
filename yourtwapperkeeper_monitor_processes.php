@@ -68,8 +68,7 @@ while (TRUE)
         $archives[] = $name;
     }
     $total_count[] = $all_counts;
-    print count($total_count) . "\n";
-    if (count($total_count) >= 111)
+    if (count($total_count) >= 200)
     {
         $first = array_shift($total_count); 
         $last = end($total_count);

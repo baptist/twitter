@@ -394,7 +394,6 @@ div.top-title {
 
 .export-btn{
     font-size:110%;
-
     text-transform: uppercase
 }
 
@@ -402,11 +401,11 @@ div.top-title {
 .widget-title {
     display: block;
     color: #666;
-    font-size: 13px;
+    font-size: 12px;
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
-    padding:5px;
+    padding:7px;
     display:block;
     width:100%;
     height:33px;
@@ -528,7 +527,7 @@ footer, .push {
     
 }
 
-.stat > ul, li
+.stat ul, .stat li
 {
     display:inline;
     margin:0;

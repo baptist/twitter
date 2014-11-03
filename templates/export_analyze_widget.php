@@ -120,7 +120,7 @@
 
 
 
-<div style="width:380px;height:250px; background:#FFF; border-radius: 5px; box-shadow: 0px 0px 25px 5px #999">
+<div style="width:400px;height:250px; background:#FFF; border-radius: 5px; box-shadow: 0px 0px 25px 5px #999">
 
     <div>
         <div class="widget-title" style="border-top-left-radius: 5px;border-top-right-radius: 5px;">
@@ -266,8 +266,8 @@
 
                 <div style="display:inline-block;position:relative;padding:15px" class="radioset">
                     <input type="hidden2" name="value" value="Ascending" />
-                    <input type="radio" id="radio19" name="radio13" checked="checked"/><label for="radio19" style="font-size:110%; padding:6px">Ascending</label>
-                    <input type="radio" id="radio20" name="radio13"/><label for="radio20" style="font-size:110%; padding:6px">Descending</label>
+                    <input type="radio" id="radio35" name="radio35" checked="checked"/><label for="radio35" style="font-size:110%; padding:6px">Ascending</label>
+                    <input type="radio" id="radio36" name="radio35"/><label for="radio36" style="font-size:110%; padding:6px">Descending</label>
                 </div>
             </div>
         </div>

@@ -24,29 +24,28 @@ $f = fopen('last_crawled', 'r');
 $line = trim(fgets($f));
 fclose($f);
 
-$last_crawled = (empty($line))? -1 : $line;
-
-
+if (!empty($line))
+{
+    // Query last archive
+    $query = mysql_query("select id from archives where keyword='$line' and type IN (1,2,3,4)", $db->connection);
+    
+    if (mysql_num_rows($query) == 0)
+        $last_crawled = -1;
+    else    
+       $last_crawled = mysql_fetch_assoc($query)["id"];
+    
+    mysql_free_result($query);
+}
+else
+    $last_crawled = -1;
 
 while (TRUE)
 {
     // Query for archives 
-    $q_archives = "select * from archives where type in (1,2,3,4) order by count desc";
+    $q_archives = "select * from archives where type in (1,2,3,4) and id > $last_crawled order by id asc";
     $r_archives = mysql_query($q_archives, $db->connection);
     $counting = 0;
-    
-    // Shift to last crawled
-    if ($last_crawled !== -1)
-    {
-        while ($row_archives = mysql_fetch_assoc($r_archives))
-        {
-            if ($row_archives['keyword'] != $last_crawled)
-                continue;
-            else
-                break;
-        }
-    }
-        
+  
     while ($row_archives = mysql_fetch_assoc($r_archives))
     {
         $tk->log($counting++ . ".   crawling: " . $row_archives['id'] . " - " . $row_archives['keyword'], '', $crawl_log_file);
@@ -108,7 +107,6 @@ while (TRUE)
             {
                 $tweet = $tk->extractTweetData($value);
 
-                //var_dump($tweet);
                 // duplicate record check and insert into proper cache table if not a duplicate
                 $q_check = "select id from z_" . $row_archives['id'] . " where id = '" . $tweet['id'] . "'";
                 $result_check = mysql_query($q_check, $db->connection);
