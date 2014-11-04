@@ -30,8 +30,9 @@ if (array_key_exists("results", $archives))
     {
         $type = $value['type'];
         $image_type_url = (($type == 1) ? "twitter-icon.png" : (($type == 2) ? "hashtag.png" : (($type == 3) ? "follow.png" : "mention.png")));
+        $nonactive = ($type == 6) ? "color:#F0F0F0" : "";
         
-        echo "<tr><td style='text-align:left'> <img src='resources/$image_type_url' alt='' width='20px' style='border-radius:10px;position:relative;top:2px;margin-right:3px' /> </td><td style='text-align:left'>" . ucfirst(strtolower($value['keyword'])) . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td style='font-size:120%'>" .number_format ( $value['count']) . "</td><td>" . date("d M Y", $value['create_time']) . "</td>";
+        echo "<tr><td style='text-align:left;$nonactive'> <img src='resources/$image_type_url' alt='' width='20px' style='border-radius:10px;position:relative;top:2px;margin-right:3px' /> </td><td style='text-align:left'>" . ucfirst(strtolower($value['keyword'])) . "</td><td>" . $value['description'] . "</td><td>" . $value['tags'] . "</td><td>" . $value['screen_name'] . "</td><td style='font-size:120%'>" .number_format ( $value['count']) . "</td><td>" . date("d M Y", $value['create_time']) . "</td>";
         echo "<td>";
         echo "<a href='archive.php?id=" . $value['id'] . "' target='_blank' alt='View'><span class='ui-icon ui-icon-search'  style='display:inline-block'></span></a>";
         //if (isset($_SESSION['access_token']['screen_name']) && $_SESSION['access_token']['screen_name'] == $value['screen_name'])
