@@ -154,7 +154,7 @@ class YourTwapperKeeper {
     {
         global $db;
 
-        $q = "select * from archives where type IN (1,2,3)";
+        $q = "select * from archives where type IN (1,2,3,6)";
 
         if ($id)
         {
