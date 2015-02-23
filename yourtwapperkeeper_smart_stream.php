@@ -85,7 +85,7 @@ class DynamicTrackConsumer extends OauthPhirehose {
             $values_array[] = $orig_id;                                 // original id
             $values_array[] = $in_reply_to_status_id;                   // in reply to status id
             $values_array[] = $user['lang'];                            // iso_language_code
-            $values_array[] = $status['source'];                        // source
+            $values_array[] = $tk->sanitize($status['source']);         // source
             $values_array[] = $user['profile_image_url'];               // profile_img_url
             $values_array[] = $geo['type'];                             // geo_type 
             $values_array[] = $geo['coordinates'][0];                   // geo_coordinates_0
