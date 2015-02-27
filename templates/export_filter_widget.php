@@ -115,6 +115,7 @@
             filter archive(s) based on
             <select name="type" id="filter-widget-combo" style="margin-left:20px;" >
                 <option value='fields-widget' selected="true">Fields</option>
+                <option value='from-user-widget'>From User</option>
                 <option value='dates-widget'>Dates</option>
                 <option value='no-retweets-widget'>Exclude Retweets</option>
                 <option value='no-mentions-widget'>Exclude Mentions</option>
@@ -140,6 +141,16 @@
                     ?>
 
                 </select>
+            </div>
+        </div>
+        
+        <div id='from-user-widget' class='widget'>
+            <div class="widget-main">
+                <span class="widget-text"><img src="resources/icons/icons_0039_Next-Track-small-grey.png" alt=""/>From User</span>
+                <input type="hidden" name="is_array" value="0" />
+                <input type="hidden" name="num_values" value="1" />
+                <input type="hidden" name="field" value="from_user" />
+                <input type="text"   name="value" class="widget-input" style="padding:10px; width:90%"/>
             </div>
         </div>
 

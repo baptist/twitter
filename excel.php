@@ -86,7 +86,6 @@ if (isset($_SESSION['export_from_table']) || isset($_GET['from_table']))
         // Get tweets
         if ($start_time <> '' || $end_time <> '')
         {
-            print 'USER:  ' . $_GET['from_user'];
             $data = $tk->getTweetsFromArchives($archiveInfo['results'], $start_time, $end_time, $limit, $orderby, $_GET['nort'], $_GET['from_user'], $_GET['text'], $_GET['lang'], $_GET['max_id'], $_GET['since_id'], $_GET['offset'], $_GET['lat'], $_GET['long'], $_GET['rad'], $_GET['debug'], 1, 1);
         } else
         {

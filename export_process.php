@@ -93,6 +93,10 @@ else
     $fields = false;
     if (!empty($data["filter"]["fields"]))
         $fields = $data["filter"]["fields"];
+    
+    $from_user = false;
+    if (!empty($data["filter"]["from_user"]))
+        $from_user = $data["filter"]["from_user"];
 
 
     $from = false;$to = false;
@@ -104,7 +108,7 @@ else
             $to = DateTime::createFromFormat('d/m/Y H:i:s', $data["filter"]["dates"][1] . " 23:59:59")->getTimestamp();
     }
 
-    $tweets = $tk->getTweetsFromArchives($archives['results'], $from, $to, $limit, false, $no_rt, $no_mentions, false, false, false, false, false, false, false, false, false, $rt_fv, $include_reactions);
+    $tweets = $tk->getTweetsFromArchives($archives['results'], $from, $to, $limit, false, $no_rt, $from_user, false, false, false, false, false, false, false, false, false, $rt_fv, $include_reactions);
 
     if (!empty($data["analyze"]))
     {
